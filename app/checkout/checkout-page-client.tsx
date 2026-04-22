@@ -1,87 +1,253 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { InquiryForm } from "@/components/store/inquiry-form";
 import { useCart } from "@/components/store/cart-context";
+import {
+  defaultCheckoutDraft,
+  type CheckoutDraft,
+  readCheckoutDraft,
+  writeCheckoutDraft,
+} from "@/lib/checkout-draft";
+
+type CreatedOrder = {
+  id: string;
+  orderNumber: string;
+  pricing: {
+    subtotal: number;
+    deliveryFee: number;
+    total: number;
+  };
+  customer: {
+    fullName: string;
+  };
+};
+
+type RazorpayCheckoutData = {
+  key: string;
+  amount: number;
+  currency: string;
+  orderId: string;
+  merchantName: string;
+  description: string;
+  prefill: {
+    name: string;
+    email?: string;
+    contact: string;
+  };
+};
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => { open: () => void };
+  }
+}
+
+function loadRazorpayScript() {
+  return new Promise<boolean>((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
+const STEP_TITLES = ["Delivery Details", "Message & Sender", "Review & Pay"];
 
 export function CheckoutPageClient() {
   const { items, clear } = useCart();
-  const [createdOrder, setCreatedOrder] = useState<null | {
-    orderNumber: string;
-    subtotal: number;
-    delivery: number;
-    total: number;
-    itemsCount: number;
-    customerName: string;
-  }>(null);
+  const [step, setStep] = useState(1);
+  const [draft, setDraft] = useState<CheckoutDraft>(defaultCheckoutDraft);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [createdOrder, setCreatedOrder] = useState<CreatedOrder | null>(null);
 
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  useEffect(() => {
+    setDraft(readCheckoutDraft());
+  }, []);
+
+  const subtotal = useMemo(
+    () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    [items],
+  );
   const delivery = items.length > 0 ? 99 : 0;
   const total = subtotal + delivery;
-  const summaryValues = createdOrder ?? {
-    subtotal,
-    delivery,
-    total,
-    itemsCount: items.length,
-    customerName: "",
-    orderNumber: "",
+
+  const summaryValues = createdOrder
+    ? {
+        subtotal: createdOrder.pricing.subtotal,
+        delivery: createdOrder.pricing.deliveryFee,
+        total: createdOrder.pricing.total,
+      }
+    : {
+        subtotal,
+        delivery,
+        total,
+      };
+
+  const updateDraftField = (field: keyof CheckoutDraft, value: string) => {
+    setDraft((prev) => {
+      const next = { ...prev, [field]: value };
+      writeCheckoutDraft(next);
+      return next;
+    });
   };
-  const orderSummary =
-    items.length > 0
-      ? items.map((item) => `${item.name} x ${item.quantity}`).join(", ")
-      : "Cart is currently empty";
 
-  const handleCreateOrder = async (values: Record<string, string>) => {
+  const validateStepOne = () => {
+    if (!draft.fullName.trim()) {
+      return "Please enter your full name.";
+    }
+    if (!draft.phone.trim()) {
+      return "Please enter your phone number.";
+    }
+    if (!draft.address.trim()) {
+      return "Please enter delivery address.";
+    }
+    if (!draft.deliveryDate.trim()) {
+      return "Please select delivery date.";
+    }
+    if (!draft.deliveryTime.trim()) {
+      return "Please select delivery time.";
+    }
+    return "";
+  };
+
+  const handleContinueFromStepOne = () => {
+    const validationError = validateStepOne();
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
+    setErrorMessage("");
+    setStep(2);
+  };
+
+  const handleContinueFromStepTwo = () => {
+    setErrorMessage("");
+    setStep(3);
+  };
+
+  const handlePlaceOrder = async () => {
     if (items.length === 0) {
-      throw new Error("Your cart is empty. Add a cake before placing the order.");
+      setErrorMessage("Your cart is empty. Add cakes before checkout.");
+      return;
     }
 
-    const response = await fetch("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customer: {
-          fullName: values.fullName,
-          phone: values.phone,
-          email: values.email || undefined,
-        },
-        delivery: {
-          date: values.deliveryDate,
-          address: values.address,
-          cakeMessage: values.cakeMessage || undefined,
-          city: "Hyderabad",
-        },
-        items: items.map((item) => ({
-          slug: item.slug,
-          quantity: item.quantity,
-          weightId: item.weightId,
-          flavorId: item.flavorId,
-        })),
-      }),
-    });
-
-    const payload = (await response.json()) as {
-      data?: { orderNumber: string };
-      error?: string;
-    };
-
-    if (!response.ok || !payload.data) {
-      throw new Error(payload.error ?? "Unable to create your order right now.");
+    const validationError = validateStepOne();
+    if (validationError) {
+      setErrorMessage(validationError);
+      setStep(1);
+      return;
     }
 
-    setCreatedOrder({
-      orderNumber: payload.data.orderNumber,
-      subtotal,
-      delivery,
-      total,
-      itemsCount: items.length,
-      customerName: values.fullName,
-    });
-    clear();
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const checkoutResponse = await fetch("/api/orders/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customer: {
+            fullName: draft.fullName,
+            phone: draft.phone,
+            email: draft.email || undefined,
+          },
+          delivery: {
+            date: draft.deliveryDate,
+            slot: `${draft.deliverySlot} (${draft.deliveryTime})`,
+            address: draft.address,
+            cakeMessage: draft.cakeMessage || undefined,
+            city: "Hyderabad",
+          },
+          items: items.map((item) => ({
+            slug: item.slug,
+            quantity: item.quantity,
+            weightId: item.weightId,
+            flavorId: item.flavorId,
+          })),
+          notes: draft.senderName ? `Sender Name: ${draft.senderName}` : undefined,
+        }),
+      });
+
+      const checkoutPayload = (await checkoutResponse.json()) as {
+        error?: string;
+        data?: {
+          order: CreatedOrder;
+          razorpay: RazorpayCheckoutData;
+        };
+      };
+
+      if (!checkoutResponse.ok || !checkoutPayload.data) {
+        throw new Error(checkoutPayload.error ?? "Unable to initialize payment.");
+      }
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded || !window.Razorpay) {
+        throw new Error("Unable to load Razorpay checkout. Please retry.");
+      }
+
+      const { order, razorpay } = checkoutPayload.data;
+
+      const rz = new window.Razorpay({
+        key: razorpay.key,
+        amount: razorpay.amount,
+        currency: razorpay.currency,
+        name: razorpay.merchantName,
+        description: razorpay.description,
+        order_id: razorpay.orderId,
+        prefill: razorpay.prefill,
+        theme: {
+          color: "#ef7f41",
+        },
+        handler: async (paymentResponse: {
+          razorpay_order_id: string;
+          razorpay_payment_id: string;
+          razorpay_signature: string;
+        }) => {
+          const confirmResponse = await fetch("/api/orders/confirm-payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              orderId: order.id,
+              razorpayOrderId: paymentResponse.razorpay_order_id,
+              razorpayPaymentId: paymentResponse.razorpay_payment_id,
+              razorpaySignature: paymentResponse.razorpay_signature,
+            }),
+          });
+
+          const confirmPayload = (await confirmResponse.json()) as {
+            error?: string;
+            data?: { order: CreatedOrder };
+          };
+
+          if (!confirmResponse.ok || !confirmPayload.data) {
+            throw new Error(confirmPayload.error ?? "Payment verification failed.");
+          }
+
+          setCreatedOrder(confirmPayload.data.order);
+          clear();
+        },
+      });
+
+      rz.open();
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Checkout failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -90,99 +256,208 @@ export function CheckoutPageClient() {
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h1 className="text-[2rem] font-semibold text-black">Checkout</h1>
           <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">
-            Confirm your delivery details and place your cake order directly from
-            checkout. WhatsApp is still available if you want manual confirmation.
+            Complete your order in steps: address and delivery slot, cake message and sender,
+            then review and pay with Razorpay.
           </p>
 
-          <div className="mt-6 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-4 text-[0.95rem] leading-7 text-[#6c7396]">
-            <p className="font-semibold text-stone-900">Current cart summary</p>
-            <p className="mt-2">
-              {createdOrder
-                ? `Order ${createdOrder.orderNumber} was created for ${createdOrder.customerName}.`
-                : orderSummary}
-            </p>
-          </div>
-
-          <div className="mt-6">
-            {createdOrder ? (
-              <div className="rounded-[18px] border border-[rgba(34,139,34,0.16)] bg-[#f3fff2] p-6">
-                <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#2f8f2f]">
-                  Order Confirmed
-                </p>
-                <h2 className="mt-3 text-[1.5rem] font-semibold text-stone-900">
-                  Your order number is {createdOrder.orderNumber}
-                </h2>
-                <p className="mt-3 text-[1rem] leading-8 text-[#5b6b5d]">
-                  We stored your order in OccasionKart&apos;s system. You can keep
-                  shopping or sign in to connect future account-based order history.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <Link
-                    href="/cakes"
-                    className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
-                  >
-                    Shop More Cakes
-                  </Link>
-                  <Link
-                    href="/account"
-                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-stone-900"
-                  >
-                    Go to Account
-                  </Link>
-                </div>
+          {createdOrder ? (
+            <div className="mt-6 rounded-[18px] border border-[rgba(34,139,34,0.16)] bg-[#f3fff2] p-6">
+              <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#2f8f2f]">
+                Order Confirmed
+              </p>
+              <h2 className="mt-3 text-[1.5rem] font-semibold text-stone-900">
+                Your order number is {createdOrder.orderNumber}
+              </h2>
+              <p className="mt-3 text-[1rem] leading-8 text-[#5b6b5d]">
+                Payment was successful and your order is confirmed. We will start preparation and
+                coordinate delivery as per selected slot.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href="/cakes"
+                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
+                >
+                  Shop More Cakes
+                </Link>
+                <Link
+                  href="/track-order"
+                  className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-stone-900"
+                >
+                  Track Order
+                </Link>
               </div>
-            ) : (
-              <InquiryForm
-                emailTo="support@occasionkart.com"
-                emailSubject="OccasionKart Checkout Order Request"
-                whatsappNumber="+91 9059058058"
-                whatsappIntro={`Hello OccasionKart, I would like to place this cake order.\nCart Summary: ${orderSummary}`}
-                primaryLabel="Place Order"
-                secondaryLabel="Place Order on WhatsApp"
-                onSubmit={handleCreateOrder}
-                fields={[
-                  {
-                    name: "fullName",
-                    label: "Full Name",
-                    placeholder: "Enter your full name",
-                    required: true,
-                  },
-                  {
-                    name: "phone",
-                    label: "Phone Number",
-                    placeholder: "Enter your phone number",
-                    type: "tel",
-                    required: true,
-                  },
-                  {
-                    name: "email",
-                    label: "Email Address",
-                    placeholder: "Enter your email address",
-                    type: "email",
-                  },
-                  {
-                    name: "deliveryDate",
-                    label: "Delivery Date",
-                    placeholder: "Choose a date",
-                    type: "date",
-                    required: true,
-                  },
-                  {
-                    name: "address",
-                    label: "Delivery Address",
-                    placeholder: "Enter the delivery address in Hyderabad",
-                    rows: 3,
-                    required: true,
-                  },
-                  {
-                    name: "cakeMessage",
-                    label: "Message on Cake",
-                    placeholder: "Enter the message to be written on the cake",
-                  },
-                ]}
-              />
-            )}
-          </div>
+            </div>
+          ) : (
+            <>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {STEP_TITLES.map((title, index) => {
+                  const stepNumber = index + 1;
+                  const active = step === stepNumber;
+                  return (
+                    <button
+                      key={title}
+                      type="button"
+                      onClick={() => setStep(stepNumber)}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                        active
+                          ? "bg-[#ef7f41] text-white"
+                          : "border border-[rgba(0,0,0,0.12)] text-stone-700"
+                      }`}
+                    >
+                      {stepNumber}. {title}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {step === 1 ? (
+                <div className="mt-6 space-y-3">
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <input
+                      value={draft.fullName}
+                      onChange={(event) => updateDraftField("fullName", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                      placeholder="Full name"
+                    />
+                    <input
+                      value={draft.phone}
+                      onChange={(event) => updateDraftField("phone", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                      placeholder="Phone number"
+                    />
+                    <input
+                      value={draft.email}
+                      onChange={(event) => updateDraftField("email", event.target.value)}
+                      type="email"
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                      placeholder="Email (optional)"
+                    />
+                    <input
+                      value={draft.deliveryDate}
+                      onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
+                      type="date"
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    />
+                    <select
+                      value={draft.deliverySlot}
+                      onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    >
+                      {["Morning", "Afternoon", "Evening", "Night"].map((slot) => (
+                        <option key={slot} value={slot}>
+                          {slot}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      value={draft.deliveryTime}
+                      onChange={(event) => updateDraftField("deliveryTime", event.target.value)}
+                      type="time"
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    />
+                  </div>
+                  <textarea
+                    value={draft.address}
+                    onChange={(event) => updateDraftField("address", event.target.value)}
+                    className="min-h-[96px] w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Delivery address in Hyderabad"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleContinueFromStepOne}
+                    className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
+                  >
+                    Continue to Message
+                  </button>
+                </div>
+              ) : null}
+
+              {step === 2 ? (
+                <div className="mt-6 space-y-3">
+                  <input
+                    value={draft.cakeMessage}
+                    onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
+                    className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Message on cake (e.g., Happy Birthday Rahul)"
+                  />
+                  <input
+                    value={draft.senderName}
+                    onChange={(event) => updateDraftField("senderName", event.target.value)}
+                    className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Sender name (e.g., From Mom & Dad)"
+                  />
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleContinueFromStepTwo}
+                      className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
+                    >
+                      Continue to Review
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              {step === 3 ? (
+                <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-5">
+                  <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+                    Review Order
+                  </p>
+                  <div className="space-y-2 text-[0.95rem] leading-7 text-[#6c7396]">
+                    <p>
+                      <span className="font-semibold text-stone-900">Delivery:</span>{" "}
+                      {draft.deliveryDate} | {draft.deliverySlot} ({draft.deliveryTime})
+                    </p>
+                    <p>
+                      <span className="font-semibold text-stone-900">Address:</span> {draft.address}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-stone-900">Cake Message:</span>{" "}
+                      {draft.cakeMessage || "No message"}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-stone-900">Sender Name:</span>{" "}
+                      {draft.senderName || "Not provided"}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-stone-900">Items:</span>{" "}
+                      {items.map((item) => `${item.name} x ${item.quantity}`).join(", ")}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setStep(2)}
+                      className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handlePlaceOrder}
+                      disabled={isSubmitting}
+                      className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
+                    >
+                      {isSubmitting ? "Processing..." : "Place Order & Pay"}
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </>
+          )}
+
+          {errorMessage ? (
+            <p className="mt-4 rounded-[14px] bg-[#fff1f1] px-4 py-3 text-sm font-semibold text-[#b53131]">
+              {errorMessage}
+            </p>
+          ) : null}
         </div>
 
         <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff7f2] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
@@ -198,7 +473,7 @@ export function CheckoutPageClient() {
             </div>
             <div className="flex justify-between">
               <span>Items</span>
-              <span>{summaryValues.itemsCount}</span>
+              <span>{items.length}</span>
             </div>
           </div>
           <div className="mt-5 border-t border-[rgba(0,0,0,0.12)] pt-4">
@@ -208,8 +483,8 @@ export function CheckoutPageClient() {
             </div>
           </div>
           <p className="mt-5 text-[0.95rem] leading-7 text-[#6c7396]">
-            After you place the order, our team can confirm availability,
-            customization details, and the delivery slot.
+            Payment is completed via Razorpay. Order moves to confirmed once payment signature is
+            verified.
           </p>
           <Link
             href="/cart"
@@ -222,3 +497,4 @@ export function CheckoutPageClient() {
     </main>
   );
 }
+

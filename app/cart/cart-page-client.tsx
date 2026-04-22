@@ -2,11 +2,35 @@
 
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { useCart } from "@/components/store/cart-context";
+import {
+  defaultCheckoutDraft,
+  type CheckoutDraft,
+  readCheckoutDraft,
+  writeCheckoutDraft,
+} from "@/lib/checkout-draft";
 
 export function CartPageClient() {
   const { items, updateQuantity, removeItem } = useCart();
+  const [checkoutDraft, setCheckoutDraft] = useState<CheckoutDraft>(defaultCheckoutDraft);
+  const [saveMessage, setSaveMessage] = useState("");
+
+  useEffect(() => {
+    setCheckoutDraft(readCheckoutDraft());
+  }, []);
+
+  const updateDraftField = (field: keyof CheckoutDraft, value: string) => {
+    setCheckoutDraft((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const saveDraft = () => {
+    writeCheckoutDraft(checkoutDraft);
+    setSaveMessage("Delivery details saved for checkout");
+    window.setTimeout(() => setSaveMessage(""), 1800);
+  };
+
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const delivery = items.length > 0 ? 99 : 0;
   const total = subtotal + delivery;
@@ -81,6 +105,86 @@ export function CartPageClient() {
               ))}
             </div>
           )}
+
+          <div className="mt-8 rounded-[24px] border border-[var(--line)] bg-[#fffaf6] p-5 sm:p-6">
+            <h2 className="text-[1.2rem] font-semibold text-[var(--brand-brown)]">
+              Delivery Details Before Checkout
+            </h2>
+            <p className="mt-2 text-[0.94rem] text-[#6c7396]">
+              Fill this once and continue to checkout with delivery address, slot, date, time,
+              cake message, and sender name prefilled.
+            </p>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <input
+                value={checkoutDraft.fullName}
+                onChange={(event) => updateDraftField("fullName", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Your full name"
+              />
+              <input
+                value={checkoutDraft.phone}
+                onChange={(event) => updateDraftField("phone", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Phone number"
+              />
+              <input
+                value={checkoutDraft.deliveryDate}
+                onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
+                type="date"
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+              />
+              <select
+                value={checkoutDraft.deliverySlot}
+                onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+              >
+                {["Morning", "Afternoon", "Evening", "Night"].map((slot) => (
+                  <option key={slot} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
+              <input
+                value={checkoutDraft.deliveryTime}
+                onChange={(event) => updateDraftField("deliveryTime", event.target.value)}
+                type="time"
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+              />
+              <input
+                value={checkoutDraft.senderName}
+                onChange={(event) => updateDraftField("senderName", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Sender name on greeting"
+              />
+            </div>
+
+            <textarea
+              value={checkoutDraft.address}
+              onChange={(event) => updateDraftField("address", event.target.value)}
+              className="mt-3 min-h-[92px] w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+              placeholder="Delivery address"
+            />
+            <input
+              value={checkoutDraft.cakeMessage}
+              onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
+              className="mt-3 w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+              placeholder="Message on cake"
+            />
+
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={saveDraft}
+                className="rounded-full bg-[#ef7f41] px-5 py-2.5 text-sm font-semibold text-white"
+              >
+                Save Delivery Details
+              </button>
+              {saveMessage ? (
+                <span className="text-[0.85rem] font-semibold text-[#2f8f2f]">{saveMessage}</span>
+              ) : null}
+            </div>
+          </div>
         </div>
 
         <aside className="rounded-[36px] border border-[var(--line)] bg-[linear-gradient(180deg,#fff,#fff6ef)] p-8 shadow-[0_22px_55px_rgba(77,37,28,0.08)]">
