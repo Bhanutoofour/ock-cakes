@@ -11,12 +11,14 @@ import { listProducts } from "@/lib/server/catalog";
 export const metadata = createMetadata({
   title: "Order Fresh Cakes Online in Hyderabad | OccasionKart",
   description:
-    "Order cakes online in Hyderabad with OccasionKart for same day cake delivery, birthday cakes, custom theme cakes, anniversary cakes, and premium celebration desserts.",
+    "OccasionKart is a Hyderabad-based cake shop for cakes in Hyderabad, cake delivery in Hyderabad, same day cake delivery, birthday cakes, custom cakes, and celebration desserts.",
   keywords: [
     "cakes in Hyderabad",
     "cake delivery in Hyderabad",
     "order cakes same day delivery",
     "best cakes in Hyderabad",
+    "Hyderabad based cake shop",
+    "Hyderabad based bakery",
   ],
   path: "/",
 });
@@ -179,6 +181,15 @@ const clients = [
   },
 ];
 
+const hyderabadSearchTerms = [
+  "cakes in Hyderabad",
+  "cake delivery in Hyderabad",
+  "same day cake delivery Hyderabad",
+  "Hyderabad based cake shop",
+  "best cakes in Hyderabad",
+  "order birthday cake online Hyderabad",
+];
+
 export default async function Home() {
   const products = await listProducts();
   const bestsellers = products.slice(0, 5);
@@ -188,7 +199,30 @@ export default async function Home() {
     <>
       <SiteHeader />
       <main className="bg-white">
-                <HomeHeroCarousel />
+        <HomeHeroCarousel />
+
+        <section className="page-pad py-6">
+          <div className="rounded-[22px] border border-[rgba(0,0,0,0.1)] bg-[#fffaf6] p-6 sm:p-8">
+            <h2 className="text-[1.4rem] font-semibold text-[var(--brand-brown)] sm:text-[1.6rem]">
+              Hyderabad-Based Cake Delivery You Can Trust
+            </h2>
+            <p className="mt-3 text-[0.98rem] leading-8 text-[#6c7396]">
+              OccasionKart is a Hyderabad-based cake store focused on fresh cakes in Hyderabad,
+              same day cake delivery in Hyderabad, and personalized celebration orders for
+              birthdays, anniversaries, weddings, and corporate events.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {hyderabadSearchTerms.map((term) => (
+                <span
+                  key={term}
+                  className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.78rem] font-semibold text-stone-700"
+                >
+                  {term}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section className="page-pad py-6">
           <div>

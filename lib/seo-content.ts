@@ -21,6 +21,8 @@ const DEFAULT_SERVICE_AREAS = [
 const BASE_SEO_KEYWORDS = [
   "cakes in Hyderabad",
   "cake delivery in Hyderabad",
+  "Hyderabad based cake shop",
+  "Hyderabad based bakery",
   "order cake online Hyderabad",
   "same day cake delivery Hyderabad",
   "best cakes in Hyderabad",
@@ -126,12 +128,12 @@ export function buildCollectionSeoDescription(categoryName: string, count?: numb
     typeof count === "number" && count > 0
       ? `Browse ${count} options in our ${categoryName} collection. `
       : "";
-  return `${countPart}Order ${categoryName.toLowerCase()} cakes in Hyderabad with OccasionKart for same day cake delivery, custom design support, and freshly baked flavors for birthdays, anniversaries, and special celebrations.`;
+  return `${countPart}OccasionKart is a Hyderabad-based cake shop. Order ${categoryName.toLowerCase()} cakes in Hyderabad with same day cake delivery, custom design support, and freshly baked flavors for birthdays, anniversaries, and special celebrations across the city.`;
 }
 
 export function buildGeoCoverageLine() {
   const visibleAreas = DEFAULT_SERVICE_AREAS.slice(0, 6).join(", ");
-  return `We deliver across Hyderabad, including ${visibleAreas}, with reliable same day cake delivery slots.`;
+  return `We are a Hyderabad-based bakery and deliver across Hyderabad, including ${visibleAreas}, with reliable same day cake delivery slots.`;
 }
 
 export function buildProductSeoDescription({
@@ -150,7 +152,7 @@ export function buildProductSeoDescription({
     `Choose this ${categoryLower} cake for birthdays, anniversaries, office celebrations, and surprise gifting moments.`;
 
   return normalizeSpaces(
-    `${name} is available for cake delivery in Hyderabad from OccasionKart. ${customLine} Order cake online with ${leadTimeLabel} delivery, flavor choices, weight options, and personalized cake messages. Looking for the best cakes in Hyderabad? ${geoLine}`,
+    `${name} is available for cake delivery in Hyderabad from OccasionKart, a Hyderabad-based cake store. ${customLine} Order cake online with ${leadTimeLabel} delivery, flavor choices, weight options, and personalized cake messages. Looking for the best cakes in Hyderabad? ${geoLine}`,
   );
 }
 
@@ -168,6 +170,7 @@ export function buildCollectionKeywords(categoryName: string) {
     `${categoryName} cakes Hyderabad`,
     `best ${categoryName} cakes in Hyderabad`,
     `${categoryName} cake delivery Hyderabad`,
+    `${categoryName} Hyderabad based`,
     `order ${categoryName} cake online Hyderabad`,
   ]);
 }
