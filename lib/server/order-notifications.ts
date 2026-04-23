@@ -1,4 +1,4 @@
-import type { Order } from "@/lib/store-schema";
+import type { Order, OrderStatus, PaymentStatus } from "@/lib/store-schema";
 import nodemailer from "nodemailer";
 
 function splitEnvList(value: string | undefined) {
@@ -82,6 +82,39 @@ function buildCustomerEmailSubject(order: Order) {
   return `Order Confirmed ${order.orderNumber} | OccasionKart Hyderabad`;
 }
 
+function buildCustomerOrderReceivedSubject(order: Order) {
+  return `Order Received ${order.orderNumber} | OccasionKart Hyderabad`;
+}
+
+function buildCustomerOrderReceivedHtml(order: Order) {
+  return `
+    <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
+      <h2 style="margin-bottom:8px;">We received your order</h2>
+      <p style="margin:0 0 16px;">Hi ${order.customer.fullName}, your order has been placed successfully.</p>
+      <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+      <p><strong>Order Status:</strong> ${formatOrderStatus(order.status)}</p>
+      <p><strong>Payment Status:</strong> ${formatPaymentStatus(order.paymentStatus)}</p>
+      <p><strong>Delivery Date:</strong> ${order.delivery.date}</p>
+      <p><strong>Total:</strong> Rs. ${order.pricing.total}</p>
+      <p style="margin-top:16px;">You will receive another update when your order moves ahead.</p>
+    </div>
+  `;
+}
+
+function buildCustomerOrderReceivedText(order: Order) {
+  return [
+    `Hi ${order.customer.fullName}, we received your order.`,
+    "",
+    `Order Number: ${order.orderNumber}`,
+    `Order Status: ${formatOrderStatus(order.status)}`,
+    `Payment Status: ${formatPaymentStatus(order.paymentStatus)}`,
+    `Delivery Date: ${order.delivery.date}`,
+    `Total: Rs. ${order.pricing.total}`,
+    "",
+    "We will send the next update as your order progresses.",
+  ].join("\n");
+}
+
 function buildCustomerEmailHtml(order: Order) {
   return `
     <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
@@ -118,6 +151,166 @@ function buildCustomerEmailText(order: Order) {
     buildOrderLines(order),
     "",
     "Support: support@occasionkart.com",
+  ].join("\n");
+}
+
+function formatOrderStatus(status: OrderStatus) {
+  switch (status) {
+    case "pending":
+      return "Pending";
+    case "confirmed":
+      return "Confirmed";
+    case "preparing":
+      return "Preparing";
+    case "out_for_delivery":
+      return "Out for Delivery";
+    case "delivered":
+      return "Delivered";
+    case "cancelled":
+      return "Cancelled";
+    default:
+      return status;
+  }
+}
+
+function formatPaymentStatus(status: PaymentStatus) {
+  switch (status) {
+    case "pending":
+      return "Pending";
+    case "paid":
+      return "Paid";
+    case "failed":
+      return "Failed";
+    case "refunded":
+      return "Refunded";
+    default:
+      return status;
+  }
+}
+
+function buildStatusUpdateSubject(order: Order, status: OrderStatus) {
+  if (status === "confirmed" || status === "preparing") {
+    return `Processing Order ${order.orderNumber} | OccasionKart`;
+  }
+
+  if (status === "out_for_delivery") {
+    return `Out for Delivery ${order.orderNumber} | OccasionKart`;
+  }
+
+  if (status === "delivered") {
+    return `Completed Order ${order.orderNumber} | OccasionKart`;
+  }
+
+  if (status === "cancelled") {
+    return `Cancelled Order ${order.orderNumber} | OccasionKart`;
+  }
+
+  return `Order ${order.orderNumber} is ${formatOrderStatus(status)} | OccasionKart`;
+}
+
+function buildStatusUpdateHtml(order: Order, status: OrderStatus) {
+  const statusLabel = formatOrderStatus(status);
+  return `
+    <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
+      <h2 style="margin-bottom:8px;">Order Status Update</h2>
+      <p style="margin:0 0 16px;">Hi ${order.customer.fullName}, your order status has been updated.</p>
+      <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+      <p><strong>Current Status:</strong> ${statusLabel}</p>
+      <p><strong>Delivery Date:</strong> ${order.delivery.date}</p>
+      <p><strong>Delivery Address:</strong> ${order.delivery.address}, ${order.delivery.city}</p>
+      <p><strong>Total:</strong> Rs. ${order.pricing.total}</p>
+      <p style="margin-top:16px;">Need help? Contact support@occasionkart.com.</p>
+    </div>
+  `;
+}
+
+function buildStatusUpdateText(order: Order, status: OrderStatus) {
+  return [
+    `Hi ${order.customer.fullName}, your order status has been updated.`,
+    "",
+    `Order Number: ${order.orderNumber}`,
+    `Current Status: ${formatOrderStatus(status)}`,
+    `Delivery Date: ${order.delivery.date}`,
+    `Delivery Address: ${order.delivery.address}, ${order.delivery.city}`,
+    `Total: Rs. ${order.pricing.total}`,
+    "",
+    "Support: support@occasionkart.com",
+  ].join("\n");
+}
+
+function buildInternalStatusChangeSubject(order: Order, previousStatus: OrderStatus, nextStatus: OrderStatus) {
+  return `Order ${order.orderNumber}: ${formatOrderStatus(previousStatus)} -> ${formatOrderStatus(nextStatus)}`;
+}
+
+function buildInternalStatusChangeHtml(order: Order, previousStatus: OrderStatus, nextStatus: OrderStatus) {
+  return `
+    <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
+      <h2 style="margin-bottom:8px;">Order Status Changed</h2>
+      <p><strong>Order:</strong> ${order.orderNumber}</p>
+      <p><strong>Customer:</strong> ${order.customer.fullName}</p>
+      <p><strong>Phone:</strong> ${order.customer.phone}</p>
+      <p><strong>Status:</strong> ${formatOrderStatus(previousStatus)} -> ${formatOrderStatus(nextStatus)}</p>
+      <p><strong>Delivery Date:</strong> ${order.delivery.date}</p>
+      <p><strong>Total:</strong> Rs. ${order.pricing.total}</p>
+    </div>
+  `;
+}
+
+function buildInternalStatusChangeText(order: Order, previousStatus: OrderStatus, nextStatus: OrderStatus) {
+  return [
+    "Order status changed",
+    `Order: ${order.orderNumber}`,
+    `Customer: ${order.customer.fullName}`,
+    `Phone: ${order.customer.phone}`,
+    `Status: ${formatOrderStatus(previousStatus)} -> ${formatOrderStatus(nextStatus)}`,
+    `Delivery Date: ${order.delivery.date}`,
+    `Total: Rs. ${order.pricing.total}`,
+  ].join("\n");
+}
+
+function buildInternalPaymentChangeSubject(
+  order: Order,
+  previousPaymentStatus: PaymentStatus,
+  nextPaymentStatus: PaymentStatus,
+) {
+  if (nextPaymentStatus === "failed") {
+    return `Failed Order ${order.orderNumber} | Payment Failed`;
+  }
+
+  if (nextPaymentStatus === "refunded") {
+    return `Refunded Order ${order.orderNumber}`;
+  }
+
+  return `Payment Update ${order.orderNumber}: ${formatPaymentStatus(previousPaymentStatus)} -> ${formatPaymentStatus(nextPaymentStatus)}`;
+}
+
+function buildInternalPaymentChangeHtml(
+  order: Order,
+  previousPaymentStatus: PaymentStatus,
+  nextPaymentStatus: PaymentStatus,
+) {
+  return `
+    <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
+      <h2 style="margin-bottom:8px;">Order Payment Status Changed</h2>
+      <p><strong>Order:</strong> ${order.orderNumber}</p>
+      <p><strong>Customer:</strong> ${order.customer.fullName}</p>
+      <p><strong>Payment:</strong> ${formatPaymentStatus(previousPaymentStatus)} -> ${formatPaymentStatus(nextPaymentStatus)}</p>
+      <p><strong>Total:</strong> Rs. ${order.pricing.total}</p>
+    </div>
+  `;
+}
+
+function buildInternalPaymentChangeText(
+  order: Order,
+  previousPaymentStatus: PaymentStatus,
+  nextPaymentStatus: PaymentStatus,
+) {
+  return [
+    "Order payment status changed",
+    `Order: ${order.orderNumber}`,
+    `Customer: ${order.customer.fullName}`,
+    `Payment: ${formatPaymentStatus(previousPaymentStatus)} -> ${formatPaymentStatus(nextPaymentStatus)}`,
+    `Total: Rs. ${order.pricing.total}`,
   ].join("\n");
 }
 
@@ -292,6 +485,109 @@ async function sendCustomerEmailNotification(order: Order) {
   });
 }
 
+const CUSTOMER_STATUS_EMAILS = new Set<OrderStatus>([
+  "confirmed",
+  "out_for_delivery",
+  "delivered",
+  "cancelled",
+]);
+
+const CUSTOMER_PAYMENT_EMAILS = new Set<PaymentStatus>(["failed", "refunded"]);
+
+async function sendCustomerStatusUpdateEmail(order: Order, status: OrderStatus) {
+  const customerEmail = order.customer.email?.trim();
+  if (!customerEmail || !CUSTOMER_STATUS_EMAILS.has(status)) {
+    return;
+  }
+
+  await sendOrderEmail({
+    order,
+    recipients: [customerEmail],
+    subject: buildStatusUpdateSubject(order, status),
+    html: buildStatusUpdateHtml(order, status),
+    text: buildStatusUpdateText(order, status),
+    idempotencyKey: `order-email-customer-status-${order.id}-${status}`,
+  });
+}
+
+async function sendCustomerPaymentUpdateEmail(order: Order, paymentStatus: PaymentStatus) {
+  const customerEmail = order.customer.email?.trim();
+  if (!customerEmail || !CUSTOMER_PAYMENT_EMAILS.has(paymentStatus)) {
+    return;
+  }
+
+  const subject =
+    paymentStatus === "failed"
+      ? `Failed Order ${order.orderNumber} | Payment Failed`
+      : `Refunded Order ${order.orderNumber}`;
+
+  const html = `
+    <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
+      <h2 style="margin-bottom:8px;">Payment Update</h2>
+      <p style="margin:0 0 16px;">Hi ${order.customer.fullName}, your payment status has changed.</p>
+      <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+      <p><strong>Payment Status:</strong> ${formatPaymentStatus(paymentStatus)}</p>
+      <p><strong>Total:</strong> Rs. ${order.pricing.total}</p>
+      <p style="margin-top:16px;">For help, contact support@occasionkart.com.</p>
+    </div>
+  `;
+
+  const text = [
+    `Hi ${order.customer.fullName}, your payment status has changed.`,
+    "",
+    `Order Number: ${order.orderNumber}`,
+    `Payment Status: ${formatPaymentStatus(paymentStatus)}`,
+    `Total: Rs. ${order.pricing.total}`,
+    "",
+    "Support: support@occasionkart.com",
+  ].join("\n");
+
+  await sendOrderEmail({
+    order,
+    recipients: [customerEmail],
+    subject,
+    html,
+    text,
+    idempotencyKey: `order-email-customer-payment-${order.id}-${paymentStatus}`,
+  });
+}
+
+async function sendInternalStatusUpdateEmail(order: Order, previousStatus: OrderStatus, nextStatus: OrderStatus) {
+  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  if (to.length === 0) {
+    return;
+  }
+
+  await sendOrderEmail({
+    order,
+    recipients: to,
+    subject: buildInternalStatusChangeSubject(order, previousStatus, nextStatus),
+    html: buildInternalStatusChangeHtml(order, previousStatus, nextStatus),
+    text: buildInternalStatusChangeText(order, previousStatus, nextStatus),
+    idempotencyKey: `order-email-internal-status-${order.id}-${previousStatus}-${nextStatus}`,
+  });
+}
+
+async function sendInternalPaymentUpdateEmail(
+  order: Order,
+  previousPaymentStatus: PaymentStatus,
+  nextPaymentStatus: PaymentStatus,
+) {
+  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  if (to.length === 0) {
+    return;
+  }
+
+  await sendOrderEmail({
+    order,
+    recipients: to,
+    subject: buildInternalPaymentChangeSubject(order, previousPaymentStatus, nextPaymentStatus),
+    html: buildInternalPaymentChangeHtml(order, previousPaymentStatus, nextPaymentStatus),
+    text: buildInternalPaymentChangeText(order, previousPaymentStatus, nextPaymentStatus),
+    idempotencyKey: `order-email-internal-payment-${order.id}-${previousPaymentStatus}-${nextPaymentStatus}`,
+  });
+}
+
 async function sendWhatsAppWebhook(order: Order) {
   const webhookUrl = process.env.WHATSAPP_NOTIFY_WEBHOOK_URL;
   if (!webhookUrl) {
@@ -369,7 +665,6 @@ async function sendWhatsAppCloudTemplate(order: Order) {
 export async function sendNewOrderNotifications(order: Order) {
   const results = await Promise.allSettled([
     sendInternalEmailNotification(order),
-    sendCustomerEmailNotification(order),
     (async () => {
       const handledByWebhook = await sendWhatsAppWebhook(order);
       if (!handledByWebhook) {
@@ -381,6 +676,69 @@ export async function sendNewOrderNotifications(order: Order) {
   const errors = results
     .filter((result): result is PromiseRejectedResult => result.status === "rejected")
     .map((result) => result.reason instanceof Error ? result.reason.message : String(result.reason));
+
+  if (errors.length > 0) {
+    throw new Error(errors.join(" | "));
+  }
+}
+
+export async function sendCustomerOrderReceivedNotification(order: Order) {
+  const customerEmail = order.customer.email?.trim();
+  if (!customerEmail) {
+    return;
+  }
+
+  await sendOrderEmail({
+    order,
+    recipients: [customerEmail],
+    subject: buildCustomerOrderReceivedSubject(order),
+    html: buildCustomerOrderReceivedHtml(order),
+    text: buildCustomerOrderReceivedText(order),
+    idempotencyKey: `order-email-customer-received-${order.id}`,
+  });
+}
+
+export async function sendOrderStatusNotifications(
+  previousOrder: Order,
+  updatedOrder: Order,
+  options?: { sendInternal?: boolean; sendCustomer?: boolean },
+) {
+  const sendInternal = options?.sendInternal ?? true;
+  const sendCustomer = options?.sendCustomer ?? true;
+  const tasks: Promise<unknown>[] = [];
+
+  if (previousOrder.status !== updatedOrder.status) {
+    if (sendCustomer) {
+      tasks.push(sendCustomerStatusUpdateEmail(updatedOrder, updatedOrder.status));
+    }
+    if (sendInternal) {
+      tasks.push(sendInternalStatusUpdateEmail(updatedOrder, previousOrder.status, updatedOrder.status));
+    }
+  }
+
+  if (previousOrder.paymentStatus !== updatedOrder.paymentStatus) {
+    if (sendCustomer) {
+      tasks.push(sendCustomerPaymentUpdateEmail(updatedOrder, updatedOrder.paymentStatus));
+    }
+    if (sendInternal) {
+      tasks.push(
+        sendInternalPaymentUpdateEmail(
+          updatedOrder,
+          previousOrder.paymentStatus,
+          updatedOrder.paymentStatus,
+        ),
+      );
+    }
+  }
+
+  if (tasks.length === 0) {
+    return;
+  }
+
+  const results = await Promise.allSettled(tasks);
+  const errors = results
+    .filter((result): result is PromiseRejectedResult => result.status === "rejected")
+    .map((result) => (result.reason instanceof Error ? result.reason.message : String(result.reason)));
 
   if (errors.length > 0) {
     throw new Error(errors.join(" | "));

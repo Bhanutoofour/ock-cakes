@@ -10,6 +10,7 @@ import {
   readCheckoutDraft,
   writeCheckoutDraft,
 } from "@/lib/checkout-draft";
+import { DELIVERY_SLOT_OPTIONS, getShippingQuote } from "@/lib/shipping-rules";
 
 type CreatedOrder = {
   id: string;
@@ -78,7 +79,11 @@ export function CheckoutPageClient() {
     () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
     [items],
   );
-  const delivery = items.length > 0 ? 99 : 0;
+  const shippingQuote = getShippingQuote({
+    pincode: draft.deliveryPincode,
+    slot: draft.deliverySlot,
+  });
+  const delivery = items.length > 0 && shippingQuote.deliverable ? shippingQuote.deliveryFee : 0;
   const total = subtotal + delivery;
 
   const summaryValues = createdOrder
@@ -111,11 +116,14 @@ export function CheckoutPageClient() {
     if (!draft.address.trim()) {
       return "Please enter delivery address.";
     }
+    if (!draft.deliveryPincode.trim()) {
+      return "Please enter delivery pincode.";
+    }
     if (!draft.deliveryDate.trim()) {
       return "Please select delivery date.";
     }
-    if (!draft.deliveryTime.trim()) {
-      return "Please select delivery time.";
+    if (!shippingQuote.deliverable) {
+      return shippingQuote.message;
     }
     return "";
   };
@@ -165,7 +173,10 @@ export function CheckoutPageClient() {
           },
           delivery: {
             date: draft.deliveryDate,
-            slot: `${draft.deliverySlot} (${draft.deliveryTime})`,
+            slot: draft.deliveryTime
+              ? `${draft.deliverySlot} (${draft.deliveryTime})`
+              : draft.deliverySlot,
+            pincode: draft.deliveryPincode,
             address: draft.address,
             cakeMessage: draft.cakeMessage || undefined,
             city: "Hyderabad",
@@ -338,12 +349,20 @@ export function CheckoutPageClient() {
                       type="date"
                       className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
                     />
+                    <input
+                      value={draft.deliveryPincode}
+                      onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                      placeholder="Delivery pincode"
+                      maxLength={6}
+                      inputMode="numeric"
+                    />
                     <select
                       value={draft.deliverySlot}
                       onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
                       className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
                     >
-                      {["Morning", "Afternoon", "Evening", "Night"].map((slot) => (
+                      {DELIVERY_SLOT_OPTIONS.map((slot) => (
                         <option key={slot} value={slot}>
                           {slot}
                         </option>
@@ -362,6 +381,15 @@ export function CheckoutPageClient() {
                     className="min-h-[96px] w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
                     placeholder="Delivery address in Hyderabad"
                   />
+                  {draft.deliveryPincode ? (
+                    <p
+                      className={`text-[0.9rem] font-semibold ${
+                        shippingQuote.deliverable ? "text-[#2f8f2f]" : "text-[#b53131]"
+                      }`}
+                    >
+                      {shippingQuote.message}
+                    </p>
+                  ) : null}
                   <button
                     type="button"
                     onClick={handleContinueFromStepOne}
@@ -413,7 +441,12 @@ export function CheckoutPageClient() {
                   <div className="space-y-2 text-[0.95rem] leading-7 text-[#6c7396]">
                     <p>
                       <span className="font-semibold text-stone-900">Delivery:</span>{" "}
-                      {draft.deliveryDate} | {draft.deliverySlot} ({draft.deliveryTime})
+                      {draft.deliveryDate} | {draft.deliverySlot}
+                      {draft.deliveryTime ? ` (${draft.deliveryTime})` : ""}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-stone-900">Pincode:</span>{" "}
+                      {draft.deliveryPincode}
                     </p>
                     <p>
                       <span className="font-semibold text-stone-900">Address:</span> {draft.address}
@@ -471,6 +504,15 @@ export function CheckoutPageClient() {
               <span>Delivery</span>
               <span>Rs. {summaryValues.delivery}</span>
             </div>
+            {!createdOrder && draft.deliveryPincode && shippingQuote.deliverable ? (
+              <p className="text-[0.84rem] font-semibold text-[#2f8f2f]">
+                {shippingQuote.zoneName} shipping applied
+                {shippingQuote.midnightSurcharge > 0
+                  ? ` (includes Rs. ${shippingQuote.midnightSurcharge} midnight add-on)`
+                  : ""}
+                .
+              </p>
+            ) : null}
             <div className="flex justify-between">
               <span>Items</span>
               <span>{items.length}</span>
@@ -497,4 +539,3 @@ export function CheckoutPageClient() {
     </main>
   );
 }
-

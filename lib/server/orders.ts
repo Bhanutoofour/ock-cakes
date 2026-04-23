@@ -13,10 +13,9 @@ import type {
 } from "@/lib/store-schema";
 import { db } from "@/lib/db";
 import { buildCartItemKey, resolveVariantPricing } from "@/lib/product-variants";
+import { getShippingQuote, normalizeIndianPincode } from "@/lib/shipping-rules";
 
 import { getProductBySlug } from "./catalog";
-
-const DEFAULT_DELIVERY_FEE = 99;
 const VALID_ORDER_STATUSES = new Set<OrderStatus>([
   "pending",
   "confirmed",
@@ -75,6 +74,7 @@ async function ensureOrderSchema() {
       await db.query(
         "alter table order_items add column if not exists flavor_price_per_kg integer",
       );
+      await db.query("alter table orders add column if not exists delivery_pincode text");
     })();
   }
 
@@ -113,15 +113,35 @@ function normalizeDelivery(delivery: unknown): ValidationResult<OrderDelivery> {
   if (!isNonEmptyString(source.date)) {
     return { ok: false, message: "delivery.date is required" };
   }
+  if (!isNonEmptyString(source.slot)) {
+    return { ok: false, message: "delivery.slot is required" };
+  }
   if (!isNonEmptyString(source.address)) {
     return { ok: false, message: "delivery.address is required" };
+  }
+  if (!isNonEmptyString(source.pincode)) {
+    return { ok: false, message: "delivery.pincode is required" };
+  }
+
+  const normalizedPincode = normalizeIndianPincode(source.pincode);
+  if (!normalizedPincode) {
+    return { ok: false, message: "delivery.pincode must be a valid 6-digit pincode" };
+  }
+
+  const shippingQuote = getShippingQuote({
+    pincode: normalizedPincode,
+    slot: source.slot.trim(),
+  });
+  if (!shippingQuote.deliverable) {
+    return { ok: false, message: shippingQuote.message };
   }
 
   return {
     ok: true,
     value: {
       date: source.date.trim(),
-      slot: isNonEmptyString(source.slot) ? source.slot.trim() : undefined,
+      slot: source.slot.trim(),
+      pincode: normalizedPincode,
       address: source.address.trim(),
       cakeMessage: isNonEmptyString(source.cakeMessage)
         ? source.cakeMessage.trim()
@@ -220,6 +240,7 @@ type OrderRow = QueryResultRow & {
   customer_email: string | null;
   delivery_date: string;
   delivery_slot: string | null;
+  delivery_pincode: string | null;
   delivery_address: string;
   delivery_city: string;
   cake_message: string | null;
@@ -289,6 +310,7 @@ function mapOrderRows(rows: OrderRow[], itemRows: OrderItemRow[]) {
     delivery: {
       date: row.delivery_date,
       slot: row.delivery_slot ?? undefined,
+      pincode: row.delivery_pincode ?? undefined,
       address: row.delivery_address,
       city: row.delivery_city,
       cakeMessage: row.cake_message ?? undefined,
@@ -376,6 +398,7 @@ export async function listOrders(filters: OrderListFilters = {}) {
       customer_email,
       delivery_date,
       delivery_slot,
+      delivery_pincode,
       delivery_address,
       delivery_city,
       cake_message,
@@ -426,7 +449,8 @@ export async function getOrderById(id: string) {
         customer_email,
         delivery_date,
         delivery_slot,
-        delivery_address,
+      delivery_pincode,
+      delivery_address,
         delivery_city,
         cake_message,
         notes,
@@ -533,7 +557,8 @@ export async function listOrdersForCustomer(customerKey: string) {
         customer_email,
         delivery_date,
         delivery_slot,
-        delivery_address,
+      delivery_pincode,
+      delivery_address,
         delivery_city,
         cake_message,
         notes,
@@ -625,7 +650,15 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
 
   const createdAt = new Date();
   const subtotal = items.value.reduce((sum, item) => sum + item.lineTotal, 0);
-  const deliveryFee = subtotal > 0 ? DEFAULT_DELIVERY_FEE : 0;
+  const shippingQuote = getShippingQuote({
+    pincode: delivery.value.pincode,
+    slot: delivery.value.slot,
+  });
+  if (!shippingQuote.deliverable) {
+    return { ok: false, message: shippingQuote.message };
+  }
+
+  const deliveryFee = subtotal > 0 ? shippingQuote.deliveryFee : 0;
   const order: Order = {
     id: randomUUID(),
     orderNumber: buildOrderNumber(createdAt),
@@ -667,6 +700,7 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
           customer_email,
           delivery_date,
           delivery_slot,
+          delivery_pincode,
           delivery_address,
           delivery_city,
           cake_message,
@@ -679,7 +713,7 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
           updated_at
         ) values (
           $1, $2, $3, $4, $5, $6, $7, $8, $9, $10,
-          $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21
+          $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22
         )
       `,
       [
@@ -694,6 +728,7 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
         order.customer.email ?? null,
         order.delivery.date,
         order.delivery.slot ?? null,
+        order.delivery.pincode ?? null,
         order.delivery.address,
         order.delivery.city,
         order.delivery.cakeMessage ?? null,
@@ -800,7 +835,8 @@ export async function updateOrder(
         customer_email,
         delivery_date,
         delivery_slot,
-        delivery_address,
+      delivery_pincode,
+      delivery_address,
         delivery_city,
         cake_message,
         notes,
@@ -828,3 +864,4 @@ export async function updateOrder(
   const items = await getItemsForOrders([result.rows[0].id]);
   return { ok: true, value: mapOrderRows(result.rows, items)[0] };
 }
+

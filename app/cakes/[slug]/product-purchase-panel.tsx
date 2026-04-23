@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { AddToCartButton } from "@/components/store/add-to-cart-button";
 import { resolveVariantPricing } from "@/lib/product-variants";
+import { getShippingQuote } from "@/lib/shipping-rules";
 import type { Product } from "@/lib/store-schema";
 
 const priceFormatter = new Intl.NumberFormat("en-IN");
@@ -11,6 +12,25 @@ const priceFormatter = new Intl.NumberFormat("en-IN");
 export function ProductPurchasePanel({ product }: { product: Product }) {
   const [weightId, setWeightId] = useState(product.weightOptions[0]?.id ?? "");
   const [flavorId, setFlavorId] = useState(product.flavorOptions[0]?.id ?? "");
+  const [deliveryPincode, setDeliveryPincode] = useState("");
+  const [pincodeFeedback, setPincodeFeedback] = useState("");
+  const [isPincodeValid, setIsPincodeValid] = useState(false);
+
+  const checkPincode = () => {
+    const quote = getShippingQuote({ pincode: deliveryPincode });
+    if (!quote.deliverable) {
+      setPincodeFeedback(quote.message);
+      setIsPincodeValid(false);
+      return;
+    }
+
+    setPincodeFeedback(
+      quote.baseFee === 0
+        ? "Yeah! We deliver to this location with free shipping."
+        : `Yeah! We deliver to this location. Shipping starts at Rs. ${quote.baseFee}.`,
+    );
+    setIsPincodeValid(true);
+  };
 
   if (product.weightOptions.length === 0 || product.flavorOptions.length === 0) {
     return (
@@ -41,7 +61,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           ))}
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
+      <div className="mt-6 flex flex-wrap gap-3">
           <div className="inline-flex items-center rounded-full border border-[rgba(111,29,42,0.14)] bg-[#fff7f8] px-5 py-3 text-[var(--brand-maroon)]">
             <span className="text-[0.95rem] font-semibold">Rs</span>
             <span className="ml-1.5 text-[1.45rem] font-bold">
@@ -54,6 +74,38 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             price={product.price}
             image={product.image}
           />
+        </div>
+
+        <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[#fffdf9] p-4">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#9c7a67]">
+            Check Delivery Pincode
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <input
+              value={deliveryPincode}
+              onChange={(event) => setDeliveryPincode(event.target.value)}
+              placeholder="Enter 6-digit pincode"
+              maxLength={6}
+              inputMode="numeric"
+              className="min-w-[190px] flex-1 rounded-[14px] border border-[var(--line)] bg-white px-4 py-2.5 text-sm text-stone-700"
+            />
+            <button
+              type="button"
+              onClick={checkPincode}
+              className="rounded-full bg-[#ef7f41] px-4 py-2.5 text-sm font-semibold text-white"
+            >
+              Check
+            </button>
+          </div>
+          {pincodeFeedback ? (
+            <p
+              className={`mt-3 text-[0.9rem] font-semibold ${
+                isPincodeValid ? "text-[#2f8f2f]" : "text-[#b53131]"
+              }`}
+            >
+              {pincodeFeedback}
+            </p>
+          ) : null}
         </div>
       </>
     );
@@ -157,6 +209,38 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             />
           </div>
         </div>
+      </div>
+
+      <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[#fffdf9] p-4">
+        <p className="text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#9c7a67]">
+          Check Delivery Pincode
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <input
+            value={deliveryPincode}
+            onChange={(event) => setDeliveryPincode(event.target.value)}
+            placeholder="Enter 6-digit pincode"
+            maxLength={6}
+            inputMode="numeric"
+            className="min-w-[190px] flex-1 rounded-[14px] border border-[var(--line)] bg-white px-4 py-2.5 text-sm text-stone-700"
+          />
+          <button
+            type="button"
+            onClick={checkPincode}
+            className="rounded-full bg-[#ef7f41] px-4 py-2.5 text-sm font-semibold text-white"
+          >
+            Check
+          </button>
+        </div>
+        {pincodeFeedback ? (
+          <p
+            className={`mt-3 text-[0.9rem] font-semibold ${
+              isPincodeValid ? "text-[#2f8f2f]" : "text-[#b53131]"
+            }`}
+          >
+            {pincodeFeedback}
+          </p>
+        ) : null}
       </div>
     </>
   );

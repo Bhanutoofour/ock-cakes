@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { getAdminSession } from "@/lib/admin-auth";
 import { auth } from "@/lib/auth";
+import { sendOrderStatusNotifications } from "@/lib/server/order-notifications";
 import { getOrderById, getTrackableOrder, updateOrder } from "@/lib/server/orders";
 
 export const runtime = "nodejs";
@@ -37,12 +38,23 @@ export async function PATCH(request: Request, { params }: OrderRouteContext) {
   }
 
   const { id } = await params;
+  const existingOrder = await getOrderById(id);
+  if (!existingOrder) {
+    return Response.json({ error: "order not found" }, { status: 404 });
+  }
+
   const payload = await request.json();
   const result = await updateOrder(id, payload);
 
   if (!result.ok) {
     const status = result.message === "order not found" ? 404 : 400;
     return Response.json({ error: result.message }, { status });
+  }
+
+  try {
+    await sendOrderStatusNotifications(existingOrder, result.value);
+  } catch (error) {
+    console.error("Order status notification failed", error);
   }
 
   return Response.json({ data: result.value });

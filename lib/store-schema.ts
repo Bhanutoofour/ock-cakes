@@ -102,6 +102,7 @@ export type OrderCustomer = {
 export type OrderDelivery = {
   date: string;
   slot?: string;
+  pincode?: string;
   address: string;
   cakeMessage?: string;
   city: string;

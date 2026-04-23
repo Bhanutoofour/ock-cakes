@@ -3,7 +3,10 @@ import type { NextRequest } from "next/server";
 
 import { getAdminSession } from "@/lib/admin-auth";
 import { auth } from "@/lib/auth";
-import { sendNewOrderNotifications } from "@/lib/server/order-notifications";
+import {
+  sendCustomerOrderReceivedNotification,
+  sendNewOrderNotifications,
+} from "@/lib/server/order-notifications";
 import { createOrder, listOrders } from "@/lib/server/orders";
 
 export const runtime = "nodejs";
@@ -47,6 +50,7 @@ export async function POST(request: Request) {
 
   try {
     await sendNewOrderNotifications(result.value);
+    await sendCustomerOrderReceivedNotification(result.value);
   } catch (error) {
     console.error("New order notification failed", error);
   }

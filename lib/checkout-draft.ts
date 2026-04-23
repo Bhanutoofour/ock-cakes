@@ -1,7 +1,10 @@
+import { DELIVERY_SLOT_OPTIONS } from "@/lib/shipping-rules";
+
 export type CheckoutDraft = {
   fullName: string;
   phone: string;
   email: string;
+  deliveryPincode: string;
   address: string;
   deliveryDate: string;
   deliverySlot: string;
@@ -16,9 +19,10 @@ export const defaultCheckoutDraft: CheckoutDraft = {
   fullName: "",
   phone: "",
   email: "",
+  deliveryPincode: "",
   address: "",
   deliveryDate: "",
-  deliverySlot: "Morning",
+  deliverySlot: DELIVERY_SLOT_OPTIONS[0],
   deliveryTime: "",
   cakeMessage: "",
   senderName: "",
@@ -52,4 +56,3 @@ export function writeCheckoutDraft(value: CheckoutDraft) {
 
   window.localStorage.setItem(CHECKOUT_DRAFT_STORAGE_KEY, JSON.stringify(value));
 }
-

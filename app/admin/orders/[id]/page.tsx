@@ -89,6 +89,8 @@ export default async function AdminOrderDetailPage({ params }: Props) {
             <h3 className="text-[1.35rem] font-semibold text-black">Delivery</h3>
             <div className="mt-5 space-y-3 text-[0.98rem] text-stone-900">
               <p>Date: {order.delivery.date}</p>
+              <p>Slot: {order.delivery.slot ?? "Not provided"}</p>
+              <p>Pincode: {order.delivery.pincode ?? "Not provided"}</p>
               <p>Address: {order.delivery.address}</p>
               <p>City: {order.delivery.city}</p>
               <p>Message: {order.delivery.cakeMessage ?? "No cake message"}</p>

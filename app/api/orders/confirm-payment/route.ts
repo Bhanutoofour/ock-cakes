@@ -1,5 +1,5 @@
 import { getOrderById, updateOrder } from "@/lib/server/orders";
-import { sendNewOrderNotifications } from "@/lib/server/order-notifications";
+import { sendNewOrderNotifications, sendOrderStatusNotifications } from "@/lib/server/order-notifications";
 import { verifyRazorpaySignature } from "@/lib/server/razorpay";
 
 export const runtime = "nodejs";
@@ -45,6 +45,10 @@ export async function POST(request: Request) {
 
     try {
       await sendNewOrderNotifications(updateResult.value);
+      await sendOrderStatusNotifications(existingOrder, updateResult.value, {
+        sendInternal: false,
+        sendCustomer: true,
+      });
     } catch (error) {
       console.error("Post-payment notification failed", error);
     }

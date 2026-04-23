@@ -11,6 +11,7 @@ import {
   readCheckoutDraft,
   writeCheckoutDraft,
 } from "@/lib/checkout-draft";
+import { DELIVERY_SLOT_OPTIONS, getShippingQuote } from "@/lib/shipping-rules";
 
 export function CartPageClient() {
   const { items, updateQuantity, removeItem } = useCart();
@@ -32,7 +33,11 @@ export function CartPageClient() {
   };
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const delivery = items.length > 0 ? 99 : 0;
+  const shippingQuote = getShippingQuote({
+    pincode: checkoutDraft.deliveryPincode,
+    slot: checkoutDraft.deliverySlot,
+  });
+  const delivery = items.length > 0 && shippingQuote.deliverable ? shippingQuote.deliveryFee : 0;
   const total = subtotal + delivery;
 
   return (
@@ -129,6 +134,14 @@ export function CartPageClient() {
                 placeholder="Phone number"
               />
               <input
+                value={checkoutDraft.deliveryPincode}
+                onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Delivery pincode"
+                maxLength={6}
+                inputMode="numeric"
+              />
+              <input
                 value={checkoutDraft.deliveryDate}
                 onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
                 type="date"
@@ -139,7 +152,7 @@ export function CartPageClient() {
                 onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
                 className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
               >
-                {["Morning", "Afternoon", "Evening", "Night"].map((slot) => (
+                {DELIVERY_SLOT_OPTIONS.map((slot) => (
                   <option key={slot} value={slot}>
                     {slot}
                   </option>
@@ -184,6 +197,15 @@ export function CartPageClient() {
                 <span className="text-[0.85rem] font-semibold text-[#2f8f2f]">{saveMessage}</span>
               ) : null}
             </div>
+            {checkoutDraft.deliveryPincode ? (
+              <p
+                className={`mt-3 text-[0.9rem] font-semibold ${
+                  shippingQuote.deliverable ? "text-[#2f8f2f]" : "text-[#b53131]"
+                }`}
+              >
+                {shippingQuote.message}
+              </p>
+            ) : null}
           </div>
         </div>
 
@@ -198,6 +220,11 @@ export function CartPageClient() {
               <span>Delivery</span>
               <span>Rs. {delivery}</span>
             </div>
+            {items.length > 0 && !shippingQuote.deliverable ? (
+              <p className="text-[0.84rem] font-semibold text-[#b53131]">
+                Enter a serviceable pincode to continue checkout.
+              </p>
+            ) : null}
             <div className="flex items-center justify-between">
               <span>Discount</span>
               <span className="text-[var(--brand-red)]">Applied at checkout</span>
