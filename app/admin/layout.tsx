@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
 import { getAdminSession } from "@/lib/admin-auth";
+import { getOrderDashboardStats } from "@/lib/server/orders";
+import { AdminSidebar } from "./admin-sidebar";
 
 const adminLinks = [
   { href: "/admin", label: "Overview" },
@@ -21,6 +23,13 @@ export default async function AdminLayout({
   if (!session?.user) {
     redirect("/login");
   }
+
+  const orderStats = isAdmin ? await getOrderDashboardStats() : null;
+  const sidebarLinks = adminLinks.map((link) =>
+    link.href === "/admin/orders"
+      ? { ...link, badgeCount: orderStats?.pendingOrders ?? 0 }
+      : link,
+  );
 
   return (
     <>
@@ -51,29 +60,14 @@ export default async function AdminLayout({
                   OccasionKart Control Panel
                 </h1>
                 <p className="mt-3 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
-                  Manage live orders, products, customers, and categories from the
-                  same Neon-backed admin workspace.
+                  Manage live orders, products, customers, and categories from one
+                  workspace.
                 </p>
-              </div>
-              <div className="rounded-full bg-[#fff7f2] px-5 py-3 text-[0.95rem] font-semibold text-stone-900">
-                Signed in as {session.user.email}
               </div>
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
-              <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fffdfb] p-5 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
-                <nav className="space-y-2">
-                  {adminLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block rounded-[16px] border border-[rgba(0,0,0,0.08)] px-4 py-3 text-[0.98rem] font-semibold text-stone-900 transition hover:border-[#ef7f41] hover:text-[#ef7f41]"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-              </aside>
+            <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
+              <AdminSidebar links={sidebarLinks} userEmail={session.user.email} />
 
               <section>{children}</section>
             </div>
