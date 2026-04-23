@@ -1,4 +1,5 @@
 import { getOrderById, updateOrder } from "@/lib/server/orders";
+import { sendNewOrderNotifications } from "@/lib/server/order-notifications";
 import { verifyRazorpaySignature } from "@/lib/server/razorpay";
 
 export const runtime = "nodejs";
@@ -42,10 +43,15 @@ export async function POST(request: Request) {
       return Response.json({ error: updateResult.message }, { status: 400 });
     }
 
+    try {
+      await sendNewOrderNotifications(updateResult.value);
+    } catch (error) {
+      console.error("Post-payment notification failed", error);
+    }
+
     return Response.json({ data: { order: updateResult.value } });
   } catch (error) {
     console.error("Payment confirmation failed", error);
     return Response.json({ error: "Unable to confirm payment." }, { status: 500 });
   }
 }
-

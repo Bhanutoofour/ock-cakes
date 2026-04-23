@@ -83,7 +83,8 @@ export function HomeHeroCarousel() {
                   <p className="mt-5 text-[1rem] sm:text-[1.15rem]">{slide.subtitle}</p>
                   <Link
                     href={slide.ctaHref}
-                    className="mt-8 inline-flex rounded-[14px] border border-white/90 bg-white px-7 py-3 text-[1rem] font-semibold text-[#4d251c] shadow-[0_8px_20px_rgba(0,0,0,0.18)] transition hover:bg-[#fff7f2]"
+                    className="mt-8 inline-flex rounded-[14px] border border-white/90 bg-white px-7 py-3 text-[1rem] font-semibold !text-[#4d251c] shadow-[0_8px_20px_rgba(0,0,0,0.18)] transition hover:bg-[#fff7f2] hover:!text-[#4d251c] visited:!text-[#4d251c]"
+                    style={{ color: "#4d251c" }}
                   >
                     {slide.ctaText}
                   </Link>

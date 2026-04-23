@@ -1,4 +1,5 @@
 import type { Order } from "@/lib/store-schema";
+import nodemailer from "nodemailer";
 
 function splitEnvList(value: string | undefined) {
   return (value ?? "")
@@ -73,13 +74,75 @@ function buildWhatsAppText(order: Order) {
   ].join("\n");
 }
 
-async function sendEmailNotification(order: Order) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.ORDER_NOTIFICATION_FROM_EMAIL;
-  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+function buildInternalEmailSubject(order: Order) {
+  return `New Order ${order.orderNumber} - Rs. ${order.pricing.total}`;
+}
 
-  if (!apiKey || !from || to.length === 0) {
-    return;
+function buildCustomerEmailSubject(order: Order) {
+  return `Order Confirmed ${order.orderNumber} | OccasionKart Hyderabad`;
+}
+
+function buildCustomerEmailHtml(order: Order) {
+  return `
+    <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
+      <h2 style="margin-bottom:8px;">Your OccasionKart order is confirmed</h2>
+      <p style="margin:0 0 16px;">Hi ${order.customer.fullName}, thanks for ordering with us.</p>
+      <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+      <p><strong>Delivery Date:</strong> ${order.delivery.date}</p>
+      <p><strong>Delivery Address:</strong> ${order.delivery.address}, ${order.delivery.city}</p>
+      <p><strong>Total Paid:</strong> Rs. ${order.pricing.total}</p>
+      <h3 style="margin:20px 0 8px;">Items</h3>
+      <ul style="padding-left:20px;margin:0;">
+        ${order.items
+          .map(
+            (item) =>
+              `<li><strong>${item.name}</strong> x ${item.quantity} - Rs. ${item.lineTotal}</li>`,
+          )
+          .join("")}
+      </ul>
+      <p style="margin-top:16px;">For support, contact us at support@occasionkart.com.</p>
+    </div>
+  `;
+}
+
+function buildCustomerEmailText(order: Order) {
+  return [
+    `Hi ${order.customer.fullName}, your OccasionKart order is confirmed.`,
+    "",
+    `Order Number: ${order.orderNumber}`,
+    `Delivery Date: ${order.delivery.date}`,
+    `Delivery Address: ${order.delivery.address}, ${order.delivery.city}`,
+    `Total Paid: Rs. ${order.pricing.total}`,
+    "",
+    "Items:",
+    buildOrderLines(order),
+    "",
+    "Support: support@occasionkart.com",
+  ].join("\n");
+}
+
+function getConfiguredFromEmail() {
+  return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? process.env.GMAIL_USER;
+}
+
+async function sendViaResend({
+  from,
+  to,
+  subject,
+  html,
+  text,
+  idempotencyKey,
+}: {
+  from: string;
+  to: string[];
+  subject: string;
+  html: string;
+  text: string;
+  idempotencyKey: string;
+}) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return false;
   }
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -87,20 +150,146 @@ async function sendEmailNotification(order: Order) {
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "Idempotency-Key": `order-email-${order.id}`,
+      "Idempotency-Key": idempotencyKey,
     },
     body: JSON.stringify({
       from,
       to,
-      subject: `New Order ${order.orderNumber} - Rs. ${order.pricing.total}`,
-      html: buildEmailHtml(order),
-      text: buildEmailText(order),
+      subject,
+      html,
+      text,
     }),
   });
 
   if (!response.ok) {
     throw new Error(`Email notification failed with status ${response.status}`);
   }
+
+  return true;
+}
+
+async function sendViaSmtp({
+  from,
+  to,
+  subject,
+  html,
+  text,
+}: {
+  from: string;
+  to: string[];
+  subject: string;
+  html: string;
+  text: string;
+}) {
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = Number(process.env.SMTP_PORT ?? 465);
+  const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
+  const smtpUser = process.env.SMTP_USER ?? process.env.GMAIL_USER;
+  const smtpPass = process.env.SMTP_PASS ?? process.env.GMAIL_APP_PASSWORD;
+
+  if (!smtpUser || !smtpPass) {
+    return false;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost ?? "smtp.gmail.com",
+    port: smtpPort,
+    secure: smtpSecure,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+  });
+
+  await transporter.sendMail({
+    from,
+    to: to.join(","),
+    subject,
+    html,
+    text,
+  });
+
+  return true;
+}
+
+async function sendOrderEmail({
+  order,
+  recipients,
+  subject,
+  html,
+  text,
+  idempotencyKey,
+}: {
+  order: Order;
+  recipients: string[];
+  subject: string;
+  html: string;
+  text: string;
+  idempotencyKey: string;
+}) {
+  const from = getConfiguredFromEmail();
+  if (!from || recipients.length === 0) {
+    return;
+  }
+
+  const sentByResend = await sendViaResend({
+    from,
+    to: recipients,
+    subject,
+    html,
+    text,
+    idempotencyKey,
+  });
+
+  if (sentByResend) {
+    return;
+  }
+
+  const sentBySmtp = await sendViaSmtp({
+    from,
+    to: recipients,
+    subject,
+    html,
+    text,
+  });
+
+  if (!sentBySmtp) {
+    throw new Error(
+      `No email provider configured for order ${order.orderNumber}. Set RESEND_API_KEY or SMTP/GMAIL env variables.`,
+    );
+  }
+}
+
+async function sendInternalEmailNotification(order: Order) {
+  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  if (to.length === 0) {
+    return;
+  }
+
+  await sendOrderEmail({
+    order,
+    recipients: to,
+    subject: buildInternalEmailSubject(order),
+    html: buildEmailHtml(order),
+    text: buildEmailText(order),
+    idempotencyKey: `order-email-internal-${order.id}`,
+  });
+}
+
+async function sendCustomerEmailNotification(order: Order) {
+  const customerEmail = order.customer.email?.trim();
+  if (!customerEmail) {
+    return;
+  }
+
+  await sendOrderEmail({
+    order,
+    recipients: [customerEmail],
+    subject: buildCustomerEmailSubject(order),
+    html: buildCustomerEmailHtml(order),
+    text: buildCustomerEmailText(order),
+    idempotencyKey: `order-email-customer-${order.id}`,
+  });
 }
 
 async function sendWhatsAppWebhook(order: Order) {
@@ -179,7 +368,8 @@ async function sendWhatsAppCloudTemplate(order: Order) {
 
 export async function sendNewOrderNotifications(order: Order) {
   const results = await Promise.allSettled([
-    sendEmailNotification(order),
+    sendInternalEmailNotification(order),
+    sendCustomerEmailNotification(order),
     (async () => {
       const handledByWebhook = await sendWhatsAppWebhook(order);
       if (!handledByWebhook) {
