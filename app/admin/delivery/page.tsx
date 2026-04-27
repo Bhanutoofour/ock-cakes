@@ -4,6 +4,7 @@ import { listOrders } from "@/lib/server/orders";
 export const metadata = createMetadata({
   title: "Admin Delivery | OccasionKart",
   description: "Track active delivery routes, completion progress, and Hyderabad delivery ops.",
+  noIndex: true,
 });
 
 export default async function AdminDeliveryPage() {

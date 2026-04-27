@@ -6,6 +6,7 @@ import { listCustomerSummaries } from "@/lib/server/orders";
 export const metadata = createMetadata({
   title: "Admin Customers | OccasionKart",
   description: "Browse customers built from live order data and open their order history.",
+  noIndex: true,
 });
 
 export default async function AdminCustomersPage() {

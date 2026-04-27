@@ -9,6 +9,7 @@ export const metadata = createMetadata({
   description:
     "Confirm your cake order, delivery details, and celebration request for Hyderabad orders at OccasionKart checkout.",
   keywords: ["checkout", "cake order Hyderabad", "OccasionKart checkout"],
+  noIndex: true,
 });
 
 export default function CheckoutPage() {

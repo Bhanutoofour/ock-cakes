@@ -3,12 +3,13 @@ import Link from "next/link";
 import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
+import { toJsonLd } from "@/lib/json-ld";
 import {
   buildCollectionKeywords,
   buildCollectionSeoDescription,
   buildGeoCoverageLine,
 } from "@/lib/seo-content";
-import { createMetadata } from "@/lib/seo";
+import { createMetadata, siteSeo } from "@/lib/seo";
 import { listProducts, listTopCategories } from "@/lib/server/catalog";
 
 export const metadata = createMetadata({
@@ -36,11 +37,30 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
     }),
     listTopCategories(12),
   ]);
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Cake Collection Hyderabad",
+    url: `${siteSeo.siteUrl}/cakes`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: filteredProducts.slice(0, 20).map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteSeo.siteUrl}/cakes/${product.slug}`,
+        name: product.name,
+      })),
+    },
+  };
 
   return (
     <>
       <SiteHeader />
       <main className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(collectionSchema) }}
+        />
         <section className="page-pad mx-auto w-full max-w-7xl py-14">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>

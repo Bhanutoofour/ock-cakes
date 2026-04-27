@@ -6,6 +6,7 @@ import { AdminOrdersClient } from "./admin-orders-client";
 export const metadata = createMetadata({
   title: "Admin Orders | OccasionKart",
   description: "Manage customer orders, statuses, and payment state from the admin area.",
+  noIndex: true,
 });
 
 export default async function AdminOrdersPage() {

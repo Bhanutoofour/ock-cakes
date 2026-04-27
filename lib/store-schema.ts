@@ -140,6 +140,7 @@ export type CreateOrderInput = {
     weightId?: string;
     flavorId?: string;
   }>;
+  couponCode?: string;
   userId?: string;
   notes?: string;
   source?: OrderSource;

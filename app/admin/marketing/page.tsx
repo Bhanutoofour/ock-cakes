@@ -6,6 +6,7 @@ import { listCustomerSummaries, listOrders } from "@/lib/server/orders";
 export const metadata = createMetadata({
   title: "Admin Marketing | OccasionKart",
   description: "Track marketing-ready customer signals and campaign action points.",
+  noIndex: true,
 });
 
 export default async function AdminMarketingPage() {
@@ -88,4 +89,3 @@ export default async function AdminMarketingPage() {
     </div>
   );
 }
-

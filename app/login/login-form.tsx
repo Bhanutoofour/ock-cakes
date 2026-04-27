@@ -10,6 +10,9 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [forgotMessage, setForgotMessage] = useState("");
+  const [forgotError, setForgotError] = useState("");
+  const [isForgotPending, setIsForgotPending] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,6 +36,44 @@ export function LoginForm() {
       router.refresh();
     } finally {
       setIsPending(false);
+    }
+  };
+
+  const handleAdminForgotPassword = async () => {
+    setForgotError("");
+    setForgotMessage("");
+
+    if (!email.trim()) {
+      setForgotError("Enter your admin email first, then click forgot password.");
+      return;
+    }
+
+    setIsForgotPending(true);
+    try {
+      const response = await fetch("/api/admin/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const payload = (await response.json()) as {
+        error?: string;
+        data?: { message?: string };
+      };
+
+      if (!response.ok) {
+        setForgotError(payload.error ?? "Unable to send reset request right now.");
+        return;
+      }
+
+      setForgotMessage(
+        payload.data?.message ??
+          "Reset request sent. Support team will contact you on your registered admin email.",
+      );
+    } finally {
+      setIsForgotPending(false);
     }
   };
 
@@ -75,11 +116,31 @@ export function LoginForm() {
             className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] px-4 py-3"
             onChange={(event) => setPassword(event.target.value)}
           />
+          <button
+            type="button"
+            onClick={handleAdminForgotPassword}
+            disabled={isForgotPending}
+            className="text-[0.88rem] font-semibold text-[#ef7f41] disabled:opacity-70"
+          >
+            {isForgotPending ? "Sending reset request..." : "Forgot Admin Password?"}
+          </button>
         </div>
 
         {error ? (
           <p className="rounded-[12px] bg-[#fff3f0] px-4 py-3 text-[0.95rem] text-[#b93815]">
             {error}
+          </p>
+        ) : null}
+
+        {forgotError ? (
+          <p className="rounded-[12px] bg-[#fff3f0] px-4 py-3 text-[0.95rem] text-[#b93815]">
+            {forgotError}
+          </p>
+        ) : null}
+
+        {forgotMessage ? (
+          <p className="rounded-[12px] bg-[#f3fff2] px-4 py-3 text-[0.95rem] text-[#2f8f2f]">
+            {forgotMessage}
           </p>
         ) : null}
 

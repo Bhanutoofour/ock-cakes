@@ -13,6 +13,7 @@ export const metadata = createMetadata({
   description:
     "Review your recent OccasionKart cake orders, totals, delivery details, and statuses.",
   keywords: ["OccasionKart orders", "track my cake order", "customer order history"],
+  noIndex: true,
 });
 
 function formatStatus(value: string) {

@@ -5,12 +5,13 @@ import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
+import { toJsonLd } from "@/lib/json-ld";
 import {
   buildCollectionKeywords,
   buildCollectionSeoDescription,
   buildGeoCoverageLine,
 } from "@/lib/seo-content";
-import { createMetadata } from "@/lib/seo";
+import { createMetadata, siteSeo } from "@/lib/seo";
 import { listProducts } from "@/lib/server/catalog";
 const slugify = (value: string) =>
   value
@@ -50,11 +51,58 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const categoryName =
     filtered[0]?.categories?.find((cat) => slugify(cat) === categorySlug) ??
     categorySlug.replace(/-/g, " ");
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${categoryName} Cakes Hyderabad`,
+    url: `${siteSeo.siteUrl}/category/${categorySlug}`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: filtered.slice(0, 25).map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteSeo.siteUrl}/cakes/${product.slug}`,
+        name: product.name,
+      })),
+    },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteSeo.siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Cakes",
+        item: `${siteSeo.siteUrl}/cakes`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: categoryName,
+        item: `${siteSeo.siteUrl}/category/${categorySlug}`,
+      },
+    ],
+  };
 
   return (
     <>
       <SiteHeader />
       <main className="bg-white page-pad py-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(collectionSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbSchema) }}
+        />
         <div className="mx-auto max-w-[1200px]">
           <div className="flex items-start justify-between">
             <h1 className="text-left text-[2rem] font-semibold text-black">

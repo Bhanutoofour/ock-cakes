@@ -6,6 +6,7 @@ export const metadata = createMetadata({
   description:
     "Sign in to your OccasionKart account to manage cake orders, saved delivery details, and customer information.",
   keywords: ["OccasionKart login", "customer account login"],
+  noIndex: true,
 });
 
 export default function RegisterPage() {

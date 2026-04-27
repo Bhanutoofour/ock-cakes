@@ -11,6 +11,7 @@ import type {
   OrderUpdateInput,
   PaymentStatus,
 } from "@/lib/store-schema";
+import { resolveCouponDiscount } from "@/lib/coupons";
 import { db } from "@/lib/db";
 import { buildCartItemKey, resolveVariantPricing } from "@/lib/product-variants";
 import { getShippingQuote, normalizeIndianPincode } from "@/lib/shipping-rules";
@@ -659,6 +660,23 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
   }
 
   const deliveryFee = subtotal > 0 ? shippingQuote.deliveryFee : 0;
+  const couponResolution = resolveCouponDiscount({
+    couponCode: input.couponCode,
+    subtotal,
+  });
+  const totalBeforeDiscount = subtotal + deliveryFee;
+  const totalAfterDiscount = Math.max(
+    1,
+    totalBeforeDiscount - couponResolution.discountAmount,
+  );
+  const couponNote = couponResolution.valid
+    ? `Coupon Applied: ${couponResolution.code} (${couponResolution.percentageOff}% off, Discount Rs. ${couponResolution.discountAmount})`
+    : undefined;
+  const mergedNotes = [couponNote, isNonEmptyString(input.notes) ? input.notes.trim() : undefined]
+    .filter(Boolean)
+    .join("\n")
+    .trim();
+
   const order: Order = {
     id: randomUUID(),
     orderNumber: buildOrderNumber(createdAt),
@@ -675,10 +693,10 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
     pricing: {
       subtotal,
       deliveryFee,
-      total: subtotal + deliveryFee,
+      total: totalAfterDiscount,
       currency: "INR",
     },
-    notes: isNonEmptyString(input.notes) ? input.notes.trim() : undefined,
+    notes: mergedNotes || undefined,
     createdAt: createdAt.toISOString(),
     updatedAt: createdAt.toISOString(),
   };

@@ -4,6 +4,7 @@ import { listOrders } from "@/lib/server/orders";
 export const metadata = createMetadata({
   title: "Admin Analytics | OccasionKart",
   description: "Operational analytics for order lifecycle and fulfillment performance.",
+  noIndex: true,
 });
 
 function toPercent(value: number, total: number) {
@@ -97,4 +98,3 @@ function Row({ label, value, percent }: { label: string; value: number; percent:
     </div>
   );
 }
-

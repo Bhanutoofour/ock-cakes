@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 
 import { useCart } from "@/components/store/cart-context";
 import {
@@ -10,20 +11,8 @@ import {
   readCheckoutDraft,
   writeCheckoutDraft,
 } from "@/lib/checkout-draft";
+import { resolveCouponDiscount } from "@/lib/coupons";
 import { DELIVERY_SLOT_OPTIONS, getShippingQuote } from "@/lib/shipping-rules";
-
-type CreatedOrder = {
-  id: string;
-  orderNumber: string;
-  pricing: {
-    subtotal: number;
-    deliveryFee: number;
-    total: number;
-  };
-  customer: {
-    fullName: string;
-  };
-};
 
 type RazorpayCheckoutData = {
   key: string;
@@ -63,17 +52,40 @@ function loadRazorpayScript() {
 
 const STEP_TITLES = ["Delivery Details", "Message & Sender", "Review & Pay"];
 
+function buildDeliveryAddress(draft: CheckoutDraft) {
+  const lines = [
+    `H No: ${draft.houseNumber.trim()}`,
+    `Apt/Lane: ${draft.aptLane.trim()}`,
+    draft.landmark.trim() ? `Landmark: ${draft.landmark.trim()}` : "",
+    `Colony/Area: ${draft.colonyArea.trim()}`,
+    `City: ${draft.city.trim()}`,
+    `State: ${draft.state.trim()}`,
+    `Country: ${draft.country.trim()}`,
+    `Pincode: ${draft.deliveryPincode.trim()}`,
+  ].filter(Boolean);
+
+  return lines.join(", ");
+}
+
+function buildOrderNotes(draft: CheckoutDraft) {
+  const notes = [
+    draft.senderName.trim() ? `Sender Name: ${draft.senderName.trim()}` : "",
+    draft.alternatePhone.trim()
+      ? `Alternate Phone: ${draft.alternatePhone.trim()}`
+      : "",
+    draft.mapLink.trim() ? `Google Map Link: ${draft.mapLink.trim()}` : "",
+  ].filter(Boolean);
+
+  return notes.length > 0 ? notes.join("\n") : undefined;
+}
+
 export function CheckoutPageClient() {
+  const router = useRouter();
   const { items, clear } = useCart();
   const [step, setStep] = useState(1);
-  const [draft, setDraft] = useState<CheckoutDraft>(defaultCheckoutDraft);
+  const [draft, setDraft] = useState<CheckoutDraft>(() => readCheckoutDraft());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [createdOrder, setCreatedOrder] = useState<CreatedOrder | null>(null);
-
-  useEffect(() => {
-    setDraft(readCheckoutDraft());
-  }, []);
 
   const subtotal = useMemo(
     () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
@@ -84,19 +96,18 @@ export function CheckoutPageClient() {
     slot: draft.deliverySlot,
   });
   const delivery = items.length > 0 && shippingQuote.deliverable ? shippingQuote.deliveryFee : 0;
-  const total = subtotal + delivery;
+  const couponResolution = resolveCouponDiscount({
+    couponCode: draft.couponCode,
+    subtotal,
+  });
+  const discountAmount = couponResolution.discountAmount;
+  const total = Math.max(1, subtotal + delivery - discountAmount);
 
-  const summaryValues = createdOrder
-    ? {
-        subtotal: createdOrder.pricing.subtotal,
-        delivery: createdOrder.pricing.deliveryFee,
-        total: createdOrder.pricing.total,
-      }
-    : {
-        subtotal,
-        delivery,
-        total,
-      };
+  const summaryValues = {
+    subtotal,
+    delivery,
+    total,
+  };
 
   const updateDraftField = (field: keyof CheckoutDraft, value: string) => {
     setDraft((prev) => {
@@ -113,14 +124,26 @@ export function CheckoutPageClient() {
     if (!draft.phone.trim()) {
       return "Please enter your phone number.";
     }
-    if (!draft.address.trim()) {
-      return "Please enter delivery address.";
+    if (!draft.houseNumber.trim()) {
+      return "Please enter H No.";
+    }
+    if (!draft.aptLane.trim()) {
+      return "Please enter Apt name / Lane name.";
+    }
+    if (!draft.colonyArea.trim()) {
+      return "Please enter Colony / Area.";
+    }
+    if (!draft.city.trim()) {
+      return "Please enter City.";
     }
     if (!draft.deliveryPincode.trim()) {
       return "Please enter delivery pincode.";
     }
     if (!draft.deliveryDate.trim()) {
       return "Please select delivery date.";
+    }
+    if (draft.mapLink.trim() && !/^https?:\/\/.+/i.test(draft.mapLink.trim())) {
+      return "Google map link should start with http:// or https://";
     }
     if (!shippingQuote.deliverable) {
       return shippingQuote.message;
@@ -173,13 +196,11 @@ export function CheckoutPageClient() {
           },
           delivery: {
             date: draft.deliveryDate,
-            slot: draft.deliveryTime
-              ? `${draft.deliverySlot} (${draft.deliveryTime})`
-              : draft.deliverySlot,
+            slot: draft.deliverySlot,
             pincode: draft.deliveryPincode,
-            address: draft.address,
+            address: buildDeliveryAddress(draft),
             cakeMessage: draft.cakeMessage || undefined,
-            city: "Hyderabad",
+            city: draft.city,
           },
           items: items.map((item) => ({
             slug: item.slug,
@@ -187,14 +208,18 @@ export function CheckoutPageClient() {
             weightId: item.weightId,
             flavorId: item.flavorId,
           })),
-          notes: draft.senderName ? `Sender Name: ${draft.senderName}` : undefined,
+          couponCode: draft.couponCode || undefined,
+          notes: buildOrderNotes(draft),
         }),
       });
 
       const checkoutPayload = (await checkoutResponse.json()) as {
         error?: string;
         data?: {
-          order: CreatedOrder;
+          order: {
+            id: string;
+            orderNumber: string;
+          };
           razorpay: RazorpayCheckoutData;
         };
       };
@@ -241,15 +266,22 @@ export function CheckoutPageClient() {
 
           const confirmPayload = (await confirmResponse.json()) as {
             error?: string;
-            data?: { order: CreatedOrder };
+            data?: {
+              order: {
+                orderNumber: string;
+              };
+            };
           };
 
           if (!confirmResponse.ok || !confirmPayload.data) {
             throw new Error(confirmPayload.error ?? "Payment verification failed.");
           }
 
-          setCreatedOrder(confirmPayload.data.order);
+          writeCheckoutDraft(defaultCheckoutDraft);
           clear();
+          router.push(
+            `/thank-you?orderNumber=${encodeURIComponent(confirmPayload.data.order.orderNumber)}`,
+          );
         },
       });
 
@@ -271,220 +303,266 @@ export function CheckoutPageClient() {
             then review and pay with Razorpay.
           </p>
 
-          {createdOrder ? (
-            <div className="mt-6 rounded-[18px] border border-[rgba(34,139,34,0.16)] bg-[#f3fff2] p-6">
-              <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#2f8f2f]">
-                Order Confirmed
-              </p>
-              <h2 className="mt-3 text-[1.5rem] font-semibold text-stone-900">
-                Your order number is {createdOrder.orderNumber}
-              </h2>
-              <p className="mt-3 text-[1rem] leading-8 text-[#5b6b5d]">
-                Payment was successful and your order is confirmed. We will start preparation and
-                coordinate delivery as per selected slot.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Link
-                  href="/cakes"
-                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
-                >
-                  Shop More Cakes
-                </Link>
-                <Link
-                  href="/track-order"
-                  className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-stone-900"
-                >
-                  Track Order
-                </Link>
-              </div>
+          <>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {STEP_TITLES.map((title, index) => {
+                const stepNumber = index + 1;
+                const active = step === stepNumber;
+                return (
+                  <button
+                    key={title}
+                    type="button"
+                    onClick={() => setStep(stepNumber)}
+                    className={`rounded-full px-4 py-2 text-sm font-semibold ${
+                      active
+                        ? "bg-[#ef7f41] text-white"
+                        : "border border-[rgba(0,0,0,0.12)] text-stone-700"
+                    }`}
+                  >
+                    {stepNumber}. {title}
+                  </button>
+                );
+              })}
             </div>
-          ) : (
-            <>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {STEP_TITLES.map((title, index) => {
-                  const stepNumber = index + 1;
-                  const active = step === stepNumber;
-                  return (
-                    <button
-                      key={title}
-                      type="button"
-                      onClick={() => setStep(stepNumber)}
-                      className={`rounded-full px-4 py-2 text-sm font-semibold ${
-                        active
-                          ? "bg-[#ef7f41] text-white"
-                          : "border border-[rgba(0,0,0,0.12)] text-stone-700"
-                      }`}
-                    >
-                      {stepNumber}. {title}
-                    </button>
-                  );
-                })}
-              </div>
 
-              {step === 1 ? (
-                <div className="mt-6 space-y-3">
-                  <div className="grid gap-3 md:grid-cols-2">
-                    <input
-                      value={draft.fullName}
-                      onChange={(event) => updateDraftField("fullName", event.target.value)}
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                      placeholder="Full name"
-                    />
-                    <input
-                      value={draft.phone}
-                      onChange={(event) => updateDraftField("phone", event.target.value)}
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                      placeholder="Phone number"
-                    />
-                    <input
-                      value={draft.email}
-                      onChange={(event) => updateDraftField("email", event.target.value)}
-                      type="email"
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                      placeholder="Email (optional)"
-                    />
-                    <input
-                      value={draft.deliveryDate}
-                      onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
-                      type="date"
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                    />
-                    <input
-                      value={draft.deliveryPincode}
-                      onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                      placeholder="Delivery pincode"
-                      maxLength={6}
-                      inputMode="numeric"
-                    />
-                    <select
-                      value={draft.deliverySlot}
-                      onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                    >
-                      {DELIVERY_SLOT_OPTIONS.map((slot) => (
-                        <option key={slot} value={slot}>
-                          {slot}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      value={draft.deliveryTime}
-                      onChange={(event) => updateDraftField("deliveryTime", event.target.value)}
-                      type="time"
-                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                    />
-                  </div>
-                  <textarea
-                    value={draft.address}
-                    onChange={(event) => updateDraftField("address", event.target.value)}
-                    className="min-h-[96px] w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                    placeholder="Delivery address in Hyderabad"
+            {step === 1 ? (
+              <div className="mt-6 space-y-3">
+                <div className="grid gap-3 md:grid-cols-2">
+                  <input
+                    value={draft.fullName}
+                    onChange={(event) => updateDraftField("fullName", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Full name"
                   />
-                  {draft.deliveryPincode ? (
-                    <p
-                      className={`text-[0.9rem] font-semibold ${
-                        shippingQuote.deliverable ? "text-[#2f8f2f]" : "text-[#b53131]"
-                      }`}
-                    >
-                      {shippingQuote.message}
-                    </p>
-                  ) : null}
+                  <input
+                    value={draft.phone}
+                    onChange={(event) => updateDraftField("phone", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Phone number"
+                  />
+                  <input
+                    value={draft.alternatePhone}
+                    onChange={(event) => updateDraftField("alternatePhone", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Alternate phone number (optional)"
+                  />
+                  <input
+                    value={draft.email}
+                    onChange={(event) => updateDraftField("email", event.target.value)}
+                    type="email"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Email (optional)"
+                  />
+                  <input
+                    value={draft.houseNumber}
+                    onChange={(event) => updateDraftField("houseNumber", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="H No"
+                  />
+                  <input
+                    value={draft.aptLane}
+                    onChange={(event) => updateDraftField("aptLane", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Apt name / Lane name"
+                  />
+                  <input
+                    value={draft.landmark}
+                    onChange={(event) => updateDraftField("landmark", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Landmark (optional)"
+                  />
+                  <input
+                    value={draft.colonyArea}
+                    onChange={(event) => updateDraftField("colonyArea", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Colony / Area"
+                  />
+                  <input
+                    value={draft.mapLink}
+                    onChange={(event) => updateDraftField("mapLink", event.target.value)}
+                    type="url"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Google map link (optional)"
+                  />
+                  <input
+                    value={draft.city}
+                    onChange={(event) => updateDraftField("city", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="City"
+                  />
+                  <input
+                    value={draft.deliveryDate}
+                    onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
+                    type="date"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                  />
+                  <input
+                    value={draft.deliveryPincode}
+                    onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    placeholder="Delivery pincode"
+                    maxLength={6}
+                    inputMode="numeric"
+                  />
+                  <input
+                    value={draft.state}
+                    readOnly
+                    disabled
+                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-stone-700"
+                    placeholder="State"
+                  />
+                  <input
+                    value={draft.country}
+                    readOnly
+                    disabled
+                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-stone-700"
+                    placeholder="Country"
+                  />
+                  <select
+                    value={draft.deliverySlot}
+                    onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                  >
+                    {DELIVERY_SLOT_OPTIONS.map((slot) => (
+                      <option key={slot} value={slot}>
+                        {slot}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {draft.deliveryPincode ? (
+                  <p
+                    className={`text-[0.9rem] font-semibold ${
+                      shippingQuote.deliverable ? "text-[#2f8f2f]" : "text-[#b53131]"
+                    }`}
+                  >
+                    {shippingQuote.message}
+                  </p>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={handleContinueFromStepOne}
+                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
+                >
+                  Continue to Message
+                </button>
+              </div>
+            ) : null}
+
+            {step === 2 ? (
+              <div className="mt-6 space-y-3">
+                <input
+                  value={draft.cakeMessage}
+                  onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
+                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                  placeholder="Message on cake (e.g., Happy Birthday Rahul)"
+                />
+                <input
+                  value={draft.senderName}
+                  onChange={(event) => updateDraftField("senderName", event.target.value)}
+                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                  placeholder="Sender name (e.g., From Mom & Dad)"
+                />
+                <div className="flex flex-wrap gap-3">
                   <button
                     type="button"
-                    onClick={handleContinueFromStepOne}
+                    onClick={() => setStep(1)}
+                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleContinueFromStepTwo}
                     className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
                   >
-                    Continue to Message
+                    Continue to Review
                   </button>
                 </div>
-              ) : null}
+              </div>
+            ) : null}
 
-              {step === 2 ? (
-                <div className="mt-6 space-y-3">
-                  <input
-                    value={draft.cakeMessage}
-                    onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
-                    className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                    placeholder="Message on cake (e.g., Happy Birthday Rahul)"
-                  />
-                  <input
-                    value={draft.senderName}
-                    onChange={(event) => updateDraftField("senderName", event.target.value)}
-                    className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-                    placeholder="Sender name (e.g., From Mom & Dad)"
-                  />
-                  <div className="flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setStep(1)}
-                      className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
-                    >
-                      Back
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleContinueFromStepTwo}
-                      className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
-                    >
-                      Continue to Review
-                    </button>
-                  </div>
-                </div>
-              ) : null}
-
-              {step === 3 ? (
-                <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-5">
-                  <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
-                    Review Order
+            {step === 3 ? (
+              <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-5">
+                <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+                  Review Order
+                </p>
+                <div className="space-y-2 text-[0.95rem] leading-7 text-[#6c7396]">
+                  <p>
+                    <span className="font-semibold text-stone-900">Delivery:</span>{" "}
+                    {draft.deliveryDate} | {draft.deliverySlot}
                   </p>
-                  <div className="space-y-2 text-[0.95rem] leading-7 text-[#6c7396]">
-                    <p>
-                      <span className="font-semibold text-stone-900">Delivery:</span>{" "}
-                      {draft.deliveryDate} | {draft.deliverySlot}
-                      {draft.deliveryTime ? ` (${draft.deliveryTime})` : ""}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-stone-900">Pincode:</span>{" "}
-                      {draft.deliveryPincode}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-stone-900">Address:</span> {draft.address}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-stone-900">Cake Message:</span>{" "}
-                      {draft.cakeMessage || "No message"}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-stone-900">Sender Name:</span>{" "}
-                      {draft.senderName || "Not provided"}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-stone-900">Items:</span>{" "}
-                      {items.map((item) => `${item.name} x ${item.quantity}`).join(", ")}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
-                    >
-                      Back
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handlePlaceOrder}
-                      disabled={isSubmitting}
-                      className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
-                    >
-                      {isSubmitting ? "Processing..." : "Place Order & Pay"}
-                    </button>
-                  </div>
+                  <p>
+                    <span className="font-semibold text-stone-900">Pincode:</span>{" "}
+                    {draft.deliveryPincode}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">H No:</span>{" "}
+                    {draft.houseNumber}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Apt/Lane:</span>{" "}
+                    {draft.aptLane}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Landmark:</span>{" "}
+                    {draft.landmark || "Not provided"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Colony/Area:</span>{" "}
+                    {draft.colonyArea}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">City:</span> {draft.city}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">State:</span> {draft.state}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Country:</span>{" "}
+                    {draft.country}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Google Map Link:</span>{" "}
+                    {draft.mapLink || "Not provided"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Alternate Phone:</span>{" "}
+                    {draft.alternatePhone || "Not provided"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Cake Message:</span>{" "}
+                    {draft.cakeMessage || "No message"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Sender Name:</span>{" "}
+                    {draft.senderName || "Not provided"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-stone-900">Items:</span>{" "}
+                    {items.map((item) => `${item.name} x ${item.quantity}`).join(", ")}
+                  </p>
                 </div>
-              ) : null}
-            </>
-          )}
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setStep(2)}
+                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handlePlaceOrder}
+                    disabled={isSubmitting}
+                    className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
+                  >
+                    {isSubmitting ? "Processing..." : "Place Order & Pay"}
+                  </button>
+                </div>
+              </div>
+            ) : null}
+          </>
 
           {errorMessage ? (
             <p className="mt-4 rounded-[14px] bg-[#fff1f1] px-4 py-3 text-sm font-semibold text-[#b53131]">
@@ -495,7 +573,33 @@ export function CheckoutPageClient() {
 
         <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff7f2] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h2 className="text-[1.4rem] font-semibold text-black">Order Summary</h2>
-          <div className="mt-5 space-y-3 text-[1rem] text-[#6c7396]">
+            <div className="mt-5 space-y-3 text-[1rem] text-[#6c7396]">
+            <div>
+              <label
+                className="mb-1 block text-[0.82rem] font-semibold uppercase tracking-[0.14em] text-[#ef7f41]"
+                htmlFor="coupon-code"
+              >
+                Coupon Code
+              </label>
+              <input
+                id="coupon-code"
+                value={draft.couponCode}
+                onChange={(event) =>
+                  updateDraftField("couponCode", event.target.value.toUpperCase())
+                }
+                className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-white px-3 py-2 text-[0.92rem] text-stone-700"
+                placeholder="Enter coupon (e.g., LIVE99)"
+              />
+              {draft.couponCode.trim() ? (
+                <p
+                  className={`mt-2 text-[0.82rem] font-semibold ${
+                    couponResolution.valid ? "text-[#2f8f2f]" : "text-[#b53131]"
+                  }`}
+                >
+                  {couponResolution.message ?? "Coupon check complete."}
+                </p>
+              ) : null}
+            </div>
             <div className="flex justify-between">
               <span>Subtotal</span>
               <span>Rs. {summaryValues.subtotal}</span>
@@ -504,7 +608,13 @@ export function CheckoutPageClient() {
               <span>Delivery</span>
               <span>Rs. {summaryValues.delivery}</span>
             </div>
-            {!createdOrder && draft.deliveryPincode && shippingQuote.deliverable ? (
+            {discountAmount > 0 ? (
+              <div className="flex justify-between text-[#2f8f2f]">
+                <span>Coupon Discount</span>
+                <span>- Rs. {discountAmount}</span>
+              </div>
+            ) : null}
+            {draft.deliveryPincode && shippingQuote.deliverable ? (
               <p className="text-[0.84rem] font-semibold text-[#2f8f2f]">
                 {shippingQuote.zoneName} shipping applied
                 {shippingQuote.midnightSurcharge > 0

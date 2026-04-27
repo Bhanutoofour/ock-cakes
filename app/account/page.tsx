@@ -13,6 +13,7 @@ export const metadata = createMetadata({
   description:
     "View your OccasionKart account details and stay ready for upcoming cake orders.",
   keywords: ["OccasionKart account", "customer profile", "cake order account"],
+  noIndex: true,
 });
 
 export default async function AccountPage() {

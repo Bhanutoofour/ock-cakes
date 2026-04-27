@@ -9,6 +9,7 @@ export const metadata = createMetadata({
   description:
     "Review cakes added to your cart and continue your Hyderabad cake order with OccasionKart.",
   keywords: ["cake cart", "OccasionKart cart", "cake order Hyderabad"],
+  noIndex: true,
 });
 
 export default function CartPage() {

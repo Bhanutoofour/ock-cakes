@@ -15,6 +15,7 @@ export async function generateMetadata({ params }: Props) {
   return createMetadata({
     title: `Admin Order ${id} | OccasionKart`,
     description: "Manage customer order status, notes, payment state, and delivery details.",
+    noIndex: true,
   });
 }
 

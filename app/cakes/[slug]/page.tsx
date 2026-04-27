@@ -6,12 +6,13 @@ import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
+import { toJsonLd } from "@/lib/json-ld";
 import { getProductSocialProof } from "@/lib/product-social-proof";
 import {
   buildProductKeywords,
   buildProductSeoDescription,
 } from "@/lib/seo-content";
-import { createMetadata } from "@/lib/seo";
+import { createMetadata, siteSeo } from "@/lib/seo";
 import { getProductBySlug, listProducts } from "@/lib/server/catalog";
 import { ProductPurchasePanel } from "./product-purchase-panel";
 import { ProductReviewsSection } from "./product-reviews-section";
@@ -92,7 +93,11 @@ export async function generateMetadata({
   const product = await getProductBySlug(slug);
 
   if (!product) {
-    return createMetadata({ title: "Cake not found | Occasionkart", path: `/cakes/${slug}` });
+    return createMetadata({
+      title: "Cake not found | Occasionkart",
+      path: `/cakes/${slug}`,
+      noIndex: true,
+    });
   }
 
   return createMetadata({
@@ -147,7 +152,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
       availability: "https://schema.org/InStock",
       priceCurrency: "INR",
       price: String(product.price),
-      url: `https://occasionkart.com/cakes/${product.slug}`,
+      url: `${siteSeo.siteUrl}/cakes/${product.slug}`,
     },
     aggregateRating: {
       "@type": "AggregateRating",
@@ -168,6 +173,30 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
       },
     })),
   };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteSeo.siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Cakes",
+        item: `${siteSeo.siteUrl}/cakes`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `${siteSeo.siteUrl}/cakes/${product.slug}`,
+      },
+    ],
+  };
 
   return (
     <>
@@ -175,11 +204,15 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
       <main className="flex-1">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(productSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(faqSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbSchema) }}
         />
 
         <section className="page-pad mx-auto w-full max-w-7xl py-14">

@@ -7,6 +7,7 @@ export const metadata = createMetadata({
   title: "Admin Categories | OccasionKart",
   description:
     "Manage OccasionKart categories, assign products to categories, remove products, and handle bulk category updates.",
+  noIndex: true,
 });
 
 export default async function AdminCategoriesPage() {

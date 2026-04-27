@@ -7,6 +7,7 @@ export const metadata = createMetadata({
   title: "Admin Customization | OccasionKart",
   description:
     "Review photo cakes, custom messages, and theme approvals before production starts.",
+  noIndex: true,
 });
 
 export default async function AdminCustomizationPage() {

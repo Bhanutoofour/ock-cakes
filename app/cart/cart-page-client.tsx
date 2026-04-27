@@ -2,11 +2,10 @@
 
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useCart } from "@/components/store/cart-context";
 import {
-  defaultCheckoutDraft,
   type CheckoutDraft,
   readCheckoutDraft,
   writeCheckoutDraft,
@@ -15,12 +14,8 @@ import { DELIVERY_SLOT_OPTIONS, getShippingQuote } from "@/lib/shipping-rules";
 
 export function CartPageClient() {
   const { items, updateQuantity, removeItem } = useCart();
-  const [checkoutDraft, setCheckoutDraft] = useState<CheckoutDraft>(defaultCheckoutDraft);
+  const [checkoutDraft, setCheckoutDraft] = useState<CheckoutDraft>(() => readCheckoutDraft());
   const [saveMessage, setSaveMessage] = useState("");
-
-  useEffect(() => {
-    setCheckoutDraft(readCheckoutDraft());
-  }, []);
 
   const updateDraftField = (field: keyof CheckoutDraft, value: string) => {
     setCheckoutDraft((prev) => ({ ...prev, [field]: value }));
@@ -121,8 +116,8 @@ export function CartPageClient() {
               Delivery Details Before Checkout
             </h2>
             <p className="mt-2 text-[0.94rem] text-[#6c7396]">
-              Fill this once and continue to checkout with delivery address, slot, date, time,
-              cake message, and sender name prefilled.
+              Fill this once and continue to checkout with delivery address, slot, date, cake
+              message, and sender name prefilled.
             </p>
 
             <div className="mt-5 grid gap-3 md:grid-cols-2">
@@ -139,12 +134,76 @@ export function CartPageClient() {
                 placeholder="Phone number"
               />
               <input
+                value={checkoutDraft.alternatePhone}
+                onChange={(event) => updateDraftField("alternatePhone", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Alternate phone number (optional)"
+              />
+              <input
+                value={checkoutDraft.email}
+                onChange={(event) => updateDraftField("email", event.target.value)}
+                type="email"
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Email (optional)"
+              />
+              <input
+                value={checkoutDraft.houseNumber}
+                onChange={(event) => updateDraftField("houseNumber", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="H No"
+              />
+              <input
+                value={checkoutDraft.aptLane}
+                onChange={(event) => updateDraftField("aptLane", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Apt name / Lane name"
+              />
+              <input
+                value={checkoutDraft.landmark}
+                onChange={(event) => updateDraftField("landmark", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Landmark (optional)"
+              />
+              <input
+                value={checkoutDraft.colonyArea}
+                onChange={(event) => updateDraftField("colonyArea", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Colony / Area"
+              />
+              <input
+                value={checkoutDraft.mapLink}
+                onChange={(event) => updateDraftField("mapLink", event.target.value)}
+                type="url"
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="Google map link (optional)"
+              />
+              <input
+                value={checkoutDraft.city}
+                onChange={(event) => updateDraftField("city", event.target.value)}
+                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                placeholder="City"
+              />
+              <input
                 value={checkoutDraft.deliveryPincode}
                 onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
                 className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
                 placeholder="Delivery pincode"
                 maxLength={6}
                 inputMode="numeric"
+              />
+              <input
+                value={checkoutDraft.state}
+                readOnly
+                disabled
+                className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-stone-700"
+                placeholder="State"
+              />
+              <input
+                value={checkoutDraft.country}
+                readOnly
+                disabled
+                className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-stone-700"
+                placeholder="Country"
               />
               <input
                 value={checkoutDraft.deliveryDate}
@@ -164,25 +223,12 @@ export function CartPageClient() {
                 ))}
               </select>
               <input
-                value={checkoutDraft.deliveryTime}
-                onChange={(event) => updateDraftField("deliveryTime", event.target.value)}
-                type="time"
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-              />
-              <input
                 value={checkoutDraft.senderName}
                 onChange={(event) => updateDraftField("senderName", event.target.value)}
                 className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
                 placeholder="Sender name on greeting"
               />
             </div>
-
-            <textarea
-              value={checkoutDraft.address}
-              onChange={(event) => updateDraftField("address", event.target.value)}
-              className="mt-3 min-h-[92px] w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
-              placeholder="Delivery address"
-            />
             <input
               value={checkoutDraft.cakeMessage}
               onChange={(event) => updateDraftField("cakeMessage", event.target.value)}

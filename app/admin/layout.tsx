@@ -5,8 +5,15 @@ import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
 import { isCustomizationOrder } from "@/lib/admin-ops";
 import { getAdminSession } from "@/lib/admin-auth";
+import { createMetadata } from "@/lib/seo";
 import { getOrderDashboardStats, listOrders } from "@/lib/server/orders";
 import { AdminSidebar, type AdminSidebarSection } from "./admin-sidebar";
+
+export const metadata = createMetadata({
+  title: "Admin | OccasionKart",
+  description: "Restricted admin workspace for OccasionKart operations.",
+  noIndex: true,
+});
 
 const adminSections: AdminSidebarSection[] = [
   {

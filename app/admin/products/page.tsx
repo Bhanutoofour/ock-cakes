@@ -8,6 +8,7 @@ export const metadata = createMetadata({
   description:
     "Manage the live OccasionKart product catalog stored in Neon from a simple admin page.",
   keywords: ["OccasionKart admin", "manage products", "catalog admin"],
+  noIndex: true,
 });
 
 export default async function AdminProductsPage() {

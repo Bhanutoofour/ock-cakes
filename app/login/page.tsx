@@ -9,6 +9,7 @@ export const metadata = createMetadata({
   description:
     "Sign in to your OccasionKart account to manage cake orders, saved details, and order tracking.",
   keywords: ["OccasionKart login", "cake order login"],
+  noIndex: true,
 });
 
 export default function LoginPage() {

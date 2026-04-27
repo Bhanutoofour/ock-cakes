@@ -8,6 +8,7 @@ export const metadata = createMetadata({
   description:
     "Track your OccasionKart cake delivery in Hyderabad by sharing your order details with the support team.",
   keywords: ["track cake order", "cake delivery status Hyderabad", "OccasionKart track order"],
+  noIndex: true,
 });
 
 export default function TrackOrderPage() {

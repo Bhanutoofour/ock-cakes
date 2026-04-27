@@ -4,6 +4,7 @@ import { listOrders } from "@/lib/server/orders";
 export const metadata = createMetadata({
   title: "Admin Finance | OccasionKart",
   description: "Finance view for paid, pending, failed, and refunded orders.",
+  noIndex: true,
 });
 
 export default async function AdminFinancePage() {
@@ -84,4 +85,3 @@ function StatusPill({
     </div>
   );
 }
-

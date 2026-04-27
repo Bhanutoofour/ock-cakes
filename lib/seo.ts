@@ -5,6 +5,7 @@ const siteName = "OccasionKart";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://occasionkart.com";
 const defaultDescription =
   "Order cakes online in Hyderabad with OccasionKart for same day cake delivery, custom cakes, birthday cakes, anniversary cakes, and premium celebration designs.";
+const defaultOgImage = "/icon.jpg";
 
 type CreateMetadataInput = {
   title: string;
@@ -12,6 +13,7 @@ type CreateMetadataInput = {
   keywords?: string[];
   path?: string;
   image?: string;
+  noIndex?: boolean;
 };
 
 export function createMetadata({
@@ -20,8 +22,9 @@ export function createMetadata({
   keywords = [],
   path,
   image,
+  noIndex = false,
 }: CreateMetadataInput): Metadata {
-  const canonicalUrl = path ? new URL(path, siteUrl).toString() : undefined;
+  const canonicalPath = path;
   const mergedKeywords = buildSeoKeywords(keywords);
 
   return {
@@ -29,35 +32,42 @@ export function createMetadata({
     description,
     metadataBase: new URL(siteUrl),
     keywords: mergedKeywords,
-    alternates: canonicalUrl
+    alternates: canonicalPath
       ? {
-          canonical: canonicalUrl,
+          canonical: canonicalPath,
         }
       : undefined,
     robots: {
-      index: true,
+      index: !noIndex,
       follow: true,
+      nocache: false,
+      googleBot: {
+        index: !noIndex,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
     openGraph: {
       title,
       description,
       siteName,
       type: "website",
-      url: canonicalUrl,
-      images: image
-        ? [
-            {
-              url: image,
-              alt: title,
-            },
-          ]
-        : undefined,
+      locale: "en_IN",
+      url: canonicalPath,
+      images: [
+        {
+          url: image ?? defaultOgImage,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: image ? [image] : undefined,
+      images: [image ?? defaultOgImage],
     },
   };
 }
@@ -66,4 +76,5 @@ export const siteSeo = {
   siteName,
   siteUrl,
   defaultDescription,
+  defaultOgImage,
 };

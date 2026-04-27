@@ -5,7 +5,8 @@ import { HomeHeroCarousel } from "@/components/store/home-hero-carousel";
 import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
-import { createMetadata } from "@/lib/seo";
+import { toJsonLd } from "@/lib/json-ld";
+import { createMetadata, siteSeo } from "@/lib/seo";
 import { listProducts } from "@/lib/server/catalog";
 
 export const metadata = createMetadata({
@@ -218,11 +219,45 @@ export default async function Home() {
   const products = await listProducts();
   const bestsellers = products.slice(0, 5);
   const seasonalPicks = [products[2], products[3], products[4], products[5]].filter(Boolean);
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteSeo.siteUrl}/#website`,
+    url: siteSeo.siteUrl,
+    name: siteSeo.siteName,
+    description: siteSeo.defaultDescription,
+    inLanguage: "en-IN",
+  };
+  const bakerySchema = {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "@id": `${siteSeo.siteUrl}/#bakery`,
+    name: siteSeo.siteName,
+    url: siteSeo.siteUrl,
+    image: `${siteSeo.siteUrl}${siteSeo.defaultOgImage}`,
+    servesCuisine: "Cakes and Desserts",
+    areaServed: "Hyderabad",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Hyderabad",
+      addressRegion: "Telangana",
+      addressCountry: "IN",
+    },
+    sameAs: [siteSeo.siteUrl],
+  };
 
   return (
     <>
       <SiteHeader />
       <main className="bg-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(websiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(bakerySchema) }}
+        />
         <HomeHeroCarousel />
 
         <section className="page-pad py-6">

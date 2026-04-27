@@ -13,6 +13,7 @@ export async function generateMetadata({ params }: Props) {
   return createMetadata({
     title: `Admin Customer ${id} | OccasionKart`,
     description: "View customer order history and spending from the admin area.",
+    noIndex: true,
   });
 }
 

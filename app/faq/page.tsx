@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
+import { toJsonLd } from "@/lib/json-ld";
 import { buildSeoKeywords } from "@/lib/seo-content";
 import { createMetadata } from "@/lib/seo";
 
@@ -128,7 +129,7 @@ export default function FAQPage() {
       <main className="bg-white">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(faqSchema) }}
         />
 
         <section className="page-pad py-8 sm:py-12">
