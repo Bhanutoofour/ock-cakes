@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useRouter } from "next/navigation";
 
 import { useCart } from "@/components/store/cart-context";
 
@@ -16,6 +17,7 @@ type AddToCartProps = {
   flavorLabel?: string;
   flavorPricePerKg?: number;
   customPhotoName?: string;
+  redirectToCart?: boolean;
   className?: string;
   children?: ReactNode;
 };
@@ -35,16 +37,18 @@ export function AddToCartButton({
   flavorLabel,
   flavorPricePerKg,
   customPhotoName,
+  redirectToCart = true,
   className,
   children,
 }: AddToCartProps) {
+  const router = useRouter();
   const { addItem } = useCart();
 
   return (
     <button
       type="button"
       className={className ?? defaultButtonClassName}
-      onClick={() =>
+      onClick={() => {
         addItem({
           slug,
           name,
@@ -57,8 +61,13 @@ export function AddToCartButton({
           flavorLabel,
           flavorPricePerKg,
           customPhotoName,
-        })
-      }
+        });
+
+        if (redirectToCart) {
+          router.push("/cart");
+          router.refresh();
+        }
+      }}
     >
       {children ?? "Add to cart"}
     </button>

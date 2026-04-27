@@ -588,7 +588,7 @@ export function CheckoutPageClient() {
                   updateDraftField("couponCode", event.target.value.toUpperCase())
                 }
                 className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-white px-3 py-2 text-[0.92rem] text-stone-700"
-                placeholder="Enter coupon (e.g., LIVE99)"
+                placeholder="Enter coupon code"
               />
               {draft.couponCode.trim() ? (
                 <p

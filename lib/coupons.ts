@@ -17,7 +17,7 @@ const LIVE_COUPONS: CouponDefinition[] = [
   {
     code: "LIVE99",
     percentageOff: 99,
-    active: true,
+    active: false,
     minSubtotal: 1,
   },
 ];
@@ -67,4 +67,3 @@ export function resolveCouponDiscount(input: {
     message: `${coupon.percentageOff}% discount applied.`,
   };
 }
-
