@@ -3,16 +3,52 @@ import { redirect } from "next/navigation";
 
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
+import { isCustomizationOrder } from "@/lib/admin-ops";
 import { getAdminSession } from "@/lib/admin-auth";
-import { getOrderDashboardStats } from "@/lib/server/orders";
-import { AdminSidebar } from "./admin-sidebar";
+import { getOrderDashboardStats, listOrders } from "@/lib/server/orders";
+import { AdminSidebar, type AdminSidebarSection } from "./admin-sidebar";
 
-const adminLinks = [
-  { href: "/admin", label: "Overview" },
-  { href: "/admin/orders", label: "Orders" },
-  { href: "/admin/products", label: "Products" },
-  { href: "/admin/customers", label: "Customers" },
-  { href: "/admin/categories", label: "Categories" },
+const adminSections: AdminSidebarSection[] = [
+  {
+    title: "Core",
+    links: [
+      { href: "/admin", label: "Dashboard" },
+      { href: "/admin/orders", label: "Orders" },
+      { href: "/admin/products", label: "Products" },
+      { href: "/admin/customers", label: "Customers" },
+      { href: "/admin/categories", label: "Content" },
+      { href: "/admin/customization", label: "Customization" },
+      { href: "/admin/delivery", label: "Delivery" },
+    ],
+  },
+  {
+    title: "Growth",
+    links: [
+      { label: "Marketing", comingSoon: true },
+      { label: "Discounts", comingSoon: true },
+    ],
+  },
+  {
+    title: "Content Stack",
+    links: [
+      { label: "Metaobjects", comingSoon: true },
+      { label: "Files", comingSoon: true },
+      { label: "Menus", comingSoon: true },
+      { label: "Blog posts", comingSoon: true },
+    ],
+  },
+  {
+    title: "Business",
+    links: [
+      { label: "Markets", comingSoon: true },
+      { href: "/admin/finance", label: "Finance" },
+      { href: "/admin/analytics", label: "Analytics" },
+    ],
+  },
+  {
+    title: "Growth Actions",
+    links: [{ href: "/admin/marketing", label: "Marketing" }],
+  },
 ];
 
 export default async function AdminLayout({
@@ -24,12 +60,27 @@ export default async function AdminLayout({
     redirect("/login");
   }
 
-  const orderStats = isAdmin ? await getOrderDashboardStats() : null;
-  const sidebarLinks = adminLinks.map((link) =>
-    link.href === "/admin/orders"
-      ? { ...link, badgeCount: orderStats?.pendingOrders ?? 0 }
-      : link,
-  );
+  const [orderStats, recentOrders] = isAdmin
+    ? await Promise.all([getOrderDashboardStats(), listOrders({ limit: 400 })])
+    : [null, []];
+  const pendingCustomizationCount = recentOrders.filter(
+    (order) => isCustomizationOrder(order) && order.status === "pending",
+  ).length;
+  const activeDeliveryCount = recentOrders.filter(
+    (order) => order.status === "out_for_delivery",
+  ).length;
+  const sidebarSections = adminSections.map((section) => ({
+    ...section,
+    links: section.links.map((link) =>
+      link.href === "/admin/orders"
+        ? { ...link, badgeCount: orderStats?.pendingOrders ?? 0 }
+        : link.href === "/admin/customization"
+          ? { ...link, badgeCount: pendingCustomizationCount }
+          : link.href === "/admin/delivery"
+            ? { ...link, badgeCount: activeDeliveryCount }
+        : link,
+    ),
+  }));
 
   return (
     <>
@@ -67,7 +118,7 @@ export default async function AdminLayout({
             </div>
 
             <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
-              <AdminSidebar links={sidebarLinks} userEmail={session.user.email} />
+              <AdminSidebar sections={sidebarSections} userEmail={session.user.email} />
 
               <section>{children}</section>
             </div>

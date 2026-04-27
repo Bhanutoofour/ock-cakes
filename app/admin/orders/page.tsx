@@ -14,9 +14,9 @@ export default async function AdminOrdersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-[2rem] font-semibold text-black">Orders</h2>
+        <h2 className="text-[2rem] font-semibold text-black">Orders Management</h2>
         <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">
-          Review incoming orders, open details, and move them through fulfillment.
+          Search, sort, assign, and update fulfillment status from one operations table.
         </p>
       </div>
 

@@ -3,18 +3,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
 import { getProductSocialProof } from "@/lib/product-social-proof";
 import {
-  buildGeoCoverageLine,
-  buildProductFaqs,
   buildProductKeywords,
   buildProductSeoDescription,
 } from "@/lib/seo-content";
 import { createMetadata } from "@/lib/seo";
-import { getProductBySlug } from "@/lib/server/catalog";
+import { getProductBySlug, listProducts } from "@/lib/server/catalog";
 import { ProductPurchasePanel } from "./product-purchase-panel";
+import { ProductReviewsSection } from "./product-reviews-section";
 import { ProductSummaryPanel } from "./product-summary-panel";
 
 type CakeDetailPageProps = {
@@ -22,6 +22,68 @@ type CakeDetailPageProps = {
 };
 
 export const dynamic = "force-dynamic";
+
+function buildProductDetailFaqs(productName: string) {
+  return [
+    {
+      question: "What's the difference between fresh and pre-made cakes?",
+      answer:
+        "Our cakes are baked in small daily batches and finished close to dispatch. We do not ship frozen pre-made cakes for regular orders.",
+    },
+    {
+      question: "Can I get same-day delivery to my area?",
+      answer:
+        "Yes, same-day delivery is available in serviceable Hyderabad pincodes when you place the order before 7:00 PM. Use the pincode checker on this page to confirm.",
+    },
+    {
+      question: "What's your refund policy?",
+      answer:
+        "Because cakes are perishable, returns are not accepted after delivery. If there is a quality issue, contact us quickly with photo proof and our team will review for replacement or refund support.",
+    },
+    {
+      question: "Can I customize flavors?",
+      answer:
+        "Yes. Most cakes support flavor and weight selection before checkout. For fully custom designs, use our custom-orders flow and share your event details.",
+    },
+    {
+      question: "How are photo cakes made?",
+      answer:
+        `For photo cakes like ${productName}, we print your uploaded image on edible sheet material using food-safe edible inks, then place it on freshly frosted cake.`,
+    },
+    {
+      question: "What's the shelf life of your cakes?",
+      answer:
+        "For best taste and texture, consume within 24 hours. Keep refrigerated and avoid direct heat once delivered.",
+    },
+  ];
+}
+
+function getRelatedProductsForDetail(
+  allProducts: Awaited<ReturnType<typeof listProducts>>,
+  slug: string,
+  category: string,
+  categories: string[],
+) {
+  return allProducts
+    .filter((candidate) => candidate.slug !== slug)
+    .map((candidate) => {
+      const samePrimaryCategory = candidate.category === category ? 3 : 0;
+      const overlappingCategories = candidate.categories.filter((item) =>
+        categories.includes(item),
+      ).length;
+      return {
+        candidate,
+        score: samePrimaryCategory + overlappingCategories,
+      };
+    })
+    .sort(
+      (left, right) =>
+        right.score - left.score ||
+        left.candidate.name.localeCompare(right.candidate.name),
+    )
+    .slice(0, 6)
+    .map((item) => item.candidate);
+}
 
 export async function generateMetadata({
   params,
@@ -56,7 +118,14 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
   }
 
   const socialProof = getProductSocialProof(product.slug);
-  const productFaqs = buildProductFaqs(product.name);
+  const productFaqs = buildProductDetailFaqs(product.name);
+  const allProducts = await listProducts({ limit: 80 });
+  const relatedProducts = getRelatedProductsForDetail(
+    allProducts,
+    product.slug,
+    product.category,
+    product.categories,
+  );
   const reviewCount = Number.parseInt(String(socialProof.reviewsLabel).replace(/[^0-9]/g, ""), 10);
   const productSchema = {
     "@context": "https://schema.org",
@@ -153,19 +222,14 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
 
           <section className="mt-10 rounded-[30px] border border-[var(--line)] bg-[#fffaf6] p-6 sm:p-8">
             <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)]">
-              Why Customers Choose {product.name} in Hyderabad
+              Frequently Asked Questions
             </h2>
-            <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
-              {buildProductSeoDescription({
-                name: product.name,
-                category: product.category,
-                description: product.description,
-                leadTime: product.leadTime,
-              })}
+            <p className="mt-4 text-[0.98rem] leading-8 text-[#6c7396]">
+              Here are the most common questions customers ask before ordering{" "}
+              {product.name} online.
             </p>
-            <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">{buildGeoCoverageLine()}</p>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               {productFaqs.map((faq) => (
                 <article
                   key={faq.question}
@@ -174,6 +238,42 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
                   <h3 className="text-[1rem] font-semibold text-stone-900">{faq.question}</h3>
                   <p className="mt-2 text-[0.95rem] leading-7 text-[#6c7396]">{faq.answer}</p>
                 </article>
+              ))}
+            </div>
+          </section>
+
+          <ProductReviewsSection productName={product.name} productSlug={product.slug} />
+
+          <section className="mt-10">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)]">
+                Customers Also Ordered
+              </h2>
+              <div className="flex flex-wrap gap-2 text-[0.84rem]">
+                <Link
+                  href="/category/chocolate-combinations"
+                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-stone-700"
+                >
+                  Cake + Chocolates
+                </Link>
+                <Link
+                  href="/category/heart-shape-cakes"
+                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-stone-700"
+                >
+                  Cake + Flowers
+                </Link>
+                <Link
+                  href="/category/photo-cakes"
+                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-stone-700"
+                >
+                  Photo Cake Bundles
+                </Link>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedProducts.map((relatedProduct) => (
+                <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
             </div>
           </section>

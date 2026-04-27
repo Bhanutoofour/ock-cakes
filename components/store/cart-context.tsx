@@ -18,6 +18,7 @@ export type CartItem = {
   flavorId?: string;
   flavorLabel?: string;
   flavorPricePerKg?: number;
+  customPhotoName?: string;
 };
 
 type CartContextValue = {

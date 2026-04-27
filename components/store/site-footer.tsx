@@ -55,7 +55,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-[rgba(0,0,0,0.08)] bg-white">
       <div className="page-pad mx-auto max-w-[1720px] py-14">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr_1fr_1.1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.35fr_1fr_1fr_1.1fr]">
           <div>
             <Image
               src="/brand/occasionkart-logo.png"
@@ -85,7 +85,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="text-[1rem] font-semibold text-stone-900">Shop</h2>
+            <h2 className="text-[1rem] font-semibold text-stone-900">Order Cakes</h2>
             <div className="mt-6 space-y-4 text-[1rem] text-[#6c7396]">
               <Link href="/cakes" className="block">
                 All Cakes
@@ -93,44 +93,26 @@ export function SiteFooter() {
               <Link href="/birthday-specials" className="block">
                 Birthday Specials
               </Link>
+              <Link href="/custom-orders" className="block">
+                Custom Cake Builder
+              </Link>
+              <Link href="/corporate-orders" className="block">
+                Corporate Bulk Orders
+              </Link>
               <Link href="/offers" className="block">
                 Offers
               </Link>
-              <Link href="/custom-orders" className="block">
-                Custom Orders
-              </Link>
-              <Link href="/corporate-orders" className="block">
-                Corporate Orders
-              </Link>
             </div>
           </div>
 
           <div>
-            <h2 className="text-[1rem] font-semibold text-stone-900">Explore</h2>
-            <div className="mt-6 space-y-4 text-[1rem] text-[#6c7396]">
-              <Link href="/about" className="block">
-                About
-              </Link>
-              <Link href="/gallery" className="block">
-                Gallery
-              </Link>
-              <Link href="/faq" className="block">
-                FAQ
-              </Link>
-              <Link href="/testimonials" className="block">
-                Testimonials
-              </Link>
-              <Link href="/contact" className="block">
-                Contact
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-[1rem] font-semibold text-stone-900">Support</h2>
+            <h2 className="text-[1rem] font-semibold text-stone-900">Help & Policies</h2>
             <div className="mt-6 space-y-4 text-[1rem] text-[#6c7396]">
               <Link href="/track-order" className="block">
                 Track Order
+              </Link>
+              <Link href="/faq" className="block">
+                FAQ
               </Link>
               <Link href="/checkout" className="block">
                 Checkout
@@ -144,6 +126,9 @@ export function SiteFooter() {
               <Link href="/refund-policy" className="block">
                 Refund Policy
               </Link>
+              <Link href="/contact" className="block">
+                Contact
+              </Link>
             </div>
           </div>
 
@@ -153,7 +138,15 @@ export function SiteFooter() {
               <p>Hyderabad, Telangana, India</p>
               <p>Phone: +91 9059058058</p>
               <p>Email: support@occasionkart.com</p>
-              <p>Support hours: 12:00 AM to 6:00 PM IST</p>
+              <p>Support hours: 9:00 AM to 9:00 PM IST</p>
+              <a
+                href="https://wa.me/919059058058?text=Hi%20OccasionKart%2C%20I%20want%20to%20place%20an%20order."
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex rounded-full bg-[#25D366] px-4 py-2 text-[0.9rem] font-semibold text-white"
+              >
+                Order on WhatsApp
+              </a>
             </div>
           </div>
         </div>

@@ -181,13 +181,37 @@ const clients = [
   },
 ];
 
-const hyderabadSearchTerms = [
-  "cakes in Hyderabad",
-  "cake delivery in Hyderabad",
-  "same day cake delivery Hyderabad",
-  "Hyderabad based cake shop",
-  "best cakes in Hyderabad",
-  "order birthday cake online Hyderabad",
+const seoCopyBlocks = [
+  {
+    title: "Cakes Delivery in Hyderabad Online from OccasionKart",
+    body: "OccasionKart helps you order fresh cakes online in Hyderabad for birthdays, anniversaries, baby showers, office celebrations, and surprise moments. If you are searching for cakes in Hyderabad, cake delivery in Hyderabad, or same day cake delivery in Hyderabad, our team makes ordering simple with clear pricing, flavor choices, and slot-based local delivery.",
+  },
+  {
+    title: "Order Cakes Same Day Delivery in Hyderabad",
+    body: "Need a cake today? We support same day orders in serviceable Hyderabad pincodes. Choose your flavor, weight, message on cake, and delivery slot. From classic chocolate cakes to custom celebration cakes, we focus on fresh baking, careful packing, and timely doorstep delivery so your event runs smoothly.",
+  },
+  {
+    title: "Best Cakes in Hyderabad for Every Occasion",
+    body: "Our catalog includes birthday cakes, anniversary cakes, kids theme cakes, photo cakes, custom cakes, and corporate cakes. Whether you need a simple elegant design or a premium celebration cake, OccasionKart gives you flexible options for flavor, portion size, and personalized message.",
+  },
+];
+
+const seoFaqItems = [
+  {
+    question: "Do you deliver cakes across Hyderabad?",
+    answer:
+      "We deliver to selected Hyderabad pincodes based on active shipping zones. Enter your pincode on product or checkout pages to instantly confirm service availability.",
+  },
+  {
+    question: "Can I order cake online for same day delivery?",
+    answer:
+      "Yes. Same day cake delivery is available for eligible products and time slots in serviceable Hyderabad locations.",
+  },
+  {
+    question: "Do you offer midnight cake delivery?",
+    answer:
+      "Yes, midnight delivery is available for selected pincodes and slots. Charges vary by zone and are shown automatically during checkout.",
+  },
 ];
 
 export default async function Home() {
@@ -200,29 +224,6 @@ export default async function Home() {
       <SiteHeader />
       <main className="bg-white">
         <HomeHeroCarousel />
-
-        <section className="page-pad py-6">
-          <div className="rounded-[22px] border border-[rgba(0,0,0,0.1)] bg-[#fffaf6] p-6 sm:p-8">
-            <h2 className="text-[1.4rem] font-semibold text-[var(--brand-brown)] sm:text-[1.6rem]">
-              Hyderabad-Based Cake Delivery You Can Trust
-            </h2>
-            <p className="mt-3 text-[0.98rem] leading-8 text-[#6c7396]">
-              OccasionKart is a Hyderabad-based cake store focused on fresh cakes in Hyderabad,
-              same day cake delivery in Hyderabad, and personalized celebration orders for
-              birthdays, anniversaries, weddings, and corporate events.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {hyderabadSearchTerms.map((term) => (
-                <span
-                  key={term}
-                  className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.78rem] font-semibold text-stone-700"
-                >
-                  {term}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="page-pad py-6">
           <div>
@@ -489,6 +490,40 @@ export default async function Home() {
             {products.slice(1, 6).map((product) => (
               <ProductCard key={`new-${product.id}`} product={product} />
             ))}
+          </div>
+        </section>
+
+        <section className="page-pad pb-6 pt-2">
+          <div className="rounded-[22px] border border-[rgba(0,0,0,0.1)] bg-[#fffaf6] p-6 sm:p-8">
+            <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)] sm:text-[1.7rem]">
+              Order Cake Online in Hyderabad with Trusted Local Delivery
+            </h2>
+            <p className="mt-3 text-[0.98rem] leading-8 text-[#6c7396]">
+              Looking for the best cakes in Hyderabad with reliable doorstep delivery? OccasionKart
+              is a Hyderabad-based cake shop built for online ordering convenience, fast support,
+              and celebration-ready freshness.
+            </p>
+
+            <div className="mt-6 space-y-5">
+              {seoCopyBlocks.map((block) => (
+                <article key={block.title}>
+                  <h3 className="text-[1.06rem] font-semibold text-stone-900">{block.title}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-8 text-[#6c7396]">{block.body}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-7 grid gap-4 md:grid-cols-3">
+              {seoFaqItems.map((item) => (
+                <article
+                  key={item.question}
+                  className="rounded-[16px] border border-[rgba(0,0,0,0.1)] bg-white p-4"
+                >
+                  <h3 className="text-[0.98rem] font-semibold text-stone-900">{item.question}</h3>
+                  <p className="mt-2 text-[0.9rem] leading-7 text-[#6c7396]">{item.answer}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

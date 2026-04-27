@@ -1,159 +1,79 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 
 import { useCart } from "@/components/store/cart-context";
 
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
+type NavLink = { label: string; href: string };
+type MegaColumn = { title: string; links: NavLink[] };
 
-type MenuEntry = {
-  label: string;
-  items?: Array<{
-    label: string;
-    category: string;
-  }>;
-  href?: string;
-};
-
-const mobileShortcutCards = [
+const cakesMegaColumns: MegaColumn[] = [
   {
-    label: "Classic",
-    emoji: "Cake",
-    href: "/cakes",
-    image:
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Gourmet",
-    emoji: "Dessert",
-    href: "/category/jar-cakes",
-    image:
-      "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Designer",
-    emoji: "Party",
-    href: "/category/concept-cakes",
-    image:
-      "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Photo Cakes",
-    emoji: "Photo",
-    href: "/category/photo-cakes",
-    image:
-      "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Desserts",
-    emoji: "Sweet",
-    href: "/category/cup-cakes",
-    image:
-      "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    label: "Hampers",
-    emoji: "Gift",
-    href: "/category/photo-cakes",
-    image:
-      "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=900&q=80",
-  },
-];
-
-const toCategory = (category: string) => `/category/${slugify(category)}`;
-
-const menuConfig: MenuEntry[] = [
-  {
-    label: "Flavors",
-    items: [
-      { label: "Pineapple", category: "Pineapple Cakes" },
-      { label: "Butterscotch", category: "Butterscotch Cakes" },
-      { label: "Chocolate", category: "Chocolate Truffle" },
-      { label: "Blackforest", category: "Black Forest Cakes" },
-      { label: "Chocolate Combinations", category: "Chocolate Combinations" },
-      { label: "Fresh Fruit", category: "Fresh Fruit Cakes" },
-      { label: "Red Velvet", category: "Red Velvet Cakes" },
-      { label: "Tresleches", category: "Tres leches Cakes" },
-      { label: "Tiramissu", category: "Tiramisu Cakes" },
-      {
-        label: "Imported/over seas",
-        category: "Imported Flavor Cakes/Premium Flavors",
-      },
-      { label: "Desi Sweet flavor", category: "Desi Sweet Cakes" },
-      { label: "Huzzlenut", category: "Exotic Chocolate" },
-      { label: "Honey almond", category: "Dry Fruit cakes" },
+    title: "Cakes by Flavor",
+    links: [
+      { label: "Pineapple", href: "/category/pineapple-cakes" },
+      { label: "Butterscotch", href: "/category/butterscotch-cakes" },
+      { label: "Black Forest", href: "/category/black-forest-cakes" },
+      { label: "Red Velvet", href: "/category/red-velvet-cakes" },
+      { label: "Chocolate", href: "/category/chocolate-truffle" },
+      { label: "Fresh Fruit", href: "/category/fresh-fruit-cakes" },
+      { label: "Premium Cakes", href: "/cakes?sort=popular" },
+      { label: "Trending Cakes", href: "/cakes?sort=popular" },
     ],
   },
   {
-    label: "By Occasion",
-    items: [
-      { label: "Birthday", category: "Birthday" },
-      { label: "Anniversary", category: "Anniversary" },
-      { label: "Wedding", category: "Wedding cakes" },
-      { label: "Bride to be", category: "Engagement Cakes" },
-      { label: "Retirement cake", category: "Corporate Anniversary Cakes" },
-      { label: "Bon voyage", category: "Bon Voyage cakes" },
-      { label: "Graduation", category: "Concept cakes" },
-      { label: "Celebrations", category: "Photo cakes" },
-      { label: "Corporate Success", category: "Corporate Cakes" },
+    title: "Anniversary & Birthday",
+    links: [
+      { label: "Wedding Anniversary", href: "/category/wedding-cakes" },
+      { label: "Heart Shape Cakes", href: "/category/heart-shape-cakes" },
+      { label: "25th Anniversary", href: "/cakes?category=Anniversary" },
+      { label: "50th Anniversary", href: "/cakes?category=Anniversary" },
+      { label: "Regular Birthday Cakes", href: "/cakes?category=Birthday" },
+      { label: "First Birthday Cakes", href: "/cakes?category=Birthday" },
+      { label: "Birthday Photo Cakes", href: "/category/photo-cakes" },
+      { label: "Birthday Step Cakes", href: "/category/step-cakes" },
     ],
   },
   {
-    label: "By Relation",
-    items: [
-      { label: "Wife", category: "Cake for wife" },
-      { label: "Husband", category: "Cake for husband" },
-      { label: "Love", category: "Cake for love" },
-      { label: "Sister", category: "Cake for sister" },
-      { label: "Mom", category: "Cake for mom" },
-      { label: "Dad", category: "Cake for father" },
-      { label: "Brother", category: "Cake for brother" },
-      { label: "Friend", category: "Photo cakes" },
-      { label: "Grand parents", category: "Vanilla Cakes" },
+    title: "Cakes by Type",
+    links: [
+      { label: "Photo Cakes", href: "/category/photo-cakes" },
+      { label: "Concept Cakes", href: "/category/concept-cakes" },
+      { label: "Pinata Cakes", href: "/category/pinata-cakes" },
+      { label: "Pull Up Cakes", href: "/category/pull-up-cakes" },
+      { label: "Bomb Cakes", href: "/category/bomb-cakes" },
+      { label: "Step Cakes", href: "/category/step-cakes" },
+      { label: "Letter Cakes", href: "/category/letter-cakes" },
+      { label: "Premium Cakes", href: "/cakes?sort=popular" },
     ],
   },
   {
-    label: "Desserts",
-    items: [
-      { label: "Jar cakes", category: "Jar Cakes" },
-      { label: "Cup cakes", category: "Cup Cakes" },
-      { label: "Brownies", category: "Bento Cakes" },
-      { label: "Cookies", category: "Pinata cakes" },
-      { label: "Cheese cakes", category: "Pull UP Cakes" },
-    ],
-  },
-  { label: "Gift hampers", href: toCategory("Photo cakes") },
-  { label: "Customized cakes", href: toCategory("Custom Cakes") },
-  { label: "Birthday cakes", href: "/cakes?category=Birthday" },
-  { label: "Anniversary cakes", href: "/cakes?category=Anniversary" },
-  {
-    label: "Flowers",
-    items: [
-      { label: "Roses", category: "Heart Shape Cakes" },
-      { label: "Orchids", category: "Butterfly theme cakes" },
-      { label: "Basket arrangements", category: "Fresh Fruit Cakes" },
+    title: "Cakes by Relation",
+    links: [
+      { label: "Cake for Mom", href: "/category/cake-for-mom" },
+      { label: "Cake for Father", href: "/category/cake-for-father" },
+      { label: "Cake for Brother", href: "/category/cake-for-brother" },
+      { label: "Cake for Sister", href: "/category/cake-for-sister" },
+      { label: "Cake for Wife", href: "/category/cake-for-wife" },
+      { label: "Cake for Husband", href: "/category/cake-for-husband" },
+      { label: "Cake for Love", href: "/category/cake-for-love" },
+      { label: "Cake for Kids", href: "/category/kids-cakes" },
     ],
   },
   {
-    label: "Combos",
-    items: [
-      { label: "Cakes and flowers", category: "Heart Shape Cakes" },
-      { label: "Cake and chocolates", category: "Chocolate Combinations" },
-      { label: "Cakes setup", category: "Concept cakes" },
-    ],
-  },
-  {
-    label: "Surprises",
-    items: [
-      { label: "Cake and mascot", category: "Cartoon cakes" },
-      { label: "Cake and guitarist", category: "Photo cakes" },
-      { label: "Cakes, mascot and guitarist", category: "Concept cakes" },
+    title: "Theme & Occasion Cakes",
+    links: [
+      { label: "Kids Cakes", href: "/category/kids-cakes" },
+      { label: "Barbie Cakes", href: "/category/barbie-cakes" },
+      { label: "Super Heroes Cakes", href: "/category/super-heroes-cakes" },
+      { label: "Cartoon Cakes", href: "/category/cartoon-cakes" },
+      { label: "Birthday", href: "/cakes?category=Birthday" },
+      { label: "Anniversary", href: "/cakes?category=Anniversary" },
+      { label: "Baby Shower", href: "/category/baby-shower-cakes" },
+      { label: "Retirement Cakes", href: "/category/retirement-cakes" },
+      { label: "Bon Voyage", href: "/category/bon-voyage-cakes" },
     ],
   },
 ];
@@ -166,21 +86,27 @@ export function SiteHeader() {
     () => true,
     () => false,
   );
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMobileMenu, setOpenMobileMenu] = useState<string | null>(null);
-  const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
 
-  const toggleMobileMenu = (label: string) => {
-    setOpenMobileMenu((prev) => (prev === label ? null : label));
-  };
-  const toggleDesktopMenu = (label: string) => {
-    setOpenDesktopMenu((prev) => (prev === label ? null : label));
-  };
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDesktopMenu, setOpenDesktopMenu] = useState<"cakes" | null>(null);
+  const [openMobileMenu, setOpenMobileMenu] = useState<"cakes" | null>(null);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(0,0,0,0.08)]">
       <div className="border-b border-[rgba(0,0,0,0.08)]">
-        <div className="page-pad mx-auto flex max-w-[1720px] items-center gap-4 py-3">
+        <div className="page-pad mx-auto flex max-w-[1720px] items-center gap-3 py-3 md:gap-4">
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[rgba(0,0,0,0.12)] text-stone-800 md:hidden"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label="Open menu"
+          >
+            <span className="sr-only">Menu</span>
+            <svg viewBox="0 0 24 24" className="h-5 w-5 stroke-current" fill="none" strokeWidth="2">
+              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+            </svg>
+          </button>
+
           <Link href="/" className="shrink-0">
             <Image
               src="/brand/occasionkart-logo.png"
@@ -201,7 +127,7 @@ export function SiteHeader() {
               <input
                 type="text"
                 name="q"
-                placeholder="Search for cakes, flowers, gifts..."
+                placeholder="Search for cakes, flavors, occasions..."
                 className="w-full bg-transparent text-[1rem] outline-none"
               />
             </form>
@@ -213,11 +139,7 @@ export function SiteHeader() {
               className="hidden items-center justify-center p-2 text-[var(--brand-maroon)] transition duration-200 hover:scale-110 md:flex"
               aria-label="Track Order"
             >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 32 32"
-                className="h-8 w-8"
-              >
+              <svg aria-hidden="true" viewBox="0 0 32 32" className="h-8 w-8">
                 <path
                   fill="currentColor"
                   d="M16 2.5c-5.66 0-10.25 4.59-10.25 10.25 0 7.57 8.53 15.5 9.32 16.23a1.4 1.4 0 0 0 1.86 0c.79-.73 9.32-8.66 9.32-16.23C26.25 7.09 21.66 2.5 16 2.5Z"
@@ -268,135 +190,169 @@ export function SiteHeader() {
                 {hasMounted ? cartCount : 0}
               </span>
             </Link>
-
-            <button
-              type="button"
-              className="flex items-center justify-center rounded-lg border border-[rgba(0,0,0,0.12)] px-3 py-2 text-[0.95rem] font-semibold text-stone-900 md:hidden"
-              onClick={() => setMobileOpen((prev) => !prev)}
-            >
-              Menu
-            </button>
           </div>
         </div>
       </div>
 
-      <div className="border-b border-[rgba(0,0,0,0.08)]">
-        <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 overflow-x-auto py-4 text-[1rem] font-semibold text-stone-900 lg:overflow-visible">
-          {menuConfig.map((menu) =>
-            menu.items ? (
-              <div key={menu.label} className="relative">
-                <button
-                  className="whitespace-nowrap text-stone-900"
-                  type="button"
-                  onClick={() => toggleDesktopMenu(menu.label)}
-                >
-                  {menu.label}
-                </button>
-                <div
-                  className={`absolute left-0 top-full z-50 mt-3 w-auto min-w-[260px] max-w-[420px] rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-5 shadow-[0_22px_40px_rgba(0,0,0,0.14)] ${
-                    openDesktopMenu === menu.label ? "block" : "hidden"
-                  }`}
-                >
-                  <ul className="list-none space-y-2 pl-0 text-[0.98rem] leading-7 text-stone-700">
-                    {menu.items.map((item) => (
-                      <li key={item.label}>
-                        <Link href={toCategory(item.category)}>{item.label}</Link>
-                      </li>
-                    ))}
-                  </ul>
+      <div className="hidden border-b border-[rgba(0,0,0,0.08)] md:block">
+        <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 py-4 text-[1rem] font-semibold text-stone-900">
+          <div className="relative">
+            <button
+              type="button"
+              className="inline-flex items-center gap-2"
+              onClick={() => setOpenDesktopMenu((prev) => (prev === "cakes" ? null : "cakes"))}
+            >
+              Cakes Mega Menu
+              <span className="text-sm">v</span>
+            </button>
+            {openDesktopMenu === "cakes" ? (
+              <div className="absolute left-0 top-full z-50 mt-3 w-[1260px] rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_22px_40px_rgba(0,0,0,0.14)]">
+                <div className="grid gap-6 md:grid-cols-5">
+                  {cakesMegaColumns.map((column) => (
+                    <MegaColumnBlock key={column.title} column={column} />
+                  ))}
                 </div>
               </div>
-            ) : (
-              <Link key={menu.label} href={menu.href ?? "/cakes"} className="whitespace-nowrap text-stone-900">
-                {menu.label}
-              </Link>
-            ),
-          )}
+            ) : null}
+          </div>
+
+          <Link href="/category/gift-hampers">Gifts</Link>
+          <Link href="/category/flowers">Flowers</Link>
+          <Link href="/category/chocolate-combinations">Combos</Link>
+          <Link href="/category/surprises">Surprises</Link>
+
+          <Link href="/custom-orders">Custom Orders</Link>
+          <Link href="/corporate-orders">Corporate</Link>
+          <Link href="/offers" className="inline-flex items-center gap-2">
+            Offers
+            <span className="rounded-full bg-[#ef7f41] px-2 py-0.5 text-[0.72rem] font-bold text-white">
+              SAVE 15%
+            </span>
+          </Link>
         </nav>
       </div>
 
       {mobileOpen ? (
         <div className="border-b border-[rgba(0,0,0,0.08)] bg-white md:hidden">
-          <div className="page-pad mx-auto max-w-[1720px] py-4">
+          <div className="sticky top-0 z-10 border-b border-[rgba(0,0,0,0.08)] bg-white px-4 py-3">
             <form
               action="/cakes"
-              className="rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-[#fbfbfd] px-4 py-3 text-[0.95rem] text-stone-400"
+              className="rounded-[14px] border border-[rgba(0,0,0,0.12)] bg-[#fbfbfd] px-4 py-3 text-[0.95rem] text-stone-400"
             >
               <input
                 type="text"
                 name="q"
-                placeholder="Search for cakes, flowers, gifts..."
+                placeholder="Search cakes, flavors, gifts..."
                 className="w-full bg-transparent outline-none"
               />
             </form>
+          </div>
 
-            <div className="mt-6 rounded-[22px] bg-[#fff3f6] px-4 py-6 text-center">
-              <h2 className="text-[1.2rem] font-semibold text-[#ff3b3b]">Menu</h2>
-              <p className="mt-1 text-[0.95rem] text-[#6c7396]">What will you wish for?</p>
-
-              <div className="mt-5 grid grid-cols-2 gap-4">
-                {mobileShortcutCards.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className="group rounded-[18px] bg-white p-3 shadow-[0_10px_22px_rgba(0,0,0,0.12)]"
-                  >
-                    <div className="relative h-[110px] overflow-hidden rounded-[14px]">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.image}
-                        alt={item.label}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(77,37,28,0.08)_0%,rgba(77,37,28,0.4)_100%)]" />
-                      <div className="absolute bottom-3 left-3 rounded-full bg-[rgba(255,255,255,0.88)] px-2.5 py-1 text-[0.82rem] font-semibold text-[var(--brand-brown)] backdrop-blur-sm">
-                        {item.emoji}
+          <div className="page-pad mx-auto max-w-[1720px] py-4">
+            <div className="space-y-2">
+              <MobileAccordion
+                label="Cakes Mega Menu"
+                isOpen={openMobileMenu === "cakes"}
+                onToggle={() => setOpenMobileMenu((prev) => (prev === "cakes" ? null : "cakes"))}
+              >
+                <div className="space-y-3">
+                  {cakesMegaColumns.map((column) => (
+                    <div key={column.title}>
+                      <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[#ef7f41]">
+                        {column.title}
+                      </p>
+                      <div className="mt-1 space-y-1">
+                        {column.links.slice(0, 6).map((item) => (
+                          <Link
+                            key={item.label}
+                            href={item.href}
+                            className="block rounded-[10px] px-2 py-2 text-[0.95rem] text-stone-700"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
                       </div>
                     </div>
-                    <p className="mt-3 text-[0.85rem] font-semibold text-stone-900">
-                      {item.label}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-5 space-y-2">
-              {menuConfig.map((menu) => (
-                <div key={menu.label} className="rounded-lg border border-[rgba(0,0,0,0.08)]">
-                  {menu.items ? (
-                    <>
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-between px-3 py-2 text-left font-semibold text-stone-900"
-                        onClick={() => toggleMobileMenu(menu.label)}
-                      >
-                        {menu.label}
-                        <span className="text-lg">{openMobileMenu === menu.label ? "-" : "+"}</span>
-                      </button>
-                      {openMobileMenu === menu.label ? (
-                        <div className="border-t border-[rgba(0,0,0,0.08)] bg-[#fff9fb] px-3 py-3">
-                          <ul className="list-none space-y-2 pl-0 text-[0.95rem] leading-7 text-stone-700">
-                            {menu.items.map((item) => (
-                              <li key={item.label}>
-                                <Link href={toCategory(item.category)}>{item.label}</Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
-                    </>
-                  ) : (
-                    <Link href={menu.href ?? "/cakes"} className="block px-3 py-2 font-semibold text-stone-900">
-                      {menu.label}
-                    </Link>
-                  )}
+                  ))}
                 </div>
-              ))}
+              </MobileAccordion>
+
+              <MobileLink href="/category/gift-hampers" label="Gifts" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/category/flowers" label="Flowers" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/category/chocolate-combinations" label="Combos" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/category/surprises" label="Surprises" onClick={() => setMobileOpen(false)} />
+
+              <MobileLink href="/custom-orders" label="Custom Orders" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/corporate-orders" label="Corporate Orders" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/track-order" label="Track Order" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/testimonials" label="Reviews (4.9)" onClick={() => setMobileOpen(false)} />
+              <MobileLink href="/contact" label="Contact Us" onClick={() => setMobileOpen(false)} />
             </div>
           </div>
         </div>
       ) : null}
     </header>
+  );
+}
+
+function MegaColumnBlock({ column }: { column: MegaColumn }) {
+  return (
+    <div>
+      <p className="text-[0.95rem] font-semibold text-[#ef7f41]">{column.title}</p>
+      <ul className="mt-2 space-y-1.5 text-[0.92rem] text-stone-700">
+        {column.links.map((item) => (
+          <li key={item.label} className="border-b border-[rgba(0,0,0,0.06)] pb-1.5">
+            <Link href={item.href}>{item.label}</Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function MobileAccordion({
+  label,
+  isOpen,
+  onToggle,
+  children,
+}: {
+  label: string;
+  isOpen: boolean;
+  onToggle: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <div className="rounded-lg border border-[rgba(0,0,0,0.1)]">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between px-3 py-2.5 text-left font-semibold text-stone-900"
+        onClick={onToggle}
+      >
+        {label}
+        <span>{isOpen ? "-" : "+"}</span>
+      </button>
+      {isOpen ? <div className="border-t border-[rgba(0,0,0,0.08)] bg-[#fff9fb] p-2">{children}</div> : null}
+    </div>
+  );
+}
+
+function MobileLink({
+  href,
+  label,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="block rounded-lg border border-[rgba(0,0,0,0.1)] px-3 py-2.5 font-semibold text-stone-900"
+    >
+      {label}
+    </Link>
   );
 }

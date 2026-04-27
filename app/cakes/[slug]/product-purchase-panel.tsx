@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { AddToCartButton } from "@/components/store/add-to-cart-button";
+import { SameDayDeliveryPanel } from "@/components/store/same-day-delivery-panel";
 import { resolveVariantPricing } from "@/lib/product-variants";
 import { getShippingQuote } from "@/lib/shipping-rules";
 import type { Product } from "@/lib/store-schema";
@@ -15,6 +16,9 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
   const [deliveryPincode, setDeliveryPincode] = useState("");
   const [pincodeFeedback, setPincodeFeedback] = useState("");
   const [isPincodeValid, setIsPincodeValid] = useState(false);
+  const [customPhotoName, setCustomPhotoName] = useState("");
+
+  const isPhotoCake = /photo/i.test(product.name) || product.categories.some((category) => /photo/i.test(category));
 
   const checkPincode = () => {
     const quote = getShippingQuote({ pincode: deliveryPincode });
@@ -35,6 +39,8 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
   if (product.weightOptions.length === 0 || product.flavorOptions.length === 0) {
     return (
       <>
+        <SameDayDeliveryPanel compact />
+
         <div className="grid gap-4 py-5 sm:grid-cols-2">
           <div className="rounded-[24px] bg-[var(--cream-strong)] p-4">
             <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Serving</p>
@@ -61,7 +67,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           ))}
         </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-wrap gap-3">
           <div className="inline-flex items-center rounded-full border border-[rgba(111,29,42,0.14)] bg-[#fff7f8] px-5 py-3 text-[var(--brand-maroon)]">
             <span className="text-[0.95rem] font-semibold">Rs</span>
             <span className="ml-1.5 text-[1.45rem] font-bold">
@@ -73,8 +79,24 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             name={product.name}
             price={product.price}
             image={product.image}
+            customPhotoName={customPhotoName || undefined}
           />
         </div>
+
+        {isPhotoCake ? (
+          <div className="mt-4 rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-4">
+            <p className="text-[0.9rem] font-semibold text-stone-900">Upload a photo to print on your cake</p>
+            <input
+              type="file"
+              accept="image/*"
+              className="mt-3 w-full rounded-[10px] border border-[var(--line)] px-3 py-2 text-sm"
+              onChange={(event) => setCustomPhotoName(event.target.files?.[0]?.name ?? "")}
+            />
+            {customPhotoName ? (
+              <p className="mt-2 text-[0.84rem] font-medium text-[#2f8f2f]">Selected: {customPhotoName}</p>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[#fffdf9] p-4">
           <p className="text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#9c7a67]">
@@ -119,6 +141,8 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
 
   return (
     <>
+      <SameDayDeliveryPanel compact />
+
       <div className="grid gap-4 py-5 lg:grid-cols-2">
         <div className="rounded-[24px] border border-[rgba(111,29,42,0.08)] bg-[linear-gradient(180deg,#fff8f3_0%,#fff2e8_100%)] p-5">
           <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#9c7a67]">
@@ -206,10 +230,28 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
               flavorId={selectedFlavor?.id}
               flavorLabel={selectedFlavor?.label}
               flavorPricePerKg={selectedFlavor?.pricePerKg}
+              customPhotoName={customPhotoName || undefined}
             />
           </div>
         </div>
       </div>
+
+      {isPhotoCake ? (
+        <div className="mt-4 rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-4">
+          <p className="text-[0.9rem] font-semibold text-stone-900">Upload a photo to print on your cake</p>
+          <input
+            type="file"
+            accept="image/*"
+            className="mt-3 w-full rounded-[10px] border border-[var(--line)] px-3 py-2 text-sm"
+            onChange={(event) => setCustomPhotoName(event.target.files?.[0]?.name ?? "")}
+          />
+          {customPhotoName ? (
+            <p className="mt-2 text-[0.84rem] font-medium text-[#2f8f2f]">Selected: {customPhotoName}</p>
+          ) : (
+            <p className="mt-2 text-[0.82rem] text-[#6c7396]">No file selected.</p>
+          )}
+        </div>
+      ) : null}
 
       <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[#fffdf9] p-4">
         <p className="text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#9c7a67]">

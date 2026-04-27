@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
@@ -69,8 +69,13 @@ export function CartPageClient() {
                       </h2>
                       <p className="mt-2 text-[0.96rem] text-[#6c7396]">
                         {item.weightLabel ?? "Standard weight"}
-                        {item.flavorLabel ? ` • ${item.flavorLabel}` : ""}
+                        {item.flavorLabel ? ` - ${item.flavorLabel}` : ""}
                       </p>
+                      {item.customPhotoName ? (
+                        <p className="mt-1 text-[0.86rem] font-semibold text-[#2f8f2f]">
+                          Photo upload: {item.customPhotoName}
+                        </p>
+                      ) : null}
                     </div>
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
@@ -258,3 +263,7 @@ export function CartPageClient() {
     </main>
   );
 }
+
+
+
+

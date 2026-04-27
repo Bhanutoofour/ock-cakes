@@ -15,6 +15,7 @@ type AddToCartProps = {
   flavorId?: string;
   flavorLabel?: string;
   flavorPricePerKg?: number;
+  customPhotoName?: string;
   className?: string;
   children?: ReactNode;
 };
@@ -33,6 +34,7 @@ export function AddToCartButton({
   flavorId,
   flavorLabel,
   flavorPricePerKg,
+  customPhotoName,
   className,
   children,
 }: AddToCartProps) {
@@ -54,6 +56,7 @@ export function AddToCartButton({
           flavorId,
           flavorLabel,
           flavorPricePerKg,
+          customPhotoName,
         })
       }
     >
