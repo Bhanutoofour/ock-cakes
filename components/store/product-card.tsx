@@ -25,13 +25,13 @@ export function ProductCard({ product }: { product: Product }) {
   const { selectedWeight, selectedFlavor, unitPrice } = resolveVariantPricing(product);
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(189,39,26,0.35)] hover:shadow-[0_14px_30px_rgba(189,39,26,0.16)]">
       <Link href={`/cakes/${product.slug}`} className="block">
         <div className="relative aspect-[1/1] overflow-hidden bg-[#f6f2f0]">
           <img
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </div>
       </Link>
@@ -39,7 +39,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col p-4">
         <Link
           href={`/cakes/${product.slug}`}
-          className="block min-h-[3.1rem] text-[0.95rem] font-semibold leading-[1.3] text-stone-900 sm:min-h-[3.3rem] sm:text-[1.02rem]"
+          className="block min-h-[3.1rem] text-[0.95rem] font-semibold leading-[1.3] text-stone-900 transition-colors duration-200 group-hover:text-[var(--brand-red)] sm:min-h-[3.3rem] sm:text-[1.02rem]"
         >
           {displayName}
         </Link>
@@ -67,7 +67,7 @@ export function ProductCard({ product }: { product: Product }) {
             flavorId={selectedFlavor?.id}
             flavorLabel={selectedFlavor?.label}
             flavorPricePerKg={selectedFlavor?.pricePerKg}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(189,39,26,0.22)] transition hover:brightness-[1.03]"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(189,39,26,0.22)] transition-all duration-200 hover:scale-105 hover:bg-[#a71913] hover:shadow-[0_16px_30px_rgba(167,25,19,0.35)]"
           >
             <svg
               aria-hidden="true"
