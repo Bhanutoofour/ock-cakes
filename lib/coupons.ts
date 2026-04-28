@@ -15,10 +15,14 @@ export type CouponResolution = {
 
 const LIVE_COUPONS: CouponDefinition[] = [
   {
-    code: "LIVE99",
-    percentageOff: 99,
-    active: false,
-    minSubtotal: 1,
+    code: "WELCOME10",
+    percentageOff: 10,
+    active: true,
+  },
+  {
+    code: "FIRST10",
+    percentageOff: 10,
+    active: true,
   },
 ];
 
