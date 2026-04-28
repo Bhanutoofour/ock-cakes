@@ -6,6 +6,14 @@ function isHttpUrl(value: string) {
   return value.startsWith("http://") || value.startsWith("https://");
 }
 
+function shouldProxyProductImages() {
+  const value = (process.env.PRODUCT_IMAGE_PROXY_ENABLED ?? "").trim().toLowerCase();
+  if (!value) {
+    return true;
+  }
+  return value === "1" || value === "true" || value === "yes";
+}
+
 export function getProductImageUrl(input: string | null | undefined) {
   const trimmed = (input ?? "").trim();
   if (!trimmed) {
@@ -21,6 +29,9 @@ export function getProductImageUrl(input: string | null | undefined) {
     return FALLBACK_IMAGE;
   }
 
+  if (!shouldProxyProductImages()) {
+    return normalized;
+  }
+
   return `${PRODUCT_IMAGE_PROXY_PATH}?src=${encodeURIComponent(normalized)}`;
 }
-

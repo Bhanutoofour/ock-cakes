@@ -203,7 +203,20 @@ export function SiteHeader() {
               onClick={() => setOpenDesktopMenu((prev) => (prev === "cakes" ? null : "cakes"))}
             >
               Cakes Mega Menu
-              <span className="text-sm">v</span>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                className={`h-4 w-4 transition-transform duration-200 ${
+                  openDesktopMenu === "cakes" ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m5 7 5 6 5-6" />
+              </svg>
             </button>
             {openDesktopMenu === "cakes" ? (
               <div className="absolute left-0 top-full z-50 mt-3 w-[1260px] rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_22px_40px_rgba(0,0,0,0.14)]">
