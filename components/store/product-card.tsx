@@ -67,7 +67,7 @@ export function ProductCard({ product }: { product: Product }) {
             flavorId={selectedFlavor?.id}
             flavorLabel={selectedFlavor?.label}
             flavorPricePerKg={selectedFlavor?.pricePerKg}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(189,39,26,0.22)] transition-all duration-200 hover:scale-105 hover:bg-[#a71913] hover:shadow-[0_16px_30px_rgba(167,25,19,0.35)]"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(189,39,26,0.22)] transition-all duration-200 hover:scale-105 hover:bg-black hover:shadow-[0_16px_30px_rgba(0,0,0,0.35)]"
           >
             <svg
               aria-hidden="true"
