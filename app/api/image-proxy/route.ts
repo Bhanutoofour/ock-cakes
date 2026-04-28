@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
+const FALLBACK_IMAGE_URL =
+  "https://images.unsplash.com/photo-1541781286675-9bca0d6d7d07?auto=format&fit=crop&w=900&q=80";
 
 const ALLOWED_PROTOCOLS = new Set(["http:", "https:"]);
 const PRIVATE_HOST_PATTERNS = [
@@ -15,6 +17,10 @@ const PRIVATE_HOST_PATTERNS = [
 
 function isBlockedHostname(hostname: string) {
   return PRIVATE_HOST_PATTERNS.some((pattern) => pattern.test(hostname));
+}
+
+function fallbackRedirect() {
+  return NextResponse.redirect(FALLBACK_IMAGE_URL, { status: 302 });
 }
 
 export async function GET(request: Request) {
@@ -45,15 +51,12 @@ export async function GET(request: Request) {
     });
 
     if (!upstream.ok) {
-      return NextResponse.json(
-        { error: `Upstream returned ${upstream.status}.` },
-        { status: upstream.status },
-      );
+      return fallbackRedirect();
     }
 
     const contentType = upstream.headers.get("content-type") ?? "image/jpeg";
     if (!contentType.startsWith("image/")) {
-      return NextResponse.json({ error: "Source is not an image." }, { status: 400 });
+      return fallbackRedirect();
     }
 
     const body = await upstream.arrayBuffer();
@@ -65,7 +68,6 @@ export async function GET(request: Request) {
       },
     });
   } catch {
-    return NextResponse.json({ error: "Failed to fetch image source." }, { status: 502 });
+    return fallbackRedirect();
   }
 }
-
