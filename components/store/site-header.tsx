@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 
 import { useCart } from "@/components/store/cart-context";
 
@@ -91,17 +91,26 @@ export function SiteHeader() {
   const [openDesktopMenu, setOpenDesktopMenu] = useState<"cakes" | null>(null);
   const [openMobileMenu, setOpenMobileMenu] = useState<"cakes" | null>(null);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(0,0,0,0.08)]">
+    <header className="sticky top-0 z-[60] bg-white shadow-[0_1px_0_rgba(0,0,0,0.08)]">
       <div className="border-b border-[rgba(0,0,0,0.08)]">
         <div className="page-pad mx-auto flex max-w-[1720px] items-center gap-3 py-3 md:gap-4">
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[rgba(0,0,0,0.12)] text-stone-800 md:hidden"
+            className="inline-flex h-10 items-center gap-2 rounded-lg border border-[rgba(0,0,0,0.12)] px-2.5 text-stone-800 md:hidden"
             onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label="Open menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-drawer"
           >
-            <span className="sr-only">Menu</span>
+            <span className="text-[0.82rem] font-semibold uppercase tracking-[0.08em]">Menu</span>
             <svg viewBox="0 0 24 24" className="h-5 w-5 stroke-current" fill="none" strokeWidth="2">
               <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
             </svg>
@@ -114,7 +123,7 @@ export function SiteHeader() {
               width={260}
               height={60}
               priority
-              className="h-10 w-auto md:h-14"
+              className="h-9 w-auto sm:h-10 md:h-14"
             />
           </Link>
 
@@ -195,7 +204,7 @@ export function SiteHeader() {
       </div>
 
       <div className="hidden border-b border-[rgba(0,0,0,0.08)] md:block">
-        <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 py-4 text-[1rem] font-semibold text-stone-900">
+        <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 overflow-x-auto py-4 text-[1rem] font-semibold text-stone-900">
           <div className="relative">
             <button
               type="button"
@@ -219,7 +228,7 @@ export function SiteHeader() {
               </svg>
             </button>
             {openDesktopMenu === "cakes" ? (
-              <div className="absolute left-0 top-full z-50 mt-3 w-[1260px] rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_22px_40px_rgba(0,0,0,0.14)]">
+              <div className="absolute left-0 top-full z-50 mt-3 max-h-[70vh] w-[min(1260px,calc(100vw-64px))] overflow-y-auto rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_22px_40px_rgba(0,0,0,0.14)]">
                 <div className="grid gap-6 md:grid-cols-5">
                   {cakesMegaColumns.map((column) => (
                     <MegaColumnBlock key={column.title} column={column} />
@@ -246,63 +255,88 @@ export function SiteHeader() {
       </div>
 
       {mobileOpen ? (
-        <div className="border-b border-[rgba(0,0,0,0.08)] bg-white md:hidden">
-          <div className="sticky top-0 z-10 border-b border-[rgba(0,0,0,0.08)] bg-white px-4 py-3">
-            <form
-              action="/cakes"
-              className="rounded-[14px] border border-[rgba(0,0,0,0.12)] bg-[#fbfbfd] px-4 py-3 text-[0.95rem] text-stone-400"
-            >
-              <input
-                type="text"
-                name="q"
-                placeholder="Search cakes, flavors, gifts..."
-                className="w-full bg-transparent outline-none"
-              />
-            </form>
-          </div>
-
-          <div className="page-pad mx-auto max-w-[1720px] py-4">
-            <div className="space-y-2">
-              <MobileAccordion
-                label="Cakes Mega Menu"
-                isOpen={openMobileMenu === "cakes"}
-                onToggle={() => setOpenMobileMenu((prev) => (prev === "cakes" ? null : "cakes"))}
+        <div className="md:hidden">
+          <button
+            type="button"
+            aria-label="Close menu overlay"
+            className="fixed inset-0 z-[70] bg-[rgba(0,0,0,0.42)]"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside
+            id="mobile-nav-drawer"
+            className="fixed inset-y-0 left-0 z-[80] flex w-[min(92vw,420px)] flex-col border-r border-[rgba(0,0,0,0.08)] bg-white shadow-[0_20px_44px_rgba(0,0,0,0.2)]"
+          >
+            <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.08)] px-4 py-3">
+              <p className="text-[0.98rem] font-semibold text-stone-900">Browse Menu</p>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[rgba(0,0,0,0.14)] text-stone-700"
+                aria-label="Close menu"
               >
-                <div className="space-y-3">
-                  {cakesMegaColumns.map((column) => (
-                    <div key={column.title}>
-                      <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[#ef7f41]">
-                        {column.title}
-                      </p>
-                      <div className="mt-1 space-y-1">
-                        {column.links.slice(0, 6).map((item) => (
-                          <Link
-                            key={item.label}
-                            href={item.href}
-                            className="block rounded-[10px] px-2 py-2 text-[0.95rem] text-stone-700"
-                            onClick={() => setMobileOpen(false)}
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </MobileAccordion>
-
-              <MobileLink href="/category/gift-hampers" label="Gifts" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/category/flowers" label="Flowers" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/category/chocolate-combinations" label="Combos" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/category/surprises" label="Surprises" onClick={() => setMobileOpen(false)} />
-
-              <MobileLink href="/custom-orders" label="Custom Orders" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/corporate-orders" label="Corporate Orders" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/track-order" label="Track Order" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/testimonials" label="Reviews (4.9)" onClick={() => setMobileOpen(false)} />
-              <MobileLink href="/contact" label="Contact Us" onClick={() => setMobileOpen(false)} />
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 stroke-current" fill="none" strokeWidth="2">
+                  <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
+                </svg>
+              </button>
             </div>
-          </div>
+
+            <div className="border-b border-[rgba(0,0,0,0.08)] px-4 py-3">
+              <form
+                action="/cakes"
+                className="rounded-[14px] border border-[rgba(0,0,0,0.12)] bg-[#fbfbfd] px-4 py-3 text-[0.95rem] text-stone-400"
+              >
+                <input
+                  type="text"
+                  name="q"
+                  placeholder="Search cakes, flavors, gifts..."
+                  className="w-full bg-transparent outline-none"
+                />
+              </form>
+            </div>
+
+            <div className="page-pad flex-1 overflow-y-auto py-4">
+              <div className="space-y-2">
+                <MobileAccordion
+                  label="Cakes Mega Menu"
+                  isOpen={openMobileMenu === "cakes"}
+                  onToggle={() => setOpenMobileMenu((prev) => (prev === "cakes" ? null : "cakes"))}
+                >
+                  <div className="max-h-[52vh] space-y-3 overflow-y-auto pr-1">
+                    {cakesMegaColumns.map((column) => (
+                      <div key={column.title}>
+                        <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[#ef7f41]">
+                          {column.title}
+                        </p>
+                        <div className="mt-1 space-y-1">
+                          {column.links.map((item) => (
+                            <Link
+                              key={item.label}
+                              href={item.href}
+                              className="block rounded-[10px] px-2 py-2 text-[0.95rem] text-stone-700"
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </MobileAccordion>
+
+                <MobileLink href="/category/gift-hampers" label="Gifts" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/category/flowers" label="Flowers" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/category/chocolate-combinations" label="Combos" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/category/surprises" label="Surprises" onClick={() => setMobileOpen(false)} />
+
+                <MobileLink href="/custom-orders" label="Custom Orders" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/corporate-orders" label="Corporate Orders" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/track-order" label="Track Order" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/testimonials" label="Reviews (4.9)" onClick={() => setMobileOpen(false)} />
+                <MobileLink href="/contact" label="Contact Us" onClick={() => setMobileOpen(false)} />
+              </div>
+            </div>
+          </aside>
         </div>
       ) : null}
     </header>
