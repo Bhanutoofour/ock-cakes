@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { CartProvider } from "@/components/store/cart-context";
+import { WhatsAppChatButton } from "@/components/store/whatsapp-chat-button";
 import { toJsonLd } from "@/lib/json-ld";
 import { buildSeoKeywords } from "@/lib/seo-content";
 import { siteSeo } from "@/lib/seo";
@@ -87,7 +88,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: toJsonLd(organizationSchema) }}
         />
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          {children}
+          <WhatsAppChatButton />
+        </CartProvider>
       </body>
     </html>
   );
