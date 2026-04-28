@@ -4,6 +4,7 @@ import type { QueryResultRow } from "pg";
 import { db } from "@/lib/db";
 import rawProducts from "@/lib/products.json";
 import { buildProductSeoDescription } from "@/lib/seo-content";
+import { getProductImageUrl } from "@/lib/product-images";
 import type {
   Product,
   ProductFlavorOption,
@@ -95,7 +96,7 @@ function mapProductRows(rows: ProductRow[]): Product[] {
     price: row.price,
     serves: row.serves,
     leadTime: row.lead_time,
-    image: row.image,
+    image: getProductImageUrl(row.image),
     accent: row.accent,
     highlights: row.highlights ?? [],
     categories: row.categories ?? [],
@@ -546,7 +547,7 @@ function normalizeProductInput(payload: unknown): ValidationResult<ProductMutati
       price: Math.round(parsedPrice),
       serves,
       leadTime: isNonEmptyString(source.leadTime) ? source.leadTime.trim() : "Same day",
-      image: isNonEmptyString(source.image) ? source.image.trim() : "",
+      image: getProductImageUrl(isNonEmptyString(source.image) ? source.image.trim() : ""),
       accent: isNonEmptyString(source.accent)
         ? source.accent.trim()
         : "from-rose-100 via-orange-50 to-amber-100",

@@ -1,0 +1,26 @@
+const PRODUCT_IMAGE_PROXY_PATH = "/api/image-proxy";
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1541781286675-9bca0d6d7d07?auto=format&fit=crop&w=900&q=80";
+
+function isHttpUrl(value: string) {
+  return value.startsWith("http://") || value.startsWith("https://");
+}
+
+export function getProductImageUrl(input: string | null | undefined) {
+  const trimmed = (input ?? "").trim();
+  if (!trimmed) {
+    return FALLBACK_IMAGE;
+  }
+
+  if (trimmed.startsWith("/")) {
+    return trimmed;
+  }
+
+  const normalized = trimmed.startsWith("//") ? `https:${trimmed}` : trimmed;
+  if (!isHttpUrl(normalized)) {
+    return FALLBACK_IMAGE;
+  }
+
+  return `${PRODUCT_IMAGE_PROXY_PATH}?src=${encodeURIComponent(normalized)}`;
+}
+

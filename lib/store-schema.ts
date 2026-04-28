@@ -1,4 +1,5 @@
 import { buildProductSeoDescription } from "@/lib/seo-content";
+import { getProductImageUrl } from "@/lib/product-images";
 
 export type RawProductRecord = {
   id: string;
@@ -155,8 +156,6 @@ export type OrderUpdateInput = {
 
 const fallbackAccent = "from-rose-100 via-orange-50 to-amber-100";
 const fallbackHighlights = ["Freshly baked", "Hyderabad delivery"];
-const fallbackImage =
-  "https://images.unsplash.com/photo-1541781286675-9bca0d6d7d07?auto=format&fit=crop&w=900&q=80";
 
 export const DEFAULT_FLAVOR_OPTIONS: ProductFlavorOption[] = [
   { id: "pineapple", label: "Pineapple", pricePerKg: 0 },
@@ -318,7 +317,7 @@ export function normalizeProductRecord(item: RawProductRecord): Product {
     price,
     serves,
     leadTime: "Same day",
-    image: item.image ?? fallbackImage,
+    image: getProductImageUrl(item.image),
     accent: fallbackAccent,
     highlights: fallbackHighlights,
     categories: normalizedCategories,
