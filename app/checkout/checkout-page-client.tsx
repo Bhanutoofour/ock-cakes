@@ -634,10 +634,6 @@ export function CheckoutPageClient() {
               <span>Rs. {summaryValues.total}</span>
             </div>
           </div>
-          <p className="mt-5 text-[0.95rem] leading-7 text-[#6c7396]">
-            Payment is completed via Razorpay. Order moves to confirmed once payment signature is
-            verified.
-          </p>
           <Link
             href="/cart"
             className="mt-5 inline-flex rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-stone-900"
