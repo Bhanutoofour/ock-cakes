@@ -16,7 +16,7 @@ const staticRoutes: Array<{
   { path: "/custom-orders", priority: 0.85, changeFrequency: "weekly" },
   { path: "/faq", priority: 0.8, changeFrequency: "monthly" },
   { path: "/gallery", priority: 0.8, changeFrequency: "weekly" },
-  { path: "/menu", priority: 0.75, changeFrequency: "weekly" },
+  { path: "/menu", priority: 0.9, changeFrequency: "daily" },
   { path: "/offers", priority: 0.9, changeFrequency: "daily" },
   { path: "/privacy-policy", priority: 0.4, changeFrequency: "yearly" },
   { path: "/refund-policy", priority: 0.4, changeFrequency: "yearly" },
@@ -74,4 +74,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return entries;
 }
-

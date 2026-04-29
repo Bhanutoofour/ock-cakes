@@ -102,6 +102,9 @@ export function SiteFooter() {
               <Link href="/offers" className="block">
                 Offers
               </Link>
+              <Link href="/menu" className="block">
+                Full Menu
+              </Link>
             </div>
           </div>
 
@@ -159,6 +162,8 @@ export function SiteFooter() {
             <Link href="/refund-policy">Refund Policy</Link>
             <Link href="/faq">FAQ</Link>
             <Link href="/testimonials">Testimonials</Link>
+            <Link href="/menu">Menu</Link>
+            <Link href="/sitemap.xml">Sitemap</Link>
           </div>
         </div>
       </div>
