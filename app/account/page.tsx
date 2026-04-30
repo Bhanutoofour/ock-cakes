@@ -99,7 +99,7 @@ export default async function AccountPage() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 <Link
-                  href="/account"
+                  href="/account/profile"
                   className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#ef7f41]"
                 >
                   <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
