@@ -11,12 +11,12 @@ import type {
   OrderUpdateInput,
   PaymentStatus,
 } from "@/lib/store-schema";
-import { resolveCouponDiscount } from "@/lib/coupons";
 import { db } from "@/lib/db";
 import { buildCartItemKey, resolveVariantPricing } from "@/lib/product-variants";
 import { getShippingQuote, normalizeIndianPincode } from "@/lib/shipping-rules";
 
 import { getProductBySlug } from "./catalog";
+import { redeemCoupon } from "./coupons";
 const VALID_ORDER_STATUSES = new Set<OrderStatus>([
   "pending",
   "confirmed",
@@ -660,7 +660,7 @@ export async function createOrder(payload: unknown): Promise<ValidationResult<Or
   }
 
   const deliveryFee = subtotal > 0 ? shippingQuote.deliveryFee : 0;
-  const couponResolution = resolveCouponDiscount({
+  const couponResolution = await redeemCoupon({
     couponCode: input.couponCode,
     subtotal,
   });

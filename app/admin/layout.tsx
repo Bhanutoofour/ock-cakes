@@ -26,13 +26,13 @@ const adminSections: AdminSidebarSection[] = [
       { href: "/admin/categories", label: "Content" },
       { href: "/admin/customization", label: "Customization" },
       { href: "/admin/delivery", label: "Delivery" },
+      { href: "/admin/coupons", label: "Coupons" },
     ],
   },
   {
     title: "Growth",
     links: [
       { label: "Marketing", comingSoon: true },
-      { label: "Discounts", comingSoon: true },
     ],
   },
   {

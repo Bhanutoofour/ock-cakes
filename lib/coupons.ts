@@ -3,6 +3,9 @@ export type CouponDefinition = {
   percentageOff: number;
   active: boolean;
   minSubtotal?: number;
+  maxRedemptions?: number | null;
+  redemptionCount?: number;
+  expiresAt?: string | null;
 };
 
 export type CouponResolution = {
@@ -13,7 +16,7 @@ export type CouponResolution = {
   message?: string;
 };
 
-const LIVE_COUPONS: CouponDefinition[] = [
+export const BUILT_IN_COUPONS: CouponDefinition[] = [
   {
     code: "WELCOME10",
     percentageOff: 10,
@@ -26,29 +29,42 @@ const LIVE_COUPONS: CouponDefinition[] = [
   },
 ];
 
-function normalizeCouponCode(code: string | undefined | null) {
+export function normalizeCouponCode(code: string | undefined | null) {
   return (code ?? "").trim().toUpperCase();
 }
 
-export function resolveCouponDiscount(input: {
-  couponCode?: string | null;
+export function calculateCouponDiscount(input: {
+  coupon: CouponDefinition;
   subtotal: number;
 }): CouponResolution {
-  const normalizedCode = normalizeCouponCode(input.couponCode);
+  const { coupon } = input;
   const subtotal = Math.max(0, Math.round(input.subtotal));
 
-  if (!normalizedCode) {
-    return { valid: false, discountAmount: 0 };
-  }
-
-  const coupon = LIVE_COUPONS.find(
-    (item) => item.code === normalizedCode && item.active,
-  );
-  if (!coupon) {
+  if (!coupon.active) {
     return {
       valid: false,
       discountAmount: 0,
       message: "Invalid or inactive coupon code.",
+    };
+  }
+
+  if (coupon.expiresAt && new Date(coupon.expiresAt) <= new Date()) {
+    return {
+      valid: false,
+      discountAmount: 0,
+      message: "Coupon has expired.",
+    };
+  }
+
+  if (
+    typeof coupon.maxRedemptions === "number" &&
+    coupon.maxRedemptions > 0 &&
+    (coupon.redemptionCount ?? 0) >= coupon.maxRedemptions
+  ) {
+    return {
+      valid: false,
+      discountAmount: 0,
+      message: "Coupon usage limit reached.",
     };
   }
 
@@ -70,4 +86,28 @@ export function resolveCouponDiscount(input: {
     discountAmount,
     message: `${coupon.percentageOff}% discount applied.`,
   };
+}
+
+export function resolveCouponDiscount(input: {
+  couponCode?: string | null;
+  subtotal: number;
+}): CouponResolution {
+  const normalizedCode = normalizeCouponCode(input.couponCode);
+
+  if (!normalizedCode) {
+    return { valid: false, discountAmount: 0 };
+  }
+
+  const coupon = BUILT_IN_COUPONS.find(
+    (item) => item.code === normalizedCode && item.active,
+  );
+  if (!coupon) {
+    return {
+      valid: false,
+      discountAmount: 0,
+      message: "Invalid or inactive coupon code.",
+    };
+  }
+
+  return calculateCouponDiscount({ coupon, subtotal: input.subtotal });
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useCart } from "@/components/store/cart-context";
 import {
@@ -11,7 +11,7 @@ import {
   readCheckoutDraft,
   writeCheckoutDraft,
 } from "@/lib/checkout-draft";
-import { resolveCouponDiscount } from "@/lib/coupons";
+import type { CouponResolution } from "@/lib/coupons";
 import { DELIVERY_SLOT_OPTIONS, getShippingQuote } from "@/lib/shipping-rules";
 
 type RazorpayCheckoutData = {
@@ -84,6 +84,10 @@ export function CheckoutPageClient() {
   const { items, clear } = useCart();
   const [step, setStep] = useState(1);
   const [draft, setDraft] = useState<CheckoutDraft>(() => readCheckoutDraft());
+  const [couponResolution, setCouponResolution] = useState<CouponResolution>({
+    valid: false,
+    discountAmount: 0,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -96,10 +100,6 @@ export function CheckoutPageClient() {
     slot: draft.deliverySlot,
   });
   const delivery = items.length > 0 && shippingQuote.deliverable ? shippingQuote.deliveryFee : 0;
-  const couponResolution = resolveCouponDiscount({
-    couponCode: draft.couponCode,
-    subtotal,
-  });
   const discountAmount = couponResolution.discountAmount;
   const total = Math.max(1, subtotal + delivery - discountAmount);
 
@@ -116,6 +116,61 @@ export function CheckoutPageClient() {
       return next;
     });
   };
+
+  useEffect(() => {
+    const couponCode = draft.couponCode.trim();
+    let cancelled = false;
+
+    if (!couponCode) {
+      setCouponResolution({ valid: false, discountAmount: 0 });
+      return;
+    }
+
+    async function resolveCoupon() {
+      try {
+        const response = await fetch("/api/coupons/resolve", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ couponCode, subtotal }),
+        });
+        const payload = (await response.json()) as {
+          data?: CouponResolution;
+          error?: string;
+        };
+
+        if (cancelled) {
+          return;
+        }
+
+        if (!response.ok || !payload.data) {
+          setCouponResolution({
+            valid: false,
+            discountAmount: 0,
+            message: payload.error ?? "Unable to validate coupon.",
+          });
+          return;
+        }
+
+        setCouponResolution(payload.data);
+      } catch {
+        if (!cancelled) {
+          setCouponResolution({
+            valid: false,
+            discountAmount: 0,
+            message: "Unable to validate coupon.",
+          });
+        }
+      }
+    }
+
+    resolveCoupon();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [draft.couponCode, subtotal]);
 
   const validateStepOne = () => {
     if (!draft.fullName.trim()) {
