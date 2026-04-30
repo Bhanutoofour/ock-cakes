@@ -24,7 +24,7 @@ export async function getAdminSession() {
   if (allowedAdminEmails.length === 0) {
     return {
       session,
-      isAdmin: process.env.NODE_ENV !== "production",
+      isAdmin: false,
     };
   }
 

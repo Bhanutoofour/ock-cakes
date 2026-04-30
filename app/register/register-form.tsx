@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { authClient } from "@/lib/auth-client";
 
 type RegisterValues = {
@@ -43,6 +44,7 @@ export function RegisterForm() {
         name: fullName,
         email: values.email,
         password: values.password,
+        phone: values.phone.trim() || undefined,
         callbackURL: "/account",
       });
 
@@ -62,7 +64,7 @@ export function RegisterForm() {
     <div className="mx-auto max-w-[620px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
       <h1 className="text-[2rem] font-semibold text-black">Create Account</h1>
       <p className="mt-2 text-[1rem] text-[#6c7396]">
-        Join Occasionkart to track orders and save delivery addresses.
+        Join OccasionKart to track orders and save delivery addresses.
       </p>
 
       <form className="mt-6" onSubmit={handleSubmit}>
@@ -154,6 +156,10 @@ export function RegisterForm() {
           {isPending ? "Creating Account..." : "Create Account"}
         </button>
       </form>
+
+      <div className="mt-6">
+        <SocialLoginButtons />
+      </div>
 
       <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
         Already have an account?{" "}

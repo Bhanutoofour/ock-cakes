@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { authClient } from "@/lib/auth-client";
 
 export function LoginForm() {
@@ -39,28 +41,28 @@ export function LoginForm() {
     }
   };
 
-  const handleAdminForgotPassword = async () => {
+  const handleForgotPassword = async () => {
     setForgotError("");
     setForgotMessage("");
 
     if (!email.trim()) {
-      setForgotError("Enter your admin email first, then click forgot password.");
+      setForgotError("Enter your email first, then click forgot password.");
       return;
     }
 
     setIsForgotPending(true);
     try {
-      const response = await fetch("/api/admin/forgot-password", {
+      const response = await fetch("/api/auth/request-password-reset", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, redirectTo: "/reset-password" }),
       });
 
       const payload = (await response.json()) as {
+        message?: string;
         error?: string;
-        data?: { message?: string };
       };
 
       if (!response.ok) {
@@ -69,8 +71,7 @@ export function LoginForm() {
       }
 
       setForgotMessage(
-        payload.data?.message ??
-          "Reset request sent. Support team will contact you on your registered admin email.",
+        payload.message ?? "If an account exists for this email, a reset link has been sent.",
       );
     } finally {
       setIsForgotPending(false);
@@ -78,11 +79,27 @@ export function LoginForm() {
   };
 
   return (
-    <div className="mx-auto max-w-[520px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
+    <div className="mx-auto max-w-[560px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-8">
+      <div className="mb-6 grid grid-cols-2 gap-2 rounded-full bg-[#f7f7f9] p-1">
+        <span className="rounded-full bg-white px-4 py-2 text-center text-[0.9rem] font-semibold text-stone-950 shadow-sm">
+          Sign in
+        </span>
+        <Link
+          href="/register"
+          className="rounded-full px-4 py-2 text-center text-[0.9rem] font-semibold text-[#6c7396] transition hover:text-stone-950"
+        >
+          Create account
+        </Link>
+      </div>
+
       <h1 className="text-[2rem] font-semibold text-black">Login</h1>
       <p className="mt-2 text-[1rem] text-[#6c7396]">
         Welcome back. Sign in to manage your orders.
       </p>
+
+      <div className="mt-6">
+        <SocialLoginButtons />
+      </div>
 
       <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
         <div className="space-y-2">
@@ -107,22 +124,24 @@ export function LoginForm() {
           >
             Password
           </label>
-          <input
-            id="login-password"
-            type="password"
-            value={password}
-            required
-            autoComplete="current-password"
-            className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] px-4 py-3"
-            onChange={(event) => setPassword(event.target.value)}
-          />
+          <div className="flex items-center justify-between gap-4">
+            <input
+              id="login-password"
+              type="password"
+              value={password}
+              required
+              autoComplete="current-password"
+              className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] px-4 py-3"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
           <button
             type="button"
-            onClick={handleAdminForgotPassword}
+            onClick={handleForgotPassword}
             disabled={isForgotPending}
             className="text-[0.88rem] font-semibold text-[#ef7f41] disabled:opacity-70"
           >
-            {isForgotPending ? "Sending reset request..." : "Forgot Admin Password?"}
+            {isForgotPending ? "Sending reset link..." : "Forgot password?"}
           </button>
         </div>
 
@@ -152,6 +171,12 @@ export function LoginForm() {
         </button>
       </form>
 
+      <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
+        New to OccasionKart?{" "}
+        <Link href="/register" className="text-[#ef7f41]">
+          Create an account
+        </Link>
+      </p>
     </div>
   );
 }

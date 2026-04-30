@@ -1,3 +1,6 @@
+import { redirect } from "next/navigation";
+
+import { getAdminSession } from "@/lib/admin-auth";
 import { createMetadata } from "@/lib/seo";
 import { listProducts } from "@/lib/server/catalog";
 
@@ -12,6 +15,16 @@ export const metadata = createMetadata({
 });
 
 export default async function AdminProductsPage() {
+  const { session, isAdmin } = await getAdminSession();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  if (!isAdmin) {
+    redirect("/account");
+  }
+
   const products = await listProducts();
 
   return (
