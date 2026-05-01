@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -152,12 +151,6 @@ export function AdminLoginForm() {
         </button>
       </form>
 
-      <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
-        Customer account?{" "}
-        <Link href="/login" className="text-[#ef7f41]">
-          Use customer login
-        </Link>
-      </p>
     </div>
   );
 }

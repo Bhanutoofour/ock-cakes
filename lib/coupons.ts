@@ -27,6 +27,11 @@ export const BUILT_IN_COUPONS: CouponDefinition[] = [
     percentageOff: 10,
     active: true,
   },
+  {
+    code: "ADMINZ99Z",
+    percentageOff: 99,
+    active: true,
+  },
 ];
 
 export function normalizeCouponCode(code: string | undefined | null) {

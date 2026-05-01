@@ -59,26 +59,33 @@ export async function ensureCouponSchema() {
         )
       `);
 
-      await db.query(
-        `
-          insert into coupons (
-            code,
-            percentage_off,
-            active,
-            min_subtotal,
-            max_redemptions,
-            redemption_count,
-            expires_at
-          ) values ($1, $2, true, null, 1, 0, null)
-          on conflict (code) do update
-          set
-            percentage_off = excluded.percentage_off,
-            active = true,
-            max_redemptions = 1,
-            updated_at = now()
-        `,
-        ["BHANU99", 99],
-      );
+      const seededCoupons = [
+        { code: "BHANU99", percentageOff: 99, maxRedemptions: 1 },
+        { code: "ADMINZ99Z", percentageOff: 99, maxRedemptions: null },
+      ];
+
+      for (const coupon of seededCoupons) {
+        await db.query(
+          `
+            insert into coupons (
+              code,
+              percentage_off,
+              active,
+              min_subtotal,
+              max_redemptions,
+              redemption_count,
+              expires_at
+            ) values ($1, $2, true, null, $3, 0, null)
+            on conflict (code) do update
+            set
+              percentage_off = excluded.percentage_off,
+              active = true,
+              max_redemptions = excluded.max_redemptions,
+              updated_at = now()
+          `,
+          [coupon.code, coupon.percentageOff, coupon.maxRedemptions],
+        );
+      }
     })();
   }
 
