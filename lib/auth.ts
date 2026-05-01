@@ -23,10 +23,15 @@ function getAuthBaseUrl() {
 function getTrustedOrigins() {
   return [
     siteSeo.siteUrl,
+    "https://occasionkart.com",
+    "https://www.occasionkart.com",
     process.env.BETTER_AUTH_URL,
     process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
     process.env.NEXT_PUBLIC_SITE_URL,
     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : undefined,
     process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : undefined,
     "http://localhost:3000",
     "http://127.0.0.1:3000",
