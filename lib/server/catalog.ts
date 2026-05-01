@@ -147,6 +147,7 @@ function isCatalogConnectionError(error: unknown) {
   }
 
   const maybeCode = "code" in error ? String(error.code) : "";
+  const message = error.message.toLowerCase();
   return [
     "ENOTFOUND",
     "ECONNREFUSED",
@@ -155,7 +156,7 @@ function isCatalogConnectionError(error: unknown) {
     "EAI_AGAIN",
     "57P01",
     "53300",
-  ].includes(maybeCode);
+  ].includes(maybeCode) || (maybeCode === "XX000" && message.includes("data transfer quota"));
 }
 
 function filterFallbackProducts(products: Product[], filters: ProductFilters = {}) {

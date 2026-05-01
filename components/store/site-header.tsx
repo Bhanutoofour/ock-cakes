@@ -99,7 +99,7 @@ export function SiteHeader() {
   }, [mobileOpen]);
 
   return (
-    <header className="sticky top-0 z-[60] bg-white shadow-[0_1px_0_rgba(0,0,0,0.08)]">
+    <header className="sticky top-0 z-[200] bg-white shadow-[0_1px_0_rgba(0,0,0,0.08)]">
       <div className="border-b border-[rgba(0,0,0,0.08)]">
         <div className="page-pad mx-auto flex max-w-[1720px] items-center gap-3 py-3 md:gap-4">
           <button
@@ -203,13 +203,15 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="hidden border-b border-[rgba(0,0,0,0.08)] md:block">
+      <div className="relative hidden overflow-visible border-b border-[rgba(0,0,0,0.08)] md:block">
         <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 overflow-x-auto py-4 text-[1rem] font-semibold text-stone-900">
-          <div className="relative">
+          <div>
             <button
               type="button"
               className="inline-flex items-center gap-2"
               onClick={() => setOpenDesktopMenu((prev) => (prev === "cakes" ? null : "cakes"))}
+              aria-expanded={openDesktopMenu === "cakes"}
+              aria-controls="desktop-cakes-mega-menu"
             >
               Cakes Mega Menu
               <svg
@@ -227,15 +229,6 @@ export function SiteHeader() {
                 <path d="m5 7 5 6 5-6" />
               </svg>
             </button>
-            {openDesktopMenu === "cakes" ? (
-              <div className="absolute left-0 top-full z-50 mt-3 max-h-[70vh] w-[min(1260px,calc(100vw-64px))] overflow-y-auto rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_22px_40px_rgba(0,0,0,0.14)]">
-                <div className="grid gap-6 md:grid-cols-5">
-                  {cakesMegaColumns.map((column) => (
-                    <MegaColumnBlock key={column.title} column={column} />
-                  ))}
-                </div>
-              </div>
-            ) : null}
           </div>
 
           <Link href="/category/gift-hampers">Gifts</Link>
@@ -252,6 +245,19 @@ export function SiteHeader() {
             </span>
           </Link>
         </nav>
+
+        {openDesktopMenu === "cakes" ? (
+          <div
+            id="desktop-cakes-mega-menu"
+            className="absolute left-1/2 top-[calc(100%-1px)] z-[220] max-h-[calc(100vh-150px)] w-[min(1260px,calc(100vw-64px))] -translate-x-1/2 overflow-y-auto rounded-b-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 text-stone-900 shadow-[0_22px_40px_rgba(0,0,0,0.14)]"
+          >
+            <div className="grid gap-6 md:grid-cols-5">
+              {cakesMegaColumns.map((column) => (
+                <MegaColumnBlock key={column.title} column={column} />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
 
       {mobileOpen ? (
