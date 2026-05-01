@@ -318,6 +318,19 @@ function getConfiguredFromEmail() {
   return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? process.env.GMAIL_USER;
 }
 
+function getInternalOrderNotificationRecipients() {
+  const configuredRecipients = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  if (configuredRecipients.length > 0) {
+    return configuredRecipients;
+  }
+
+  return splitEnvList(
+    process.env.ADMIN_PASSWORD_SUPPORT_EMAIL ??
+      process.env.GMAIL_USER ??
+      "support@occasionkart.com",
+  );
+}
+
 async function sendViaResend({
   from,
   to,
@@ -454,7 +467,7 @@ async function sendOrderEmail({
 }
 
 async function sendInternalEmailNotification(order: Order) {
-  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  const to = getInternalOrderNotificationRecipients();
   if (to.length === 0) {
     return;
   }
@@ -553,7 +566,7 @@ async function sendCustomerPaymentUpdateEmail(order: Order, paymentStatus: Payme
 }
 
 async function sendInternalStatusUpdateEmail(order: Order, previousStatus: OrderStatus, nextStatus: OrderStatus) {
-  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  const to = getInternalOrderNotificationRecipients();
   if (to.length === 0) {
     return;
   }
@@ -573,7 +586,7 @@ async function sendInternalPaymentUpdateEmail(
   previousPaymentStatus: PaymentStatus,
   nextPaymentStatus: PaymentStatus,
 ) {
-  const to = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
+  const to = getInternalOrderNotificationRecipients();
   if (to.length === 0) {
     return;
   }

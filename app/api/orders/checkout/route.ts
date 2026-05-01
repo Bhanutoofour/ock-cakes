@@ -1,6 +1,10 @@
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
+import {
+  sendCustomerOrderReceivedNotification,
+  sendNewOrderNotifications,
+} from "@/lib/server/order-notifications";
 import { createOrder } from "@/lib/server/orders";
 import { createRazorpayOrder, getRazorpayPublicConfig } from "@/lib/server/razorpay";
 
@@ -24,6 +28,14 @@ export async function POST(request: Request) {
     }
 
     const order = orderResult.value;
+
+    try {
+      await sendNewOrderNotifications(order);
+      await sendCustomerOrderReceivedNotification(order);
+    } catch (error) {
+      console.error("Checkout order notification failed", error);
+    }
+
     const razorpayOrder = await createRazorpayOrder({
       amountPaise: order.pricing.total * 100,
       receipt: order.orderNumber,
@@ -61,4 +73,3 @@ export async function POST(request: Request) {
     return Response.json({ error: "Unable to initialize checkout payment." }, { status: 500 });
   }
 }
-

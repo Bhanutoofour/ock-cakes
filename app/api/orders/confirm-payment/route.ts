@@ -1,5 +1,5 @@
 import { getOrderById, updateOrder } from "@/lib/server/orders";
-import { sendNewOrderNotifications, sendOrderStatusNotifications } from "@/lib/server/order-notifications";
+import { sendOrderStatusNotifications } from "@/lib/server/order-notifications";
 import { verifyRazorpaySignature } from "@/lib/server/razorpay";
 
 export const runtime = "nodejs";
@@ -44,9 +44,8 @@ export async function POST(request: Request) {
     }
 
     try {
-      await sendNewOrderNotifications(updateResult.value);
       await sendOrderStatusNotifications(existingOrder, updateResult.value, {
-        sendInternal: false,
+        sendInternal: true,
         sendCustomer: true,
       });
     } catch (error) {
