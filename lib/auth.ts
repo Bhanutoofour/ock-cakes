@@ -39,6 +39,26 @@ function getTrustedOrigins() {
   });
 }
 
+function getSocialProviders() {
+  const providers: Parameters<typeof betterAuth>[0]["socialProviders"] = {};
+
+  if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    providers.google = {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    };
+  }
+
+  if (process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET) {
+    providers.facebook = {
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    };
+  }
+
+  return providers;
+}
+
 export const auth = betterAuth({
   database: db,
   baseURL: getAuthBaseUrl(),
@@ -85,16 +105,7 @@ export const auth = betterAuth({
       });
     },
   },
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-    },
-    facebook: {
-      clientId: process.env.FACEBOOK_CLIENT_ID ?? "",
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET ?? "",
-    },
-  },
+  socialProviders: getSocialProviders(),
   user: {
     additionalFields: {
       phone: {

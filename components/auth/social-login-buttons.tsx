@@ -9,14 +9,17 @@ type SocialProvider = "google" | "facebook";
 const providers: {
   provider: SocialProvider;
   label: string;
+  enabled: boolean;
 }[] = [
   {
     provider: "google",
     label: "Continue with Google",
+    enabled: process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true",
   },
   {
     provider: "facebook",
     label: "Continue with Facebook",
+    enabled: process.env.NEXT_PUBLIC_FACEBOOK_AUTH_ENABLED === "true",
   },
 ];
 
@@ -61,6 +64,11 @@ function SocialProviderIcon({ provider }: { provider: SocialProvider }) {
 export function SocialLoginButtons() {
   const [pendingProvider, setPendingProvider] = useState<SocialProvider | null>(null);
   const [error, setError] = useState("");
+  const enabledProviders = providers.filter((provider) => provider.enabled);
+
+  if (enabledProviders.length === 0) {
+    return null;
+  }
 
   const signInWithProvider = async (provider: SocialProvider) => {
     setError("");
@@ -95,7 +103,7 @@ export function SocialLoginButtons() {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        {providers.map((item) => {
+        {enabledProviders.map((item) => {
           const isPending = pendingProvider === item.provider;
 
           return (
