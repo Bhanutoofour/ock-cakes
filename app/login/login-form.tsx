@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
-import { authClient } from "@/lib/auth-client";
 
 export function LoginForm() {
   const router = useRouter();
@@ -23,14 +22,25 @@ export function LoginForm() {
     setIsPending(true);
 
     try {
-      const result = await authClient.signIn.email({
-        email,
-        password,
-        callbackURL: "/account",
+      const response = await fetch("/api/auth/sign-in/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          callbackURL: "/account",
+        }),
       });
 
-      if (result.error) {
-        setError(result.error.message ?? "Unable to sign in right now.");
+      const payload = (await response.json().catch(() => null)) as {
+        message?: string;
+        error?: string;
+      } | null;
+
+      if (!response.ok) {
+        setError(payload?.message ?? payload?.error ?? "Unable to sign in right now.");
         return;
       }
 

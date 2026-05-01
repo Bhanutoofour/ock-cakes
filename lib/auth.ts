@@ -20,9 +20,29 @@ function getAuthBaseUrl() {
   return configuredBaseUrl ?? (process.env.NODE_ENV === "production" ? siteSeo.siteUrl : fallbackBaseUrl);
 }
 
+function getTrustedOrigins() {
+  return [
+    siteSeo.siteUrl,
+    process.env.BETTER_AUTH_URL,
+    process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+    process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : undefined,
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+  ].filter((origin): origin is string => {
+    if (!origin) {
+      return false;
+    }
+
+    return process.env.NODE_ENV !== "production" || !origin.includes("localhost");
+  });
+}
+
 export const auth = betterAuth({
   database: db,
   baseURL: getAuthBaseUrl(),
+  trustedOrigins: getTrustedOrigins(),
   secret: process.env.BETTER_AUTH_SECRET ?? fallbackSecret,
   emailAndPassword: {
     enabled: true,

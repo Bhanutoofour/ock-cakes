@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
-import { authClient } from "@/lib/auth-client";
-
 type RegisterValues = {
   firstName: string;
   lastName: string;
@@ -40,16 +38,27 @@ export function RegisterForm() {
 
     try {
       const fullName = `${values.firstName} ${values.lastName}`.trim();
-      const result = await authClient.signUp.email({
-        name: fullName,
-        email: values.email,
-        password: values.password,
-        phone: values.phone.trim() || undefined,
-        callbackURL: "/account",
+      const response = await fetch("/api/auth/sign-up/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullName,
+          email: values.email,
+          password: values.password,
+          phone: values.phone.trim() || undefined,
+          callbackURL: "/account",
+        }),
       });
 
-      if (result.error) {
-        setError(result.error.message ?? "Unable to create your account.");
+      const payload = (await response.json().catch(() => null)) as {
+        message?: string;
+        error?: string;
+      } | null;
+
+      if (!response.ok) {
+        setError(payload?.message ?? payload?.error ?? "Unable to create your account.");
         return;
       }
 
