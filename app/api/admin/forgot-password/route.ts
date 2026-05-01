@@ -1,9 +1,16 @@
-import { sendSupportEmail } from "@/lib/server/support-mail";
+import { auth } from "@/lib/auth";
 
 export const runtime = "nodejs";
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function getAllowedAdminEmails() {
+  return (process.env.ADMIN_EMAILS ?? "support@occasionkart.com")
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
 }
 
 export async function POST(request: Request) {
@@ -15,39 +22,25 @@ export async function POST(request: Request) {
       return Response.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
-    const userAgent = request.headers.get("user-agent") ?? "unknown";
-    const requestedAt = new Date().toISOString();
-    const subject = `Admin password reset request: ${email}`;
-    const html = `
-      <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
-        <h2 style="margin-bottom:8px;">Admin Password Reset Request</h2>
-        <p style="margin:0 0 12px;">
-          A password reset request was submitted for admin login.
-        </p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Requested at:</strong> ${requestedAt}</p>
-        <p><strong>User agent:</strong> ${userAgent}</p>
-      </div>
-    `;
-    const text = [
-      "Admin Password Reset Request",
-      "",
-      `Email: ${email}`,
-      `Requested at: ${requestedAt}`,
-      `User agent: ${userAgent}`,
-    ].join("\n");
+    if (!getAllowedAdminEmails().includes(email)) {
+      return Response.json(
+        { error: "This email is not allowed for admin password reset." },
+        { status: 403 },
+      );
+    }
 
-    await sendSupportEmail({
-      subject,
-      html,
-      text,
-      idempotencyKey: `admin-forgot-${email}-${requestedAt}`,
+    await auth.api.requestPasswordReset({
+      headers: request.headers,
+      body: {
+        email,
+        redirectTo: "/reset-password",
+      },
     });
 
     return Response.json({
       data: {
         message:
-          "Reset request sent. Support team will contact you on your registered admin email.",
+          "If the admin account exists, a reset link has been sent to the admin email.",
       },
     });
   } catch (error) {
@@ -58,4 +51,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

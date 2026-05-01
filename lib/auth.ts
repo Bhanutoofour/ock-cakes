@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth";
 
 import { db } from "@/lib/db";
+import { siteSeo } from "@/lib/seo";
 import { sendSupportEmail } from "@/lib/server/support-mail";
 
 const fallbackSecret = "dev-only-better-auth-secret-change-me-1234";
@@ -12,7 +13,10 @@ export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET ?? fallbackSecret,
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url, token }) => {
+    sendResetPassword: async ({ user, token }) => {
+      const resetUrl = new URL("/reset-password", siteSeo.siteUrl);
+      resetUrl.searchParams.set("token", token);
+      const passwordResetUrl = resetUrl.toString();
       const subject = "Reset your OccasionKart password";
       const html = `
         <div style="font-family:Segoe UI,Trebuchet MS,sans-serif;color:#2b1812;">
@@ -21,7 +25,7 @@ export const auth = betterAuth({
             We received a request to reset your OccasionKart account password.
           </p>
           <p style="margin:0 0 20px;">
-            <a href="${url}" style="display:inline-block;border-radius:999px;background:#ef7f41;color:#fff;padding:12px 20px;text-decoration:none;font-weight:700;">
+            <a href="${passwordResetUrl}" style="display:inline-block;border-radius:999px;background:#ef7f41;color:#fff;padding:12px 20px;text-decoration:none;font-weight:700;">
               Reset Password
             </a>
           </p>
@@ -34,7 +38,7 @@ export const auth = betterAuth({
         "Reset your OccasionKart password",
         "",
         "We received a request to reset your OccasionKart account password.",
-        `Reset password: ${url}`,
+        `Reset password: ${passwordResetUrl}`,
         "",
         "If you did not request this, you can ignore this email.",
       ].join("\n");
