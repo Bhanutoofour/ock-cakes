@@ -64,7 +64,7 @@ export default async function AdminLayout({
   const { session, isAdmin } = await getAdminSession();
 
   if (!session?.user) {
-    redirect("/login");
+    redirect("/admin-login");
   }
 
   const [orderStats, recentOrders] = isAdmin
@@ -102,10 +102,10 @@ export default async function AdminLayout({
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/account"
+                href="/admin-login"
                 className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
               >
-                Back to Account
+                Admin Login
               </Link>
             </div>
           </div>
