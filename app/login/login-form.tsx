@@ -52,16 +52,18 @@ export function LoginForm() {
 
     setIsForgotPending(true);
     try {
-      const response = await fetch("/api/auth/request-password-reset", {
+      const response = await fetch("/api/customer/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, redirectTo: "/reset-password" }),
+        body: JSON.stringify({ email }),
       });
 
       const payload = (await response.json()) as {
-        message?: string;
+        data?: {
+          message?: string;
+        };
         error?: string;
       };
 
@@ -71,7 +73,7 @@ export function LoginForm() {
       }
 
       setForgotMessage(
-        payload.message ?? "If an account exists for this email, a reset link has been sent.",
+        payload.data?.message ?? "If an account exists for this email, a reset link has been sent.",
       );
     } finally {
       setIsForgotPending(false);

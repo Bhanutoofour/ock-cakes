@@ -7,9 +7,22 @@ import { sendSupportEmail } from "@/lib/server/support-mail";
 const fallbackSecret = "dev-only-better-auth-secret-change-me-1234";
 const fallbackBaseUrl = "http://localhost:3000";
 
+function getAuthBaseUrl() {
+  const configuredBaseUrl = process.env.BETTER_AUTH_URL;
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    configuredBaseUrl?.includes("localhost")
+  ) {
+    return siteSeo.siteUrl;
+  }
+
+  return configuredBaseUrl ?? (process.env.NODE_ENV === "production" ? siteSeo.siteUrl : fallbackBaseUrl);
+}
+
 export const auth = betterAuth({
   database: db,
-  baseURL: process.env.BETTER_AUTH_URL ?? fallbackBaseUrl,
+  baseURL: getAuthBaseUrl(),
   secret: process.env.BETTER_AUTH_SECRET ?? fallbackSecret,
   emailAndPassword: {
     enabled: true,
