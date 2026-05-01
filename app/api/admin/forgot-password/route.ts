@@ -1,4 +1,7 @@
+import { randomUUID } from "node:crypto";
+
 import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -11,6 +14,23 @@ function getAllowedAdminEmails() {
     .split(",")
     .map((item) => item.trim().toLowerCase())
     .filter(Boolean);
+}
+
+async function ensureAdminUserExists(email: string) {
+  await db.query(
+    `
+      insert into "user" (
+        id,
+        name,
+        email,
+        "emailVerified",
+        "createdAt",
+        "updatedAt"
+      ) values ($1, $2, $3, true, now(), now())
+      on conflict (email) do nothing
+    `,
+    [randomUUID(), "OccasionKart Admin", email],
+  );
 }
 
 export async function POST(request: Request) {
@@ -28,6 +48,8 @@ export async function POST(request: Request) {
         { status: 403 },
       );
     }
+
+    await ensureAdminUserExists(email);
 
     await auth.api.requestPasswordReset({
       headers: request.headers,
