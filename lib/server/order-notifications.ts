@@ -332,11 +332,11 @@ function getInternalOrderNotificationRecipients() {
 }
 
 function getSmtpUser() {
-  return process.env.SMTP_USER ?? process.env.GMAIL_USER;
+  return process.env.GMAIL_USER ?? process.env.SMTP_USER;
 }
 
 function getSmtpPass() {
-  return process.env.SMTP_PASS ?? process.env.GMAIL_APP_PASSWORD;
+  return process.env.GMAIL_APP_PASSWORD ?? process.env.SMTP_PASS;
 }
 
 async function sendViaResend({
