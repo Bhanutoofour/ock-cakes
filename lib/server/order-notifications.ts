@@ -318,6 +318,10 @@ function getConfiguredFromEmail() {
   return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? getSmtpUser();
 }
 
+function getSmtpFromEmail() {
+  return process.env.SMTP_FROM_EMAIL ?? getSmtpUser();
+}
+
 function getInternalOrderNotificationRecipients() {
   const configuredRecipients = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
   if (configuredRecipients.length > 0) {
@@ -400,8 +404,9 @@ async function sendViaSmtp({
   const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
   const smtpUser = getSmtpUser();
   const smtpPass = getSmtpPass();
+  const smtpFrom = getSmtpFromEmail();
 
-  if (!smtpUser || !smtpPass) {
+  if (!smtpUser || !smtpPass || !smtpFrom) {
     return false;
   }
 
@@ -416,7 +421,8 @@ async function sendViaSmtp({
   });
 
   await transporter.sendMail({
-    from,
+    from: smtpFrom,
+    replyTo: from,
     to: to.join(","),
     subject,
     html,

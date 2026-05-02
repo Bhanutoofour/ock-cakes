@@ -84,9 +84,14 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     console.error("Customer forgot password request failed", error);
     return Response.json(
-      { error: "Unable to send reset request right now. Please try again shortly." },
+      {
+        error: message.toLowerCase().includes("email") || message.toLowerCase().includes("mail")
+          ? "Email provider rejected the reset email. Please contact support."
+          : "Unable to send reset request right now. Please try again shortly.",
+      },
       { status: 500 },
     );
   }

@@ -12,6 +12,10 @@ function getFromEmail() {
   return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? getSmtpUser();
 }
 
+function getSmtpFromEmail() {
+  return process.env.SMTP_FROM_EMAIL ?? getSmtpUser();
+}
+
 function getSmtpUser() {
   return process.env.SMTP_USER ?? process.env.GMAIL_USER;
 }
@@ -81,8 +85,9 @@ async function sendViaSmtp({
   const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
   const smtpUser = getSmtpUser();
   const smtpPass = getSmtpPass();
+  const smtpFrom = getSmtpFromEmail();
 
-  if (!smtpUser || !smtpPass) {
+  if (!smtpUser || !smtpPass || !smtpFrom) {
     return false;
   }
 
@@ -97,7 +102,8 @@ async function sendViaSmtp({
   });
 
   await transporter.sendMail({
-    from,
+    from: smtpFrom,
+    replyTo: from,
     to,
     subject,
     html,
