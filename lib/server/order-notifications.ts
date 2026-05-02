@@ -444,32 +444,48 @@ async function sendOrderEmail({
     return;
   }
 
-  const sentBySmtp = await sendViaSmtp({
-    to: recipients,
-    subject,
-    html,
-    text,
-  });
+  const errors: string[] = [];
 
-  if (sentBySmtp) {
-    return;
+  try {
+    const sentBySmtp = await sendViaSmtp({
+      to: recipients,
+      subject,
+      html,
+      text,
+    });
+
+    if (sentBySmtp) {
+      return;
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    errors.push(`SMTP: ${message}`);
+    console.error(`Order email SMTP send failed for ${order.orderNumber}`, error);
   }
 
-  const sentByResend = await sendViaResend({
-    from,
-    to: recipients,
-    subject,
-    html,
-    text,
-    idempotencyKey,
-  });
+  try {
+    const sentByResend = await sendViaResend({
+      from,
+      to: recipients,
+      subject,
+      html,
+      text,
+      idempotencyKey,
+    });
 
-  if (sentByResend) {
-    return;
+    if (sentByResend) {
+      return;
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    errors.push(`Resend: ${message}`);
+    console.error(`Order email Resend send failed for ${order.orderNumber}`, error);
   }
 
   throw new Error(
-    `No email provider configured for order ${order.orderNumber}. Set RESEND_API_KEY or SMTP/GMAIL env variables.`,
+    errors.length > 0
+      ? `All email providers failed for order ${order.orderNumber}. ${errors.join(" | ")}`
+      : `No email provider configured for order ${order.orderNumber}. Set RESEND_API_KEY or SMTP/GMAIL env variables.`,
   );
 }
 

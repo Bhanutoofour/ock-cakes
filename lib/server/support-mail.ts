@@ -117,31 +117,47 @@ export async function sendSupportEmail({
     throw new Error("Missing sender email configuration for support email.");
   }
 
-  const sentBySmtp = await sendViaSmtp({
-    to,
-    subject,
-    html,
-    text,
-  });
+  const errors: string[] = [];
 
-  if (sentBySmtp) {
-    return;
+  try {
+    const sentBySmtp = await sendViaSmtp({
+      to,
+      subject,
+      html,
+      text,
+    });
+
+    if (sentBySmtp) {
+      return;
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    errors.push(`SMTP: ${message}`);
+    console.error("Support email SMTP send failed", error);
   }
 
-  const sentByResend = await sendViaResend({
-    from,
-    to,
-    subject,
-    html,
-    text,
-    idempotencyKey,
-  });
+  try {
+    const sentByResend = await sendViaResend({
+      from,
+      to,
+      subject,
+      html,
+      text,
+      idempotencyKey,
+    });
 
-  if (sentByResend) {
-    return;
+    if (sentByResend) {
+      return;
+    }
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    errors.push(`Resend: ${message}`);
+    console.error("Support email Resend send failed", error);
   }
 
   throw new Error(
-    "No mail provider configured. Set RESEND_API_KEY or SMTP/GMAIL environment variables.",
+    errors.length > 0
+      ? `All support email providers failed. ${errors.join(" | ")}`
+      : "No mail provider configured. Set RESEND_API_KEY or SMTP/GMAIL environment variables.",
   );
 }
