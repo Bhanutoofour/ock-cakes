@@ -13,7 +13,7 @@ export function SignOutButton() {
     setError("");
 
     try {
-      const response = await fetch("/api/auth/sign-out", {
+      const response = await fetch("/api/customer/sign-out", {
         method: "POST",
       });
 
