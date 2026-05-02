@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -13,6 +14,18 @@ export async function POST(request: Request) {
 
     if (!email || !isValidEmail(email)) {
       return Response.json({ error: "Please enter a valid email address." }, { status: 400 });
+    }
+
+    const existingUser = await db.query<{ id: string }>(
+      'select id from "user" where lower(email) = lower($1) limit 1',
+      [email],
+    );
+
+    if (existingUser.rows.length === 0) {
+      return Response.json(
+        { error: "No customer account exists for this email." },
+        { status: 404 },
+      );
     }
 
     await auth.api.requestPasswordReset({
