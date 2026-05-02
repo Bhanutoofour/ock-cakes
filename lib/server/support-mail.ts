@@ -9,7 +9,15 @@ type SendSupportEmailInput = {
 };
 
 function getFromEmail() {
-  return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? process.env.GMAIL_USER;
+  return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? getSmtpUser();
+}
+
+function getSmtpUser() {
+  return process.env.SMTP_USER ?? process.env.GMAIL_USER;
+}
+
+function getSmtpPass() {
+  return process.env.SMTP_PASS ?? process.env.GMAIL_APP_PASSWORD;
 }
 
 async function sendViaResend({
@@ -71,8 +79,8 @@ async function sendViaSmtp({
   const smtpHost = process.env.SMTP_HOST;
   const smtpPort = Number(process.env.SMTP_PORT ?? 465);
   const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
-  const smtpUser = process.env.SMTP_USER ?? process.env.GMAIL_USER;
-  const smtpPass = process.env.SMTP_PASS ?? process.env.GMAIL_APP_PASSWORD;
+  const smtpUser = getSmtpUser();
+  const smtpPass = getSmtpPass();
 
   if (!smtpUser || !smtpPass) {
     return false;
@@ -111,6 +119,18 @@ export async function sendSupportEmail({
     throw new Error("Missing sender email configuration for support email.");
   }
 
+  const sentBySmtp = await sendViaSmtp({
+    from,
+    to,
+    subject,
+    html,
+    text,
+  });
+
+  if (sentBySmtp) {
+    return;
+  }
+
   const sentByResend = await sendViaResend({
     from,
     to,
@@ -124,18 +144,7 @@ export async function sendSupportEmail({
     return;
   }
 
-  const sentBySmtp = await sendViaSmtp({
-    from,
-    to,
-    subject,
-    html,
-    text,
-  });
-
-  if (!sentBySmtp) {
-    throw new Error(
-      "No mail provider configured. Set RESEND_API_KEY or SMTP/GMAIL environment variables.",
-    );
-  }
+  throw new Error(
+    "No mail provider configured. Set RESEND_API_KEY or SMTP/GMAIL environment variables.",
+  );
 }
-

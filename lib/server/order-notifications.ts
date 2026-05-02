@@ -315,7 +315,7 @@ function buildInternalPaymentChangeText(
 }
 
 function getConfiguredFromEmail() {
-  return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? process.env.GMAIL_USER;
+  return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? getSmtpUser();
 }
 
 function getInternalOrderNotificationRecipients() {
@@ -329,6 +329,14 @@ function getInternalOrderNotificationRecipients() {
       process.env.GMAIL_USER ??
       "support@occasionkart.com",
   );
+}
+
+function getSmtpUser() {
+  return process.env.SMTP_USER ?? process.env.GMAIL_USER;
+}
+
+function getSmtpPass() {
+  return process.env.SMTP_PASS ?? process.env.GMAIL_APP_PASSWORD;
 }
 
 async function sendViaResend({
@@ -390,8 +398,8 @@ async function sendViaSmtp({
   const smtpHost = process.env.SMTP_HOST;
   const smtpPort = Number(process.env.SMTP_PORT ?? 465);
   const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
-  const smtpUser = process.env.SMTP_USER ?? process.env.GMAIL_USER;
-  const smtpPass = process.env.SMTP_PASS ?? process.env.GMAIL_APP_PASSWORD;
+  const smtpUser = getSmtpUser();
+  const smtpPass = getSmtpPass();
 
   if (!smtpUser || !smtpPass) {
     return false;
@@ -438,6 +446,18 @@ async function sendOrderEmail({
     return;
   }
 
+  const sentBySmtp = await sendViaSmtp({
+    from,
+    to: recipients,
+    subject,
+    html,
+    text,
+  });
+
+  if (sentBySmtp) {
+    return;
+  }
+
   const sentByResend = await sendViaResend({
     from,
     to: recipients,
@@ -451,19 +471,9 @@ async function sendOrderEmail({
     return;
   }
 
-  const sentBySmtp = await sendViaSmtp({
-    from,
-    to: recipients,
-    subject,
-    html,
-    text,
-  });
-
-  if (!sentBySmtp) {
-    throw new Error(
-      `No email provider configured for order ${order.orderNumber}. Set RESEND_API_KEY or SMTP/GMAIL env variables.`,
-    );
-  }
+  throw new Error(
+    `No email provider configured for order ${order.orderNumber}. Set RESEND_API_KEY or SMTP/GMAIL env variables.`,
+  );
 }
 
 async function sendInternalEmailNotification(order: Order) {
