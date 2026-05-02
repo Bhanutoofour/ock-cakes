@@ -12,10 +12,6 @@ function getFromEmail() {
   return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? getSmtpUser();
 }
 
-function getSmtpFromEmail() {
-  return process.env.SMTP_FROM_EMAIL ?? getSmtpUser();
-}
-
 function getSmtpUser() {
   return process.env.SMTP_USER ?? process.env.GMAIL_USER;
 }
@@ -68,13 +64,11 @@ async function sendViaResend({
 }
 
 async function sendViaSmtp({
-  from,
   to,
   subject,
   html,
   text,
 }: {
-  from: string;
   to: string;
   subject: string;
   html: string;
@@ -85,9 +79,8 @@ async function sendViaSmtp({
   const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
   const smtpUser = getSmtpUser();
   const smtpPass = getSmtpPass();
-  const smtpFrom = getSmtpFromEmail();
 
-  if (!smtpUser || !smtpPass || !smtpFrom) {
+  if (!smtpUser || !smtpPass) {
     return false;
   }
 
@@ -102,8 +95,7 @@ async function sendViaSmtp({
   });
 
   await transporter.sendMail({
-    from: smtpFrom,
-    replyTo: from,
+    from: smtpUser,
     to,
     subject,
     html,
@@ -126,7 +118,6 @@ export async function sendSupportEmail({
   }
 
   const sentBySmtp = await sendViaSmtp({
-    from,
     to,
     subject,
     html,

@@ -318,10 +318,6 @@ function getConfiguredFromEmail() {
   return process.env.ORDER_NOTIFICATION_FROM_EMAIL ?? getSmtpUser();
 }
 
-function getSmtpFromEmail() {
-  return process.env.SMTP_FROM_EMAIL ?? getSmtpUser();
-}
-
 function getInternalOrderNotificationRecipients() {
   const configuredRecipients = splitEnvList(process.env.ORDER_NOTIFICATION_TO_EMAIL);
   if (configuredRecipients.length > 0) {
@@ -387,13 +383,11 @@ async function sendViaResend({
 }
 
 async function sendViaSmtp({
-  from,
   to,
   subject,
   html,
   text,
 }: {
-  from: string;
   to: string[];
   subject: string;
   html: string;
@@ -404,9 +398,8 @@ async function sendViaSmtp({
   const smtpSecure = (process.env.SMTP_SECURE ?? "true").toLowerCase() === "true";
   const smtpUser = getSmtpUser();
   const smtpPass = getSmtpPass();
-  const smtpFrom = getSmtpFromEmail();
 
-  if (!smtpUser || !smtpPass || !smtpFrom) {
+  if (!smtpUser || !smtpPass) {
     return false;
   }
 
@@ -421,8 +414,7 @@ async function sendViaSmtp({
   });
 
   await transporter.sendMail({
-    from: smtpFrom,
-    replyTo: from,
+    from: smtpUser,
     to: to.join(","),
     subject,
     html,
@@ -453,7 +445,6 @@ async function sendOrderEmail({
   }
 
   const sentBySmtp = await sendViaSmtp({
-    from,
     to: recipients,
     subject,
     html,
