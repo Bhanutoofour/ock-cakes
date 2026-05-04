@@ -734,6 +734,30 @@ export async function sendCustomerOrderReceivedNotification(order: Order) {
   });
 }
 
+export async function sendInitialOrderNotifications(order: Order) {
+  const tasks = [
+    {
+      label: "New order internal notification",
+      send: () => sendNewOrderNotifications(order),
+    },
+    {
+      label: "Customer order received notification",
+      send: () => sendCustomerOrderReceivedNotification(order),
+    },
+  ];
+
+  const results = await Promise.allSettled(tasks.map((task) => task.send()));
+
+  results.forEach((result, index) => {
+    if (result.status === "rejected") {
+      console.error(
+        `${tasks[index].label} failed for ${order.orderNumber}`,
+        result.reason,
+      );
+    }
+  });
+}
+
 export async function sendOrderStatusNotifications(
   previousOrder: Order,
   updatedOrder: Order,

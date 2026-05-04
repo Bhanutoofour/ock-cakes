@@ -41,6 +41,7 @@ export function InquiryForm({
   );
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const updateValue = (name: string, value: string) => {
     setValues((current) => ({ ...current, [name]: value }));
@@ -58,8 +59,32 @@ export function InquiryForm({
       .map((field) => `${field.label}: ${field.value}`),
   ].join("\n");
 
-  const handleEmail = () => {
-    window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(body)}`;
+  const inquiryEntries = fields
+    .map((field) => ({
+      label: field.label,
+      value: values[field.name]?.trim(),
+    }))
+    .filter((field) => field.value);
+
+  const submitByEmail = async () => {
+    const response = await fetch("/api/inquiries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        to: emailTo,
+        subject: emailSubject,
+        intro: whatsappIntro,
+        entries: inquiryEntries,
+      }),
+    });
+
+    const payload = (await response.json().catch(() => ({}))) as { error?: string };
+
+    if (!response.ok) {
+      throw new Error(payload.error ?? "Unable to send your inquiry right now.");
+    }
   };
 
   const handleWhatsApp = () => {
@@ -74,20 +99,23 @@ export function InquiryForm({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!onSubmit) {
-      handleEmail();
-      return;
-    }
-
     setError("");
+    setSuccess("");
     setIsPending(true);
 
     try {
-      await onSubmit(
-        Object.fromEntries(
-          Object.entries(values).map(([key, value]) => [key, value.trim()]),
-        ),
-      );
+      if (onSubmit) {
+        await onSubmit(
+          Object.fromEntries(
+            Object.entries(values).map(([key, value]) => [key, value.trim()]),
+          ),
+        );
+      } else {
+        await submitByEmail();
+      }
+
+      setValues(buildInitialValues(fields));
+      setSuccess("Your inquiry has been sent. Our team will contact you shortly.");
     } catch (submitError) {
       setError(
         submitError instanceof Error
@@ -139,13 +167,19 @@ export function InquiryForm({
         </p>
       ) : null}
 
+      {success ? (
+        <p className="rounded-[14px] bg-[#f0fff4] px-4 py-3 text-[0.95rem] text-[#176b35]">
+          {success}
+        </p>
+      ) : null}
+
       <div className="flex flex-wrap gap-3 pt-2">
         <button
           type="submit"
           disabled={isPending}
           className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
-          {isPending ? "Submitting..." : primaryLabel}
+          {isPending ? "Sending..." : primaryLabel}
         </button>
         <button
           type="button"

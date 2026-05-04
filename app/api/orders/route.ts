@@ -3,10 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { getAdminSession } from "@/lib/admin-auth";
 import { auth } from "@/lib/auth";
-import {
-  sendCustomerOrderReceivedNotification,
-  sendNewOrderNotifications,
-} from "@/lib/server/order-notifications";
+import { sendInitialOrderNotifications } from "@/lib/server/order-notifications";
 import { createOrder, listOrders } from "@/lib/server/orders";
 
 export const runtime = "nodejs";
@@ -48,12 +45,7 @@ export async function POST(request: Request) {
     return Response.json({ error: result.message }, { status: 400 });
   }
 
-  try {
-    await sendNewOrderNotifications(result.value);
-    await sendCustomerOrderReceivedNotification(result.value);
-  } catch (error) {
-    console.error("New order notification failed", error);
-  }
+  await sendInitialOrderNotifications(result.value);
 
   return Response.json({ data: result.value }, { status: 201 });
 }

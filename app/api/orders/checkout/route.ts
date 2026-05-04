@@ -1,10 +1,7 @@
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
-import {
-  sendCustomerOrderReceivedNotification,
-  sendNewOrderNotifications,
-} from "@/lib/server/order-notifications";
+import { sendInitialOrderNotifications } from "@/lib/server/order-notifications";
 import { createOrder } from "@/lib/server/orders";
 import { createRazorpayOrder, getRazorpayPublicConfig } from "@/lib/server/razorpay";
 
@@ -29,12 +26,7 @@ export async function POST(request: Request) {
 
     const order = orderResult.value;
 
-    try {
-      await sendNewOrderNotifications(order);
-      await sendCustomerOrderReceivedNotification(order);
-    } catch (error) {
-      console.error("Checkout order notification failed", error);
-    }
+    await sendInitialOrderNotifications(order);
 
     const razorpayOrder = await createRazorpayOrder({
       amountPaise: order.pricing.total * 100,
