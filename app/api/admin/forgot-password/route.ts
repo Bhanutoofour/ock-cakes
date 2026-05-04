@@ -86,6 +86,7 @@ async function createPasswordResetToken(userId: string) {
 async function sendAdminPasswordResetEmail(user: AdminUser, token: string) {
   const resetUrl = new URL("/reset-password", siteSeo.siteUrl);
   resetUrl.searchParams.set("token", token);
+  resetUrl.searchParams.set("mode", "admin");
 
   await sendSupportEmail({
     to: user.email,

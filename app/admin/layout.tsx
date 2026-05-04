@@ -91,7 +91,7 @@ export default async function AdminLayout({
 
   return (
     <>
-      <SiteHeader />
+      <SiteHeader accountHref="/admin" />
       <main className="bg-white page-pad py-12">
         {!isAdmin ? (
           <div className="mx-auto max-w-[760px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">

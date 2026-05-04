@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
-import { auth } from "@/lib/auth";
+import { getAdminSession } from "@/lib/admin-auth";
 import { createMetadata } from "@/lib/seo";
 import { listOrdersForUser } from "@/lib/server/orders";
 import type { Order } from "@/lib/store-schema";
@@ -40,9 +40,12 @@ function getSavedDeliveryAddresses(orders: Order[]) {
 }
 
 export default async function AccountPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const { session, isAdmin } = await getAdminSession();
+
+  if (isAdmin) {
+    redirect("/admin");
+  }
+
   const recentOrders = session?.user?.id ? await listOrdersForUser(session.user.id, 10) : [];
   const savedDeliveryAddresses = getSavedDeliveryAddresses(recentOrders);
 

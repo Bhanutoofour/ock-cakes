@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
-import { auth } from "@/lib/auth";
+import { getAdminSession } from "@/lib/admin-auth";
 import { createMetadata } from "@/lib/seo";
 import { listOrdersForUser } from "@/lib/server/orders";
 
@@ -21,12 +20,14 @@ function formatStatus(value: string) {
 }
 
 export default async function AccountOrdersPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const { session, isAdmin } = await getAdminSession();
 
   if (!session?.user?.id) {
     redirect("/login");
+  }
+
+  if (isAdmin) {
+    redirect("/admin");
   }
 
   const orders = await listOrdersForUser(session.user.id, 20);

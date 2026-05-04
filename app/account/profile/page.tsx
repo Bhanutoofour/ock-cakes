@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
-import { auth } from "@/lib/auth";
+import { getAdminSession } from "@/lib/admin-auth";
 import { createMetadata } from "@/lib/seo";
 
 import { ProfileForm } from "./profile-form";
@@ -17,12 +16,14 @@ export const metadata = createMetadata({
 });
 
 export default async function AccountProfilePage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const { session, isAdmin } = await getAdminSession();
 
   if (!session?.user) {
     redirect("/login");
+  }
+
+  if (isAdmin) {
+    redirect("/admin");
   }
 
   const phone =

@@ -12,7 +12,11 @@ export const metadata = createMetadata({
 });
 
 type ResetPasswordPageProps = {
-  searchParams: Promise<{ token?: string | string[]; error?: string | string[] }>;
+  searchParams: Promise<{
+    token?: string | string[];
+    error?: string | string[];
+    mode?: string | string[];
+  }>;
 };
 
 function getSingleParam(value?: string | string[]) {
@@ -29,6 +33,7 @@ export default async function ResetPasswordPage({ searchParams }: ResetPasswordP
         <ResetPasswordForm
           token={getSingleParam(params.token)}
           error={getSingleParam(params.error)}
+          mode={getSingleParam(params.mode)}
         />
       </main>
       <SiteFooter />

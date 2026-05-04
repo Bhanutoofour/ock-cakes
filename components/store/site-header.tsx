@@ -78,7 +78,7 @@ const cakesMegaColumns: MegaColumn[] = [
   },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ accountHref = "/account" }: { accountHref?: string }) {
   const { items } = useCart();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const hasMounted = useSyncExternalStore(
@@ -161,9 +161,9 @@ export function SiteHeader() {
             </Link>
 
             <Link
-              href="/account"
+              href={accountHref}
               className="hidden items-center justify-center p-2 text-[var(--brand-red)] transition duration-200 hover:scale-110 md:flex"
-              aria-label="Login"
+              aria-label="Account"
             >
               <svg
                 aria-hidden="true"

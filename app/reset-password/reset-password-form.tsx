@@ -7,10 +7,12 @@ import { useState } from "react";
 type ResetPasswordFormProps = {
   token?: string;
   error?: string;
+  mode?: string;
 };
 
-export function ResetPasswordForm({ token, error: initialError }: ResetPasswordFormProps) {
+export function ResetPasswordForm({ token, error: initialError, mode }: ResetPasswordFormProps) {
   const router = useRouter();
+  const isAdminReset = mode === "admin";
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(initialError ?? "");
@@ -47,7 +49,7 @@ export function ResetPasswordForm({ token, error: initialError }: ResetPasswordF
         return;
       }
 
-      router.push("/login?reset=success");
+      router.push(isAdminReset ? "/admin-login?reset=success" : "/login?reset=success");
       router.refresh();
     } finally {
       setIsPending(false);
@@ -118,7 +120,7 @@ export function ResetPasswordForm({ token, error: initialError }: ResetPasswordF
 
       <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
         Remembered your password?{" "}
-        <Link href="/login" className="text-[#ef7f41]">
+        <Link href={isAdminReset ? "/admin-login" : "/login"} className="text-[#ef7f41]">
           Sign in
         </Link>
       </p>
