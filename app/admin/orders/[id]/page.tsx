@@ -28,7 +28,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="section-kicker">{order.orderNumber}</p>
@@ -47,8 +47,8 @@ export default async function AdminOrderDetailPage({ params }: Props) {
         </Link>
       </div>
 
-      <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
-        <div className="space-y-6">
+      <div className="grid min-w-0 gap-8 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+        <div className="min-w-0 space-y-6">
           <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
             <h3 className="text-[1.35rem] font-semibold text-black">Items</h3>
             <div className="mt-5 space-y-4">
@@ -76,7 +76,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
           <AdminOrderDetailClient order={order} />
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
             <h3 className="text-[1.35rem] font-semibold text-black">Customer</h3>
             <div className="mt-5 space-y-3 text-[0.98rem] text-stone-900">

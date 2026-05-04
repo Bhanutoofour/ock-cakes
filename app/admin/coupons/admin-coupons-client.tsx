@@ -70,7 +70,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
   };
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+    <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
       <form
         onSubmit={createCoupon}
         className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)]"
@@ -183,9 +183,9 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
         </button>
       </form>
 
-      <section className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
+      <section className="min-w-0 rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
         <h2 className="text-[1.5rem] font-semibold text-black">Coupons</h2>
-        <div className="mt-5 overflow-x-auto">
+        <div className="mt-5 max-w-full overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-[0.92rem]">
             <thead className="text-[#6c7396]">
               <tr className="border-b border-[rgba(0,0,0,0.1)]">

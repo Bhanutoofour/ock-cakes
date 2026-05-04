@@ -1,11 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const WHATSAPP_NUMBER = "919059058058";
 const WHATSAPP_TEXT =
   "Hello OccasionKart, I would like to place an order.";
 
 export function WhatsAppChatButton() {
+  const pathname = usePathname();
   const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <Link

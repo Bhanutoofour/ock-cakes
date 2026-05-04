@@ -13,7 +13,7 @@ export default async function AdminOrdersPage() {
   const orders = await listOrders({ limit: 200 });
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <div>
         <h2 className="text-[2rem] font-semibold text-black">Orders Management</h2>
         <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">

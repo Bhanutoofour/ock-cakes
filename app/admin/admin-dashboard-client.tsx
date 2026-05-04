@@ -149,7 +149,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
     .slice(0, 10);
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-[2rem] font-semibold text-black">Dashboard</h2>
@@ -245,8 +245,8 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
         </section>
       )}
 
-      <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
+      <section className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)]">
+        <div className="min-w-0 rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
           <h3 className="text-[1.2rem] font-semibold text-black">Sales Trend</h3>
           <div className="mt-5 grid gap-2">
             {trendPoints.map((point) => (
@@ -266,7 +266,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
             <h3 className="text-[1.2rem] font-semibold text-black">Order Status Mix</h3>
             <div className="mt-4 space-y-2">
@@ -315,15 +315,15 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
         </div>
       </section>
 
-      <section className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
+      <section className="min-w-0 rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
         <div className="flex items-center justify-between gap-4">
           <h3 className="text-[1.2rem] font-semibold text-black">Recent Orders</h3>
           <Link href="/admin/orders" className="text-[0.9rem] font-semibold text-[#ef7f41]">
             View All Orders
           </Link>
         </div>
-        <div className="mt-4 overflow-x-auto">
-          <table className="min-w-[980px] w-full text-left text-sm">
+        <div className="mt-4 max-w-full overflow-x-auto">
+          <table className="w-full min-w-[980px] text-left text-sm">
             <thead>
               <tr className="text-[0.74rem] uppercase tracking-[0.12em] text-stone-500">
                 <th className="px-3 py-2">Order #</th>

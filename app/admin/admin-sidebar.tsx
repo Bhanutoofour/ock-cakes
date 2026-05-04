@@ -37,7 +37,7 @@ export function AdminSidebar({
   const pathname = usePathname();
 
   return (
-    <aside className="h-fit rounded-[20px] border border-[rgba(255,255,255,0.06)] bg-[#1f2731] p-4 text-white shadow-[0_16px_36px_rgba(0,0,0,0.2)]">
+    <aside className="h-fit min-w-0 rounded-[20px] border border-[rgba(255,255,255,0.06)] bg-[#1f2731] p-4 text-white shadow-[0_16px_36px_rgba(0,0,0,0.2)] xl:sticky xl:top-[88px]">
       <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#9cb0c3]">
         Admin Panel
       </p>

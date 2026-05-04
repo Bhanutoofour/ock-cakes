@@ -148,9 +148,9 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
   };
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
-        <div className="grid gap-3 lg:grid-cols-[1fr_220px]">
+    <div className="min-w-0 space-y-6">
+      <div className="min-w-0 rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
+        <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,1fr)_220px]">
           <input
             value={query}
             placeholder="Search order #, customer name, or phone..."
@@ -213,8 +213,8 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
         <p className="rounded-[12px] bg-[#fff2f2] px-4 py-3 text-sm font-semibold text-[#b53131]">{error}</p>
       ) : null}
 
-      <div className="overflow-x-auto rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
-        <table className="min-w-[1180px] w-full text-left">
+      <div className="max-w-full overflow-x-auto rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
+        <table className="w-full min-w-[1100px] text-left">
           <thead>
             <tr className="border-b border-[rgba(0,0,0,0.08)] text-[0.72rem] uppercase tracking-[0.14em] text-stone-500">
               <th className="px-4 py-3">Order #</th>

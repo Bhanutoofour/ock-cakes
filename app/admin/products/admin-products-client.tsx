@@ -313,7 +313,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
       <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fffdfb] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-between gap-3">
           <div>
