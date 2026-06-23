@@ -71,11 +71,11 @@ img {
 }
 
 .home-shell {
-  width: min(100%, 1440px);
+  width: min(100%, 1720px);
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(16px, 2.5vw, 32px);
-  padding-right: clamp(16px, 2.5vw, 32px);
+  padding-left: clamp(20px, 2.25vw, 40px);
+  padding-right: clamp(20px, 2.25vw, 40px);
 }
 
 .home-section {
