@@ -303,7 +303,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <>
       <SiteHeader />
-      <main className="bg-white page-pad py-12">
+      <main className="bg-white py-12">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: toJsonLd(collectionSchema) }}
@@ -312,17 +312,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbSchema) }}
         />
-        <div className="mx-auto max-w-[1200px]">
-          <div className="flex items-start justify-between">
-            <h1 className="text-left text-[2rem] font-semibold text-black">
+        <div className="home-shell">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <h1 className="text-left text-[clamp(1.7rem,1.25rem+1.4vw,2.25rem)] font-semibold leading-tight text-black">
               {categoryName}
             </h1>
-            <Link href="/cakes" className="text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="shrink-0 text-[1rem] text-[#ef7f41]">
               View all cakes →
             </Link>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 xl:grid-cols-5">
+          <div className="mt-8 grid grid-cols-1 gap-4 min-[460px]:grid-cols-2 md:grid-cols-3 md:gap-5 xl:grid-cols-5">
             {filtered.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

@@ -28,15 +28,14 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
   const selectedCategory = params.category?.trim();
   const searchQuery = params.q?.trim() ?? "";
   const sort = params.sort ?? "";
+  const hasSearchQuery = searchQuery.length > 0;
 
-  const [filteredProducts, topCategories] = await Promise.all([
-    listProducts({
-      category: selectedCategory,
-      query: searchQuery,
-      sort,
-    }),
-    listTopCategories(12),
-  ]);
+  const filteredProducts = await listProducts({
+    category: selectedCategory,
+    query: searchQuery,
+    sort,
+  });
+  const topCategories = hasSearchQuery ? [] : await listTopCategories(12);
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -61,113 +60,128 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: toJsonLd(collectionSchema) }}
         />
-        <section className="page-pad mx-auto w-full max-w-7xl py-14">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <section className={`home-shell ${hasSearchQuery ? "py-8 sm:py-10" : "py-14"}`}>
+          {hasSearchQuery ? (
             <div>
-              <p className="section-kicker">Collections</p>
-              <h1 className="section-title">
-                {selectedCategory ? selectedCategory : "All cakes"}
+              <h1 className="text-[clamp(1.55rem,1.15rem+1.2vw,2.1rem)] font-semibold leading-tight text-black">
+                Search results for &quot;{searchQuery}&quot;
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-stone-600">
-                Browse {filteredProducts.length} products from our Occasionkart
-                catalog. Use filters to narrow down by category, price, or search.
+              <p className="mt-2 text-[0.98rem] text-stone-600">
+                {filteredProducts.length} products found
               </p>
             </div>
-            <Link
-              href="/cart"
-              className="rounded-full bg-[var(--brand-red)] px-5 py-3 text-sm font-semibold text-white"
-            >
-              Review cart
-            </Link>
-          </div>
-
-          <form method="get" className="mt-6 flex flex-wrap gap-3">
-            <input
-              type="text"
-              name="q"
-              defaultValue={searchQuery}
-              placeholder="Search cakes..."
-              className="w-full max-w-[280px] rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-stone-700"
-            />
-            <select
-              name="sort"
-              defaultValue={sort}
-              className="rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-stone-700"
-            >
-              <option value="">Sort</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-            </select>
-            {selectedCategory ? (
-              <input type="hidden" name="category" value={selectedCategory} />
-            ) : null}
-            <button
-              type="submit"
-              className="rounded-full bg-[#ef7f41] px-5 py-2 text-sm font-semibold text-white"
-            >
-              Apply
-            </button>
-          </form>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/cakes"
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                !selectedCategory
-                  ? "bg-[var(--brand-brown)] text-white"
-                  : "border border-[var(--line)] bg-white text-stone-700"
-              }`}
-            >
-              All
-            </Link>
-            {topCategories.map((item) => {
-              const href = `/category/${encodeURIComponent(
-                item.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, ""),
-              )}`;
-              const active = item.toLowerCase() === selectedCategory?.toLowerCase();
-              return (
+          ) : (
+            <>
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <p className="section-kicker">Collections</p>
+                  <h1 className="section-title">
+                    {selectedCategory ? selectedCategory : "All cakes"}
+                  </h1>
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-stone-600">
+                    Browse {filteredProducts.length} products from our Occasionkart
+                    catalog. Use filters to narrow down by category, price, or search.
+                  </p>
+                </div>
                 <Link
-                  key={item}
-                  href={href}
+                  href="/cart"
+                  className="rounded-full bg-[var(--brand-red)] px-5 py-3 text-sm font-semibold text-white"
+                >
+                  Review cart
+                </Link>
+              </div>
+
+              <form method="get" className="mt-6 flex flex-wrap gap-3">
+                <input
+                  type="text"
+                  name="q"
+                  defaultValue={searchQuery}
+                  placeholder="Search cakes..."
+                  className="w-full max-w-[280px] rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-stone-700"
+                />
+                <select
+                  name="sort"
+                  defaultValue={sort}
+                  className="rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-stone-700"
+                >
+                  <option value="">Sort</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                </select>
+                {selectedCategory ? (
+                  <input type="hidden" name="category" value={selectedCategory} />
+                ) : null}
+                <button
+                  type="submit"
+                  className="rounded-full bg-[#ef7f41] px-5 py-2 text-sm font-semibold text-white"
+                >
+                  Apply
+                </button>
+              </form>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/cakes"
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                    active
+                    !selectedCategory
                       ? "bg-[var(--brand-brown)] text-white"
-                      : "border border-[var(--line)] bg-white text-stone-700 hover:border-[var(--brand-red)] hover:text-[var(--brand-red)]"
+                      : "border border-[var(--line)] bg-white text-stone-700"
                   }`}
                 >
-                  {item}
+                  All
                 </Link>
-              );
-            })}
-          </div>
+                {topCategories.map((item) => {
+                  const href = `/category/${encodeURIComponent(
+                    item.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, ""),
+                  )}`;
+                  const active = item.toLowerCase() === selectedCategory?.toLowerCase();
+                  return (
+                    <Link
+                      key={item}
+                      href={href}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                        active
+                          ? "bg-[var(--brand-brown)] text-white"
+                          : "border border-[var(--line)] bg-white text-stone-700 hover:border-[var(--brand-red)] hover:text-[var(--brand-red)]"
+                      }`}
+                    >
+                      {item}
+                    </Link>
+                  );
+                })}
+              </div>
+            </>
+          )}
 
-          <div className="mt-10 grid gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5">
+          <div className={`${hasSearchQuery ? "mt-6" : "mt-10"} grid grid-cols-1 gap-4 min-[460px]:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-5`}>
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
 
-          <section className="mt-12 rounded-[26px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-6 sm:p-8">
-            <h2 className="text-[1.55rem] font-semibold text-[var(--brand-brown)]">
-              Order Cakes Online in Hyderabad with Same Day Delivery
-            </h2>
-            <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
-              {buildCollectionSeoDescription(selectedCategory ?? "cake", filteredProducts.length)}
-            </p>
-            <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">{buildGeoCoverageLine()}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {buildCollectionKeywords(selectedCategory ?? "cake")
-                .slice(0, 10)
-                .map((keyword) => (
-                  <span
-                    key={keyword}
-                    className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-stone-700"
-                  >
-                    {keyword}
-                  </span>
-                ))}
-            </div>
-          </section>
+          {!hasSearchQuery ? (
+            <section className="mt-12 rounded-[26px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-6 sm:p-8">
+              <h2 className="text-[1.55rem] font-semibold text-[var(--brand-brown)]">
+                Order Cakes Online in Hyderabad with Same Day Delivery
+              </h2>
+              <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
+                {buildCollectionSeoDescription(selectedCategory ?? "cake", filteredProducts.length)}
+              </p>
+              <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">{buildGeoCoverageLine()}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {buildCollectionKeywords(selectedCategory ?? "cake")
+                  .slice(0, 10)
+                  .map((keyword) => (
+                    <span
+                      key={keyword}
+                      className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-stone-700"
+                    >
+                      {keyword}
+                    </span>
+                  ))}
+              </div>
+            </section>
+          ) : null}
         </section>
       </main>
       <SiteFooter />

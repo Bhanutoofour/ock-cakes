@@ -215,12 +215,12 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
           dangerouslySetInnerHTML={{ __html: toJsonLd(breadcrumbSchema) }}
         />
 
-        <section className="page-pad mx-auto w-full max-w-7xl py-14">
+        <section className="home-shell py-8 sm:py-10 lg:py-12">
           <Link href="/cakes" className="text-sm font-semibold text-[var(--brand-red)]">
             Back to cakes
           </Link>
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
+          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(440px,0.92fr)] lg:items-start xl:gap-8">
             <div
               className={`overflow-hidden rounded-[36px] bg-gradient-to-br ${product.accent} p-4 shadow-[0_28px_70px_rgba(77,37,28,0.12)]`}
             >
@@ -304,7 +304,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
               </div>
             </div>
 
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid grid-cols-1 gap-4 min-[460px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
               {relatedProducts.map((relatedProduct) => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
