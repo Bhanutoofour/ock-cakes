@@ -28,7 +28,7 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
             Payment Successful
           </p>
           <h1 className="mt-3 text-[2rem] font-semibold text-black">Thank You For Your Order</h1>
-          <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">
+          <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">
             Your order has been confirmed. Our team will begin preparation and deliver according to
             your selected slot.
           </p>
@@ -46,7 +46,7 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
             </Link>
             <Link
               href="/cakes"
-              className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
+              className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
             >
               Continue Shopping
             </Link>

@@ -314,17 +314,17 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
 
   return (
     <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-      <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fffdfb] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
+      <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff8f2] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-[1.35rem] font-semibold text-black">Catalog</h2>
-            <p className="mt-1 text-[0.95rem] text-[#6c7396]">
+            <p className="mt-1 text-[0.95rem] text-[#6b5a5b]">
               {products.length} products in Neon
             </p>
           </div>
           <button
             type="button"
-            className="rounded-full bg-[#ef7f41] px-4 py-2 text-[0.92rem] font-semibold text-white"
+            className="rounded-full bg-[#86171c] px-4 py-2 text-[0.92rem] font-semibold text-white"
             onClick={startCreate}
           >
             New Product
@@ -338,13 +338,13 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
               type="button"
               className={`w-full rounded-[18px] border px-4 py-4 text-left transition ${
                 selectedId === product.id
-                  ? "border-[#ef7f41] bg-[#fff6f0]"
+                  ? "border-[#86171c] bg-[#fff6f0]"
                   : "border-[rgba(0,0,0,0.08)] bg-white"
               }`}
               onClick={() => startEdit(product)}
             >
               <p className="text-[1rem] font-semibold text-stone-900">{product.name}</p>
-              <p className="mt-1 text-[0.85rem] text-[#6c7396]">{product.slug}</p>
+              <p className="mt-1 text-[0.85rem] text-[#6b5a5b]">{product.slug}</p>
               <div className="mt-3 flex items-center justify-between text-[0.88rem] text-stone-700">
                 <span>{product.category}</span>
                 <span>From Rs. {product.price}</span>
@@ -360,7 +360,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
             <h2 className="text-[1.6rem] font-semibold text-black">
               {selectedProduct ? "Edit Product" : "Create Product"}
             </h2>
-            <p className="mt-2 text-[0.98rem] text-[#6c7396]">
+            <p className="mt-2 text-[0.98rem] text-[#6b5a5b]">
               Upload the cake image, set the default cake weight price, and control
               automatic weight and flavor variants per cake.
             </p>
@@ -449,15 +449,15 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
             </label>
           </div>
 
-          <div className="space-y-3 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] p-5">
+          <div className="space-y-3 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[1rem] font-semibold text-stone-900">Product Image</p>
-                <p className="mt-1 text-[0.92rem] text-[#6c7396]">
+                <p className="mt-1 text-[0.92rem] text-[#6b5a5b]">
                   Upload an image from your device instead of pasting a URL.
                 </p>
               </div>
-              <label className="rounded-full bg-[#ef7f41] px-5 py-3 text-[0.95rem] font-semibold text-white">
+              <label className="rounded-full bg-[#86171c] px-5 py-3 text-[0.95rem] font-semibold text-white">
                 {isUploading ? "Uploading..." : "Upload Image"}
                 <input
                   type="file"
@@ -481,16 +481,16 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
                   alt={values.name || "Uploaded product"}
                   className="h-[220px] w-full rounded-[14px] object-cover object-center"
                 />
-                <p className="mt-3 break-all text-[0.88rem] text-[#6c7396]">{values.image}</p>
+                <p className="mt-3 break-all text-[0.88rem] text-[#6b5a5b]">{values.image}</p>
               </div>
             ) : null}
           </div>
 
-          <div className="space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] p-5">
+          <div className="space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[1rem] font-semibold text-stone-900">Weight Variants</p>
-                <p className="mt-1 text-[0.92rem] text-[#6c7396]">
+                <p className="mt-1 text-[0.92rem] text-[#6b5a5b]">
                   Set the starting cake weight and the maximum weight. The system
                   calculates each larger option automatically using the same per-Kg rate.
                 </p>
@@ -526,7 +526,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
             </div>
 
             {!variantsEnabled ? (
-              <p className="rounded-[14px] bg-[#fff7f1] px-4 py-3 text-[0.92rem] text-[#8b5a3c]">
+              <p className="rounded-[14px] bg-[#fbeaec] px-4 py-3 text-[0.92rem] text-[#8b5a3c]">
                 Enter a default weight and maximum weight to enable cake variants. Example:
                 default `2` and maximum `4` gives `2 Kg`, `3 Kg`, and `4 Kg`.
               </p>
@@ -552,11 +552,11 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
             )}
           </div>
 
-          <div className="space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] p-5">
+          <div className="space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[1rem] font-semibold text-stone-900">Flavor Add-ons</p>
-                <p className="mt-1 text-[0.92rem] text-[#6c7396]">
+                <p className="mt-1 text-[0.92rem] text-[#6b5a5b]">
                   Price is added per Kg based on the selected flavor.
                 </p>
               </div>
@@ -571,7 +571,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
                 </button>
                 <button
                   type="button"
-                  className="rounded-full bg-[#ef7f41] px-4 py-2 text-[0.92rem] font-semibold text-white"
+                  className="rounded-full bg-[#86171c] px-4 py-2 text-[0.92rem] font-semibold text-white"
                   onClick={addFlavorOption}
                   disabled={!variantsEnabled}
                 >
@@ -661,7 +661,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
           <div className="flex flex-wrap gap-3">
             <button
               disabled={isPending || isUploading}
-              className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+              className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
             >
               {isPending
                 ? selectedProduct

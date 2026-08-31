@@ -317,7 +317,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h1 className="text-left text-[clamp(1.7rem,1.25rem+1.4vw,2.25rem)] font-semibold leading-tight text-black">
               {categoryName}
             </h1>
-            <Link href="/cakes" className="shrink-0 text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="shrink-0 text-[1rem] text-[#86171c]">
               View all cakes →
             </Link>
           </div>
@@ -328,14 +328,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             ))}
           </div>
 
-          <section className="mt-10 rounded-[24px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-6 sm:p-8">
+          <section className="mt-10 rounded-[24px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-6 sm:p-8">
             <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)]">
               {categoryName} Cake Delivery in Hyderabad
             </h2>
-            <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
+            <p className="mt-4 text-[1rem] leading-8 text-[#6b5a5b]">
               {buildCollectionSeoDescription(categoryName, filtered.length)}
             </p>
-            <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">{buildGeoCoverageLine()}</p>
+            <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">{buildGeoCoverageLine()}</p>
           </section>
         </div>
       </main>

@@ -94,17 +94,17 @@ export default function RefundPolicyPage() {
               <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:p-14">
                 <div>
                   <p className="section-kicker">Policy Information</p>
-                  <h1 className="mt-4 max-w-[13ch] font-[Georgia] text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
+                  <h1 className="mt-4 max-w-[13ch] font-heading text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
                     Refund and Returns Policy
                   </h1>
-                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     At OccasionKart, we take pride in delivering freshly baked
                     cakes and personalized gifts that make your occasions
                     memorable. Every product is crafted with care and delivered
                     with close attention to freshness, presentation, and
                     quality.
                   </p>
-                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     Because cakes and desserts are perishable items, our refund
                     and return terms differ from non-perishable products. Please
                     read the following policy carefully before placing an order.
@@ -112,16 +112,16 @@ export default function RefundPolicyPage() {
                 </div>
 
                 <div className="rounded-[24px] border border-[rgba(77,37,28,0.1)] bg-white/90 p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-7">
-                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#86171c]">
                     Quick Highlights
                   </p>
                   <div className="mt-6 space-y-4">
                     {highlights.map((item, index) => (
                       <div
                         key={item}
-                        className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] px-4 py-4"
+                        className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-4"
                       >
-                        <p className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                        <p className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                           0{index + 1}
                         </p>
                         <p className="mt-2 text-[0.98rem] font-semibold leading-7 text-stone-900">
@@ -150,7 +150,7 @@ export default function RefundPolicyPage() {
                   {section.points.map((point) => (
                     <p
                       key={point}
-                      className="text-[1rem] leading-8 text-[#6c7396]"
+                      className="text-[1rem] leading-8 text-[#6b5a5b]"
                     >
                       {point}
                     </p>
@@ -159,21 +159,21 @@ export default function RefundPolicyPage() {
               </article>
             ))}
 
-            <article className="rounded-[24px] border border-[rgba(239,127,65,0.18)] bg-[#fff7f1] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
+            <article className="rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Related Policies
               </h2>
-              <p className="mt-5 text-[1rem] leading-8 text-[#6c7396]">
+              <p className="mt-5 text-[1rem] leading-8 text-[#6b5a5b]">
                 For more details about order handling, service area, and legal
                 terms, review our{" "}
                 <Link
                   href="/terms-and-conditions"
-                  className="font-semibold text-[#ef7f41]"
+                  className="font-semibold text-[#86171c]"
                 >
                   Terms and Conditions
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy-policy" className="font-semibold text-[#ef7f41]">
+                <Link href="/privacy-policy" className="font-semibold text-[#86171c]">
                   Privacy Policy
                 </Link>
                 .

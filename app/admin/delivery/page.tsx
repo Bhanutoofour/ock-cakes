@@ -26,7 +26,7 @@ export default async function AdminDeliveryPage() {
       <div>
         <p className="section-kicker">Delivery</p>
         <h2 className="mt-2 text-[2rem] font-semibold text-black">Route Tracking</h2>
-        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
           Live view of active Hyderabad deliveries with quick progress visibility.
         </p>
       </div>
@@ -45,7 +45,7 @@ export default async function AdminDeliveryPage() {
             className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-5 shadow-[0_10px_24px_rgba(0,0,0,0.06)]"
           >
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[0.82rem] font-bold uppercase tracking-[0.16em] text-[#ef7f41]">
+              <p className="text-[0.82rem] font-bold uppercase tracking-[0.16em] text-[#86171c]">
                 Route {index + 1}
               </p>
               <span className="rounded-full bg-[#fff1e8] px-3 py-1 text-xs font-semibold text-[#b45309]">
@@ -53,15 +53,15 @@ export default async function AdminDeliveryPage() {
               </span>
             </div>
             <p className="mt-2 text-[1rem] font-semibold text-stone-900">{order.orderNumber}</p>
-            <p className="mt-1 text-[0.92rem] text-[#6c7396]">{order.customer.fullName}</p>
-            <p className="mt-1 text-[0.9rem] text-[#6c7396]">{order.delivery.address}</p>
+            <p className="mt-1 text-[0.92rem] text-[#6b5a5b]">{order.customer.fullName}</p>
+            <p className="mt-1 text-[0.9rem] text-[#6b5a5b]">{order.delivery.address}</p>
             <p className="mt-2 text-[0.88rem] text-[#334155]">
               Slot: {order.delivery.slot ?? "Not set"}
             </p>
             <div className="mt-4 h-2 rounded-full bg-[#f1f5f9]">
               <div className="h-full w-[62%] rounded-full bg-[#38bdf8]" />
             </div>
-            <p className="mt-2 text-[0.82rem] text-[#6c7396]">Progress: 5 of 8 deliveries</p>
+            <p className="mt-2 text-[0.82rem] text-[#6b5a5b]">Progress: 5 of 8 deliveries</p>
             <div className="mt-4 flex gap-2">
               <button
                 type="button"
@@ -86,7 +86,7 @@ export default async function AdminDeliveryPage() {
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-5">
-      <p className="text-[0.8rem] font-semibold uppercase tracking-[0.15em] text-[#ef7f41]">{label}</p>
+      <p className="text-[0.8rem] font-semibold uppercase tracking-[0.15em] text-[#86171c]">{label}</p>
       <p className="mt-2 text-[1.8rem] font-semibold text-stone-900">{value}</p>
     </div>
   );

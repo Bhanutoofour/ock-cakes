@@ -96,7 +96,7 @@ export function SocialLoginButtons() {
     <div className="space-y-3">
       <div className="flex items-center gap-3">
         <span className="h-px flex-1 bg-[rgba(0,0,0,0.12)]" />
-        <span className="text-[0.82rem] font-semibold uppercase text-[#6c7396]">
+        <span className="text-[0.82rem] font-semibold uppercase text-[#6b5a5b]">
           Or use
         </span>
         <span className="h-px flex-1 bg-[rgba(0,0,0,0.12)]" />

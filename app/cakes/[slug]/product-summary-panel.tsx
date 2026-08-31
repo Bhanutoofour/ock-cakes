@@ -87,7 +87,7 @@ export function ProductSummaryPanel({
       </p>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-[18px] bg-[#fffaf6] px-4 py-3">
+        <div className="rounded-[18px] bg-[#fff8f2] px-4 py-3">
           <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#9c7a67]">
             Fresh
           </p>
@@ -95,7 +95,7 @@ export function ProductSummaryPanel({
             Made for your slot
           </p>
         </div>
-        <div className="rounded-[18px] bg-[#fffaf6] px-4 py-3">
+        <div className="rounded-[18px] bg-[#fff8f2] px-4 py-3">
           <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#9c7a67]">
             Delivery
           </p>
@@ -103,7 +103,7 @@ export function ProductSummaryPanel({
             Across Hyderabad
           </p>
         </div>
-        <div className="rounded-[18px] bg-[#fffaf6] px-4 py-3">
+        <div className="rounded-[18px] bg-[#fff8f2] px-4 py-3">
           <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#9c7a67]">
             Custom
           </p>

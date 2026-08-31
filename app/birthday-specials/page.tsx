@@ -26,10 +26,10 @@ export default async function BirthdaySpecialsPage() {
         <section className="page-pad py-8 sm:py-12">
           <div className="mx-auto max-w-[1180px] rounded-[28px] border border-[rgba(0,0,0,0.1)] bg-[linear-gradient(135deg,#fff7ef_0%,#ffffff_50%,#fff2e7_100%)] p-8 shadow-[0_18px_40px_rgba(0,0,0,0.08)] sm:p-12">
             <p className="section-kicker">Birthday Specials</p>
-            <h1 className="mt-4 max-w-[12ch] font-[Georgia] text-[2.6rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
+            <h1 className="mt-4 max-w-[12ch] font-heading text-[2.6rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
               Birthday Cakes in Hyderabad for Every Age and Theme
             </h1>
-            <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396]">
+            <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b]">
               OccasionKart birthday specials help customers quickly find
               celebration-ready cakes in Hyderabad for kids, adults, surprise
               parties, and customized birthday themes. You can browse designs,
@@ -41,7 +41,7 @@ export default async function BirthdaySpecialsPage() {
         <section className="page-pad-tight pb-12">
           <div className="page-pad flex items-center justify-between">
             <h2 className="text-[2rem] font-semibold text-black">Birthday Cake Collection</h2>
-            <Link href="/custom-orders" className="text-[1rem] font-semibold text-[#ef7f41]">
+            <Link href="/custom-orders" className="text-[1rem] font-semibold text-[#86171c]">
               Need a Custom Birthday Cake?
             </Link>
           </div>

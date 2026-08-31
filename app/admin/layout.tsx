@@ -140,14 +140,14 @@ export default async function AdminLayout({
         {!isAdmin ? (
           <div className="mx-auto max-w-[760px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
             <h1 className="text-[2rem] font-semibold text-black">Admin Access Required</h1>
-            <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">
+            <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">
               This admin area is restricted to approved accounts. Add your email to
               `ADMIN_EMAILS` in production to grant access.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/admin-login"
-                className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
+                className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
               >
                 Admin Login
               </Link>
@@ -161,7 +161,7 @@ export default async function AdminLayout({
                 <h1 className="mt-3 text-[clamp(2rem,4vw,2.6rem)] font-semibold leading-tight text-black">
                   OccasionKart Control Panel
                 </h1>
-                <p className="mt-3 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
+                <p className="mt-3 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
                   Manage live orders, products, customers, and categories from one
                   workspace.
                 </p>

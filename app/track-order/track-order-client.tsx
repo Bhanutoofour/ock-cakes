@@ -74,26 +74,26 @@ export function TrackOrderClient() {
       />
 
       {order ? (
-        <div className="mt-6 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-6">
-          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#ef7f41]">
+        <div className="mt-6 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-6">
+          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
             {order.orderNumber}
           </p>
           <h2 className="mt-3 text-[1.5rem] font-semibold text-stone-900 capitalize">
             {formatStatus(order.status)}
           </h2>
-          <p className="mt-2 text-[0.98rem] leading-7 text-[#6c7396]">
+          <p className="mt-2 text-[0.98rem] leading-7 text-[#6b5a5b]">
             {order.items.map((item) => `${item.name} x ${item.quantity}`).join(", ")}
           </p>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div>
-              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                 Delivery Date
               </p>
               <p className="mt-2 text-[0.98rem] text-stone-900">{order.delivery.date}</p>
             </div>
             <div>
-              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                 Payment
               </p>
               <p className="mt-2 text-[0.98rem] capitalize text-stone-900">
@@ -101,13 +101,13 @@ export function TrackOrderClient() {
               </p>
             </div>
             <div>
-              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                 Total
               </p>
               <p className="mt-2 text-[0.98rem] text-stone-900">Rs. {order.pricing.total}</p>
             </div>
             <div>
-              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+              <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                 Ordered
               </p>
               <p className="mt-2 text-[0.98rem] text-stone-900">

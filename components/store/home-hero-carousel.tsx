@@ -71,20 +71,20 @@ export function HomeHeroCarousel() {
                 style={{ backgroundImage: `url(${slide.backgroundImage})` }}
                 aria-hidden="true"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(25,45,46,0.74)_0%,rgba(25,45,46,0.53)_36%,rgba(25,45,46,0.16)_72%)]" />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,23,25,0.82)_0%,rgba(104,16,21,0.58)_40%,rgba(104,16,21,0.14)_76%)]" />
               <div className="absolute inset-y-0 left-0 flex max-w-[780px] items-center px-8 sm:px-12 lg:px-20">
                 <div className="text-white">
-                  <p className="inline-flex rounded-full bg-[#ef7f41] px-5 py-2 text-[0.95rem] font-semibold tracking-[0.03em]">
+                  <p className="inline-flex rounded-full bg-[#86171c] px-5 py-2 text-[0.95rem] font-semibold tracking-[0.03em]">
                     {slide.badge}
                   </p>
-                  <h1 className="mt-7 max-w-[680px] text-[2rem] font-bold leading-[1.1] sm:text-[3rem] lg:text-[4rem]">
+                  <h1 className="mt-7 max-w-[680px] font-heading text-[2rem] font-bold leading-[1.05] sm:text-[3rem] lg:text-[4rem]">
                     {slide.title}
                   </h1>
                   <p className="mt-5 text-[1rem] sm:text-[1.15rem]">{slide.subtitle}</p>
                   <Link
                     href={slide.ctaHref}
-                    className="mt-8 inline-flex rounded-[14px] border border-white/90 bg-white px-7 py-3 text-[1rem] font-semibold !text-[#4d251c] shadow-[0_8px_20px_rgba(0,0,0,0.18)] transition hover:bg-[#fff7f2] hover:!text-[#4d251c] visited:!text-[#4d251c]"
-                    style={{ color: "#4d251c" }}
+                    className="mt-8 inline-flex rounded-[14px] border border-white/90 bg-white px-7 py-3 text-[1rem] font-semibold !text-[#241719] shadow-[0_8px_20px_rgba(0,0,0,0.18)] transition hover:bg-[#fbeaec] hover:!text-[#241719] visited:!text-[#241719]"
+                    style={{ color: "#241719" }}
                   >
                     {slide.ctaText}
                   </Link>

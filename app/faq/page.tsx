@@ -138,16 +138,16 @@ export default function FAQPage() {
               <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:p-14">
                 <div>
                   <p className="section-kicker">Frequently Asked Questions</p>
-                  <h1 className="mt-4 max-w-[12ch] font-[Georgia] text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
+                  <h1 className="mt-4 max-w-[12ch] font-heading text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
                     Cake Delivery FAQ for Hyderabad Customers
                   </h1>
-                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     This FAQ page answers common questions about ordering cake
                     online in Hyderabad, same-day cake delivery, midnight cake
                     delivery, customized cakes, refunds, and delivery support at
                     OccasionKart.
                   </p>
-                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     If you are planning a birthday, anniversary, wedding, baby
                     shower, or corporate celebration, these quick answers will
                     help you choose the right cake and understand how our
@@ -156,7 +156,7 @@ export default function FAQPage() {
                 </div>
 
                 <div className="rounded-[24px] border border-[rgba(77,37,28,0.1)] bg-white/90 p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-7">
-                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#86171c]">
                     Popular Searches
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
@@ -169,7 +169,7 @@ export default function FAQPage() {
                     ].map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] px-4 py-2 text-[0.92rem] font-semibold text-stone-900"
+                        className="rounded-full border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-2 text-[0.92rem] font-semibold text-stone-900"
                       >
                         {item}
                       </span>
@@ -177,7 +177,7 @@ export default function FAQPage() {
                   </div>
                   <Link
                     href="/cakes"
-                    className="mt-6 inline-flex rounded-full bg-[#ef7f41] px-6 py-3 text-[0.98rem] font-semibold text-white"
+                    className="mt-6 inline-flex rounded-full bg-[#86171c] px-6 py-3 text-[0.98rem] font-semibold text-white"
                   >
                     Browse Cakes
                   </Link>
@@ -201,12 +201,12 @@ export default function FAQPage() {
                   {section.items.map((item) => (
                     <article
                       key={item.question}
-                      className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfa] p-5"
+                      className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5"
                     >
                       <h3 className="text-[1.08rem] font-semibold leading-7 text-stone-900">
                         {item.question}
                       </h3>
-                      <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">
+                      <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">
                         {item.answer}
                       </p>
                     </article>
@@ -215,27 +215,27 @@ export default function FAQPage() {
               </section>
             ))}
 
-            <section className="rounded-[24px] border border-[rgba(239,127,65,0.18)] bg-[#fff7f1] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
+            <section className="rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Need More Help?
               </h2>
-              <p className="mt-5 text-[1rem] leading-8 text-[#6c7396]">
+              <p className="mt-5 text-[1rem] leading-8 text-[#6b5a5b]">
                 For order support, custom cake discussions, or delivery queries,
                 visit our{" "}
-                <Link href="/contact" className="font-semibold text-[#ef7f41]">
+                <Link href="/contact" className="font-semibold text-[#86171c]">
                   Contact page
                 </Link>{" "}
                 or review our{" "}
                 <Link
                   href="/refund-policy"
-                  className="font-semibold text-[#ef7f41]"
+                  className="font-semibold text-[#86171c]"
                 >
                   Refund and Returns Policy
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/terms-and-conditions"
-                  className="font-semibold text-[#ef7f41]"
+                  className="font-semibold text-[#86171c]"
                 >
                   Terms and Conditions
                 </Link>

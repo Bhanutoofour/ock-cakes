@@ -62,7 +62,7 @@ export function CartPageClient() {
                       <h2 className="mt-2 text-2xl font-semibold text-[var(--brand-brown)]">
                         {item.name}
                       </h2>
-                      <p className="mt-2 text-[0.96rem] text-[#6c7396]">
+                      <p className="mt-2 text-[0.96rem] text-[#6b5a5b]">
                         {item.weightLabel ?? "Standard weight"}
                         {item.flavorLabel ? ` - ${item.flavorLabel}` : ""}
                       </p>
@@ -94,7 +94,7 @@ export function CartPageClient() {
                       </div>
                       <div className="flex items-center gap-4">
                         <button
-                          className="text-sm text-[#ef7f41]"
+                          className="text-sm text-[#86171c]"
                           type="button"
                           onClick={() => removeItem(item.key)}
                         >
@@ -111,11 +111,11 @@ export function CartPageClient() {
             </div>
           )}
 
-          <div className="mt-8 rounded-[24px] border border-[var(--line)] bg-[#fffaf6] p-5 sm:p-6">
+          <div className="mt-8 rounded-[24px] border border-[var(--line)] bg-[#fff8f2] p-5 sm:p-6">
             <h2 className="text-[1.2rem] font-semibold text-[var(--brand-brown)]">
               Delivery Details Before Checkout
             </h2>
-            <p className="mt-2 text-[0.94rem] text-[#6c7396]">
+            <p className="mt-2 text-[0.94rem] text-[#6b5a5b]">
               Fill this once and continue to checkout with delivery address, slot, date, cake
               message, and sender name prefilled.
             </p>
@@ -240,7 +240,7 @@ export function CartPageClient() {
               <button
                 type="button"
                 onClick={saveDraft}
-                className="rounded-full bg-[#ef7f41] px-5 py-2.5 text-sm font-semibold text-white"
+                className="rounded-full bg-[#86171c] px-5 py-2.5 text-sm font-semibold text-white"
               >
                 Save Delivery Details
               </button>
@@ -293,7 +293,7 @@ export function CartPageClient() {
           <div className="mt-8 space-y-3">
             <Link
               href="/checkout"
-              className="block w-full rounded-full bg-[var(--brand-red)] px-5 py-3 text-center text-sm font-semibold text-white shadow-[0_18px_35px_rgba(189,39,26,0.24)]"
+              className="block w-full rounded-full bg-[var(--brand-red)] px-5 py-3 text-center text-sm font-semibold text-white shadow-[0_18px_35px_rgba(134,23,28,0.24)]"
             >
               Proceed to checkout
             </Link>

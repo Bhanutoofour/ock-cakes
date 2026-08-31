@@ -59,7 +59,7 @@ export function ResetPasswordForm({ token, error: initialError, mode }: ResetPas
   return (
     <div className="mx-auto max-w-[520px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-8">
       <h1 className="text-[2rem] font-semibold text-black">Reset Password</h1>
-      <p className="mt-2 text-[1rem] text-[#6c7396]">
+      <p className="mt-2 text-[1rem] text-[#6b5a5b]">
         Choose a new password for your OccasionKart account.
       </p>
 
@@ -112,15 +112,15 @@ export function ResetPasswordForm({ token, error: initialError, mode }: ResetPas
 
         <button
           disabled={isPending || !token}
-          className="w-full rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Resetting Password..." : "Reset Password"}
         </button>
       </form>
 
-      <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
+      <p className="mt-5 text-center text-[0.95rem] text-[#6b5a5b]">
         Remembered your password?{" "}
-        <Link href={isAdminReset ? "/admin-login" : "/login"} className="text-[#ef7f41]">
+        <Link href={isAdminReset ? "/admin-login" : "/login"} className="text-[#86171c]">
           Sign in
         </Link>
       </p>

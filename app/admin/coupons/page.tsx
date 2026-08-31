@@ -16,7 +16,7 @@ export default async function AdminCouponsPage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-[2rem] font-semibold text-black">Coupon Manager</h2>
-        <p className="mt-2 max-w-[68ch] text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 max-w-[68ch] text-[1rem] leading-8 text-[#6b5a5b]">
           Create checkout coupons, cap usage, and review redemption counts.
         </p>
       </div>

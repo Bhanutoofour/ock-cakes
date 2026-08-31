@@ -107,7 +107,7 @@ export function AdminOrderDetailClient({ order }: { order: Order }) {
       <button
         type="button"
         disabled={isPending}
-        className="mt-5 rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+        className="mt-5 rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         onClick={handleSave}
       >
         {isPending ? "Saving..." : "Save Order Changes"}

@@ -83,7 +83,7 @@ export function AdminCustomizationClient({ initialOrders }: { initialOrders: Ord
     <div className="space-y-6">
       <div>
         <h2 className="text-[2rem] font-semibold text-black">Customization Orders</h2>
-        <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
           Approve photo cakes, personalization text, and design requirements before kitchen execution.
         </p>
       </div>
@@ -124,7 +124,7 @@ export function AdminCustomizationClient({ initialOrders }: { initialOrders: Ord
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.15em] text-[#86171c]">
                     {order.orderNumber}
                   </p>
                   <h3 className="mt-2 text-[1rem] font-semibold text-stone-900">{order.customer.fullName}</h3>
@@ -227,7 +227,7 @@ export function AdminCustomizationClient({ initialOrders }: { initialOrders: Ord
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-8 text-[#6c7396]">
+        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-8 text-[#6b5a5b]">
           No customization orders in this state.
         </div>
       ) : null}
@@ -251,7 +251,7 @@ function FilterTab({
       type="button"
       onClick={() => onClick(id)}
       className={`rounded-full px-4 py-2 text-sm font-semibold ${
-        active ? "bg-[#ef7f41] text-white" : "border border-[rgba(0,0,0,0.12)] text-stone-700"
+        active ? "bg-[#86171c] text-white" : "border border-[rgba(0,0,0,0.12)] text-stone-700"
       }`}
     >
       {label}

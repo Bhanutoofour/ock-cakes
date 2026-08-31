@@ -99,7 +99,7 @@ export function AdminSidebar({
       <div className="mt-4 space-y-2">
         <button
           type="button"
-          className="w-full rounded-full bg-[#ef7f41] px-3 py-2 text-[0.82rem] font-semibold text-white"
+          className="w-full rounded-full bg-[#86171c] px-3 py-2 text-[0.82rem] font-semibold text-white"
         >
           + New Order
         </button>

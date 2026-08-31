@@ -114,7 +114,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             <button
               type="button"
               onClick={checkPincode}
-              className="rounded-full bg-[#ef7f41] px-4 py-2.5 text-sm font-semibold text-white"
+              className="rounded-full bg-[#86171c] px-4 py-2.5 text-sm font-semibold text-white"
             >
               Check
             </button>
@@ -183,20 +183,20 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
         {product.highlights.map((highlight) => (
           <div
             key={highlight}
-            className="rounded-full border border-[var(--line)] bg-[#fffdfa] px-4 py-2.5 text-sm font-medium text-stone-700"
+            className="rounded-full border border-[var(--line)] bg-[#fff8f2] px-4 py-2.5 text-sm font-medium text-stone-700"
           >
             {highlight}
           </div>
         ))}
       </div>
 
-      <div className="mt-6 rounded-[28px] border border-[rgba(111,29,42,0.08)] bg-[linear-gradient(180deg,#fffdfb_0%,#fff6f0_100%)] p-4 sm:p-5">
+      <div className="mt-6 rounded-[28px] border border-[rgba(111,29,42,0.08)] bg-[linear-gradient(180deg,#fff8f2_0%,#fff6f0_100%)] p-4 sm:p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-2">
             <p className="text-[0.78rem] font-semibold uppercase tracking-[0.24em] text-[#9c7a67]">
               Selected
             </p>
-            <p className="text-[1rem] font-medium text-[#6c7396]">
+            <p className="text-[1rem] font-medium text-[#6b5a5b]">
               <span className="font-semibold text-[var(--brand-brown)]">
                 {selectedWeight?.label ?? "Base"}
               </span>
@@ -248,7 +248,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           {customPhotoName ? (
             <p className="mt-2 text-[0.84rem] font-medium text-[#2f8f2f]">Selected: {customPhotoName}</p>
           ) : (
-            <p className="mt-2 text-[0.82rem] text-[#6c7396]">No file selected.</p>
+            <p className="mt-2 text-[0.82rem] text-[#6b5a5b]">No file selected.</p>
           )}
         </div>
       ) : null}
@@ -269,7 +269,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           <button
             type="button"
             onClick={checkPincode}
-            className="rounded-full bg-[#ef7f41] px-4 py-2.5 text-sm font-semibold text-white"
+            className="rounded-full bg-[#86171c] px-4 py-2.5 text-sm font-semibold text-white"
           >
             Check
           </button>

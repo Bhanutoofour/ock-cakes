@@ -72,7 +72,7 @@ export function RegisterForm() {
   return (
     <div className="mx-auto max-w-[620px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
       <h1 className="text-[2rem] font-semibold text-black">Create Account</h1>
-      <p className="mt-2 text-[1rem] text-[#6c7396]">
+      <p className="mt-2 text-[1rem] text-[#6b5a5b]">
         Join OccasionKart to track orders and save delivery addresses.
       </p>
 
@@ -160,7 +160,7 @@ export function RegisterForm() {
 
         <button
           disabled={isPending}
-          className="mt-6 w-full rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="mt-6 w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Creating Account..." : "Create Account"}
         </button>
@@ -170,9 +170,9 @@ export function RegisterForm() {
         <SocialLoginButtons />
       </div>
 
-      <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
+      <p className="mt-5 text-center text-[0.95rem] text-[#6b5a5b]">
         Already have an account?{" "}
-        <Link href="/login" className="text-[#ef7f41]">
+        <Link href="/login" className="text-[#86171c]">
           Sign in
         </Link>
       </p>

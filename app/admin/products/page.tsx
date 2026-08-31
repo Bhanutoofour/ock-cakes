@@ -31,7 +31,7 @@ export default async function AdminProductsPage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-[2rem] font-semibold text-black">Product Manager</h2>
-        <p className="mt-2 max-w-[68ch] text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 max-w-[68ch] text-[1rem] leading-8 text-[#6b5a5b]">
           Update the live product catalog stored in Neon. New products appear in the
           storefront without touching local JSON files.
         </p>

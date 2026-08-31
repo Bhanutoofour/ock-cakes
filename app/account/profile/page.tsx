@@ -35,7 +35,7 @@ export default async function AccountProfilePage() {
       <main className="bg-white page-pad py-12">
         <div className="mx-auto max-w-[1100px]">
           <div className="mb-5">
-            <Link href="/account" className="text-[0.95rem] font-semibold text-[#ef7f41]">
+            <Link href="/account" className="text-[0.95rem] font-semibold text-[#86171c]">
               Back to account
             </Link>
           </div>

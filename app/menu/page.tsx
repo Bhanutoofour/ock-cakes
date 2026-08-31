@@ -96,7 +96,7 @@ export default function MenuPage() {
       <main className="bg-white page-pad py-12">
         <div className="mx-auto max-w-[1100px]">
           <h1 className="text-[2.2rem] font-semibold text-black">Menu</h1>
-          <p className="mt-2 text-[1rem] text-[#6c7396]">
+          <p className="mt-2 text-[1rem] text-[#6b5a5b]">
             Explore all categories and submenus in one place.
           </p>
 
@@ -107,7 +107,7 @@ export default function MenuPage() {
                 className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)]"
               >
                 <h2 className="text-[1.2rem] font-semibold text-black">{section.title}</h2>
-                <ul className="mt-4 space-y-2 text-[0.95rem] text-[#6c7396]">
+                <ul className="mt-4 space-y-2 text-[0.95rem] text-[#6b5a5b]">
                   {section.items.map((item) => (
                     <li key={item}>
                       <Link href={`/category/${slugify(item)}`}>

@@ -37,10 +37,10 @@ export default function OffersPage() {
         <section className="page-pad py-8 sm:py-12">
           <div className="mx-auto max-w-[1180px] rounded-[28px] border border-[rgba(0,0,0,0.1)] bg-[linear-gradient(135deg,#fff7ef_0%,#ffffff_50%,#fff1e6_100%)] p-8 shadow-[0_18px_40px_rgba(0,0,0,0.08)] sm:p-12">
             <p className="section-kicker">Offers and Savings</p>
-            <h1 className="mt-4 max-w-[12ch] font-[Georgia] text-[2.6rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
+            <h1 className="mt-4 max-w-[12ch] font-heading text-[2.6rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
               Cake Offers for Hyderabad Celebrations
             </h1>
-            <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396]">
+            <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b]">
               OccasionKart helps customers save on cake delivery in Hyderabad
               with first-order offers, birthday combo ideas, and value-focused
               celebration bundles. For custom pricing on larger orders, our team
@@ -57,24 +57,24 @@ export default function OffersPage() {
                 className="rounded-[22px] border border-[rgba(0,0,0,0.1)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]"
               >
                 <h2 className="text-[1.15rem] font-semibold text-stone-900">{offer.title}</h2>
-                <p className="mt-3 text-[0.98rem] leading-7 text-[#6c7396]">
+                <p className="mt-3 text-[0.98rem] leading-7 text-[#6b5a5b]">
                   {offer.description}
                 </p>
               </article>
             ))}
           </div>
 
-          <div className="mx-auto mt-8 max-w-[1180px] rounded-[24px] border border-[rgba(239,127,65,0.18)] bg-[#fff7f1] p-8">
+          <div className="mx-auto mt-8 max-w-[1180px] rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8">
             <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
               Need the Best Offer for Your Event?
             </h2>
-            <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
+            <p className="mt-4 text-[1rem] leading-8 text-[#6b5a5b]">
               Visit{" "}
-              <Link href="/custom-orders" className="font-semibold text-[#ef7f41]">
+              <Link href="/custom-orders" className="font-semibold text-[#86171c]">
                 Custom Orders
               </Link>{" "}
               or{" "}
-              <Link href="/corporate-orders" className="font-semibold text-[#ef7f41]">
+              <Link href="/corporate-orders" className="font-semibold text-[#86171c]">
                 Corporate Orders
               </Link>{" "}
               if you need event-specific pricing, bulk cake support, or a

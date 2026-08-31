@@ -113,7 +113,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                 ) : null}
                 <button
                   type="submit"
-                  className="rounded-full bg-[#ef7f41] px-5 py-2 text-sm font-semibold text-white"
+                  className="rounded-full bg-[#86171c] px-5 py-2 text-sm font-semibold text-white"
                 >
                   Apply
                 </button>
@@ -160,14 +160,14 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
           </div>
 
           {!hasSearchQuery ? (
-            <section className="mt-12 rounded-[26px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-6 sm:p-8">
+            <section className="mt-12 rounded-[26px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-6 sm:p-8">
               <h2 className="text-[1.55rem] font-semibold text-[var(--brand-brown)]">
                 Order Cakes Online in Hyderabad with Same Day Delivery
               </h2>
-              <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
+              <p className="mt-4 text-[1rem] leading-8 text-[#6b5a5b]">
                 {buildCollectionSeoDescription(selectedCategory ?? "cake", filteredProducts.length)}
               </p>
-              <p className="mt-3 text-[1rem] leading-8 text-[#6c7396]">{buildGeoCoverageLine()}</p>
+              <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">{buildGeoCoverageLine()}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {buildCollectionKeywords(selectedCategory ?? "cake")
                   .slice(0, 10)

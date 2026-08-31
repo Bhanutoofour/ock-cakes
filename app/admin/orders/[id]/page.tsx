@@ -35,7 +35,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
           <h2 className="mt-3 text-[2rem] font-semibold text-black">
             {order.customer.fullName}
           </h2>
-          <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">
+          <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
             Review items, customer details, delivery address, and fulfillment status.
           </p>
         </div>
@@ -55,12 +55,12 @@ export default async function AdminOrderDetailPage({ params }: Props) {
               {order.items.map((item) => (
                 <div
                   key={`${item.slug}-${item.quantity}`}
-                  className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] p-5"
+                  className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-[1rem] font-semibold text-stone-900">{item.name}</p>
-                      <p className="mt-1 text-[0.94rem] text-[#6c7396]">
+                      <p className="mt-1 text-[0.94rem] text-[#6b5a5b]">
                         {item.quantity} x Rs. {item.unitPrice}
                       </p>
                     </div>

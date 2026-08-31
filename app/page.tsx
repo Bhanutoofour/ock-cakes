@@ -249,7 +249,7 @@ export default async function Home() {
   return (
     <>
       <SiteHeader />
-      <main className="bg-white">
+      <main className="bg-[var(--background)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: toJsonLd(websiteSchema) }}
@@ -287,7 +287,7 @@ export default async function Home() {
                     <h3 className="text-[0.98rem] font-semibold leading-5 text-stone-900 sm:text-[1.05rem]">
                       {card.title}
                     </h3>
-                    <p className="mt-1.5 text-[0.82rem] leading-4 text-[#6c7396] sm:mt-2 sm:text-[0.92rem] sm:leading-6">
+                    <p className="mt-1.5 text-[0.82rem] leading-4 text-[#6b5a5b] sm:mt-2 sm:text-[0.92rem] sm:leading-6">
                       {card.description}
                     </p>
                   </div>
@@ -302,7 +302,7 @@ export default async function Home() {
             <h2 className="home-section-heading text-left">
               Shop By Occasion
             </h2>
-            <Link href="/cakes" className="shrink-0 text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="shrink-0 text-[1rem] text-[#86171c]">
               View All →
             </Link>
           </div>
@@ -333,7 +333,7 @@ export default async function Home() {
         <section className="home-shell home-section">
           <div className="home-section-header text-left">
             <h2 className="home-section-heading text-left">Bestselling Cakes</h2>
-            <Link href="/cakes" className="text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="text-[1rem] text-[#86171c]">
               View All →
             </Link>
           </div>
@@ -347,7 +347,7 @@ export default async function Home() {
         <section className="home-shell home-section">
           <div className="home-section-header">
             <h2 className="home-section-heading">Shop by Price</h2>
-            <Link href="/cakes" className="text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="text-[1rem] text-[#86171c]">
               View All →
             </Link>
           </div>
@@ -365,11 +365,11 @@ export default async function Home() {
         </section>
 
         <section className="home-shell home-section">
-          <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff7f2] px-6 py-8 sm:px-10">
+          <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fbeaec] px-6 py-8 sm:px-10">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="home-section-heading">Customize Your Cake</h2>
-                <p className="mt-3 text-[1rem] text-[#6c7396]">
+                <p className="mt-3 text-[1rem] text-[#6b5a5b]">
                   Choose size, flavor, message, and delivery slot. We handle the rest.
                 </p>
               </div>
@@ -384,7 +384,7 @@ export default async function Home() {
                 ))}
                 <Link
                   href="/custom-orders"
-                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
+                  className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
                 >
                   Start Custom Order
                 </Link>
@@ -396,7 +396,7 @@ export default async function Home() {
         <section className="home-shell home-section">
           <div className="home-section-header">
             <h2 className="home-section-heading">Customer Reviews</h2>
-            <Link href="/testimonials" className="text-[1rem] text-[#ef7f41]">
+            <Link href="/testimonials" className="text-[1rem] text-[#86171c]">
               View All →
             </Link>
           </div>
@@ -451,7 +451,7 @@ export default async function Home() {
                     )}
                     <div>
                       <p className="text-[0.92rem] font-semibold text-stone-900">{review.name}</p>
-                      <p className="text-[0.84rem] text-[#6c7396]">{review.age}</p>
+                      <p className="text-[0.84rem] text-[#6b5a5b]">{review.age}</p>
                     </div>
                   </div>
                 </article>
@@ -503,7 +503,7 @@ export default async function Home() {
             <h2 className="home-section-heading text-left">
               Festive / Seasonal Picks
             </h2>
-            <Link href="/cakes" className="text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="text-[1rem] text-[#86171c]">
               View All →
             </Link>
           </div>
@@ -517,7 +517,7 @@ export default async function Home() {
         <section className="home-shell home-section">
           <div className="home-section-header text-left">
             <h2 className="home-section-heading text-left">New in Occasionkart</h2>
-            <Link href="/cakes" className="text-[1rem] text-[#ef7f41]">
+            <Link href="/cakes" className="text-[1rem] text-[#86171c]">
               View All →
             </Link>
           </div>
@@ -529,11 +529,11 @@ export default async function Home() {
         </section>
 
         <section className="home-shell pb-6 pt-2">
-          <div className="rounded-[22px] border border-[rgba(0,0,0,0.1)] bg-[#fffaf6] p-6 sm:p-8">
+          <div className="rounded-[22px] border border-[rgba(0,0,0,0.1)] bg-[#fff8f2] p-6 sm:p-8">
             <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)] sm:text-[1.7rem]">
               Order Cake Online in Hyderabad with Trusted Local Delivery
             </h2>
-            <p className="mt-3 text-[0.98rem] leading-8 text-[#6c7396]">
+            <p className="mt-3 text-[0.98rem] leading-8 text-[#6b5a5b]">
               Looking for the best cakes in Hyderabad with reliable doorstep delivery? OccasionKart
               is a Hyderabad-based cake shop built for online ordering convenience, fast support,
               and celebration-ready freshness.
@@ -543,7 +543,7 @@ export default async function Home() {
               {seoCopyBlocks.map((block) => (
                 <article key={block.title}>
                   <h3 className="text-[1.06rem] font-semibold text-stone-900">{block.title}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-8 text-[#6c7396]">{block.body}</p>
+                  <p className="mt-2 text-[0.95rem] leading-8 text-[#6b5a5b]">{block.body}</p>
                 </article>
               ))}
             </div>
@@ -555,7 +555,7 @@ export default async function Home() {
                   className="rounded-[16px] border border-[rgba(0,0,0,0.1)] bg-white p-4"
                 >
                   <h3 className="text-[0.98rem] font-semibold text-stone-900">{item.question}</h3>
-                  <p className="mt-2 text-[0.9rem] leading-7 text-[#6c7396]">{item.answer}</p>
+                  <p className="mt-2 text-[0.9rem] leading-7 text-[#6b5a5b]">{item.answer}</p>
                 </article>
               ))}
             </div>
@@ -566,11 +566,11 @@ export default async function Home() {
           <div className="mx-auto grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
             {features.map((feature) => (
               <div key={feature.title} className="text-center">
-                <div className="mx-auto flex h-18 w-18 items-center justify-center rounded-full bg-[#fff1f5] px-3 text-[0.95rem] font-semibold text-[#ef7f41]">
+                <div className="mx-auto flex h-18 w-18 items-center justify-center rounded-full bg-[#f3d8d9] px-3 text-[0.95rem] font-semibold text-[#86171c]">
                   {feature.icon}
                 </div>
                 <h3 className="mt-7 text-[1rem] font-semibold text-black">{feature.title}</h3>
-                <p className="mt-3 text-[0.95rem] text-[#6c7396]">{feature.description}</p>
+                <p className="mt-3 text-[0.95rem] text-[#6b5a5b]">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -580,4 +580,3 @@ export default async function Home() {
     </>
   );
 }
-

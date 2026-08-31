@@ -23,7 +23,7 @@ type AddToCartProps = {
 };
 
 const defaultButtonClassName =
-  "rounded-full bg-[var(--brand-red)] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(189,39,26,0.24)]";
+  "rounded-full bg-[var(--brand-red)] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(134,23,28,0.24)]";
 
 export function AddToCartButton({
   slug,

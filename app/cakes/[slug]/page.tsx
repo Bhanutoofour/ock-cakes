@@ -253,11 +253,11 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
             </div>
           </div>
 
-          <section className="mt-10 rounded-[30px] border border-[var(--line)] bg-[#fffaf6] p-6 sm:p-8">
+          <section className="mt-10 rounded-[30px] border border-[var(--line)] bg-[#fff8f2] p-6 sm:p-8">
             <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)]">
               Frequently Asked Questions
             </h2>
-            <p className="mt-4 text-[0.98rem] leading-8 text-[#6c7396]">
+            <p className="mt-4 text-[0.98rem] leading-8 text-[#6b5a5b]">
               Here are the most common questions customers ask before ordering{" "}
               {product.name} online.
             </p>
@@ -269,7 +269,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
                   className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-white p-4"
                 >
                   <h3 className="text-[1rem] font-semibold text-stone-900">{faq.question}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-7 text-[#6c7396]">{faq.answer}</p>
+                  <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">{faq.answer}</p>
                 </article>
               ))}
             </div>

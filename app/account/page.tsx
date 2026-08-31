@@ -58,14 +58,14 @@ export default async function AccountPage() {
 
           {session?.user ? (
             <>
-              <p className="mt-2 text-[1rem] text-[#6c7396]">
+              <p className="mt-2 text-[1rem] text-[#6b5a5b]">
                 Your customer account is limited to your profile, orders, and saved
                 billing and shipping details.
               </p>
 
-              <div className="mt-6 grid gap-4 rounded-[18px] bg-[#fffaf6] p-5 sm:grid-cols-2">
+              <div className="mt-6 grid gap-4 rounded-[18px] bg-[#fff8f2] p-5 sm:grid-cols-2">
                 <div>
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Name
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold text-stone-900">
@@ -73,7 +73,7 @@ export default async function AccountPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Email
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold text-stone-900">
@@ -81,7 +81,7 @@ export default async function AccountPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Phone
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold text-stone-900">
@@ -91,7 +91,7 @@ export default async function AccountPage() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Session
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold text-stone-900">
@@ -103,18 +103,18 @@ export default async function AccountPage() {
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 <Link
                   href="/account/profile"
-                  className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#ef7f41]"
+                  className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#86171c]"
                 >
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Profile
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold">Account details</p>
                 </Link>
                 <Link
                   href="/account/orders"
-                  className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#ef7f41]"
+                  className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#86171c]"
                 >
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Orders
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold">
@@ -123,9 +123,9 @@ export default async function AccountPage() {
                 </Link>
                 <Link
                   href="/cakes"
-                  className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#ef7f41]"
+                  className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-5 text-stone-900 transition hover:border-[#86171c]"
                 >
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Shop
                   </p>
                   <p className="mt-2 text-[1rem] font-semibold">Continue shopping</p>
@@ -133,8 +133,8 @@ export default async function AccountPage() {
               </div>
 
               <div className="mt-6 grid gap-4 lg:grid-cols-2">
-                <section className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-[#fffdfb] p-5">
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                <section className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-[#fff8f2] p-5">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Shipping Addresses
                   </p>
                   {savedDeliveryAddresses.length > 0 ? (
@@ -145,7 +145,7 @@ export default async function AccountPage() {
                           className="rounded-[14px] bg-white p-4 text-[0.95rem] text-stone-800"
                         >
                           <p className="font-semibold text-stone-950">{address.address}</p>
-                          <p className="mt-1 text-[#6c7396]">
+                          <p className="mt-1 text-[#6b5a5b]">
                             {address.city}
                             {address.pincode ? ` - ${address.pincode}` : ""}
                           </p>
@@ -153,14 +153,14 @@ export default async function AccountPage() {
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-3 text-[0.95rem] leading-7 text-[#6c7396]">
+                    <p className="mt-3 text-[0.95rem] leading-7 text-[#6b5a5b]">
                       Shipping addresses from your signed-in orders will appear here.
                     </p>
                   )}
                 </section>
 
-                <section className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-[#fffdfb] p-5">
-                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                <section className="rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-[#fff8f2] p-5">
+                  <p className="text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                     Billing Addresses
                   </p>
                   {savedDeliveryAddresses.length > 0 ? (
@@ -171,7 +171,7 @@ export default async function AccountPage() {
                           className="rounded-[14px] bg-white p-4 text-[0.95rem] text-stone-800"
                         >
                           <p className="font-semibold text-stone-950">{address.address}</p>
-                          <p className="mt-1 text-[#6c7396]">
+                          <p className="mt-1 text-[#6b5a5b]">
                             {address.city}
                             {address.pincode ? ` - ${address.pincode}` : ""}
                           </p>
@@ -179,7 +179,7 @@ export default async function AccountPage() {
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-3 text-[0.95rem] leading-7 text-[#6c7396]">
+                    <p className="mt-3 text-[0.95rem] leading-7 text-[#6b5a5b]">
                       Billing addresses from your signed-in orders will appear here.
                     </p>
                   )}
@@ -189,7 +189,7 @@ export default async function AccountPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/cakes"
-                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
+                  className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
                 >
                   Continue Shopping
                 </Link>
@@ -198,7 +198,7 @@ export default async function AccountPage() {
             </>
           ) : (
             <>
-              <p className="mt-2 text-[1rem] text-[#6c7396]">
+              <p className="mt-2 text-[1rem] text-[#6b5a5b]">
                 Sign in to connect future orders, saved delivery details, and customer
                 history to your account.
               </p>
@@ -206,7 +206,7 @@ export default async function AccountPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/login"
-                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white"
+                  className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
                 >
                   Sign In
                 </Link>

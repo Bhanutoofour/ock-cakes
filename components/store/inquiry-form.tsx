@@ -177,7 +177,7 @@ export function InquiryForm({
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Sending..." : primaryLabel}
         </button>

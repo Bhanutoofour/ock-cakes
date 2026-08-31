@@ -40,14 +40,14 @@ export function SameDayDeliveryPanel({
 
   return (
     <div
-      className={`rounded-[18px] border border-[rgba(239,127,65,0.22)] bg-[#fff7f1] ${
+      className={`rounded-[18px] border border-[rgba(134,23,28,0.22)] bg-[#fbeaec] ${
         compact ? "p-4" : "p-5"
       }`}
     >
       <h3 className={`font-semibold text-[var(--brand-brown)] ${compact ? "text-[1.02rem]" : "text-[1.15rem]"}`}>
         {title}
       </h3>
-      <p className="mt-2 text-[0.93rem] leading-7 text-[#6c7396]">
+      <p className="mt-2 text-[0.93rem] leading-7 text-[#6b5a5b]">
         Same-day orders close at <span className="font-semibold text-stone-900">{SAME_DAY_CUTOFF_LABEL}</span>.
       </p>
 

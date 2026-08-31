@@ -299,7 +299,7 @@ export function CheckoutPageClient() {
         order_id: razorpay.orderId,
         prefill: razorpay.prefill,
         theme: {
-          color: "#ef7f41",
+          color: "#86171c",
         },
         handler: async (paymentResponse: {
           razorpay_order_id: string;
@@ -353,7 +353,7 @@ export function CheckoutPageClient() {
       <div className="mx-auto grid max-w-[1180px] gap-8 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h1 className="text-[2rem] font-semibold text-black">Checkout</h1>
-          <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">
+          <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
             Complete your order in steps: address and delivery slot, cake message and sender,
             then review and pay with Razorpay.
           </p>
@@ -370,7 +370,7 @@ export function CheckoutPageClient() {
                     onClick={() => setStep(stepNumber)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold ${
                       active
-                        ? "bg-[#ef7f41] text-white"
+                        ? "bg-[#86171c] text-white"
                         : "border border-[rgba(0,0,0,0.12)] text-stone-700"
                     }`}
                   >
@@ -497,7 +497,7 @@ export function CheckoutPageClient() {
                 <button
                   type="button"
                   onClick={handleContinueFromStepOne}
-                  className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
+                  className="rounded-full bg-[#86171c] px-6 py-3 text-sm font-semibold text-white"
                 >
                   Continue to Message
                 </button>
@@ -529,7 +529,7 @@ export function CheckoutPageClient() {
                   <button
                     type="button"
                     onClick={handleContinueFromStepTwo}
-                    className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white"
+                    className="rounded-full bg-[#86171c] px-6 py-3 text-sm font-semibold text-white"
                   >
                     Continue to Review
                   </button>
@@ -538,11 +538,11 @@ export function CheckoutPageClient() {
             ) : null}
 
             {step === 3 ? (
-              <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] p-5">
-                <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+              <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5">
+                <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                   Review Order
                 </p>
-                <div className="space-y-2 text-[0.95rem] leading-7 text-[#6c7396]">
+                <div className="space-y-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
                   <p>
                     <span className="font-semibold text-stone-900">Delivery:</span>{" "}
                     {draft.deliveryDate} | {draft.deliverySlot}
@@ -610,7 +610,7 @@ export function CheckoutPageClient() {
                     type="button"
                     onClick={handlePlaceOrder}
                     disabled={isSubmitting}
-                    className="rounded-full bg-[#ef7f41] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
+                    className="rounded-full bg-[#86171c] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {isSubmitting ? "Processing..." : "Place Order & Pay"}
                   </button>
@@ -626,12 +626,12 @@ export function CheckoutPageClient() {
           ) : null}
         </div>
 
-        <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff7f2] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
+        <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h2 className="text-[1.4rem] font-semibold text-black">Order Summary</h2>
-            <div className="mt-5 space-y-3 text-[1rem] text-[#6c7396]">
+            <div className="mt-5 space-y-3 text-[1rem] text-[#6b5a5b]">
             <div>
               <label
-                className="mb-1 block text-[0.82rem] font-semibold uppercase tracking-[0.14em] text-[#ef7f41]"
+                className="mb-1 block text-[0.82rem] font-semibold uppercase tracking-[0.14em] text-[#86171c]"
                 htmlFor="coupon-code"
               >
                 Coupon Code

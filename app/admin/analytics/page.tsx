@@ -37,7 +37,7 @@ export default async function AdminAnalyticsPage() {
       <div>
         <p className="section-kicker">Analytics</p>
         <h2 className="mt-2 text-[2rem] font-semibold text-black">Operations Snapshot</h2>
-        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
           Understand how orders move through payment and delivery stages, and which delivery slots
           are most in demand.
         </p>
@@ -74,7 +74,7 @@ export default async function AdminAnalyticsPage() {
           {topSlots.map(([slot, count]) => (
             <div
               key={slot}
-              className="flex items-center justify-between rounded-[14px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] px-4 py-3"
+              className="flex items-center justify-between rounded-[14px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-3"
             >
               <p className="font-medium text-stone-900">{slot}</p>
               <p className="font-semibold text-stone-900">

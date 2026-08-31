@@ -29,7 +29,7 @@ export default async function AdminMarketingPage() {
       <div>
         <p className="section-kicker">Marketing</p>
         <h2 className="mt-2 text-[2rem] font-semibold text-black">Customer Growth & Retention</h2>
-        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
           Focus this week on repeat customers, average order value, and reactivation campaigns for
           Hyderabad celebration buyers.
         </p>
@@ -37,19 +37,19 @@ export default async function AdminMarketingPage() {
 
       <div className="grid gap-5 sm:grid-cols-3">
         <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
             Paid Orders
           </p>
           <p className="mt-3 text-[2rem] font-semibold text-stone-900">{paidOrders.length}</p>
         </div>
         <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
             Repeat Rate
           </p>
           <p className="mt-3 text-[2rem] font-semibold text-stone-900">{repeatRate}%</p>
         </div>
         <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
             Avg Order Value
           </p>
           <p className="mt-3 text-[2rem] font-semibold text-stone-900">Rs. {averageOrderValue}</p>
@@ -70,12 +70,12 @@ export default async function AdminMarketingPage() {
           {topCustomers.map((customer) => (
             <div
               key={customer.key}
-              className="rounded-[14px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] px-4 py-3"
+              className="rounded-[14px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-3"
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="font-semibold text-stone-900">{customer.name}</p>
-                  <p className="text-[0.9rem] text-[#6c7396]">{customer.email ?? customer.phone}</p>
+                  <p className="text-[0.9rem] text-[#6b5a5b]">{customer.email ?? customer.phone}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-[0.9rem] text-stone-700">{customer.ordersCount} orders</p>

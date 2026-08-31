@@ -82,7 +82,7 @@ export function AdminLoginForm() {
     <div className="mx-auto max-w-[560px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-8">
       <p className="section-kicker">Admin</p>
       <h1 className="mt-3 text-[2rem] font-semibold text-black">Admin Login</h1>
-      <p className="mt-2 text-[1rem] text-[#6c7396]">
+      <p className="mt-2 text-[1rem] text-[#6b5a5b]">
         Sign in with the approved admin email and password.
       </p>
 
@@ -119,7 +119,7 @@ export function AdminLoginForm() {
             type="button"
             onClick={handleForgotPassword}
             disabled={isResetPending}
-            className="text-[0.88rem] font-semibold text-[#ef7f41] disabled:opacity-70"
+            className="text-[0.88rem] font-semibold text-[#86171c] disabled:opacity-70"
           >
             {isResetPending ? "Sending reset link..." : "Forgot admin password?"}
           </button>
@@ -145,7 +145,7 @@ export function AdminLoginForm() {
 
         <button
           disabled={isPending}
-          className="w-full rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Signing In..." : "Sign In to Admin"}
         </button>

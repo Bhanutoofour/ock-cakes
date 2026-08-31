@@ -120,7 +120,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h2 className="text-[2rem] font-semibold text-black">Category Manager</h2>
-            <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
+            <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
               Add products to a category, remove products from a category, and bulk-manage
               category membership without opening each product one by one.
             </p>
@@ -137,7 +137,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
               type="button"
               onClick={() => void applyBulkUpdate("add")}
               disabled={isPending}
-              className="rounded-full bg-[#ef7f41] px-5 py-3 text-[0.95rem] font-semibold text-white disabled:opacity-70"
+              className="rounded-full bg-[#86171c] px-5 py-3 text-[0.95rem] font-semibold text-white disabled:opacity-70"
             >
               Add Selected
             </button>
@@ -168,7 +168,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
               ? "Unselect Visible"
               : "Select Visible"}
           </button>
-          <div className="rounded-full bg-[#fff7f2] px-5 py-3 text-[0.95rem] font-semibold text-stone-900">
+          <div className="rounded-full bg-[#fbeaec] px-5 py-3 text-[0.95rem] font-semibold text-stone-900">
             {selectedIds.length} selected
           </div>
         </div>
@@ -186,7 +186,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
         ) : null}
       </div>
 
-      <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fffdfb] p-5 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
+      <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff8f2] p-5 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
         <p className="text-[1rem] font-semibold text-stone-900">Categories</p>
         <div className="mt-4 flex flex-wrap gap-3">
           <button
@@ -224,7 +224,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
               <Link
                 href={`/category/${slugify(category.name)}`}
                 target="_blank"
-                className="border-l border-[rgba(0,0,0,0.08)] bg-[#fff7f2] px-3 py-2 text-[0.84rem] font-semibold text-[#ef7f41]"
+                className="border-l border-[rgba(0,0,0,0.08)] bg-[#fbeaec] px-3 py-2 text-[0.84rem] font-semibold text-[#86171c]"
               >
                 Open
               </Link>
@@ -241,7 +241,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
               key={product.id}
               className={`flex cursor-pointer gap-4 rounded-[20px] border p-4 transition ${
                 selected
-                  ? "border-[#ef7f41] bg-[#fff7f2]"
+                  ? "border-[#86171c] bg-[#fbeaec]"
                   : "border-[rgba(0,0,0,0.1)] bg-white"
               }`}
             >
@@ -253,7 +253,7 @@ export function AdminCategoriesClient({ initialProducts, initialCategories }: Pr
               />
               <div className="min-w-0 flex-1">
                 <p className="text-[1rem] font-semibold text-stone-900">{product.name}</p>
-                <p className="mt-1 text-[0.84rem] text-[#6c7396]">{product.slug}</p>
+                <p className="mt-1 text-[0.84rem] text-[#6b5a5b]">{product.slug}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {product.categories.map((category) => (
                     <span

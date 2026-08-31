@@ -16,12 +16,12 @@ export default function PrivacyPolicyPage() {
       <main className="bg-white page-pad py-10">
         <div className="mx-auto max-w-[1100px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h1 className="text-[2.2rem] font-semibold text-black">Privacy Policy</h1>
-          <p className="mt-4 text-[1rem] leading-8 text-[#6c7396]">
+          <p className="mt-4 text-[1rem] leading-8 text-[#6b5a5b]">
             Occasionkart respects your privacy. We collect only the information
             necessary to process orders and improve your shopping experience.
           </p>
 
-          <div className="mt-6 space-y-5 text-[1rem] leading-8 text-[#6c7396]">
+          <div className="mt-6 space-y-5 text-[1rem] leading-8 text-[#6b5a5b]">
             <p>
               1. We collect customer details such as name, phone number, and
               delivery address for order fulfillment.

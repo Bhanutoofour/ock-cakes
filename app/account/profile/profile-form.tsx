@@ -104,7 +104,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
         className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-8"
       >
         <h1 className="text-[2rem] font-semibold text-black">Profile</h1>
-        <p className="mt-2 text-[1rem] leading-7 text-[#6c7396]">
+        <p className="mt-2 text-[1rem] leading-7 text-[#6b5a5b]">
           Your customer details for order updates and checkout.
         </p>
 
@@ -131,7 +131,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
               type="email"
               value={email}
               readOnly
-              className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-[#f7f7f9] px-4 py-3 text-[#6c7396]"
+              className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-[#f7f7f9] px-4 py-3 text-[#6b5a5b]"
             />
           </div>
 
@@ -164,7 +164,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
         <button
           disabled={isSavingProfile}
-          className="mt-6 w-full rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="mt-6 w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isSavingProfile ? "Saving..." : "Save Profile"}
         </button>
@@ -172,10 +172,10 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
       <form
         onSubmit={changePassword}
-        className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fffdfb] p-6 sm:p-8"
+        className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff8f2] p-6 sm:p-8"
       >
         <h2 className="text-[1.6rem] font-semibold text-black">Change Password</h2>
-        <p className="mt-2 text-[0.95rem] leading-7 text-[#6c7396]">
+        <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
           Use your current password to set a new one.
         </p>
 
@@ -248,7 +248,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
         <button
           disabled={isChangingPassword}
-          className="mt-6 w-full rounded-full border border-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-[#ef7f41] disabled:opacity-70"
+          className="mt-6 w-full rounded-full border border-[#86171c] px-6 py-3 text-[1rem] font-semibold text-[#86171c] disabled:opacity-70"
         >
           {isChangingPassword ? "Changing..." : "Change Password"}
         </button>

@@ -41,7 +41,7 @@ export default async function AccountOrdersPage() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <h1 className="text-[2rem] font-semibold text-black">My Orders</h1>
-                <p className="mt-2 text-[1rem] leading-8 text-[#6c7396]">
+                <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
                   Orders placed while signed in to your OccasionKart account appear
                   here.
                 </p>
@@ -55,7 +55,7 @@ export default async function AccountOrdersPage() {
             </div>
 
             {orders.length === 0 ? (
-              <div className="mt-8 rounded-[18px] bg-[#fffaf6] p-6 text-[#6c7396]">
+              <div className="mt-8 rounded-[18px] bg-[#fff8f2] p-6 text-[#6b5a5b]">
                 No signed-in orders yet. Place your next order from checkout while
                 logged in and it will appear here.
               </div>
@@ -64,11 +64,11 @@ export default async function AccountOrdersPage() {
                 {orders.map((order) => (
                   <article
                     key={order.id}
-                    className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] p-6"
+                    className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-6"
                   >
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#ef7f41]">
+                        <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
                           {order.orderNumber}
                         </p>
                         <h2 className="mt-2 text-[1.3rem] font-semibold text-stone-900">
@@ -76,7 +76,7 @@ export default async function AccountOrdersPage() {
                             .map((item) => `${item.name} x ${item.quantity}`)
                             .join(", ")}
                         </h2>
-                        <p className="mt-2 text-[0.95rem] text-[#6c7396]">
+                        <p className="mt-2 text-[0.95rem] text-[#6b5a5b]">
                           Delivery date: {order.delivery.date}
                         </p>
                       </div>
@@ -92,7 +92,7 @@ export default async function AccountOrdersPage() {
 
                     <div className="mt-5 grid gap-4 sm:grid-cols-3">
                       <div>
-                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                           Payment
                         </p>
                         <p className="mt-2 text-[0.98rem] capitalize text-stone-900">
@@ -100,7 +100,7 @@ export default async function AccountOrdersPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                           Address
                         </p>
                         <p className="mt-2 text-[0.98rem] text-stone-900">
@@ -108,7 +108,7 @@ export default async function AccountOrdersPage() {
                         </p>
                       </div>
                       <div>
-                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
                           Ordered
                         </p>
                         <p className="mt-2 text-[0.98rem] text-stone-900">

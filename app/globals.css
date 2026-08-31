@@ -1,20 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fffaf5;
-  --foreground: #2b1812;
-  --brand-red: #bd271a;
-  --brand-maroon: #6f1d2a;
-  --brand-brown: #4d251c;
-  --brand-gold: #f4b56b;
-  --cream-strong: #fff3ea;
-  --line: rgba(77, 37, 28, 0.12);
+  --brand-primary: #86171c;
+  --brand-primary-hover: #681015;
+  --brand-secondary: #b64248;
+  --brand-gold: #d5a24b;
+  --background: #fff8f2;
+  --surface: #ffffff;
+  --surface-accent: #f3d8d9;
+  --foreground: #241719;
+  --text-secondary: #6b5a5b;
+  --border: #ead9d5;
+  --success: #367552;
+  --error: #b4232c;
+
+  /* Legacy aliases keep existing components on the unified brand palette. */
+  --brand-red: var(--brand-primary);
+  --brand-maroon: var(--brand-primary-hover);
+  --brand-brown: var(--foreground);
+  --cream-strong: #fbeaec;
+  --line: rgba(134, 23, 28, 0.14);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Segoe UI", "Trebuchet MS", sans-serif;
+  --font-sans: var(--font-manrope), "Segoe UI", sans-serif;
+  --font-heading: var(--font-fraunces), Georgia, serif;
 }
 
 * {
@@ -29,8 +41,22 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+  font-family: var(--font-manrope), "Segoe UI", sans-serif;
   overflow-x: clip;
+}
+
+h1 {
+  font-family: var(--font-fraunces), Georgia, serif;
+}
+
+::selection {
+  background: var(--surface-accent);
+  color: var(--brand-primary-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 3px;
 }
 
 a {
@@ -54,7 +80,7 @@ img {
   margin-top: 0.6rem;
   max-width: 14ch;
   color: var(--brand-brown);
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: clamp(2.2rem, 5vw, 4rem);
   line-height: 0.98;
   font-weight: 600;
@@ -84,7 +110,8 @@ img {
 }
 
 .home-section-heading {
-  color: #000;
+  color: var(--foreground);
+  font-family: var(--font-fraunces), Georgia, serif;
   font-size: clamp(1.45rem, 1.15rem + 1vw, 2rem);
   font-weight: 600;
   line-height: 1.15;

@@ -177,7 +177,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
 
         <button
           disabled={isSaving}
-          className="mt-6 w-full rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="mt-6 w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isSaving ? "Saving..." : "Save Coupon"}
         </button>
@@ -187,7 +187,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
         <h2 className="text-[1.5rem] font-semibold text-black">Coupons</h2>
         <div className="mt-5 max-w-full overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-[0.92rem]">
-            <thead className="text-[#6c7396]">
+            <thead className="text-[#6b5a5b]">
               <tr className="border-b border-[rgba(0,0,0,0.1)]">
                 <th className="py-3 pr-4 font-semibold">Code</th>
                 <th className="py-3 pr-4 font-semibold">Off</th>

@@ -53,10 +53,10 @@ export default async function GalleryPage() {
               <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:p-14">
                 <div>
                   <p className="section-kicker">Cake Gallery</p>
-                  <h1 className="mt-4 max-w-[12ch] font-[Georgia] text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
+                  <h1 className="mt-4 max-w-[12ch] font-heading text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
                     Cake Designs for Every Celebration in Hyderabad
                   </h1>
-                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     Explore the OccasionKart gallery for birthday cakes,
                     anniversary cakes, wedding cakes, theme cakes, and custom
                     cake designs in Hyderabad. This page showcases the visual
@@ -64,14 +64,14 @@ export default async function GalleryPage() {
                     our customers look for when they order cake online in
                     Hyderabad.
                   </p>
-                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     For our latest social updates and real-time cake photos,
                     visit our Instagram page at{" "}
                     <a
                       href="https://www.instagram.com/occasionkart/"
                       target="_blank"
                       rel="noreferrer"
-                      className="font-semibold text-[#ef7f41]"
+                      className="font-semibold text-[#86171c]"
                     >
                       @occasionkart
                     </a>
@@ -80,14 +80,14 @@ export default async function GalleryPage() {
                 </div>
 
                 <div className="rounded-[24px] border border-[rgba(77,37,28,0.1)] bg-white/90 p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-7">
-                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#86171c]">
                     Popular Gallery Searches
                   </p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     {highlights.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] px-4 py-2 text-[0.92rem] font-semibold text-stone-900"
+                        className="rounded-full border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-2 text-[0.92rem] font-semibold text-stone-900"
                       >
                         {item}
                       </span>
@@ -96,7 +96,7 @@ export default async function GalleryPage() {
                   <div className="mt-6 flex flex-wrap gap-3">
                     <Link
                       href="/cakes"
-                      className="inline-flex rounded-full bg-[#ef7f41] px-6 py-3 text-[0.98rem] font-semibold text-white"
+                      className="inline-flex rounded-full bg-[#86171c] px-6 py-3 text-[0.98rem] font-semibold text-white"
                     >
                       Shop Cakes
                     </Link>
@@ -122,7 +122,7 @@ export default async function GalleryPage() {
                 <h2 className="text-[1.9rem] font-semibold text-[var(--brand-brown)]">
                   OccasionKart Cake Photo Gallery
                 </h2>
-                <p className="mt-2 max-w-[60ch] text-[1rem] leading-7 text-[#6c7396]">
+                <p className="mt-2 max-w-[60ch] text-[1rem] leading-7 text-[#6b5a5b]">
                   Discover cake ideas for birthdays, anniversaries, weddings,
                   baby showers, and corporate events in Hyderabad.
                 </p>
@@ -153,7 +153,7 @@ export default async function GalleryPage() {
                     <h3 className="text-[1.08rem] font-semibold text-stone-900">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-[0.96rem] leading-7 text-[#6c7396]">
+                    <p className="mt-2 text-[0.96rem] leading-7 text-[#6b5a5b]">
                       Freshly baked cake design by OccasionKart for customers
                       looking to order premium celebration cakes in Hyderabad.
                     </p>
@@ -162,19 +162,19 @@ export default async function GalleryPage() {
               ))}
             </div>
 
-            <section className="mt-8 rounded-[24px] border border-[rgba(239,127,65,0.18)] bg-[#fff7f1] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
+            <section className="mt-8 rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Looking for More Cake Photos?
               </h2>
-              <p className="mt-5 max-w-[70ch] text-[1rem] leading-8 text-[#6c7396]">
+              <p className="mt-5 max-w-[70ch] text-[1rem] leading-8 text-[#6b5a5b]">
                 Browse our latest cake photos, celebration reels, and custom
                 cake updates on Instagram. You can also explore our{" "}
-                <Link href="/faq" className="font-semibold text-[#ef7f41]">
+                <Link href="/faq" className="font-semibold text-[#86171c]">
                   FAQ page
                 </Link>{" "}
                 for same-day delivery, customization, and ordering details, or
                 visit the{" "}
-                <Link href="/contact" className="font-semibold text-[#ef7f41]">
+                <Link href="/contact" className="font-semibold text-[#86171c]">
                   Contact page
                 </Link>{" "}
                 to discuss a custom cake order.
@@ -183,7 +183,7 @@ export default async function GalleryPage() {
                 href="https://www.instagram.com/occasionkart/"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex rounded-full bg-[#ef7f41] px-6 py-3 text-[0.98rem] font-semibold text-white"
+                className="mt-6 inline-flex rounded-full bg-[#86171c] px-6 py-3 text-[0.98rem] font-semibold text-white"
               >
                 Follow OccasionKart on Instagram
               </a>

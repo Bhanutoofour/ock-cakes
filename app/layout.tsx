@@ -1,10 +1,23 @@
 import type { Metadata, Viewport } from "next";
+import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/store/cart-context";
 import { WhatsAppChatButton } from "@/components/store/whatsapp-chat-button";
 import { toJsonLd } from "@/lib/json-ld";
 import { buildSeoKeywords } from "@/lib/seo-content";
 import { siteSeo } from "@/lib/seo";
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteSeo.siteUrl),
@@ -50,7 +63,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ef7f41",
+  themeColor: "#86171c",
 };
 
 const organizationSchema = {
@@ -82,7 +95,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth antialiased">
+    <html
+      lang="en"
+      className={`${manrope.variable} ${fraunces.variable} h-full scroll-smooth antialiased`}
+    >
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"

@@ -153,7 +153,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-[2rem] font-semibold text-black">Dashboard</h2>
-          <p className="mt-1 text-[0.95rem] text-[#6c7396]">
+          <p className="mt-1 text-[0.95rem] text-[#6b5a5b]">
             Last updated: {lastUpdatedAt.toLocaleTimeString("en-IN")}{" "}
             {isRefreshing ? "(refreshing...)" : ""}
           </p>
@@ -166,7 +166,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
               onClick={() => setRange(option.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold ${
                 range === option.id
-                  ? "bg-[#ef7f41] text-white"
+                  ? "bg-[#86171c] text-white"
                   : "border border-[rgba(0,0,0,0.14)] text-stone-700"
               }`}
             >
@@ -257,7 +257,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
                 </div>
                 <div className="h-2 rounded-full bg-[#f2f4f7]">
                   <div
-                    className="h-full rounded-full bg-[#ef7f41]"
+                    className="h-full rounded-full bg-[#86171c]"
                     style={{ width: `${Math.min(100, (point.value / Math.max(point.target, 1)) * 100)}%` }}
                   />
                 </div>
@@ -318,7 +318,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
       <section className="min-w-0 rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
         <div className="flex items-center justify-between gap-4">
           <h3 className="text-[1.2rem] font-semibold text-black">Recent Orders</h3>
-          <Link href="/admin/orders" className="text-[0.9rem] font-semibold text-[#ef7f41]">
+          <Link href="/admin/orders" className="text-[0.9rem] font-semibold text-[#86171c]">
             View All Orders
           </Link>
         </div>
@@ -403,7 +403,7 @@ function KpiCard({
     <article className="rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-5 shadow-[0_8px_18px_rgba(0,0,0,0.05)]">
       <div className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${colorClass}`}>{label}</div>
       <p className="mt-3 text-[1.6rem] font-semibold text-stone-900">{value}</p>
-      <p className="mt-1 text-[0.85rem] text-[#6c7396]">{delta}</p>
+      <p className="mt-1 text-[0.85rem] text-[#6b5a5b]">{delta}</p>
     </article>
   );
 
@@ -418,7 +418,7 @@ function AlertRow({ text, actionLabel, href }: { text: string; actionLabel: stri
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#f5c9b7] bg-white px-4 py-3">
       <p className="text-[0.92rem] font-medium text-[#8f3e1d]">{text}</p>
-      <Link href={href} className="rounded-full bg-[#ef7f41] px-4 py-2 text-xs font-semibold text-white">
+      <Link href={href} className="rounded-full bg-[#86171c] px-4 py-2 text-xs font-semibold text-white">
         {actionLabel}
       </Link>
     </div>

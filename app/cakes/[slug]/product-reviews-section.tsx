@@ -72,7 +72,7 @@ export function ProductReviewsSection({
         <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)]">
           Customer Reviews
         </h2>
-        <p className="text-[0.9rem] text-[#6c7396]">Verified purchase feedback</p>
+        <p className="text-[0.9rem] text-[#6b5a5b]">Verified purchase feedback</p>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -81,7 +81,7 @@ export function ProductReviewsSection({
           return (
             <article
               key={review.id}
-              className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffdfb] p-4"
+              className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-4"
             >
               <div className="flex items-center gap-3">
                 <img
@@ -99,7 +99,7 @@ export function ProductReviewsSection({
               </div>
 
               <h3 className="mt-4 text-[1rem] font-semibold text-stone-900">{review.title}</h3>
-              <p className="mt-2 text-[0.92rem] leading-7 text-[#6c7396]">{review.text}</p>
+              <p className="mt-2 text-[0.92rem] leading-7 text-[#6b5a5b]">{review.text}</p>
 
               <div className="mt-4 flex items-center gap-2">
                 <button

@@ -24,7 +24,7 @@ export default async function AdminFinancePage() {
       <div>
         <p className="section-kicker">Finance</p>
         <h2 className="mt-2 text-[2rem] font-semibold text-black">Payments & Revenue</h2>
-        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6c7396]">
+        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
           Track payment health and collections from your latest order pipeline.
         </p>
       </div>
@@ -52,7 +52,7 @@ export default async function AdminFinancePage() {
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-      <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#ef7f41]">
+      <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
         {label}
       </p>
       <p className="mt-3 text-[2rem] font-semibold text-stone-900">{value}</p>

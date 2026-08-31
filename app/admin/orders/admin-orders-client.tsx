@@ -195,7 +195,7 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
                 onClick={() => setActiveStatus(status.id)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold ${
                   active
-                    ? "bg-[#ef7f41] text-white"
+                    ? "bg-[#86171c] text-white"
                     : "border border-[rgba(0,0,0,0.12)] text-stone-700"
                 }`}
               >
@@ -243,13 +243,13 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
               return (
                 <tr key={order.id} className={`border-b border-[rgba(0,0,0,0.06)] ${rowClass}`}>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/orders/${order.id}`} className="font-semibold text-[#ef7f41]">
+                    <Link href={`/admin/orders/${order.id}`} className="font-semibold text-[#86171c]">
                       {order.orderNumber}
                     </Link>
                   </td>
                   <td className="px-4 py-3">
                     <p className="font-semibold text-stone-900">{order.customer.fullName}</p>
-                    <p className="text-[0.84rem] text-[#6c7396]">{order.customer.phone}</p>
+                    <p className="text-[0.84rem] text-[#6b5a5b]">{order.customer.phone}</p>
                   </td>
                   <td className="px-4 py-3 text-[0.9rem] text-[#5c6889]">
                     {order.items.map((item) => `${item.quantity}x ${item.name}`).join(", ")}
@@ -315,7 +315,7 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
       </div>
 
       {filteredOrders.length === 0 ? (
-        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-8 text-[#6c7396]">
+        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-8 text-[#6b5a5b]">
           No orders match the current filters.
         </div>
       ) : null}

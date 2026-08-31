@@ -120,8 +120,8 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
             <Image
               src="/brand/occasionkart-logo.png"
               alt="Occasionkart"
-              width={260}
-              height={60}
+              width={794}
+              height={385}
               priority
               className="h-9 w-auto sm:h-10 md:h-14"
             />
@@ -195,7 +195,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
                 <circle cx="18" cy="20" r="1.5" fill="currentColor" stroke="none" />
                 <path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H7" />
               </svg>
-              <span className="absolute -right-1 -top-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-[#ef7f41] px-1.5 text-sm font-semibold text-white">
+              <span className="absolute -right-1 -top-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-[#86171c] px-1.5 text-sm font-semibold text-white">
                 {hasMounted ? cartCount : 0}
               </span>
             </Link>
@@ -240,7 +240,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
           <Link href="/corporate-orders">Corporate</Link>
           <Link href="/offers" className="inline-flex items-center gap-2">
             Offers
-            <span className="rounded-full bg-[#ef7f41] px-2 py-0.5 text-[0.72rem] font-bold text-white">
+            <span className="rounded-full bg-[#86171c] px-2 py-0.5 text-[0.72rem] font-bold text-white">
               SAVE 15%
             </span>
           </Link>
@@ -310,7 +310,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
                   <div className="max-h-[52vh] space-y-3 overflow-y-auto pr-1">
                     {cakesMegaColumns.map((column) => (
                       <div key={column.title}>
-                        <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[#ef7f41]">
+                        <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[#86171c]">
                           {column.title}
                         </p>
                         <div className="mt-1 space-y-1">
@@ -352,7 +352,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
 function MegaColumnBlock({ column }: { column: MegaColumn }) {
   return (
     <div>
-      <p className="text-[0.95rem] font-semibold text-[#ef7f41]">{column.title}</p>
+      <p className="text-[0.95rem] font-semibold text-[#86171c]">{column.title}</p>
       <ul className="mt-2 space-y-1.5 text-[0.92rem] text-stone-700">
         {column.links.map((item) => (
           <li key={item.label} className="border-b border-[rgba(0,0,0,0.06)] pb-1.5">

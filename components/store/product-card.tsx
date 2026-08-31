@@ -25,7 +25,7 @@ export function ProductCard({ product }: { product: Product }) {
   const { selectedWeight, selectedFlavor, unitPrice } = resolveVariantPricing(product);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(189,39,26,0.35)] hover:shadow-[0_14px_30px_rgba(189,39,26,0.16)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(134,23,28,0.35)] hover:shadow-[0_14px_30px_rgba(134,23,28,0.16)]">
       <Link href={`/cakes/${product.slug}`} className="block">
         <div className="relative aspect-[1/1] overflow-hidden bg-[#f6f2f0]">
           <img
@@ -67,7 +67,7 @@ export function ProductCard({ product }: { product: Product }) {
             flavorId={selectedFlavor?.id}
             flavorLabel={selectedFlavor?.label}
             flavorPricePerKg={selectedFlavor?.pricePerKg}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(189,39,26,0.22)] transition-all duration-200 hover:scale-105 hover:bg-black hover:shadow-[0_16px_30px_rgba(0,0,0,0.35)]"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(134,23,28,0.22)] transition-all duration-200 hover:scale-105 hover:bg-black hover:shadow-[0_16px_30px_rgba(0,0,0,0.35)]"
           >
             <svg
               aria-hidden="true"

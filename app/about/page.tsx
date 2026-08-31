@@ -55,17 +55,17 @@ export default function AboutPage() {
               <div className="grid gap-8 p-8 sm:p-10 lg:grid-cols-[1.15fr_0.85fr] lg:p-14">
                 <div>
                   <p className="section-kicker">About OccasionKart</p>
-                  <h1 className="mt-4 max-w-[12ch] font-[Georgia] text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.3rem]">
+                  <h1 className="mt-4 max-w-[12ch] font-heading text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.3rem]">
                     Freshly Baked Happiness in Hyderabad
                   </h1>
-                  <p className="mt-6 max-w-[62ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-6 max-w-[62ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     Welcome to OccasionKart, your trusted cake shop in Hyderabad,
                     where every celebration begins with something sweet. We
                     specialize in freshly baked cakes crafted with premium
                     ingredients, creative designs, and a passion for making
                     moments memorable.
                   </p>
-                  <p className="mt-4 max-w-[62ch] text-[1rem] leading-8 text-[#6c7396] sm:text-[1.05rem]">
+                  <p className="mt-4 max-w-[62ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
                     We are more than just an online gifting platform. We are a
                     bridge between hearts, connecting families, friends, and
                     loved ones across cities and countries through meaningful,
@@ -74,16 +74,16 @@ export default function AboutPage() {
                 </div>
 
                 <div className="rounded-[24px] border border-[rgba(77,37,28,0.1)] bg-white/90 p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-7">
-                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#ef7f41]">
+                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#86171c]">
                     Why Customers Choose Us
                   </p>
                   <div className="mt-6 space-y-4">
                     {highlights.map((item, index) => (
                       <div
                         key={item}
-                        className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf6] px-4 py-4"
+                        className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-4"
                       >
-                        <p className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-[#ef7f41]">
+                        <p className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-[#86171c]">
                           0{index + 1}
                         </p>
                         <p className="mt-2 text-[0.98rem] font-semibold leading-7 text-stone-900">
@@ -94,7 +94,7 @@ export default function AboutPage() {
                   </div>
                   <Link
                     href="/cakes"
-                    className="mt-6 inline-flex rounded-full bg-[#ef7f41] px-6 py-3 text-[0.98rem] font-semibold text-white"
+                    className="mt-6 inline-flex rounded-full bg-[#86171c] px-6 py-3 text-[0.98rem] font-semibold text-white"
                   >
                     Explore Cakes
                   </Link>
@@ -118,7 +118,7 @@ export default function AboutPage() {
                   {section.body.map((paragraph) => (
                     <p
                       key={paragraph}
-                      className="text-[1rem] leading-8 text-[#6c7396]"
+                      className="text-[1rem] leading-8 text-[#6b5a5b]"
                     >
                       {paragraph}
                     </p>
@@ -135,24 +135,24 @@ export default function AboutPage() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-[16px] border border-[rgba(0,0,0,0.1)] bg-[#fff7f2] px-4 py-4 text-center text-[0.98rem] font-semibold text-stone-900"
+                  className="rounded-[16px] border border-[rgba(0,0,0,0.1)] bg-[#fbeaec] px-4 py-4 text-center text-[0.98rem] font-semibold text-stone-900"
                 >
                   {item}
                 </div>
               ))}
             </div>
 
-            <div className="rounded-[22px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf4] px-6 py-6 text-[0.95rem] leading-7 text-[#6c7396]">
+            <div className="rounded-[22px] border border-[rgba(0,0,0,0.08)] bg-[#fffaf4] px-6 py-6 text-[0.95rem] leading-7 text-[#6b5a5b]">
               Need help before placing an order? Visit our{" "}
-              <Link href="/contact" className="font-semibold text-[#ef7f41]">
+              <Link href="/contact" className="font-semibold text-[#86171c]">
                 Contact page
               </Link>{" "}
               or review our{" "}
-              <Link href="/refund-policy" className="font-semibold text-[#ef7f41]">
+              <Link href="/refund-policy" className="font-semibold text-[#86171c]">
                 Refund Policy
               </Link>{" "}
               and{" "}
-              <Link href="/privacy-policy" className="font-semibold text-[#ef7f41]">
+              <Link href="/privacy-policy" className="font-semibold text-[#86171c]">
                 Privacy Policy
               </Link>
               .

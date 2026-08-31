@@ -98,14 +98,14 @@ export function LoginForm() {
         </span>
         <Link
           href="/register"
-          className="rounded-full px-4 py-2 text-center text-[0.9rem] font-semibold text-[#6c7396] transition hover:text-stone-950"
+          className="rounded-full px-4 py-2 text-center text-[0.9rem] font-semibold text-[#6b5a5b] transition hover:text-stone-950"
         >
           Create account
         </Link>
       </div>
 
       <h1 className="text-[2rem] font-semibold text-black">Login</h1>
-      <p className="mt-2 text-[1rem] text-[#6c7396]">
+      <p className="mt-2 text-[1rem] text-[#6b5a5b]">
         Welcome back. Sign in to manage your orders.
       </p>
 
@@ -151,7 +151,7 @@ export function LoginForm() {
             type="button"
             onClick={handleForgotPassword}
             disabled={isForgotPending}
-            className="text-[0.88rem] font-semibold text-[#ef7f41] disabled:opacity-70"
+            className="text-[0.88rem] font-semibold text-[#86171c] disabled:opacity-70"
           >
             {isForgotPending ? "Sending reset link..." : "Forgot password?"}
           </button>
@@ -177,15 +177,15 @@ export function LoginForm() {
 
         <button
           disabled={isPending}
-          className="w-full rounded-full bg-[#ef7f41] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Signing In..." : "Sign In"}
         </button>
       </form>
 
-      <p className="mt-5 text-center text-[0.95rem] text-[#6c7396]">
+      <p className="mt-5 text-center text-[0.95rem] text-[#6b5a5b]">
         New to OccasionKart?{" "}
-        <Link href="/register" className="text-[#ef7f41]">
+        <Link href="/register" className="text-[#86171c]">
           Create an account
         </Link>
       </p>
