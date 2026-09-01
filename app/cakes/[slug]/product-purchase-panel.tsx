@@ -3,12 +3,16 @@
 import { useState } from "react";
 
 import { AddToCartButton } from "@/components/store/add-to-cart-button";
-import { SameDayDeliveryPanel } from "@/components/store/same-day-delivery-panel";
 import { resolveVariantPricing } from "@/lib/product-variants";
 import { getShippingQuote } from "@/lib/shipping-rules";
 import type { Product } from "@/lib/store-schema";
 
 const priceFormatter = new Intl.NumberFormat("en-IN");
+
+function isHiddenProductHighlight(highlight: string) {
+  const normalized = highlight.trim().toLowerCase();
+  return normalized === "freshly baked" || normalized === "hyderabad delivery";
+}
 
 export function ProductPurchasePanel({ product }: { product: Product }) {
   const [weightId, setWeightId] = useState(product.weightOptions[0]?.id ?? "");
@@ -39,8 +43,6 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
   if (product.weightOptions.length === 0 || product.flavorOptions.length === 0) {
     return (
       <>
-        <SameDayDeliveryPanel compact />
-
         <div className="grid gap-4 py-5 sm:grid-cols-2">
           <div className="rounded-[24px] bg-[var(--cream-strong)] p-4">
             <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Serving</p>
@@ -57,14 +59,16 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
         </div>
 
         <div className="space-y-3">
-          {product.highlights.map((highlight) => (
-            <div
-              key={highlight}
-              className="rounded-[20px] border border-[var(--line)] px-4 py-3 text-sm font-medium text-stone-700"
-            >
-              {highlight}
-            </div>
-          ))}
+          {product.highlights
+            .filter((highlight) => !isHiddenProductHighlight(highlight))
+            .map((highlight) => (
+              <div
+                key={highlight}
+                className="rounded-[20px] border border-[var(--line)] px-4 py-3 text-sm font-medium text-stone-700"
+              >
+                {highlight}
+              </div>
+            ))}
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
@@ -141,8 +145,6 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
 
   return (
     <>
-      <SameDayDeliveryPanel compact />
-
       <div className="grid gap-4 py-5 lg:grid-cols-2">
         <div className="rounded-[24px] border border-[rgba(111,29,42,0.08)] bg-[linear-gradient(180deg,#fff8f3_0%,#fff2e8_100%)] p-5">
           <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#9c7a67]">
@@ -180,14 +182,16 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        {product.highlights.map((highlight) => (
-          <div
-            key={highlight}
-            className="rounded-full border border-[var(--line)] bg-[#fff8f2] px-4 py-2.5 text-sm font-medium text-stone-700"
-          >
-            {highlight}
-          </div>
-        ))}
+        {product.highlights
+          .filter((highlight) => !isHiddenProductHighlight(highlight))
+          .map((highlight) => (
+            <div
+              key={highlight}
+              className="rounded-full border border-[var(--line)] bg-[#fff8f2] px-4 py-2.5 text-sm font-medium text-stone-700"
+            >
+              {highlight}
+            </div>
+          ))}
       </div>
 
       <div className="mt-6 rounded-[28px] border border-[rgba(111,29,42,0.08)] bg-[linear-gradient(180deg,#fff8f2_0%,#fff6f0_100%)] p-4 sm:p-5">
