@@ -1,6 +1,5 @@
 const PRODUCT_IMAGE_PROXY_PATH = "/api/image-proxy";
-const FALLBACK_IMAGE =
-  "https://images.unsplash.com/photo-1541781286675-9bca0d6d7d07?auto=format&fit=crop&w=900&q=80";
+const FALLBACK_IMAGE = "/images/product-unavailable.svg";
 const BLOCKED_PREFIXES = [
   "https://occasionkart.com/wp-content/uploads",
   "https://your-new-storage-domain",
@@ -36,6 +35,15 @@ export function getProductImageUrl(input: string | null | undefined) {
   const normalized = trimmed.startsWith("//") ? `https:${trimmed}` : trimmed;
   if (!isHttpUrl(normalized)) {
     return FALLBACK_IMAGE;
+  }
+
+  // The WordPress migration removed the tilde from original Wix asset names.
+  // Recover the exact asset ID before the retired WordPress host is blocked.
+  const originalAsset = normalized.match(
+    /^https:\/\/(?:www\.)?occasionkart\.com\/wp-content\/uploads\/\d{4}\/\d{2}\/([a-f0-9]+_[a-f0-9]{32})~?mv2\.(jpg|jpeg|png|webp)$/i,
+  );
+  if (originalAsset) {
+    return `https://static.wixstatic.com/media/${originalAsset[1]}~mv2.${originalAsset[2]}`;
   }
 
   if (isBlockedSourceUrl(normalized)) {
