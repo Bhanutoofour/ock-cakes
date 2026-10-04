@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 
 import { useCart } from "@/components/store/cart-context";
 import {
@@ -51,6 +51,15 @@ function loadRazorpayScript() {
 }
 
 const STEP_TITLES = ["Delivery Details", "Message & Sender", "Review & Pay"];
+
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <label className="flex flex-col gap-1.5 text-[0.85rem] font-semibold text-[var(--foreground)]">
+      {label}
+      {children}
+    </label>
+  );
+}
 
 function buildDeliveryAddress(draft: CheckoutDraft) {
   const lines = [
@@ -106,7 +115,7 @@ export function CheckoutPageClient() {
   const summaryValues = {
     subtotal,
     delivery,
-    total,
+    total: items.length > 0 ? total : 0,
   };
 
   const updateDraftField = (field: keyof CheckoutDraft, value: string) => {
@@ -180,25 +189,25 @@ export function CheckoutPageClient() {
       return "Please enter your phone number.";
     }
     if (!draft.houseNumber.trim()) {
-      return "Please enter H No.";
+      return "Please enter your house or flat number.";
     }
     if (!draft.aptLane.trim()) {
-      return "Please enter Apt name / Lane name.";
+      return "Please enter your apartment or street.";
     }
     if (!draft.colonyArea.trim()) {
-      return "Please enter Colony / Area.";
+      return "Please enter your colony or area.";
     }
     if (!draft.city.trim()) {
-      return "Please enter City.";
+      return "Please enter your city.";
     }
     if (!draft.deliveryPincode.trim()) {
-      return "Please enter delivery pincode.";
+      return "Please enter the delivery pincode.";
     }
     if (!draft.deliveryDate.trim()) {
-      return "Please select delivery date.";
+      return "Please choose a delivery date.";
     }
     if (draft.mapLink.trim() && !/^https?:\/\/.+/i.test(draft.mapLink.trim())) {
-      return "Google map link should start with http:// or https://";
+      return "Please paste a full Google Maps link (starting with https://).";
     }
     if (!shippingQuote.deliverable) {
       return shippingQuote.message;
@@ -354,9 +363,19 @@ export function CheckoutPageClient() {
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h1 className="text-[2rem] font-semibold text-black">Checkout</h1>
           <p className="mt-2 text-[1rem] leading-8 text-[var(--text-secondary)]">
-            Complete your order in steps: address and delivery slot, cake message and sender,
-            then review and pay with Razorpay.
+            Three quick steps: where and when to deliver, what to write on the cake, then
+            review and pay securely.
           </p>
+
+          {items.length === 0 ? (
+            <p className="mt-6 rounded-[14px] bg-[var(--background)] px-4 py-3 text-[0.95rem] text-[var(--foreground)]">
+              Your cart is empty.{" "}
+              <Link href="/cakes" className="font-semibold text-[var(--brand-primary)] underline">
+                Browse cakes
+              </Link>{" "}
+              to add something before checking out.
+            </p>
+          ) : null}
 
           <>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -383,107 +402,148 @@ export function CheckoutPageClient() {
             {step === 1 ? (
               <div className="mt-6 space-y-3">
                 <div className="grid gap-3 md:grid-cols-2">
-                  <input
-                    value={draft.fullName}
-                    onChange={(event) => updateDraftField("fullName", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Full name"
-                  />
-                  <input
-                    value={draft.phone}
-                    onChange={(event) => updateDraftField("phone", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Phone number"
-                  />
-                  <input
-                    value={draft.alternatePhone}
-                    onChange={(event) => updateDraftField("alternatePhone", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Alternate phone number (optional)"
-                  />
-                  <input
-                    value={draft.email}
-                    onChange={(event) => updateDraftField("email", event.target.value)}
-                    type="email"
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Email (optional)"
-                  />
-                  <input
-                    value={draft.houseNumber}
-                    onChange={(event) => updateDraftField("houseNumber", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="H No"
-                  />
-                  <input
-                    value={draft.aptLane}
-                    onChange={(event) => updateDraftField("aptLane", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Apt name / Lane name"
-                  />
-                  <input
-                    value={draft.landmark}
-                    onChange={(event) => updateDraftField("landmark", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Landmark (optional)"
-                  />
-                  <input
-                    value={draft.colonyArea}
-                    onChange={(event) => updateDraftField("colonyArea", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Colony / Area"
-                  />
-                  <input
-                    value={draft.mapLink}
-                    onChange={(event) => updateDraftField("mapLink", event.target.value)}
-                    type="url"
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Google map link (optional)"
-                  />
-                  <input
-                    value={draft.city}
-                    onChange={(event) => updateDraftField("city", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="City"
-                  />
-                  <input
-                    value={draft.deliveryDate}
-                    onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
-                    type="date"
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                  />
-                  <input
-                    value={draft.deliveryPincode}
-                    onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Delivery pincode"
-                    maxLength={6}
-                    inputMode="numeric"
-                  />
-                  <input
-                    value={draft.state}
-                    readOnly
-                    disabled
-                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="State"
-                  />
-                  <input
-                    value={draft.country}
-                    readOnly
-                    disabled
-                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
-                    placeholder="Country"
-                  />
-                  <select
-                    value={draft.deliverySlot}
-                    onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                  >
-                    {DELIVERY_SLOT_OPTIONS.map((slot) => (
-                      <option key={slot} value={slot}>
-                        {slot}
-                      </option>
-                    ))}
-                  </select>
+                  <Field label="Full name">
+                    <input
+                      value={draft.fullName}
+                      autoComplete="name"
+                      onChange={(event) => updateDraftField("fullName", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="Your full name"
+                    />
+                  </Field>
+                  <Field label="Phone number">
+                    <input
+                      value={draft.phone}
+                      type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      onChange={(event) => updateDraftField("phone", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="10-digit mobile number"
+                    />
+                  </Field>
+                  <Field label="Alternate phone (optional)">
+                    <input
+                      value={draft.alternatePhone}
+                      type="tel"
+                      inputMode="tel"
+                      onChange={(event) => updateDraftField("alternatePhone", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="Another number we can call"
+                    />
+                  </Field>
+                  <Field label="Email (optional)">
+                    <input
+                      value={draft.email}
+                      autoComplete="email"
+                      onChange={(event) => updateDraftField("email", event.target.value)}
+                      type="email"
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="For your order confirmation"
+                    />
+                  </Field>
+                  <Field label="House / flat number">
+                    <input
+                      value={draft.houseNumber}
+                      onChange={(event) => updateDraftField("houseNumber", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="e.g. 8-2-293/A"
+                    />
+                  </Field>
+                  <Field label="Apartment / street">
+                    <input
+                      value={draft.aptLane}
+                      autoComplete="address-line1"
+                      onChange={(event) => updateDraftField("aptLane", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="Building or street name"
+                    />
+                  </Field>
+                  <Field label="Landmark (optional)">
+                    <input
+                      value={draft.landmark}
+                      onChange={(event) => updateDraftField("landmark", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="e.g. Near City Centre Mall"
+                    />
+                  </Field>
+                  <Field label="Colony / area">
+                    <input
+                      value={draft.colonyArea}
+                      autoComplete="address-line2"
+                      onChange={(event) => updateDraftField("colonyArea", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="e.g. Banjara Hills"
+                    />
+                  </Field>
+                  <Field label="Google Maps link (optional)">
+                    <input
+                      value={draft.mapLink}
+                      onChange={(event) => updateDraftField("mapLink", event.target.value)}
+                      type="url"
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="Paste a location link"
+                    />
+                  </Field>
+                  <Field label="City">
+                    <input
+                      value={draft.city}
+                      autoComplete="address-level2"
+                      onChange={(event) => updateDraftField("city", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="City"
+                    />
+                  </Field>
+                  <Field label="Delivery date">
+                    <input
+                      value={draft.deliveryDate}
+                      onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
+                      type="date"
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                    />
+                  </Field>
+                  <Field label="Delivery pincode">
+                    <input
+                      value={draft.deliveryPincode}
+                      autoComplete="postal-code"
+                      onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="6-digit pincode"
+                      maxLength={6}
+                      inputMode="numeric"
+                    />
+                  </Field>
+                  <Field label="State">
+                    <input
+                      value={draft.state}
+                      readOnly
+                      disabled
+                      className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="State"
+                    />
+                  </Field>
+                  <Field label="Country">
+                    <input
+                      value={draft.country}
+                      readOnly
+                      disabled
+                      className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
+                      placeholder="Country"
+                    />
+                  </Field>
+                  <Field label="Delivery time">
+                    <select
+                      value={draft.deliverySlot}
+                      onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
+                      className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                    >
+                      {DELIVERY_SLOT_OPTIONS.map((slot) => (
+                        <option key={slot} value={slot}>
+                          {slot}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
                 </div>
                 {draft.deliveryPincode ? (
                   <p
@@ -506,18 +566,22 @@ export function CheckoutPageClient() {
 
             {step === 2 ? (
               <div className="mt-6 space-y-3">
-                <input
-                  value={draft.cakeMessage}
-                  onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
-                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                  placeholder="Message on cake (e.g., Happy Birthday Rahul)"
-                />
-                <input
-                  value={draft.senderName}
-                  onChange={(event) => updateDraftField("senderName", event.target.value)}
-                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                  placeholder="Sender name (e.g., From Mom & Dad)"
-                />
+                <Field label="Message on cake (optional)">
+                  <input
+                    value={draft.cakeMessage}
+                    onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
+                    className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                    placeholder="e.g. Happy Birthday Rahul"
+                  />
+                </Field>
+                <Field label="From (optional)">
+                  <input
+                    value={draft.senderName}
+                    onChange={(event) => updateDraftField("senderName", event.target.value)}
+                    className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
+                    placeholder="e.g. Mom & Dad"
+                  />
+                </Field>
                 <div className="flex flex-wrap gap-3">
                   <button
                     type="button"

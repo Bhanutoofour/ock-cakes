@@ -260,7 +260,7 @@
     },
     {
         "id":  "2405",
-        "name":  "The Exploding Pineapple Cake",
+        "name":  "Exploding Pineapple Tall Cake",
         "slug":  "the-exploding-pineapple-cake",
         "price":  500,
         "categories":  [
@@ -563,7 +563,7 @@
     },
     {
         "id":  "2463",
-        "name":  "Red Velvet Heart Cake",
+        "name":  "Red Velvet Love Heart Cake",
         "slug":  "red-velvet-heart-cake",
         "price":  999,
         "categories":  "Uncategorized",
@@ -708,7 +708,7 @@
     },
     {
         "id":  "2491",
-        "name":  "Rainbow cake",
+        "name":  "Rainbow Rosette Cake",
         "slug":  "rainbow-cake",
         "price":  1200,
         "categories":  "Uncategorized",
@@ -783,7 +783,7 @@
     },
     {
         "id":  "2507",
-        "name":  "Photo cake",
+        "name":  "Elsa Photo Cake",
         "slug":  "photo-cake",
         "price":  849,
         "categories":  "Uncategorized",
@@ -1252,7 +1252,7 @@
     },
     {
         "id":  "2599",
-        "name":  "Makeup Theme Cake",
+        "name":  "Shopping Bags Makeup Cake",
         "slug":  "makeup-theme-cake",
         "price":  3000,
         "categories":  "Uncategorized",
@@ -1345,7 +1345,7 @@
     },
     {
         "id":  "2619",
-        "name":  "Birthday theme cake",
+        "name":  "White Pearl Butterfly Cake",
         "slug":  "birthday-theme-cake",
         "price":  900,
         "categories":  "Uncategorized",
@@ -1363,7 +1363,7 @@
     },
     {
         "id":  "2623",
-        "name":  "Makeup Theme Cake",
+        "name":  "MAC Makeup Theme Cake",
         "slug":  "makeup-theme-cake",
         "price":  2600,
         "categories":  "Uncategorized",
@@ -1412,7 +1412,7 @@
     },
     {
         "id":  "2633",
-        "name":  "Avenger Theme cake",
+        "name":  "Avengers Hulk & Thor Theme Cake",
         "slug":  "avenger-theme-cake",
         "price":  3000,
         "categories":  "Uncategorized",
@@ -1518,7 +1518,7 @@
     },
     {
         "id":  "2655",
-        "name":  "Super Hero Themed Cakes",
+        "name":  "Avengers Superhero Theme Cake",
         "slug":  "super-hero-themed-cakes",
         "price":  2800,
         "categories":  "Uncategorized",
@@ -1735,7 +1735,7 @@
     },
     {
         "id":  "2695",
-        "name":  "Super Cocomelon cake",
+        "name":  "Cocomelon Rainbow Theme Cake",
         "slug":  "super-cocomelon-cake",
         "price":  3600,
         "categories":  "Uncategorized",
@@ -1783,11 +1783,11 @@
     },
     {
         "id":  "2705",
-        "name":  "Cute Floral Cake",
+        "name":  "Two-Tier Floral Doll Cake",
         "slug":  "cute-floral-cake",
         "price":  4999,
         "categories":  "Uncategorized",
-        "image":  "https://occasionkart.com/wp-content/uploads/2025/08/8ee0e2_67b49fffdf9d4401bc47f65292c7ff7cmv2.jpeg",
+        "image":  "/images/products/two-tier-floral-doll-cake.jpg",
         "description":  "Beautiful cake with rich taste, making a great look in any part, order this cake for your parties and make you day more sweet. \u0026nbsp; Quantity: 4 kgs \u0026nbsp; Flavor: Can Choose any Flavor \u0026nbsp; Shipping Across Hyderabad. \u0026nbsp; Some Info on Cake: Cake displayed in website are for representation purpose only, all the images are taken from High end cameras and graphics are added. Note, cake representation to the photo will be 80-90% similarlity. Variation of designs takes place due to change of chefs. The flowers, fruits availability on cake is completely subjected to market availability. \u0026nbsp; Instructions to be followed with the cake. \u0026nbsp; Cake is perishable, consume it in 3 days after delivery Store the cake in refrigerator, you can enjoy cake only when it is cool. Small plastic or wooden supporters are used in making the cake for presentation purpose, be care full while consuming the cake; remove the inedible items from cake before serving. Don\u0027t punch cake on any ones face since it is not advisable. Enjoy your delicious cake"
     },
     {
@@ -1868,7 +1868,7 @@
     },
     {
         "id":  "2723",
-        "name":  "Tom and jerry cake",
+        "name":  "Tom & Jerry Cheese Cake",
         "slug":  "tom-and-jerry-cake",
         "price":  1800,
         "categories":  "Uncategorized",
@@ -1890,7 +1890,7 @@
     },
     {
         "id":  "2727",
-        "name":  "Doctor cake",
+        "name":  "Doctor Coat Theme Cake",
         "slug":  "doctor-cake",
         "price":  3600,
         "categories":  "Uncategorized",
@@ -1930,7 +1930,7 @@
     },
     {
         "id":  "2735",
-        "name":  "Ana And Elsa Cake",
+        "name":  "Frozen Anna & Elsa Snowflake Cake",
         "slug":  "ana-and-elsa-cake",
         "price":  1800,
         "categories":  "Uncategorized",
@@ -2006,7 +2006,7 @@
     },
     {
         "id":  "2751",
-        "name":  "Doctor cake",
+        "name":  "Doctor Scrubs Theme Cake",
         "slug":  "doctor-cake",
         "price":  4800,
         "categories":  "Uncategorized",
@@ -2048,7 +2048,7 @@
     },
     {
         "id":  "2759",
-        "name":  "Fresh Fruit Cake",
+        "name":  "Fresh Fruit Chocolate Base Cake",
         "slug":  "fresh-fruit-cake",
         "price":  1000,
         "categories":  "Uncategorized",
@@ -2200,7 +2200,7 @@
     },
     {
         "id":  "2787",
-        "name":  "Black Forest Cake",
+        "name":  "Pink Cream Rosette Cake",
         "slug":  "black-forest-cake",
         "price":  349,
         "categories":  [
@@ -2236,7 +2236,7 @@
     },
     {
         "id":  "2793",
-        "name":  "Vanilla Cake",
+        "name":  "Vanilla Pink Glaze Cake",
         "slug":  "vanilla-cake",
         "price":  300,
         "categories":  "Uncategorized",
@@ -2321,7 +2321,7 @@
     },
     {
         "id":  "2807",
-        "name":  "Choco Butterscotch Cake",
+        "name":  "Choco Butterscotch Drip Cake",
         "slug":  "choco-butterscotch-cake",
         "price":  400,
         "categories":  [
@@ -2379,7 +2379,7 @@
     },
     {
         "id":  "2817",
-        "name":  "Fancy Chocolate Cake",
+        "name":  "Chocolate Stripe Cake",
         "slug":  "fancy-chocolate-cake",
         "price":  399,
         "categories":  [
@@ -2391,7 +2391,7 @@
     },
     {
         "id":  "2819",
-        "name":  "Rasmalai Cake",
+        "name":  "Rasmalai Rose Petal Cake",
         "slug":  "rasmalai-cake",
         "price":  499,
         "categories":  [
@@ -2412,7 +2412,7 @@
     },
     {
         "id":  "2823",
-        "name":  "Heart Shape Chocolate Cake",
+        "name":  "Heart Chocolate Cake with Pink Rosettes",
         "slug":  "heart-shape-chocolate-cake",
         "price":  399,
         "categories":  [
@@ -2424,7 +2424,7 @@
     },
     {
         "id":  "2825",
-        "name":  "Fancy Chocolate Cake",
+        "name":  "Chocolate Ganache Cake with Cherry",
         "slug":  "fancy-chocolate-cake",
         "price":  399,
         "categories":  [
@@ -2448,7 +2448,7 @@
     },
     {
         "id":  "2829",
-        "name":  "Black forest Cake",
+        "name":  "Black Forest Cake with White Chocolate Hearts",
         "slug":  "black-forest-cake",
         "price":  349,
         "categories":  [
@@ -2460,7 +2460,7 @@
     },
     {
         "id":  "2831",
-        "name":  "Chocolate Cake",
+        "name":  "Chocolate Shard Cake",
         "slug":  "chocolate-cake",
         "price":  349,
         "categories":  [
@@ -2472,7 +2472,7 @@
     },
     {
         "id":  "2833",
-        "name":  "Vanilla Cake",
+        "name":  "Vanilla Sprinkle Cake",
         "slug":  "vanilla-cake",
         "price":  300,
         "categories":  "Uncategorized",
@@ -2577,7 +2577,7 @@
     },
     {
         "id":  "2853",
-        "name":  "Pull Me Up Cake",
+        "name":  "Happy Birthday Pull Me Up Cake",
         "slug":  "pull-me-up-cake",
         "price":  1149,
         "categories":  [
@@ -2625,7 +2625,7 @@
     },
     {
         "id":  "2861",
-        "name":  "Cute Little Pinata",
+        "name":  "Butterfly Pinata Cake with Hammer",
         "slug":  "cute-little-pinata",
         "price":  1499,
         "categories":  [
@@ -2761,7 +2761,7 @@
     },
     {
         "id":  "2887",
-        "name":  "Avenger Theme Cake",
+        "name":  "Avengers Shield Theme Cake",
         "slug":  "avenger-theme-cake",
         "price":  2400,
         "categories":  "Uncategorized",
@@ -2842,7 +2842,7 @@
     },
     {
         "id":  "2905",
-        "name":  "Anniversary Cakes",
+        "name":  "Anniversary Couple Theme Cake",
         "slug":  "anniversary-cakes",
         "price":  2999,
         "categories":  "Uncategorized",
@@ -2872,7 +2872,7 @@
     },
     {
         "id":  "2911",
-        "name":  "Heart Shape Cake",
+        "name":  "Dark Chocolate Heart Cake with Red Hearts",
         "slug":  "heart-shape-cake",
         "price":  999,
         "categories":  "Uncategorized",
@@ -2890,7 +2890,7 @@
     },
     {
         "id":  "2915",
-        "name":  "Cricket Theme Cake",
+        "name":  "Cricket Kit Theme Cake",
         "slug":  "cricket-theme-cake",
         "price":  1499,
         "categories":  "Uncategorized",
@@ -2995,7 +2995,7 @@
     },
     {
         "id":  "2937",
-        "name":  "ANA AND ELSA CAKE",
+        "name":  "Frozen Elsa Topper Cake",
         "slug":  "ana-and-elsa-cake",
         "price":  1500,
         "categories":  "Uncategorized",
@@ -3079,7 +3079,7 @@
     },
     {
         "id":  "2955",
-        "name":  "Chocolate Cake",
+        "name":  "Chocolate Fan Cake with Pink Rosettes",
         "slug":  "chocolate-cake",
         "price":  1275,
         "categories":  [
@@ -3100,7 +3100,7 @@
     },
     {
         "id":  "2959",
-        "name":  "Simple Designed Cake",
+        "name":  "Purple Buttercream Birthday Cake",
         "slug":  "simple-designed-cake",
         "price":  1350,
         "categories":  "Uncategorized",
@@ -3109,7 +3109,7 @@
     },
     {
         "id":  "2961",
-        "name":  "Cute Couple Cake for Occasion",
+        "name":  "Three-Tier Red Hearts Engagement Cake",
         "slug":  "cute-couple-cake-for-occasion",
         "price":  8750,
         "categories":  [
@@ -3149,7 +3149,7 @@
     },
     {
         "id":  "2969",
-        "name":  "Baby Birthday Cake",
+        "name":  "Oh Baby Pastel Cake",
         "slug":  "baby-birthday-cake",
         "price":  3750,
         "categories":  "Uncategorized",
@@ -3158,7 +3158,7 @@
     },
     {
         "id":  "2971",
-        "name":  "Simple Designed Cake",
+        "name":  "Bride to Be Yellow Ruffle Cake",
         "slug":  "simple-designed-cake",
         "price":  1050,
         "categories":  "Uncategorized",
@@ -3247,7 +3247,7 @@
     },
     {
         "id":  "2989",
-        "name":  "Birthday Theme Cake",
+        "name":  "Unicorn 1st Birthday Cake",
         "slug":  "birthday-theme-cake",
         "price":  2400,
         "categories":  "Uncategorized",
@@ -3256,7 +3256,7 @@
     },
     {
         "id":  "2991",
-        "name":  "Crown Cake",
+        "name":  "Tiara Crown Cake",
         "slug":  "crown-cake",
         "price":  2200,
         "categories":  "Uncategorized",
@@ -3386,7 +3386,7 @@
     },
     {
         "id":  "3019",
-        "name":  "Simple Anniversary Cake",
+        "name":  "Daisy Two-Tier Anniversary Cake",
         "slug":  "simple-anniversary-cake",
         "price":  4800,
         "categories":  "Uncategorized",
@@ -3395,7 +3395,7 @@
     },
     {
         "id":  "3021",
-        "name":  "Cute Birthday Cake",
+        "name":  "Pink Teddy & Clouds 1st Birthday Cake",
         "slug":  "cute-birthday-cake",
         "price":  2750,
         "categories":  "Uncategorized",
@@ -3431,7 +3431,7 @@
     },
     {
         "id":  "3029",
-        "name":  "Baby Birthday Cake",
+        "name":  "Baby & Balloons Two-Tier Cake",
         "slug":  "baby-birthday-cake",
         "price":  7250,
         "categories":  "Uncategorized",
@@ -3440,7 +3440,7 @@
     },
     {
         "id":  "3031",
-        "name":  "Simple Anniversary Cake",
+        "name":  "Blue Rose Anniversary Cake",
         "slug":  "simple-anniversary-cake",
         "price":  2200,
         "categories":  "Uncategorized",
@@ -3480,7 +3480,7 @@
     },
     {
         "id":  "3039",
-        "name":  "Anniversary Cakes",
+        "name":  "Couple Silhouette Anniversary Cake",
         "slug":  "anniversary-cakes",
         "price":  2200,
         "categories":  "Uncategorized",
@@ -3561,7 +3561,7 @@
     },
     {
         "id":  "3057",
-        "name":  "Flower Theme Cake",
+        "name":  "70th Birthday Flower Cake",
         "slug":  "flower-theme-cake",
         "price":  2400,
         "categories":  "Uncategorized",
@@ -3570,7 +3570,7 @@
     },
     {
         "id":  "3059",
-        "name":  "Anniversary Cake",
+        "name":  "Pink Hearts Anniversary Cake",
         "slug":  "anniversary-cake",
         "price":  1100,
         "categories":  "Uncategorized",
@@ -3606,7 +3606,7 @@
     },
     {
         "id":  "3067",
-        "name":  "Forest Theme Cake",
+        "name":  "Safari Animals Cake",
         "slug":  "forest-theme-cake",
         "price":  2800,
         "categories":  "Uncategorized",
@@ -3615,7 +3615,7 @@
     },
     {
         "id":  "3069",
-        "name":  "Choco Chips Cakes",
+        "name":  "White Choco Chip Cake",
         "slug":  "choco-chips-cakes",
         "price":  749,
         "categories":  "Uncategorized",
@@ -3642,7 +3642,7 @@
     },
     {
         "id":  "3075",
-        "name":  "Choco Chips Cakes",
+        "name":  "Dark Choco Chip Cake",
         "slug":  "choco-chips-cakes",
         "price":  799,
         "categories":  "Uncategorized",
@@ -3660,7 +3660,7 @@
     },
     {
         "id":  "3079",
-        "name":  "Pull Me Up Cake",
+        "name":  "Barbie Doll Pull Me Up Cake",
         "slug":  "pull-me-up-cake",
         "price":  1349,
         "categories":  [
@@ -3696,7 +3696,7 @@
     },
     {
         "id":  "3085",
-        "name":  "Anniversary Cake",
+        "name":  "Two-Tier Silver Rose Anniversary Cake",
         "slug":  "anniversary-cake",
         "price":  6600,
         "categories":  "Uncategorized",
@@ -3741,7 +3741,7 @@
     },
     {
         "id":  "3095",
-        "name":  "Forest Theme Cake",
+        "name":  "Jungle 1st Birthday Cake",
         "slug":  "forest-theme-cake",
         "price":  3250,
         "categories":  "Uncategorized",
@@ -3759,7 +3759,7 @@
     },
     {
         "id":  "3099",
-        "name":  "Cricket Theme Cake",
+        "name":  "Cricket Pitch Birthday Cake",
         "slug":  "cricket-theme-cake",
         "price":  2200,
         "categories":  "Uncategorized",
@@ -3786,7 +3786,7 @@
     },
     {
         "id":  "3105",
-        "name":  "Birthday Teddy Cake",
+        "name":  "Teddy & Baby Blocks Cake",
         "slug":  "birthday-teddy-cake",
         "price":  2900,
         "categories":  "Uncategorized",
@@ -3795,7 +3795,7 @@
     },
     {
         "id":  "3107",
-        "name":  "Baby Birthday Cake",
+        "name":  "Hot Air Balloon Baby Cake",
         "slug":  "baby-birthday-cake",
         "price":  2600,
         "categories":  "Uncategorized",
@@ -3804,7 +3804,7 @@
     },
     {
         "id":  "3109",
-        "name":  "Baby Birthday Cake",
+        "name":  "Baby Ballerina Two-Tier Cake",
         "slug":  "baby-birthday-cake",
         "price":  5500,
         "categories":  "Uncategorized",
@@ -3831,7 +3831,7 @@
     },
     {
         "id":  "3115",
-        "name":  "Baby Birthday Cake",
+        "name":  "Princess Doll Birthday Cake",
         "slug":  "baby-birthday-cake",
         "price":  2499,
         "categories":  "Uncategorized",
@@ -3876,7 +3876,7 @@
     },
     {
         "id":  "3125",
-        "name":  "Baby Shower Cake",
+        "name":  "Sleeping Baby Shower Cake",
         "slug":  "baby-shower-cake",
         "price":  3000,
         "categories":  [
@@ -3888,7 +3888,7 @@
     },
     {
         "id":  "3127",
-        "name":  "Fish Theme Cake",
+        "name":  "Baby Shark Family Cake",
         "slug":  "fish-theme-cake",
         "price":  3199,
         "categories":  "Uncategorized",
@@ -3924,7 +3924,7 @@
     },
     {
         "id":  "3135",
-        "name":  "Baby Shower Cake",
+        "name":  "Baby Shower Banner Cake",
         "slug":  "baby-shower-cake",
         "price":  3600,
         "categories":  [
@@ -3936,7 +3936,7 @@
     },
     {
         "id":  "3137",
-        "name":  "Jungle Theme Cake",
+        "name":  "Fortnite Jungle Theme Cake",
         "slug":  "jungle-theme-cake",
         "price":  3300,
         "categories":  "Uncategorized",
@@ -3945,7 +3945,7 @@
     },
     {
         "id":  "3139",
-        "name":  "Birthday Cake",
+        "name":  "Two-Tier Princess Crown Birthday Cake",
         "slug":  "birthday-cake",
         "price":  3700,
         "categories":  "Uncategorized",
@@ -3972,7 +3972,7 @@
     },
     {
         "id":  "3145",
-        "name":  "Jungle Theme Cake",
+        "name":  "Elephant & Giraffe Jungle Cake",
         "slug":  "jungle-theme-cake",
         "price":  5000,
         "categories":  "Uncategorized",
@@ -3981,7 +3981,7 @@
     },
     {
         "id":  "3147",
-        "name":  "Birthday Teddy Cake",
+        "name":  "Two-Tier Pink Teddy Cake",
         "slug":  "birthday-teddy-cake",
         "price":  4999,
         "categories":  "Uncategorized",
@@ -3990,7 +3990,7 @@
     },
     {
         "id":  "3149",
-        "name":  "Baby Birthday Cake",
+        "name":  "Pink Two-Tier Baby Cake",
         "slug":  "baby-birthday-cake",
         "price":  4900,
         "categories":  "Uncategorized",
@@ -4008,7 +4008,7 @@
     },
     {
         "id":  "3153",
-        "name":  "Cartoon Cake",
+        "name":  "Disney Princess Cartoon Cake",
         "slug":  "cartoon-cake",
         "price":  6500,
         "categories":  "Uncategorized",
@@ -4017,7 +4017,7 @@
     },
     {
         "id":  "3155",
-        "name":  "Water Park Theme Cake",
+        "name":  "Mermaid Water Park Cake",
         "slug":  "water-park-theme-cake",
         "price":  7199,
         "categories":  "Uncategorized",
@@ -4026,7 +4026,7 @@
     },
     {
         "id":  "3157",
-        "name":  "Water Park Theme Cake",
+        "name":  "Underwater Theme Cake",
         "slug":  "water-park-theme-cake",
         "price":  5999,
         "categories":  "Uncategorized",
@@ -4071,7 +4071,7 @@
     },
     {
         "id":  "3167",
-        "name":  "Crown Cake",
+        "name":  "Three-Tier Golden Crown Cake",
         "slug":  "crown-cake",
         "price":  11999,
         "categories":  "Uncategorized",
@@ -4080,7 +4080,7 @@
     },
     {
         "id":  "3169",
-        "name":  "Flower Theme Cake",
+        "name":  "Tinker Bell Flower Cake",
         "slug":  "flower-theme-cake",
         "price":  2600,
         "categories":  "Uncategorized",
@@ -4144,7 +4144,7 @@
     },
     {
         "id":  "3181",
-        "name":  "FANCY COMBO",
+        "name":  "Red Velvet Cake, Teddy & Plant Combo",
         "slug":  "fancy-combo",
         "price":  2499,
         "categories":  "Uncategorized",
@@ -4153,7 +4153,7 @@
     },
     {
         "id":  "3183",
-        "name":  "Royal Theme Cake",
+        "name":  "Rose Gold Royal Cake",
         "slug":  "royal-theme-cake",
         "price":  2222,
         "categories":  "Uncategorized",
@@ -4189,7 +4189,7 @@
     },
     {
         "id":  "3191",
-        "name":  "Fancy Combo",
+        "name":  "Yellow Roses & Cake Combo",
         "slug":  "fancy-combo",
         "price":  1999,
         "categories":  "Uncategorized",
@@ -4198,7 +4198,7 @@
     },
     {
         "id":  "3193",
-        "name":  "Best Combo",
+        "name":  "Chocolate Cake, Roses & Teddy Combo",
         "slug":  "best-combo",
         "price":  2222,
         "categories":  "Uncategorized",
@@ -4225,7 +4225,7 @@
     },
     {
         "id":  "3199",
-        "name":  "Black Forest Cake",
+        "name":  "Black Forest Cake with Dairy Milk",
         "slug":  "black-forest-cake",
         "price":  999,
         "categories":  [
@@ -4277,7 +4277,7 @@
     },
     {
         "id":  "3209",
-        "name":  "Fish Theme cake",
+        "name":  "Baby Shark Two-Tier Cake",
         "slug":  "fish-theme-cake",
         "price":  3999,
         "categories":  "Uncategorized",
@@ -4325,7 +4325,7 @@
     },
     {
         "id":  "3219",
-        "name":  "Heart Shape Cake",
+        "name":  "Floral Heart Anniversary Cake",
         "slug":  "heart-shape-cake",
         "price":  2499,
         "categories":  "Uncategorized",
@@ -4373,7 +4373,7 @@
     },
     {
         "id":  "3229",
-        "name":  "Anniversary Cakes",
+        "name":  "30th Anniversary Red Piping Cake",
         "slug":  "anniversary-cakes",
         "price":  1499,
         "categories":  "Uncategorized",
@@ -4391,7 +4391,7 @@
     },
     {
         "id":  "3233",
-        "name":  "Best Photo Cakes",
+        "name":  "Anniversary Photo Print Cake",
         "slug":  "best-photo-cakes",
         "price":  1499,
         "categories":  "Uncategorized",
@@ -4409,7 +4409,7 @@
     },
     {
         "id":  "3237",
-        "name":  "Photo Cake",
+        "name":  "Family Photo Cake",
         "slug":  "photo-cake",
         "price":  750,
         "categories":  "Uncategorized",
@@ -4454,7 +4454,7 @@
     },
     {
         "id":  "3247",
-        "name":  "Fresh Fruit Cake",
+        "name":  "Number 3 Fresh Fruit Cake",
         "slug":  "fresh-fruit-cake",
         "price":  2499,
         "categories":  [
@@ -4475,7 +4475,7 @@
     },
     {
         "id":  "3251",
-        "name":  "Mixed Roses Bouquet",
+        "name":  "Mixed Roses Basket Bouquet",
         "slug":  "mixed-roses-bouquet",
         "price":  999,
         "categories":  "Uncategorized",
@@ -4484,7 +4484,7 @@
     },
     {
         "id":  "3253",
-        "name":  "Mixed Flowers Bouquet",
+        "name":  "Mixed Flowers Pink Wrap Bouquet",
         "slug":  "mixed-flowers-bouquet",
         "price":  2499,
         "categories":  "Uncategorized",
@@ -4511,7 +4511,7 @@
     },
     {
         "id":  "3259",
-        "name":  "Red Roses Bouquet",
+        "name":  "Red Roses Bouquet with Fillers",
         "slug":  "red-roses-bouquet",
         "price":  1249,
         "categories":  "Uncategorized",
@@ -4547,7 +4547,7 @@
     },
     {
         "id":  "3267",
-        "name":  "Mixed Roses Bouquet",
+        "name":  "Mixed Roses Orange Wrap Bouquet",
         "slug":  "mixed-roses-bouquet",
         "price":  2229,
         "categories":  "Uncategorized",
@@ -4556,7 +4556,7 @@
     },
     {
         "id":  "3269",
-        "name":  "Mixed Flowers Bouquet",
+        "name":  "Mixed Flowers Red Wrap Bouquet",
         "slug":  "mixed-flowers-bouquet",
         "price":  1499,
         "categories":  "Uncategorized",
@@ -4601,7 +4601,7 @@
     },
     {
         "id":  "3279",
-        "name":  "Red Roses Bouquet",
+        "name":  "50 Red Roses Bouquet",
         "slug":  "red-roses-bouquet",
         "price":  4999,
         "categories":  "Uncategorized",
@@ -4632,7 +4632,7 @@
     },
     {
         "id":  "3285",
-        "name":  "Garnished Tiramisu Cake",
+        "name":  "Tiramisu Jar-Style Cake",
         "slug":  "garnished-tiramisu-cake",
         "price":  1499,
         "categories":  [
@@ -4656,7 +4656,7 @@
     },
     {
         "id":  "3289",
-        "name":  "Garnished Tiramisu Cake",
+        "name":  "Layered Tiramisu Cake",
         "slug":  "garnished-tiramisu-cake",
         "price":  1600,
         "categories":  [
@@ -4718,7 +4718,7 @@
     },
     {
         "id":  "3299",
-        "name":  "Tres Leeches cake",
+        "name":  "Tres Leches Cake",
         "slug":  "tres-leeches-cake",
         "price":  1500,
         "categories":  [
@@ -4744,7 +4744,7 @@
     },
     {
         "id":  "3303",
-        "name":  "Tres Leeches cake",
+        "name":  "Tres Leches Chocolate Rim Cake",
         "slug":  "tres-leeches-cake",
         "price":  1500,
         "categories":  [
@@ -4757,7 +4757,7 @@
     },
     {
         "id":  "3305",
-        "name":  "Tres Leeches Cake With Simple Design",
+        "name":  "Tres Leches Caramel Cake",
         "slug":  "tres-leeches-cake-with-simple-design",
         "price":  1500,
         "categories":  [
@@ -4783,7 +4783,7 @@
     },
     {
         "id":  "3309",
-        "name":  "Tres Leeches Cake With Simple Design",
+        "name":  "Tres Leches Chocolate Swirl Cake",
         "slug":  "tres-leeches-cake-with-simple-design",
         "price":  1500,
         "categories":  [
@@ -4892,7 +4892,7 @@
     },
     {
         "id":  "3327",
-        "name":  "Strawberry Cake With Design",
+        "name":  "Strawberry Glaze Cake",
         "slug":  "strawberry-cake-with-design",
         "price":  800,
         "categories":  "Uncategorized",
@@ -4919,7 +4919,7 @@
     },
     {
         "id":  "3333",
-        "name":  "Strawberry Cake with Design",
+        "name":  "Strawberry Marble Cake",
         "slug":  "strawberry-cake-with-design",
         "price":  850,
         "categories":  "Uncategorized",
@@ -5018,7 +5018,7 @@
     },
     {
         "id":  "3355",
-        "name":  "Strawberry Cake with design",
+        "name":  "Strawberry Rosette Cake",
         "slug":  "strawberry-cake-with-design",
         "price":  900,
         "categories":  "Uncategorized",
@@ -5350,7 +5350,7 @@
     },
     {
         "id":  "3412",
-        "name":  "Round shaped fruit cake",
+        "name":  "Fresh Fruit Rosette Cake",
         "slug":  "round-shaped-fruit-cake",
         "price":  850,
         "categories":  [
@@ -5362,7 +5362,7 @@
     },
     {
         "id":  "3414",
-        "name":  "Fruit cake garnished with fruits",
+        "name":  "Kiwi & Berry Fruit Cake",
         "slug":  "fruit-cake-garnished-with-fruits",
         "price":  899,
         "categories":  [
@@ -5452,7 +5452,7 @@
     },
     {
         "id":  "3432",
-        "name":  "Round shaped fruit cake",
+        "name":  "Retirement Fruit Cake",
         "slug":  "round-shaped-fruit-cake",
         "price":  800,
         "categories":  "Uncategorized",
@@ -5543,7 +5543,7 @@
     },
     {
         "id":  "3448",
-        "name":  "fruit cake garnished with fruits",
+        "name":  "Fruit Drip Cake",
         "slug":  "fruit-cake-garnished-with-fruits",
         "price":  850,
         "categories":  [
@@ -5672,7 +5672,7 @@
     },
     {
         "id":  "3474",
-        "name":  "Butterscotch cake garnished with Nuts",
+        "name":  "Butterscotch Praline Nut Cake",
         "slug":  "butterscotch-cake-garnished-with-nuts",
         "price":  650,
         "categories":  [
@@ -5708,7 +5708,7 @@
     },
     {
         "id":  "3480",
-        "name":  "Heart shaped Butterscotch cake",
+        "name":  "Butterscotch Heart Cake with Cherries",
         "slug":  "heart-shaped-butterscotch-cake",
         "price":  700,
         "categories":  [
@@ -5733,7 +5733,7 @@
     },
     {
         "id":  "3484",
-        "name":  "Garnished butterscotch cake",
+        "name":  "Butterscotch Cake with Chocolate Lattice",
         "slug":  "garnished-butterscotch-cake",
         "price":  550,
         "categories":  [
@@ -5793,7 +5793,7 @@
     },
     {
         "id":  "3494",
-        "name":  "Royal Theme Cake",
+        "name":  "Tuxedo Royal Cake",
         "slug":  "royal-theme-cake",
         "price":  7799,
         "categories":  [
@@ -5913,7 +5913,7 @@
     },
     {
         "id":  "3514",
-        "name":  "Butterscotch cake garnished with nuts",
+        "name":  "Butterscotch Nut Cake with Chocolate Fan",
         "slug":  "butterscotch-cake-garnished-with-nuts",
         "price":  650,
         "categories":  [
@@ -5925,7 +5925,7 @@
     },
     {
         "id":  "3516",
-        "name":  "Round shaped Butterscotch cake with garnish",
+        "name":  "Butterscotch Cake with Chocolate Garnish",
         "slug":  "round-shaped-butterscotch-cake-with-garnish",
         "price":  650,
         "categories":  [
@@ -5963,7 +5963,7 @@
     },
     {
         "id":  "3522",
-        "name":  "Round shaped Butterscotch cake with garnish",
+        "name":  "Butterscotch Cake with Chocolate Rings",
         "slug":  "round-shaped-butterscotch-cake-with-garnish",
         "price":  550,
         "categories":  [
@@ -6060,7 +6060,7 @@
     },
     {
         "id":  "3538",
-        "name":  "Garnished Butterscotch cake",
+        "name":  "Butterscotch Caramel Drip Cake with Chocolate Fan",
         "slug":  "garnished-butterscotch-cake",
         "price":  550,
         "categories":  [
@@ -6072,7 +6072,7 @@
     },
     {
         "id":  "3540",
-        "name":  "Heart shaped butterscotch cake",
+        "name":  "White Chocolate Love You Heart Cake",
         "slug":  "heart-shaped-butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -6222,7 +6222,7 @@
     },
     {
         "id":  "3564",
-        "name":  "Chocolate cake",
+        "name":  "Chocolate Lattice Cake",
         "slug":  "chocolate-cake",
         "price":  750,
         "categories":  [
@@ -6258,7 +6258,7 @@
     },
     {
         "id":  "3570",
-        "name":  "chocolate cake",
+        "name":  "Chocolate Truffle Cake with Cherry",
         "slug":  "chocolate-cake",
         "price":  750,
         "categories":  [
@@ -6318,7 +6318,7 @@
     },
     {
         "id":  "3580",
-        "name":  "Cute Pineapple cake",
+        "name":  "Pineapple Glaze Cake with Chocolate Fans",
         "slug":  "cute-pineapple-cake",
         "price":  600,
         "categories":  [
@@ -6342,7 +6342,7 @@
     },
     {
         "id":  "3584",
-        "name":  "Pineapple cake with chocolate garnish",
+        "name":  "Pineapple Cherry Cake with Chocolate Lattice",
         "slug":  "pineapple-cake-with-chocolate-garnish",
         "price":  795,
         "categories":  [
@@ -6471,7 +6471,7 @@
     },
     {
         "id":  "3604",
-        "name":  "Beautiful  Naked Cakes",
+        "name":  "Chocolate Sprinkle Layer Cake",
         "slug":  "beautiful-naked-cakes",
         "price":  1199,
         "categories":  [
@@ -6488,7 +6488,7 @@
     },
     {
         "id":  "3606",
-        "name":  "Beautiful Cake",
+        "name":  "Purple Sprinkle Birthday Cake",
         "slug":  "beautiful-cake",
         "price":  799,
         "categories":  [
@@ -6500,7 +6500,7 @@
     },
     {
         "id":  "3608",
-        "name":  "Heart Shape Chocolate Cake",
+        "name":  "Heart Photo Chocolate Cake",
         "slug":  "heart-shape-chocolate-cake",
         "price":  1099,
         "categories":  [
@@ -6620,7 +6620,7 @@
     },
     {
         "id":  "3626",
-        "name":  "Best Birthday Cake",
+        "name":  "Ice Cream Cone Drip Cake",
         "slug":  "best-birthday-cake",
         "price":  799,
         "categories":  [
@@ -6779,7 +6779,7 @@
     },
     {
         "id":  "3650",
-        "name":  "Blue Berry Cake",
+        "name":  "Purple Blueberry Glaze Cake",
         "slug":  "blue-berry-cake",
         "price":  799,
         "categories":  [
@@ -6888,7 +6888,7 @@
     },
     {
         "id":  "3668",
-        "name":  "Choco Butterscotch cake",
+        "name":  "Choco Butterscotch Crunch Cake",
         "slug":  "choco-butterscotch-cake",
         "price":  800,
         "categories":  [
@@ -6901,7 +6901,7 @@
     },
     {
         "id":  "3670",
-        "name":  "Red velvet heart cake",
+        "name":  "Red Velvet Heart Cake with White Hearts",
         "slug":  "red-velvet-heart-cake",
         "price":  850,
         "categories":  [
@@ -6914,7 +6914,7 @@
     },
     {
         "id":  "3672",
-        "name":  "Blue berry cake",
+        "name":  "Blueberry Drip Cake with Butterflies",
         "slug":  "blue-berry-cake",
         "price":  800,
         "categories":  [
@@ -7047,7 +7047,7 @@
     },
     {
         "id":  "3694",
-        "name":  "Rasmalai Cake",
+        "name":  "Rasmalai Cream Swirl Cake",
         "slug":  "rasmalai-cake",
         "price":  1299,
         "categories":  [
@@ -7115,7 +7115,7 @@
     },
     {
         "id":  "3702",
-        "name":  "Blueberry Cake",
+        "name":  "Blueberry Drip Cake",
         "slug":  "blueberry-cake",
         "price":  400,
         "categories":  [
@@ -7127,7 +7127,7 @@
     },
     {
         "id":  "3704",
-        "name":  "Blueberry Cake",
+        "name":  "Blueberry Watercolour Tall Cake",
         "slug":  "blueberry-cake",
         "price":  800,
         "categories":  [
@@ -7139,7 +7139,7 @@
     },
     {
         "id":  "3706",
-        "name":  "Blueberry cake",
+        "name":  "Blueberry Birthday Cake with Purple Rosettes",
         "slug":  "blueberry-cake",
         "price":  800,
         "categories":  [
@@ -7151,7 +7151,7 @@
     },
     {
         "id":  "3708",
-        "name":  "Blueberry Cake",
+        "name":  "Blueberry Macaron Drip Cake",
         "slug":  "blueberry-cake",
         "price":  1150,
         "categories":  [
@@ -7175,7 +7175,7 @@
     },
     {
         "id":  "3711",
-        "name":  "Chocolate Cake",
+        "name":  "Semi-Naked Chocolate Drip Cake",
         "slug":  "chocolate-cake",
         "price":  750,
         "categories":  [
@@ -7205,7 +7205,7 @@
     },
     {
         "id":  "3715",
-        "name":  "Chocolate cake",
+        "name":  "Chocolate Drip Cake with Rosettes",
         "slug":  "chocolate-cake",
         "price":  350,
         "categories":  [
@@ -7217,7 +7217,7 @@
     },
     {
         "id":  "3717",
-        "name":  "chocolate cake",
+        "name":  "Heart Chocolate Cake with Rosettes",
         "slug":  "chocolate-cake",
         "price":  750,
         "categories":  [
@@ -7243,7 +7243,7 @@
     },
     {
         "id":  "3721",
-        "name":  "Chocolate cake",
+        "name":  "Chocolate Glaze Cake",
         "slug":  "chocolate-cake",
         "price":  750,
         "categories":  [
@@ -7268,7 +7268,7 @@
     },
     {
         "id":  "3725",
-        "name":  "Red Velvet Heightend Cake",
+        "name":  "Red Velvet Drip Tall Cake",
         "slug":  "red-velvet-heightend-cake",
         "price":  999,
         "categories":  [
@@ -7294,7 +7294,7 @@
     },
     {
         "id":  "3728",
-        "name":  "Red Velvet Cake",
+        "name":  "Red Velvet Lattice Cake",
         "slug":  "red-velvet-cake",
         "price":  899,
         "categories":  [
@@ -7306,7 +7306,7 @@
     },
     {
         "id":  "3730",
-        "name":  "Red Velvet Heightend Cake",
+        "name":  "Red Velvet Crumb Tall Cake",
         "slug":  "red-velvet-heightend-cake",
         "price":  999,
         "categories":  [
@@ -7331,7 +7331,7 @@
     },
     {
         "id":  "3734",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Caramel Swirl Cake",
         "slug":  "butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -7343,7 +7343,7 @@
     },
     {
         "id":  "3736",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Crunch Cake",
         "slug":  "butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -7355,7 +7355,7 @@
     },
     {
         "id":  "3738",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Caramel Web Cake",
         "slug":  "butterscotch-cake",
         "price":  875,
         "categories":  [
@@ -7367,7 +7367,7 @@
     },
     {
         "id":  "3740",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Rosette Cake",
         "slug":  "butterscotch-cake",
         "price":  350,
         "categories":  [
@@ -7379,7 +7379,7 @@
     },
     {
         "id":  "3742",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Cake with Cherries",
         "slug":  "butterscotch-cake",
         "price":  350,
         "categories":  [
@@ -7391,7 +7391,7 @@
     },
     {
         "id":  "3744",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Caramel Drip Cake",
         "slug":  "butterscotch-cake",
         "price":  350,
         "categories":  [
@@ -7403,7 +7403,7 @@
     },
     {
         "id":  "3746",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Cake with White Chocolate Curls",
         "slug":  "butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -7415,7 +7415,7 @@
     },
     {
         "id":  "3747",
-        "name":  "Butterscotch cake",
+        "name":  "Striped Butterscotch Nut Cake",
         "slug":  "butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -7427,7 +7427,7 @@
     },
     {
         "id":  "3749",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Dome Cake with Fruit",
         "slug":  "butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -7463,7 +7463,7 @@
     },
     {
         "id":  "3755",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Chocolate Web Cake",
         "slug":  "butterscotch-cake",
         "price":  550,
         "categories":  [
@@ -7475,7 +7475,7 @@
     },
     {
         "id":  "3756",
-        "name":  "Butterscotch cake",
+        "name":  "Butterscotch Drip Cake with Chocolate Ring",
         "slug":  "butterscotch-cake",
         "price":  650,
         "categories":  [
@@ -7514,7 +7514,7 @@
     },
     {
         "id":  "3762",
-        "name":  "Anniversary cake",
+        "name":  "60th Anniversary Floral Cake",
         "slug":  "anniversary-cake",
         "price":  2800,
         "categories":  [
@@ -7664,7 +7664,7 @@
     },
     {
         "id":  "3782",
-        "name":  "red velvet cake",
+        "name":  "Red Velvet Birthday Cake",
         "slug":  "red-velvet-cake",
         "price":  800,
         "categories":  [
@@ -7777,7 +7777,7 @@
     },
     {
         "id":  "3796",
-        "name":  "Rainbow cake",
+        "name":  "Rainbow 1st Birthday Two-Tier Cake",
         "slug":  "rainbow-cake",
         "price":  9000,
         "categories":  [
@@ -7805,7 +7805,7 @@
     },
     {
         "id":  "3800",
-        "name":  "engagement special",
+        "name":  "Couple Dance Engagement Cake",
         "slug":  "engagement-special",
         "price":  7000,
         "categories":  [
@@ -7844,7 +7844,7 @@
     },
     {
         "id":  "3806",
-        "name":  "engagement special",
+        "name":  "Crown Ruffle Engagement Cake",
         "slug":  "engagement-special",
         "price":  5600,
         "categories":  [
@@ -7857,7 +7857,7 @@
     },
     {
         "id":  "3808",
-        "name":  "Cartoon cake",
+        "name":  "Jungle Animals Cartoon Cake",
         "slug":  "cartoon-cake",
         "price":  7000,
         "categories":  [
@@ -7913,7 +7913,7 @@
     },
     {
         "id":  "3816",
-        "name":  "red velvet cake",
+        "name":  "Red Velvet Hearts Birthday Cake",
         "slug":  "red-velvet-cake",
         "price":  2200,
         "categories":  [
@@ -8073,7 +8073,7 @@
     },
     {
         "id":  "3840",
-        "name":  "Tom and Jerry cake",
+        "name":  "Tom & Jerry Stars Cake",
         "slug":  "tom-and-jerry-cake",
         "price":  2999,
         "categories":  [
@@ -8085,7 +8085,7 @@
     },
     {
         "id":  "3842",
-        "name":  "Beautiful Anniversary Cake",
+        "name":  "Macaron & Butterfly Anniversary Cake",
         "slug":  "beautiful-anniversary-cake",
         "price":  2259,
         "categories":  [

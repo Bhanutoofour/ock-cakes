@@ -7,7 +7,6 @@ import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
 import { toJsonLd } from "@/lib/json-ld";
-import { getProductSocialProof } from "@/lib/product-social-proof";
 import {
   buildProductKeywords,
   buildProductSeoDescription,
@@ -15,7 +14,6 @@ import {
 import { createMetadata, siteSeo } from "@/lib/seo";
 import { getProductBySlug, listProducts } from "@/lib/server/catalog";
 import { ProductPurchasePanel } from "./product-purchase-panel";
-import { ProductReviewsSection } from "./product-reviews-section";
 import { ProductSummaryPanel } from "./product-summary-panel";
 
 type CakeDetailPageProps = {
@@ -122,7 +120,6 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
     notFound();
   }
 
-  const socialProof = getProductSocialProof(product.slug);
   const productFaqs = buildProductDetailFaqs(product.name);
   const allProducts = await listProducts({ limit: 80 });
   const relatedProducts = getRelatedProductsForDetail(
@@ -131,7 +128,6 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
     product.category,
     product.categories,
   );
-  const reviewCount = Number.parseInt(String(socialProof.reviewsLabel).replace(/[^0-9]/g, ""), 10);
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -153,11 +149,6 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
       priceCurrency: "INR",
       price: String(product.price),
       url: `${siteSeo.siteUrl}/cakes/${product.slug}`,
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: String(socialProof.rating),
-      reviewCount: Number.isFinite(reviewCount) && reviewCount > 0 ? reviewCount : 100,
     },
   };
 
@@ -232,11 +223,7 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
             </div>
 
             <div className="space-y-6">
-              <ProductSummaryPanel
-                product={product}
-                rating={socialProof.rating}
-                reviewsLabel={socialProof.reviewsLabel}
-              />
+              <ProductSummaryPanel product={product} />
 
               <div className="rounded-[32px] border border-[var(--line)] bg-white p-6 shadow-[0_18px_45px_rgba(77,37,28,0.06)]">
                 <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--line)] pb-5">
@@ -274,8 +261,6 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
               ))}
             </div>
           </section>
-
-          <ProductReviewsSection productName={product.name} productSlug={product.slug} />
 
           <section className="mt-10">
             <div className="flex flex-wrap items-end justify-between gap-3">

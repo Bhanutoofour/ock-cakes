@@ -36,26 +36,14 @@ function getOccasionPhrase(category: string) {
 
 function getHeroIntro(product: Product) {
   const category = tidyLabel(product.category || "cakes");
-  const categoryLower = category.toLowerCase();
+  const categoryLower = category.toLowerCase().replace(/\s*\bcakes?\b/g, "").trim();
   const occasionPhrase = getOccasionPhrase(category);
   const leadTime = tidyLabel(product.leadTime || "same day").toLowerCase();
 
-  return `${product.name} is a freshly prepared ${categoryLower} cake for ${occasionPhrase} in Hyderabad. Choose your flavour, weight, and cake message, then book ${leadTime} cake delivery from OccasionKart.`;
+  return `${product.name} is a freshly prepared ${categoryLower ? `${categoryLower} cake` : "cake"} for ${occasionPhrase} in Hyderabad. Choose your flavour, weight, and cake message, then book ${leadTime} cake delivery from OccasionKart.`;
 }
 
-export function ProductSummaryPanel({
-  product,
-  rating,
-  reviewsLabel,
-}: {
-  product: Product;
-  rating: number | string;
-  reviewsLabel: string;
-}) {
-  const numericRating = Number(rating);
-  const ratingLabel = Number.isFinite(numericRating)
-    ? numericRating.toFixed(1)
-    : String(rating);
+export function ProductSummaryPanel({ product }: { product: Product }) {
   const heroIntro = getHeroIntro(product);
 
   return (
@@ -66,12 +54,6 @@ export function ProductSummaryPanel({
       <h1 className="mt-2 text-[1.9rem] font-semibold leading-[1.12] text-[var(--brand-brown)] sm:text-[2.35rem] xl:text-[2.55rem]">
         {product.name}
       </h1>
-
-      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-[0.98rem] font-medium text-[var(--text-secondary)]">
-        <span className="text-[var(--foreground)]">{ratingLabel}</span>
-        <span className="text-[var(--brand-gold)]">&#9733;</span>
-        <span>({reviewsLabel})</span>
-      </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <div className="text-[2rem] font-bold leading-none text-[var(--brand-brown)] sm:text-[2.2rem]">

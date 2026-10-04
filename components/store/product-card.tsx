@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { AddToCartButton } from "@/components/store/add-to-cart-button";
 import { getDisplayPrice, resolveVariantPricing } from "@/lib/product-variants";
-import { getProductSocialProof } from "@/lib/product-social-proof";
 import type { Product } from "@/lib/store-data";
 
 const priceFormatter = new Intl.NumberFormat("en-IN");
@@ -19,7 +18,6 @@ const compactProductName = (name: string) => {
 };
 
 export function ProductCard({ product }: { product: Product }) {
-  const socialProof = getProductSocialProof(product.slug);
   const displayName = compactProductName(product.name);
   const displayPrice = getDisplayPrice(product);
   const { selectedWeight, selectedFlavor, unitPrice } = resolveVariantPricing(product);
@@ -86,12 +84,6 @@ export function ProductCard({ product }: { product: Product }) {
             </svg>
           </AddToCartButton>
         </div>
-
-        <p className="mt-1.5 max-w-[8.5rem] text-[0.84rem] font-medium leading-6 text-[var(--text-secondary)]">
-          <span className="text-[var(--foreground)]">{socialProof.rating}</span>{" "}
-          <span className="text-[var(--brand-gold)]">&#9733;</span>{" "}
-          <span>({socialProof.reviewsLabel})</span>
-        </p>
       </div>
     </article>
   );

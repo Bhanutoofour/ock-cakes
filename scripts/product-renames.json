@@ -1,0 +1,933 @@
+[
+  {
+    "id": "3734",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Caramel Swirl Cake"
+  },
+  {
+    "id": "3736",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Crunch Cake"
+  },
+  {
+    "id": "3738",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Caramel Web Cake"
+  },
+  {
+    "id": "3740",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Rosette Cake"
+  },
+  {
+    "id": "3742",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Cake with Cherries"
+  },
+  {
+    "id": "3744",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Caramel Drip Cake"
+  },
+  {
+    "id": "3746",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Cake with White Chocolate Curls"
+  },
+  {
+    "id": "3747",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Striped Butterscotch Nut Cake"
+  },
+  {
+    "id": "3749",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Dome Cake with Fruit"
+  },
+  {
+    "id": "3755",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Chocolate Web Cake"
+  },
+  {
+    "id": "3756",
+    "slug": "butterscotch-cake",
+    "oldName": "Butterscotch cake",
+    "newName": "Butterscotch Drip Cake with Chocolate Ring"
+  },
+  {
+    "id": "3570",
+    "slug": "chocolate-cake",
+    "oldName": "chocolate cake",
+    "newName": "Chocolate Truffle Cake with Cherry"
+  },
+  {
+    "id": "3717",
+    "slug": "chocolate-cake",
+    "oldName": "chocolate cake",
+    "newName": "Heart Chocolate Cake with Rosettes"
+  },
+  {
+    "id": "3564",
+    "slug": "chocolate-cake",
+    "oldName": "Chocolate cake",
+    "newName": "Chocolate Lattice Cake"
+  },
+  {
+    "id": "3715",
+    "slug": "chocolate-cake",
+    "oldName": "Chocolate cake",
+    "newName": "Chocolate Drip Cake with Rosettes"
+  },
+  {
+    "id": "3721",
+    "slug": "chocolate-cake",
+    "oldName": "Chocolate cake",
+    "newName": "Chocolate Glaze Cake"
+  },
+  {
+    "id": "2831",
+    "slug": "chocolate-cake",
+    "oldName": "Chocolate Cake",
+    "newName": "Chocolate Shard Cake"
+  },
+  {
+    "id": "2955",
+    "slug": "chocolate-cake",
+    "oldName": "Chocolate Cake",
+    "newName": "Chocolate Fan Cake with Pink Rosettes"
+  },
+  {
+    "id": "3711",
+    "slug": "chocolate-cake",
+    "oldName": "Chocolate Cake",
+    "newName": "Semi-Naked Chocolate Drip Cake"
+  },
+  {
+    "id": "2969",
+    "slug": "baby-birthday-cake",
+    "oldName": "Baby Birthday Cake",
+    "newName": "Oh Baby Pastel Cake"
+  },
+  {
+    "id": "3029",
+    "slug": "baby-birthday-cake",
+    "oldName": "Baby Birthday Cake",
+    "newName": "Baby & Balloons Two-Tier Cake"
+  },
+  {
+    "id": "3107",
+    "slug": "baby-birthday-cake",
+    "oldName": "Baby Birthday Cake",
+    "newName": "Hot Air Balloon Baby Cake"
+  },
+  {
+    "id": "3109",
+    "slug": "baby-birthday-cake",
+    "oldName": "Baby Birthday Cake",
+    "newName": "Baby Ballerina Two-Tier Cake"
+  },
+  {
+    "id": "3115",
+    "slug": "baby-birthday-cake",
+    "oldName": "Baby Birthday Cake",
+    "newName": "Princess Doll Birthday Cake"
+  },
+  {
+    "id": "3149",
+    "slug": "baby-birthday-cake",
+    "oldName": "Baby Birthday Cake",
+    "newName": "Pink Two-Tier Baby Cake"
+  },
+  {
+    "id": "3706",
+    "slug": "blueberry-cake",
+    "oldName": "Blueberry cake",
+    "newName": "Blueberry Birthday Cake with Purple Rosettes"
+  },
+  {
+    "id": "3702",
+    "slug": "blueberry-cake",
+    "oldName": "Blueberry Cake",
+    "newName": "Blueberry Drip Cake"
+  },
+  {
+    "id": "3704",
+    "slug": "blueberry-cake",
+    "oldName": "Blueberry Cake",
+    "newName": "Blueberry Watercolour Tall Cake"
+  },
+  {
+    "id": "3708",
+    "slug": "blueberry-cake",
+    "oldName": "Blueberry Cake",
+    "newName": "Blueberry Macaron Drip Cake"
+  },
+  {
+    "id": "2829",
+    "slug": "black-forest-cake",
+    "oldName": "Black forest Cake",
+    "newName": "Black Forest Cake with White Chocolate Hearts"
+  },
+  {
+    "id": "2787",
+    "slug": "black-forest-cake",
+    "oldName": "Black Forest Cake",
+    "newName": "Pink Cream Rosette Cake"
+  },
+  {
+    "id": "3199",
+    "slug": "black-forest-cake",
+    "oldName": "Black Forest Cake",
+    "newName": "Black Forest Cake with Dairy Milk"
+  },
+  {
+    "id": "3762",
+    "slug": "anniversary-cake",
+    "oldName": "Anniversary cake",
+    "newName": "60th Anniversary Floral Cake"
+  },
+  {
+    "id": "3059",
+    "slug": "anniversary-cake",
+    "oldName": "Anniversary Cake",
+    "newName": "Pink Hearts Anniversary Cake"
+  },
+  {
+    "id": "3085",
+    "slug": "anniversary-cake",
+    "oldName": "Anniversary Cake",
+    "newName": "Two-Tier Silver Rose Anniversary Cake"
+  },
+  {
+    "id": "2905",
+    "slug": "anniversary-cakes",
+    "oldName": "Anniversary Cakes",
+    "newName": "Anniversary Couple Theme Cake"
+  },
+  {
+    "id": "3039",
+    "slug": "anniversary-cakes",
+    "oldName": "Anniversary Cakes",
+    "newName": "Couple Silhouette Anniversary Cake"
+  },
+  {
+    "id": "3229",
+    "slug": "anniversary-cakes",
+    "oldName": "Anniversary Cakes",
+    "newName": "30th Anniversary Red Piping Cake"
+  },
+  {
+    "id": "2823",
+    "slug": "heart-shape-chocolate-cake",
+    "oldName": "Heart Shape Chocolate Cake",
+    "newName": "Heart Chocolate Cake with Pink Rosettes"
+  },
+  {
+    "id": "3608",
+    "slug": "heart-shape-chocolate-cake",
+    "oldName": "Heart Shape Chocolate Cake",
+    "newName": "Heart Photo Chocolate Cake"
+  },
+  {
+    "id": "2819",
+    "slug": "rasmalai-cake",
+    "oldName": "Rasmalai Cake",
+    "newName": "Rasmalai Rose Petal Cake"
+  },
+  {
+    "id": "3694",
+    "slug": "rasmalai-cake",
+    "oldName": "Rasmalai Cake",
+    "newName": "Rasmalai Cream Swirl Cake"
+  },
+  {
+    "id": "3782",
+    "slug": "red-velvet-cake",
+    "oldName": "red velvet cake",
+    "newName": "Red Velvet Birthday Cake"
+  },
+  {
+    "id": "3816",
+    "slug": "red-velvet-cake",
+    "oldName": "red velvet cake",
+    "newName": "Red Velvet Hearts Birthday Cake"
+  },
+  {
+    "id": "3728",
+    "slug": "red-velvet-cake",
+    "oldName": "Red Velvet Cake",
+    "newName": "Red Velvet Lattice Cake"
+  },
+  {
+    "id": "3670",
+    "slug": "red-velvet-heart-cake",
+    "oldName": "Red velvet heart cake",
+    "newName": "Red Velvet Heart Cake with White Hearts"
+  },
+  {
+    "id": "2463",
+    "slug": "red-velvet-heart-cake",
+    "oldName": "Red Velvet Heart Cake",
+    "newName": "Red Velvet Love Heart Cake"
+  },
+  {
+    "id": "3355",
+    "slug": "strawberry-cake-with-design",
+    "oldName": "Strawberry Cake with design",
+    "newName": "Strawberry Rosette Cake"
+  },
+  {
+    "id": "3333",
+    "slug": "strawberry-cake-with-design",
+    "oldName": "Strawberry Cake with Design",
+    "newName": "Strawberry Marble Cake"
+  },
+  {
+    "id": "3327",
+    "slug": "strawberry-cake-with-design",
+    "oldName": "Strawberry Cake With Design",
+    "newName": "Strawberry Glaze Cake"
+  },
+  {
+    "id": "2735",
+    "slug": "ana-and-elsa-cake",
+    "oldName": "Ana And Elsa Cake",
+    "newName": "Frozen Anna & Elsa Snowflake Cake"
+  },
+  {
+    "id": "2937",
+    "slug": "ana-and-elsa-cake",
+    "oldName": "ANA AND ELSA CAKE",
+    "newName": "Frozen Elsa Topper Cake"
+  },
+  {
+    "id": "2633",
+    "slug": "avenger-theme-cake",
+    "oldName": "Avenger Theme cake",
+    "newName": "Avengers Hulk & Thor Theme Cake"
+  },
+  {
+    "id": "2887",
+    "slug": "avenger-theme-cake",
+    "oldName": "Avenger Theme Cake",
+    "newName": "Avengers Shield Theme Cake"
+  },
+  {
+    "id": "3125",
+    "slug": "baby-shower-cake",
+    "oldName": "Baby Shower Cake",
+    "newName": "Sleeping Baby Shower Cake"
+  },
+  {
+    "id": "3135",
+    "slug": "baby-shower-cake",
+    "oldName": "Baby Shower Cake",
+    "newName": "Baby Shower Banner Cake"
+  },
+  {
+    "id": "3105",
+    "slug": "birthday-teddy-cake",
+    "oldName": "Birthday Teddy Cake",
+    "newName": "Teddy & Baby Blocks Cake"
+  },
+  {
+    "id": "3147",
+    "slug": "birthday-teddy-cake",
+    "oldName": "Birthday Teddy Cake",
+    "newName": "Two-Tier Pink Teddy Cake"
+  },
+  {
+    "id": "2619",
+    "slug": "birthday-theme-cake",
+    "oldName": "Birthday theme cake",
+    "newName": "White Pearl Butterfly Cake"
+  },
+  {
+    "id": "2989",
+    "slug": "birthday-theme-cake",
+    "oldName": "Birthday Theme Cake",
+    "newName": "Unicorn 1st Birthday Cake"
+  },
+  {
+    "id": "3672",
+    "slug": "blue-berry-cake",
+    "oldName": "Blue berry cake",
+    "newName": "Blueberry Drip Cake with Butterflies"
+  },
+  {
+    "id": "3650",
+    "slug": "blue-berry-cake",
+    "oldName": "Blue Berry Cake",
+    "newName": "Purple Blueberry Glaze Cake"
+  },
+  {
+    "id": "3514",
+    "slug": "butterscotch-cake-garnished-with-nuts",
+    "oldName": "Butterscotch cake garnished with nuts",
+    "newName": "Butterscotch Nut Cake with Chocolate Fan"
+  },
+  {
+    "id": "3474",
+    "slug": "butterscotch-cake-garnished-with-nuts",
+    "oldName": "Butterscotch cake garnished with Nuts",
+    "newName": "Butterscotch Praline Nut Cake"
+  },
+  {
+    "id": "3808",
+    "slug": "cartoon-cake",
+    "oldName": "Cartoon cake",
+    "newName": "Jungle Animals Cartoon Cake"
+  },
+  {
+    "id": "3153",
+    "slug": "cartoon-cake",
+    "oldName": "Cartoon Cake",
+    "newName": "Disney Princess Cartoon Cake"
+  },
+  {
+    "id": "3668",
+    "slug": "choco-butterscotch-cake",
+    "oldName": "Choco Butterscotch cake",
+    "newName": "Choco Butterscotch Crunch Cake"
+  },
+  {
+    "id": "2807",
+    "slug": "choco-butterscotch-cake",
+    "oldName": "Choco Butterscotch Cake",
+    "newName": "Choco Butterscotch Drip Cake"
+  },
+  {
+    "id": "3069",
+    "slug": "choco-chips-cakes",
+    "oldName": "Choco Chips Cakes",
+    "newName": "White Choco Chip Cake"
+  },
+  {
+    "id": "3075",
+    "slug": "choco-chips-cakes",
+    "oldName": "Choco Chips Cakes",
+    "newName": "Dark Choco Chip Cake"
+  },
+  {
+    "id": "2915",
+    "slug": "cricket-theme-cake",
+    "oldName": "Cricket Theme Cake",
+    "newName": "Cricket Kit Theme Cake"
+  },
+  {
+    "id": "3099",
+    "slug": "cricket-theme-cake",
+    "oldName": "Cricket Theme Cake",
+    "newName": "Cricket Pitch Birthday Cake"
+  },
+  {
+    "id": "2991",
+    "slug": "crown-cake",
+    "oldName": "Crown Cake",
+    "newName": "Tiara Crown Cake"
+  },
+  {
+    "id": "3167",
+    "slug": "crown-cake",
+    "oldName": "Crown Cake",
+    "newName": "Three-Tier Golden Crown Cake"
+  },
+  {
+    "id": "3580",
+    "slug": "cute-pineapple-cake",
+    "oldName": "Pineapple Cake with Chocolate Garnish",
+    "newName": "Pineapple Glaze Cake with Chocolate Fans"
+  },
+  {
+    "id": "3584",
+    "slug": "pineapple-cake-with-chocolate-garnish",
+    "oldName": "Pineapple cake with chocolate garnish",
+    "newName": "Pineapple Cherry Cake with Chocolate Lattice"
+  },
+  {
+    "id": "2727",
+    "slug": "doctor-cake",
+    "oldName": "Doctor cake",
+    "newName": "Doctor Coat Theme Cake"
+  },
+  {
+    "id": "2751",
+    "slug": "doctor-cake",
+    "oldName": "Doctor cake",
+    "newName": "Doctor Scrubs Theme Cake"
+  },
+  {
+    "id": "3800",
+    "slug": "engagement-special",
+    "oldName": "engagement special",
+    "newName": "Couple Dance Engagement Cake"
+  },
+  {
+    "id": "3806",
+    "slug": "engagement-special",
+    "oldName": "engagement special",
+    "newName": "Crown Ruffle Engagement Cake"
+  },
+  {
+    "id": "2817",
+    "slug": "fancy-chocolate-cake",
+    "oldName": "Fancy Chocolate Cake",
+    "newName": "Chocolate Stripe Cake"
+  },
+  {
+    "id": "2825",
+    "slug": "fancy-chocolate-cake",
+    "oldName": "Fancy Chocolate Cake",
+    "newName": "Chocolate Ganache Cake with Cherry"
+  },
+  {
+    "id": "3191",
+    "slug": "fancy-combo",
+    "oldName": "Fancy Combo",
+    "newName": "Yellow Roses & Cake Combo"
+  },
+  {
+    "id": "3181",
+    "slug": "fancy-combo",
+    "oldName": "FANCY COMBO",
+    "newName": "Red Velvet Cake, Teddy & Plant Combo"
+  },
+  {
+    "id": "3209",
+    "slug": "fish-theme-cake",
+    "oldName": "Fish Theme cake",
+    "newName": "Baby Shark Two-Tier Cake"
+  },
+  {
+    "id": "3127",
+    "slug": "fish-theme-cake",
+    "oldName": "Fish Theme Cake",
+    "newName": "Baby Shark Family Cake"
+  },
+  {
+    "id": "3057",
+    "slug": "flower-theme-cake",
+    "oldName": "Flower Theme Cake",
+    "newName": "70th Birthday Flower Cake"
+  },
+  {
+    "id": "3169",
+    "slug": "flower-theme-cake",
+    "oldName": "Flower Theme Cake",
+    "newName": "Tinker Bell Flower Cake"
+  },
+  {
+    "id": "3067",
+    "slug": "forest-theme-cake",
+    "oldName": "Forest Theme Cake",
+    "newName": "Safari Animals Cake"
+  },
+  {
+    "id": "3095",
+    "slug": "forest-theme-cake",
+    "oldName": "Forest Theme Cake",
+    "newName": "Jungle 1st Birthday Cake"
+  },
+  {
+    "id": "2759",
+    "slug": "fresh-fruit-cake",
+    "oldName": "Fresh Fruit Cake",
+    "newName": "Fresh Fruit Chocolate Base Cake"
+  },
+  {
+    "id": "3247",
+    "slug": "fresh-fruit-cake",
+    "oldName": "Fresh Fruit Cake",
+    "newName": "Number 3 Fresh Fruit Cake"
+  },
+  {
+    "id": "3448",
+    "slug": "fruit-cake-garnished-with-fruits",
+    "oldName": "fruit cake garnished with fruits",
+    "newName": "Fruit Drip Cake"
+  },
+  {
+    "id": "3414",
+    "slug": "fruit-cake-garnished-with-fruits",
+    "oldName": "Fruit cake garnished with fruits",
+    "newName": "Kiwi & Berry Fruit Cake"
+  },
+  {
+    "id": "3484",
+    "slug": "garnished-butterscotch-cake",
+    "oldName": "Garnished butterscotch cake",
+    "newName": "Butterscotch Cake with Chocolate Lattice"
+  },
+  {
+    "id": "3538",
+    "slug": "garnished-butterscotch-cake",
+    "oldName": "Garnished Butterscotch cake",
+    "newName": "Butterscotch Caramel Drip Cake with Chocolate Fan"
+  },
+  {
+    "id": "3285",
+    "slug": "garnished-tiramisu-cake",
+    "oldName": "Garnished Tiramisu Cake",
+    "newName": "Tiramisu Jar-Style Cake"
+  },
+  {
+    "id": "3289",
+    "slug": "garnished-tiramisu-cake",
+    "oldName": "Garnished Tiramisu Cake",
+    "newName": "Layered Tiramisu Cake"
+  },
+  {
+    "id": "2911",
+    "slug": "heart-shape-cake",
+    "oldName": "Heart Shape Cake",
+    "newName": "Dark Chocolate Heart Cake with Red Hearts"
+  },
+  {
+    "id": "3219",
+    "slug": "heart-shape-cake",
+    "oldName": "Heart Shape Cake",
+    "newName": "Floral Heart Anniversary Cake"
+  },
+  {
+    "id": "3540",
+    "slug": "heart-shaped-butterscotch-cake",
+    "oldName": "Heart shaped butterscotch cake",
+    "newName": "White Chocolate Love You Heart Cake"
+  },
+  {
+    "id": "3480",
+    "slug": "heart-shaped-butterscotch-cake",
+    "oldName": "Heart shaped Butterscotch cake",
+    "newName": "Butterscotch Heart Cake with Cherries"
+  },
+  {
+    "id": "3137",
+    "slug": "jungle-theme-cake",
+    "oldName": "Jungle Theme Cake",
+    "newName": "Fortnite Jungle Theme Cake"
+  },
+  {
+    "id": "3145",
+    "slug": "jungle-theme-cake",
+    "oldName": "Jungle Theme Cake",
+    "newName": "Elephant & Giraffe Jungle Cake"
+  },
+  {
+    "id": "2599",
+    "slug": "makeup-theme-cake",
+    "oldName": "Makeup Theme Cake",
+    "newName": "Shopping Bags Makeup Cake"
+  },
+  {
+    "id": "2623",
+    "slug": "makeup-theme-cake",
+    "oldName": "Makeup Theme Cake",
+    "newName": "MAC Makeup Theme Cake"
+  },
+  {
+    "id": "3253",
+    "slug": "mixed-flowers-bouquet",
+    "oldName": "Mixed Flowers Bouquet",
+    "newName": "Mixed Flowers Pink Wrap Bouquet"
+  },
+  {
+    "id": "3269",
+    "slug": "mixed-flowers-bouquet",
+    "oldName": "Mixed Flowers Bouquet",
+    "newName": "Mixed Flowers Red Wrap Bouquet"
+  },
+  {
+    "id": "3251",
+    "slug": "mixed-roses-bouquet",
+    "oldName": "Mixed Roses Bouquet",
+    "newName": "Mixed Roses Basket Bouquet"
+  },
+  {
+    "id": "3267",
+    "slug": "mixed-roses-bouquet",
+    "oldName": "Mixed Roses Bouquet",
+    "newName": "Mixed Roses Orange Wrap Bouquet"
+  },
+  {
+    "id": "2507",
+    "slug": "photo-cake",
+    "oldName": "Photo cake",
+    "newName": "Elsa Photo Cake"
+  },
+  {
+    "id": "3237",
+    "slug": "photo-cake",
+    "oldName": "Photo Cake",
+    "newName": "Family Photo Cake"
+  },
+  {
+    "id": "2853",
+    "slug": "pull-me-up-cake",
+    "oldName": "Pull Me Up Cake",
+    "newName": "Happy Birthday Pull Me Up Cake"
+  },
+  {
+    "id": "3079",
+    "slug": "pull-me-up-cake",
+    "oldName": "Pull Me Up Cake",
+    "newName": "Barbie Doll Pull Me Up Cake"
+  },
+  {
+    "id": "2491",
+    "slug": "rainbow-cake",
+    "oldName": "Rainbow cake",
+    "newName": "Rainbow Rosette Cake"
+  },
+  {
+    "id": "3796",
+    "slug": "rainbow-cake",
+    "oldName": "Rainbow cake",
+    "newName": "Rainbow 1st Birthday Two-Tier Cake"
+  },
+  {
+    "id": "3259",
+    "slug": "red-roses-bouquet",
+    "oldName": "Red Roses Bouquet",
+    "newName": "Red Roses Bouquet with Fillers"
+  },
+  {
+    "id": "3279",
+    "slug": "red-roses-bouquet",
+    "oldName": "Red Roses Bouquet",
+    "newName": "50 Red Roses Bouquet"
+  },
+  {
+    "id": "3725",
+    "slug": "red-velvet-heightend-cake",
+    "oldName": "Red Velvet Heightend Cake",
+    "newName": "Red Velvet Drip Tall Cake"
+  },
+  {
+    "id": "3730",
+    "slug": "red-velvet-heightend-cake",
+    "oldName": "Red Velvet Heightend Cake",
+    "newName": "Red Velvet Crumb Tall Cake"
+  },
+  {
+    "id": "3516",
+    "slug": "round-shaped-butterscotch-cake-with-garnish",
+    "oldName": "Round shaped Butterscotch cake with garnish",
+    "newName": "Butterscotch Cake with Chocolate Garnish"
+  },
+  {
+    "id": "3522",
+    "slug": "round-shaped-butterscotch-cake-with-garnish",
+    "oldName": "Round shaped Butterscotch cake with garnish",
+    "newName": "Butterscotch Cake with Chocolate Rings"
+  },
+  {
+    "id": "3412",
+    "slug": "round-shaped-fruit-cake",
+    "oldName": "Round shaped fruit cake",
+    "newName": "Fresh Fruit Rosette Cake"
+  },
+  {
+    "id": "3432",
+    "slug": "round-shaped-fruit-cake",
+    "oldName": "Round shaped fruit cake",
+    "newName": "Retirement Fruit Cake"
+  },
+  {
+    "id": "3183",
+    "slug": "royal-theme-cake",
+    "oldName": "Royal Theme Cake",
+    "newName": "Rose Gold Royal Cake"
+  },
+  {
+    "id": "3494",
+    "slug": "royal-theme-cake",
+    "oldName": "Royal Theme Cake",
+    "newName": "Tuxedo Royal Cake"
+  },
+  {
+    "id": "3019",
+    "slug": "simple-anniversary-cake",
+    "oldName": "Simple Anniversary Cake",
+    "newName": "Daisy Two-Tier Anniversary Cake"
+  },
+  {
+    "id": "3031",
+    "slug": "simple-anniversary-cake",
+    "oldName": "Simple Anniversary Cake",
+    "newName": "Blue Rose Anniversary Cake"
+  },
+  {
+    "id": "2959",
+    "slug": "simple-designed-cake",
+    "oldName": "Simple Designed Cake",
+    "newName": "Purple Buttercream Birthday Cake"
+  },
+  {
+    "id": "2971",
+    "slug": "simple-designed-cake",
+    "oldName": "Simple Designed Cake",
+    "newName": "Bride to Be Yellow Ruffle Cake"
+  },
+  {
+    "id": "2405",
+    "slug": "the-exploding-pineapple-cake",
+    "oldName": "The Exploding Pineapple Cake",
+    "newName": "Exploding Pineapple Tall Cake"
+  },
+  {
+    "id": "2723",
+    "slug": "tom-and-jerry-cake",
+    "oldName": "Tom and jerry cake",
+    "newName": "Tom & Jerry Cheese Cake"
+  },
+  {
+    "id": "3840",
+    "slug": "tom-and-jerry-cake",
+    "oldName": "Tom and Jerry cake",
+    "newName": "Tom & Jerry Stars Cake"
+  },
+  {
+    "id": "3299",
+    "slug": "tres-leeches-cake",
+    "oldName": "Tres Leeches cake",
+    "newName": "Tres Leches Cake"
+  },
+  {
+    "id": "3303",
+    "slug": "tres-leeches-cake",
+    "oldName": "Tres Leeches cake",
+    "newName": "Tres Leches Chocolate Rim Cake"
+  },
+  {
+    "id": "3305",
+    "slug": "tres-leeches-cake-with-simple-design",
+    "oldName": "Tres Leeches Cake With Simple Design",
+    "newName": "Tres Leches Caramel Cake"
+  },
+  {
+    "id": "3309",
+    "slug": "tres-leeches-cake-with-simple-design",
+    "oldName": "Tres Leeches Cake With Simple Design",
+    "newName": "Tres Leches Chocolate Swirl Cake"
+  },
+  {
+    "id": "2793",
+    "slug": "vanilla-cake",
+    "oldName": "Vanilla Cake",
+    "newName": "Vanilla Pink Glaze Cake"
+  },
+  {
+    "id": "2833",
+    "slug": "vanilla-cake",
+    "oldName": "Vanilla Cake",
+    "newName": "Vanilla Sprinkle Cake"
+  },
+  {
+    "id": "3155",
+    "slug": "water-park-theme-cake",
+    "oldName": "Water Park Theme Cake",
+    "newName": "Mermaid Water Park Cake"
+  },
+  {
+    "id": "3157",
+    "slug": "water-park-theme-cake",
+    "oldName": "Water Park Theme Cake",
+    "newName": "Underwater Theme Cake"
+  },
+  {
+    "id": "3604",
+    "slug": "beautiful-naked-cakes",
+    "oldName": "Beautiful  Naked Cakes",
+    "newName": "Chocolate Sprinkle Layer Cake"
+  },
+  {
+    "id": "3842",
+    "slug": "beautiful-anniversary-cake",
+    "oldName": "Beautiful Anniversary Cake",
+    "newName": "Macaron & Butterfly Anniversary Cake"
+  },
+  {
+    "id": "3606",
+    "slug": "beautiful-cake",
+    "oldName": "Beautiful Cake",
+    "newName": "Purple Sprinkle Birthday Cake"
+  },
+  {
+    "id": "3626",
+    "slug": "best-birthday-cake",
+    "oldName": "Best Birthday Cake",
+    "newName": "Ice Cream Cone Drip Cake"
+  },
+  {
+    "id": "3193",
+    "slug": "best-combo",
+    "oldName": "Best Combo",
+    "newName": "Chocolate Cake, Roses & Teddy Combo"
+  },
+  {
+    "id": "3233",
+    "slug": "best-photo-cakes",
+    "oldName": "Best Photo Cakes",
+    "newName": "Anniversary Photo Print Cake"
+  },
+  {
+    "id": "3139",
+    "slug": "birthday-cake",
+    "oldName": "Birthday Cake",
+    "newName": "Two-Tier Princess Crown Birthday Cake"
+  },
+  {
+    "id": "3021",
+    "slug": "cute-birthday-cake",
+    "oldName": "Cute Birthday Cake",
+    "newName": "Pink Teddy & Clouds 1st Birthday Cake"
+  },
+  {
+    "id": "2961",
+    "slug": "cute-couple-cake-for-occasion",
+    "oldName": "Cute Couple Cake for Occasion",
+    "newName": "Three-Tier Red Hearts Engagement Cake"
+  },
+  {
+    "id": "2705",
+    "slug": "cute-floral-cake",
+    "oldName": "Cute Floral Cake",
+    "newName": "Two-Tier Floral Doll Cake",
+    "newImage": "/images/products/two-tier-floral-doll-cake.jpg"
+  },
+  {
+    "id": "2861",
+    "slug": "cute-little-pinata",
+    "oldName": "Cute Little Pinata",
+    "newName": "Butterfly Pinata Cake with Hammer"
+  },
+  {
+    "id": "3580",
+    "slug": "cute-pineapple-cake",
+    "oldName": "Cute Pineapple cake",
+    "newName": "Pineapple Cake with Chocolate Garnish"
+  },
+  {
+    "id": "2695",
+    "slug": "super-cocomelon-cake",
+    "oldName": "Super Cocomelon cake",
+    "newName": "Cocomelon Rainbow Theme Cake"
+  },
+  {
+    "id": "2655",
+    "slug": "super-hero-themed-cakes",
+    "oldName": "Super Hero Themed Cakes",
+    "newName": "Avengers Superhero Theme Cake"
+  }
+]

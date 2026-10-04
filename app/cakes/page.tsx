@@ -35,7 +35,9 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
     query: searchQuery,
     sort,
   });
-  const topCategories = hasSearchQuery ? [] : await listTopCategories(12);
+  const topCategories = hasSearchQuery
+    ? []
+    : (await listTopCategories(13)).filter((item) => item.toLowerCase() !== "uncategorized").slice(0, 12);
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -79,16 +81,10 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                     {selectedCategory ? selectedCategory : "All cakes"}
                   </h1>
                   <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--text-secondary)]">
-                    Browse {filteredProducts.length} products from our Occasionkart
-                    catalog. Use filters to narrow down by category, price, or search.
+                    {filteredProducts.length} cakes to choose from. Search by name, sort by
+                    price, or tap a category below.
                   </p>
                 </div>
-                <Link
-                  href="/cart"
-                  className="rounded-full bg-[var(--brand-red)] px-5 py-3 text-sm font-semibold text-white"
-                >
-                  Review cart
-                </Link>
               </div>
 
               <form method="get" className="mt-6 flex flex-wrap gap-3">
@@ -97,10 +93,12 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                   name="q"
                   defaultValue={searchQuery}
                   placeholder="Search cakes..."
+                  aria-label="Search cakes"
                   className="w-full max-w-[280px] rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-[var(--foreground)]"
                 />
                 <select
                   name="sort"
+                  aria-label="Sort by price"
                   defaultValue={sort}
                   className="rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-[var(--foreground)]"
                 >

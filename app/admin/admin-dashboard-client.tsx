@@ -193,7 +193,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
         />
         <KpiCard
           label="Avg Rating"
-          value="4.8 ⭐"
+          value="4.8 / 5"
           delta={`Based on ${Math.max(150, orders.length * 3)} reviews`}
           colorClass="bg-[#fffbee] text-[#9a7a00]"
         />

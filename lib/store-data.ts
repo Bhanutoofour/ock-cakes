@@ -6,7 +6,6 @@ export type Category = {
   title: string;
   description: string;
   href: string;
-  emoji: string;
 };
 
 export const categories: Category[] = [
@@ -14,25 +13,21 @@ export const categories: Category[] = [
     title: "Birthday Cakes",
     description: "Playful designs, photo cakes, and celebration toppers.",
     href: "/cakes?category=Birthday",
-    emoji: "🎂",
   },
   {
     title: "Wedding Cakes",
     description: "Tiered centerpieces with floral details and luxury finishes.",
     href: "/cakes?category=Wedding",
-    emoji: "💍",
   },
   {
     title: "Anniversary Cakes",
     description: "Romantic palettes, elegant piping, and message plaques.",
     href: "/cakes?category=Anniversary",
-    emoji: "💐",
   },
   {
     title: "Custom Themes",
     description: "Cartoon, sports, and minimalist concepts for every age.",
     href: "/cakes?category=Custom",
-    emoji: "✨",
   },
 ];
 export type { Product } from "./store-schema";
