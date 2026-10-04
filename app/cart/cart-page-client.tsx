@@ -1,39 +1,12 @@
-﻿"use client";
+"use client";
 
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { useState } from "react";
-
 import { useCart } from "@/components/store/cart-context";
-import {
-  type CheckoutDraft,
-  readCheckoutDraft,
-  writeCheckoutDraft,
-} from "@/lib/checkout-draft";
-import { DELIVERY_SLOT_OPTIONS, getShippingQuote } from "@/lib/shipping-rules";
 
 export function CartPageClient() {
   const { items, updateQuantity, removeItem } = useCart();
-  const [checkoutDraft, setCheckoutDraft] = useState<CheckoutDraft>(() => readCheckoutDraft());
-  const [saveMessage, setSaveMessage] = useState("");
-
-  const updateDraftField = (field: keyof CheckoutDraft, value: string) => {
-    setCheckoutDraft((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const saveDraft = () => {
-    writeCheckoutDraft(checkoutDraft);
-    setSaveMessage("Delivery details saved for checkout");
-    window.setTimeout(() => setSaveMessage(""), 1800);
-  };
-
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shippingQuote = getShippingQuote({
-    pincode: checkoutDraft.deliveryPincode,
-    slot: checkoutDraft.deliverySlot,
-  });
-  const delivery = items.length > 0 && shippingQuote.deliverable ? shippingQuote.deliveryFee : 0;
-  const total = subtotal + delivery;
 
   return (
     <main className="flex-1">
@@ -111,153 +84,7 @@ export function CartPageClient() {
             </div>
           )}
 
-          <div className="mt-8 rounded-[24px] border border-[var(--line)] bg-[var(--background)] p-5 sm:p-6">
-            <h2 className="text-[1.2rem] font-semibold text-[var(--brand-brown)]">
-              Delivery Details Before Checkout
-            </h2>
-            <p className="mt-2 text-[0.94rem] text-[var(--text-secondary)]">
-              Fill this once and continue to checkout with delivery address, slot, date, cake
-              message, and sender name prefilled.
-            </p>
 
-            <div className="mt-5 grid gap-3 md:grid-cols-2">
-              <input
-                value={checkoutDraft.fullName}
-                onChange={(event) => updateDraftField("fullName", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Your full name"
-              />
-              <input
-                value={checkoutDraft.phone}
-                onChange={(event) => updateDraftField("phone", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Phone number"
-              />
-              <input
-                value={checkoutDraft.alternatePhone}
-                onChange={(event) => updateDraftField("alternatePhone", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Alternate phone number (optional)"
-              />
-              <input
-                value={checkoutDraft.email}
-                onChange={(event) => updateDraftField("email", event.target.value)}
-                type="email"
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Email (optional)"
-              />
-              <input
-                value={checkoutDraft.houseNumber}
-                onChange={(event) => updateDraftField("houseNumber", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="H No"
-              />
-              <input
-                value={checkoutDraft.aptLane}
-                onChange={(event) => updateDraftField("aptLane", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Apt name / Lane name"
-              />
-              <input
-                value={checkoutDraft.landmark}
-                onChange={(event) => updateDraftField("landmark", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Landmark (optional)"
-              />
-              <input
-                value={checkoutDraft.colonyArea}
-                onChange={(event) => updateDraftField("colonyArea", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Colony / Area"
-              />
-              <input
-                value={checkoutDraft.mapLink}
-                onChange={(event) => updateDraftField("mapLink", event.target.value)}
-                type="url"
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Google map link (optional)"
-              />
-              <input
-                value={checkoutDraft.city}
-                onChange={(event) => updateDraftField("city", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="City"
-              />
-              <input
-                value={checkoutDraft.deliveryPincode}
-                onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Delivery pincode"
-                maxLength={6}
-                inputMode="numeric"
-              />
-              <input
-                value={checkoutDraft.state}
-                readOnly
-                disabled
-                className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="State"
-              />
-              <input
-                value={checkoutDraft.country}
-                readOnly
-                disabled
-                className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Country"
-              />
-              <input
-                value={checkoutDraft.deliveryDate}
-                onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
-                type="date"
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-              />
-              <select
-                value={checkoutDraft.deliverySlot}
-                onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-              >
-                {DELIVERY_SLOT_OPTIONS.map((slot) => (
-                  <option key={slot} value={slot}>
-                    {slot}
-                  </option>
-                ))}
-              </select>
-              <input
-                value={checkoutDraft.senderName}
-                onChange={(event) => updateDraftField("senderName", event.target.value)}
-                className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-                placeholder="Sender name on greeting"
-              />
-            </div>
-            <input
-              value={checkoutDraft.cakeMessage}
-              onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
-              className="mt-3 w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
-              placeholder="Message on cake"
-            />
-
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={saveDraft}
-                className="rounded-full bg-[var(--brand-primary)] px-5 py-2.5 text-sm font-semibold text-white"
-              >
-                Save Delivery Details
-              </button>
-              {saveMessage ? (
-                <span className="text-[0.85rem] font-semibold text-[#2f8f2f]">{saveMessage}</span>
-              ) : null}
-            </div>
-            {checkoutDraft.deliveryPincode ? (
-              <p
-                className={`mt-3 text-[0.9rem] font-semibold ${
-                  shippingQuote.deliverable ? "text-[#2f8f2f]" : "text-[#b53131]"
-                }`}
-              >
-                {shippingQuote.message}
-              </p>
-            ) : null}
-          </div>
         </div>
 
         <aside className="rounded-[36px] border border-[var(--line)] bg-[linear-gradient(180deg,#fff,var(--background))] p-8 shadow-[0_22px_55px_rgba(77,37,28,0.08)]">
@@ -269,13 +96,8 @@ export function CartPageClient() {
             </div>
             <div className="flex items-center justify-between">
               <span>Delivery</span>
-              <span>Rs. {delivery}</span>
+              <span>Calculated at checkout</span>
             </div>
-            {items.length > 0 && !shippingQuote.deliverable ? (
-              <p className="text-[0.84rem] font-semibold text-[#b53131]">
-                Enter a serviceable pincode to continue checkout.
-              </p>
-            ) : null}
             <div className="flex items-center justify-between">
               <span>Discount</span>
               <span className="text-[var(--brand-red)]">Applied at checkout</span>
@@ -283,9 +105,9 @@ export function CartPageClient() {
           </div>
           <div className="mt-6 border-t border-[var(--line)] pt-6">
             <div className="flex items-center justify-between">
-              <span className="text-base font-semibold text-[var(--foreground)]">Total</span>
+              <span className="text-base font-semibold text-[var(--foreground)]">Subtotal</span>
               <span className="text-3xl font-bold text-[var(--brand-brown)]">
-                Rs. {total}
+                Rs. {subtotal}
               </span>
             </div>
           </div>
@@ -309,7 +131,3 @@ export function CartPageClient() {
     </main>
   );
 }
-
-
-
-
