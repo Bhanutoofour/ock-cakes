@@ -92,14 +92,14 @@ export default function TestimonialsPage() {
                   <h1 className="mt-4 max-w-[12ch] font-heading text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
                     What Customers Say About OccasionKart in Hyderabad
                   </h1>
-                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
+                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[var(--text-secondary)] sm:text-[1.05rem]">
                     This page highlights public customer feedback around custom
                     cakes, theme cakes, freshness, and cake delivery in
                     Hyderabad. We focused on review themes that help new
                     customers understand what people most often appreciate about
                     OccasionKart.
                   </p>
-                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
+                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[var(--text-secondary)] sm:text-[1.05rem]">
                     The testimonial snippets below are based on publicly visible
                     review platforms that were accessible at the time of
                     checking. If you want this page updated with direct Google
@@ -110,29 +110,29 @@ export default function TestimonialsPage() {
                     href={googleReviewsUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-6 inline-flex rounded-full bg-[#86171c] px-6 py-3 text-[0.98rem] font-semibold text-white"
+                    className="mt-6 inline-flex rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[0.98rem] font-semibold text-white"
                   >
                     View Google Reviews
                   </a>
                 </div>
 
                 <div className="rounded-[24px] border border-[rgba(77,37,28,0.1)] bg-white/90 p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-7">
-                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#86171c]">
+                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[var(--brand-primary)]">
                     Review Snapshot
                   </p>
                   <div className="mt-6 space-y-4">
                     {stats.map((item) => (
                       <div
                         key={item.label}
-                        className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-4"
+                        className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] px-4 py-4"
                       >
-                        <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+                        <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
                           {item.label}
                         </p>
-                        <p className="mt-2 text-[1rem] font-semibold text-stone-900">
+                        <p className="mt-2 text-[1rem] font-semibold text-[var(--foreground)]">
                           {item.value}
                         </p>
-                        <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
+                        <p className="mt-2 text-[0.95rem] leading-7 text-[var(--text-secondary)]">
                           {item.detail}
                         </p>
                       </div>
@@ -154,26 +154,26 @@ export default function TestimonialsPage() {
                 {testimonials.map((item) => (
                   <article
                     key={`${item.name}-${item.quote}`}
-                    className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5"
+                    className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] p-5"
                   >
-                    <p className="text-[1.06rem] font-semibold leading-7 text-stone-900">
+                    <p className="text-[1.06rem] font-semibold leading-7 text-[var(--foreground)]">
                       &quot;{item.quote}&quot;
                     </p>
-                    <p className="mt-3 text-[0.98rem] leading-7 text-[#6b5a5b]">
+                    <p className="mt-3 text-[0.98rem] leading-7 text-[var(--text-secondary)]">
                       {item.summary}
                     </p>
                     <div className="mt-4 flex items-center justify-between gap-3">
                       <div>
-                        <p className="text-[0.95rem] font-semibold text-stone-900">
+                        <p className="text-[0.95rem] font-semibold text-[var(--foreground)]">
                           {item.name}
                         </p>
-                        <p className="text-[0.9rem] text-[#6b5a5b]">{item.source}</p>
+                        <p className="text-[0.9rem] text-[var(--text-secondary)]">{item.source}</p>
                       </div>
                       <a
                         href={item.sourceUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-[0.92rem] font-semibold text-[#86171c]"
+                        className="text-[0.92rem] font-semibold text-[var(--brand-primary)]"
                       >
                         View Source
                       </a>
@@ -183,22 +183,22 @@ export default function TestimonialsPage() {
               </div>
             </section>
 
-            <section className="rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
+            <section className="rounded-[24px] border border-[rgba(119,23,28,0.18)] bg-[var(--surface-accent)] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Explore More Before Ordering
               </h2>
-              <p className="mt-5 max-w-[70ch] text-[1rem] leading-8 text-[#6b5a5b]">
+              <p className="mt-5 max-w-[70ch] text-[1rem] leading-8 text-[var(--text-secondary)]">
                 If you are comparing cake shops in Hyderabad, you can also
                 browse our{" "}
-                <Link href="/gallery" className="font-semibold text-[#86171c]">
+                <Link href="/gallery" className="font-semibold text-[var(--brand-primary)]">
                   Gallery
                 </Link>{" "}
                 for cake design inspiration, visit the{" "}
-                <Link href="/faq" className="font-semibold text-[#86171c]">
+                <Link href="/faq" className="font-semibold text-[var(--brand-primary)]">
                   FAQ page
                 </Link>{" "}
                 for same-day delivery and refund questions, or go to{" "}
-                <Link href="/custom-orders" className="font-semibold text-[#86171c]">
+                <Link href="/custom-orders" className="font-semibold text-[var(--brand-primary)]">
                   Custom Orders
                 </Link>{" "}
                 to plan a personalized cake.

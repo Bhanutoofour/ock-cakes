@@ -147,7 +147,7 @@ export default async function AdminLayout({
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/admin-login"
-                className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
+                className="rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white"
               >
                 Admin Login
               </Link>

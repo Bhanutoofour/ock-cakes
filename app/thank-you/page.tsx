@@ -28,7 +28,7 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
             Payment Successful
           </p>
           <h1 className="mt-3 text-[2rem] font-semibold text-black">Thank You For Your Order</h1>
-          <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">
+          <p className="mt-3 text-[1rem] leading-8 text-[var(--text-secondary)]">
             Your order has been confirmed. Our team will begin preparation and deliver according to
             your selected slot.
           </p>
@@ -40,13 +40,13 @@ export default async function ThankYouPage({ searchParams }: ThankYouPageProps) 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/track-order"
-              className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-stone-900"
+              className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-[var(--foreground)]"
             >
               Track Order
             </Link>
             <Link
               href="/cakes"
-              className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white"
+              className="rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white"
             >
               Continue Shopping
             </Link>

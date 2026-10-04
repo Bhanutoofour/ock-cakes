@@ -52,14 +52,14 @@ export default function ContactPage() {
                   <h1 className="mt-4 max-w-[12ch] font-heading text-[2.5rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
                     Contact Our Cake Shop in Hyderabad
                   </h1>
-                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
+                  <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[var(--text-secondary)] sm:text-[1.05rem]">
                     Reach OccasionKart for custom cake orders, same-day cake
                     delivery in Hyderabad, midnight cake delivery, celebration
                     planning, and customer support. Whether you want a birthday
                     cake, anniversary cake, wedding cake, or photo cake, our
                     team is here to help.
                   </p>
-                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b] sm:text-[1.05rem]">
+                  <p className="mt-4 max-w-[66ch] text-[1rem] leading-8 text-[var(--text-secondary)] sm:text-[1.05rem]">
                     If you are ready to order cake online in Hyderabad or want
                     guidance on customization, delivery timing, flavors, and
                     pricing, you can contact us directly by email or phone.
@@ -67,7 +67,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="rounded-[24px] border border-[rgba(77,37,28,0.1)] bg-white/90 p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-7">
-                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[#86171c]">
+                  <p className="text-[0.78rem] font-bold uppercase tracking-[0.24em] text-[var(--brand-primary)]">
                     Quick Contact
                   </p>
                   <div className="mt-6 space-y-4">
@@ -75,15 +75,15 @@ export default function ContactPage() {
                       <a
                         key={item.label}
                         href={item.href}
-                        className="block rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-4"
+                        className="block rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] px-4 py-4"
                       >
-                        <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+                        <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
                           {item.label}
                         </p>
-                        <p className="mt-2 text-[1rem] font-semibold text-stone-900">
+                        <p className="mt-2 text-[1rem] font-semibold text-[var(--foreground)]">
                           {item.value}
                         </p>
-                        <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
+                        <p className="mt-2 text-[0.95rem] leading-7 text-[var(--text-secondary)]">
                           {item.note}
                         </p>
                       </a>
@@ -101,7 +101,7 @@ export default function ContactPage() {
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Send Us Your Requirement
               </h2>
-              <p className="mt-4 max-w-[60ch] text-[1rem] leading-8 text-[#6b5a5b]">
+              <p className="mt-4 max-w-[60ch] text-[1rem] leading-8 text-[var(--text-secondary)]">
                 Use this contact section for cake delivery questions in
                 Hyderabad, custom cake inquiries, bulk celebration orders, and
                 support related to timing, flavors, and order updates.
@@ -142,7 +142,7 @@ export default function ContactPage() {
               </div>
             </article>
 
-            <article className="rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
+            <article className="rounded-[24px] border border-[rgba(119,23,28,0.18)] bg-[var(--surface-accent)] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Helpful Pages Before You Order
               </h2>
@@ -172,8 +172,8 @@ export default function ContactPage() {
                     href={item.href}
                     className="block rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-white px-5 py-4"
                   >
-                    <p className="text-[1rem] font-semibold text-stone-900">{item.title}</p>
-                    <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
+                    <p className="text-[1rem] font-semibold text-[var(--foreground)]">{item.title}</p>
+                    <p className="mt-2 text-[0.95rem] leading-7 text-[var(--text-secondary)]">
                       {item.description}
                     </p>
                   </Link>

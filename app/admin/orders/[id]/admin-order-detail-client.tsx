@@ -52,7 +52,7 @@ export function AdminOrderDetailClient({ order }: { order: Order }) {
     <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
       <div className="grid gap-5 md:grid-cols-2">
         <label className="space-y-2">
-          <span className="text-[0.9rem] font-semibold text-stone-900">Order Status</span>
+          <span className="text-[0.9rem] font-semibold text-[var(--foreground)]">Order Status</span>
           <select
             value={status}
             className="w-full rounded-[14px] border border-[rgba(0,0,0,0.12)] px-4 py-3 capitalize"
@@ -68,7 +68,7 @@ export function AdminOrderDetailClient({ order }: { order: Order }) {
         </label>
 
         <label className="space-y-2">
-          <span className="text-[0.9rem] font-semibold text-stone-900">Payment Status</span>
+          <span className="text-[0.9rem] font-semibold text-[var(--foreground)]">Payment Status</span>
           <select
             value={paymentStatus}
             className="w-full rounded-[14px] border border-[rgba(0,0,0,0.12)] px-4 py-3 capitalize"
@@ -83,7 +83,7 @@ export function AdminOrderDetailClient({ order }: { order: Order }) {
       </div>
 
       <label className="mt-5 block space-y-2">
-        <span className="text-[0.9rem] font-semibold text-stone-900">Internal Notes</span>
+        <span className="text-[0.9rem] font-semibold text-[var(--foreground)]">Internal Notes</span>
         <textarea
           rows={5}
           value={notes}
@@ -107,7 +107,7 @@ export function AdminOrderDetailClient({ order }: { order: Order }) {
       <button
         type="button"
         disabled={isPending}
-        className="mt-5 rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+        className="mt-5 rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         onClick={handleSave}
       >
         {isPending ? "Saving..." : "Save Order Changes"}

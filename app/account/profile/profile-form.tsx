@@ -104,13 +104,13 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
         className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-8"
       >
         <h1 className="text-[2rem] font-semibold text-black">Profile</h1>
-        <p className="mt-2 text-[1rem] leading-7 text-[#6b5a5b]">
+        <p className="mt-2 text-[1rem] leading-7 text-[var(--text-secondary)]">
           Your customer details for order updates and checkout.
         </p>
 
         <div className="mt-6 space-y-4">
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="profile-name">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="profile-name">
               Name
             </label>
             <input
@@ -123,7 +123,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
           </div>
 
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="profile-email">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="profile-email">
               Email
             </label>
             <input
@@ -131,12 +131,12 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
               type="email"
               value={email}
               readOnly
-              className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-[#f7f7f9] px-4 py-3 text-[#6b5a5b]"
+              className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-[#f7f7f9] px-4 py-3 text-[var(--text-secondary)]"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="profile-phone">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="profile-phone">
               Phone Number
             </label>
             <input
@@ -164,7 +164,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
         <button
           disabled={isSavingProfile}
-          className="mt-6 w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="mt-6 w-full rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isSavingProfile ? "Saving..." : "Save Profile"}
         </button>
@@ -172,17 +172,17 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
       <form
         onSubmit={changePassword}
-        className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fff8f2] p-6 sm:p-8"
+        className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[var(--background)] p-6 sm:p-8"
       >
         <h2 className="text-[1.6rem] font-semibold text-black">Change Password</h2>
-        <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
+        <p className="mt-2 text-[0.95rem] leading-7 text-[var(--text-secondary)]">
           Use your current password to set a new one.
         </p>
 
         <div className="mt-6 space-y-4">
           <div className="space-y-2">
             <label
-              className="text-[0.9rem] font-semibold text-stone-900"
+              className="text-[0.9rem] font-semibold text-[var(--foreground)]"
               htmlFor="current-password"
             >
               Current Password
@@ -199,7 +199,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
           </div>
 
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="new-password">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="new-password">
               New Password
             </label>
             <input
@@ -216,7 +216,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
           <div className="space-y-2">
             <label
-              className="text-[0.9rem] font-semibold text-stone-900"
+              className="text-[0.9rem] font-semibold text-[var(--foreground)]"
               htmlFor="confirm-new-password"
             >
               Confirm New Password
@@ -248,7 +248,7 @@ export function ProfileForm({ initialName, email, initialPhone }: ProfileFormPro
 
         <button
           disabled={isChangingPassword}
-          className="mt-6 w-full rounded-full border border-[#86171c] px-6 py-3 text-[1rem] font-semibold text-[#86171c] disabled:opacity-70"
+          className="mt-6 w-full rounded-full border border-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-[var(--brand-primary)] disabled:opacity-70"
         >
           {isChangingPassword ? "Changing..." : "Change Password"}
         </button>

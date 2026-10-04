@@ -153,7 +153,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-[2rem] font-semibold text-black">Dashboard</h2>
-          <p className="mt-1 text-[0.95rem] text-[#6b5a5b]">
+          <p className="mt-1 text-[0.95rem] text-[var(--text-secondary)]">
             Last updated: {lastUpdatedAt.toLocaleTimeString("en-IN")}{" "}
             {isRefreshing ? "(refreshing...)" : ""}
           </p>
@@ -166,8 +166,8 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
               onClick={() => setRange(option.id)}
               className={`rounded-full px-4 py-2 text-sm font-semibold ${
                 range === option.id
-                  ? "bg-[#86171c] text-white"
-                  : "border border-[rgba(0,0,0,0.14)] text-stone-700"
+                  ? "bg-[var(--brand-primary)] text-white"
+                  : "border border-[rgba(0,0,0,0.14)] text-[var(--foreground)]"
               }`}
             >
               {option.label}
@@ -251,13 +251,13 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
           <div className="mt-5 grid gap-2">
             {trendPoints.map((point) => (
               <div key={point.label}>
-                <div className="mb-1 flex items-center justify-between text-[0.8rem] text-stone-600">
+                <div className="mb-1 flex items-center justify-between text-[0.8rem] text-[var(--text-secondary)]">
                   <span>{point.label}</span>
                   <span>Rs. {formatCurrency(point.value)}</span>
                 </div>
                 <div className="h-2 rounded-full bg-[#f2f4f7]">
                   <div
-                    className="h-full rounded-full bg-[#86171c]"
+                    className="h-full rounded-full bg-[var(--brand-primary)]"
                     style={{ width: `${Math.min(100, (point.value / Math.max(point.target, 1)) * 100)}%` }}
                   />
                 </div>
@@ -281,11 +281,11 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
                 <div key={status} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
-                    <span className="text-[0.9rem] capitalize text-stone-700">
+                    <span className="text-[0.9rem] capitalize text-[var(--foreground)]">
                       {status.replaceAll("_", " ")}
                     </span>
                   </div>
-                  <span className="font-semibold text-stone-900">{statusCounts.get(status) ?? 0}</span>
+                  <span className="font-semibold text-[var(--foreground)]">{statusCounts.get(status) ?? 0}</span>
                 </div>
               ))}
             </div>
@@ -306,8 +306,8 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
                 .slice(0, 10)
                 .map(([name, count]) => (
                   <div key={name} className="flex items-center justify-between rounded-[10px] bg-[#f8fafc] px-3 py-2">
-                    <span className="truncate pr-3 text-[0.9rem] text-stone-700">{name}</span>
-                    <span className="font-semibold text-stone-900">{count}</span>
+                    <span className="truncate pr-3 text-[0.9rem] text-[var(--foreground)]">{name}</span>
+                    <span className="font-semibold text-[var(--foreground)]">{count}</span>
                   </div>
                 ))}
             </div>
@@ -318,14 +318,14 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
       <section className="min-w-0 rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
         <div className="flex items-center justify-between gap-4">
           <h3 className="text-[1.2rem] font-semibold text-black">Recent Orders</h3>
-          <Link href="/admin/orders" className="text-[0.9rem] font-semibold text-[#86171c]">
+          <Link href="/admin/orders" className="text-[0.9rem] font-semibold text-[var(--brand-primary)]">
             View All Orders
           </Link>
         </div>
         <div className="mt-4 max-w-full overflow-x-auto">
           <table className="w-full min-w-[980px] text-left text-sm">
             <thead>
-              <tr className="text-[0.74rem] uppercase tracking-[0.12em] text-stone-500">
+              <tr className="text-[0.74rem] uppercase tracking-[0.12em] text-[var(--text-secondary)]">
                 <th className="px-3 py-2">Order #</th>
                 <th className="px-3 py-2">Customer</th>
                 <th className="px-3 py-2">Items</th>
@@ -347,7 +347,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
 
                 return (
                   <tr key={order.id} className={`border-t border-[rgba(0,0,0,0.06)] ${rowTone}`}>
-                    <td className="px-3 py-3 font-semibold text-stone-900">{order.orderNumber}</td>
+                    <td className="px-3 py-3 font-semibold text-[var(--foreground)]">{order.orderNumber}</td>
                     <td className="px-3 py-3">{order.customer.fullName}</td>
                     <td className="px-3 py-3 text-[#5b6687]">
                       {order.items.map((item) => `${item.quantity}x ${item.name}`).join(", ")}
@@ -361,7 +361,7 @@ export function AdminDashboardClient({ initialOrders }: AdminDashboardClientProp
                       <div className="flex items-center gap-2">
                         <Link
                           href={`/admin/orders/${order.id}`}
-                          className="rounded-full border border-[rgba(0,0,0,0.14)] px-3 py-1.5 text-xs font-semibold text-stone-700"
+                          className="rounded-full border border-[rgba(0,0,0,0.14)] px-3 py-1.5 text-xs font-semibold text-[var(--foreground)]"
                         >
                           View
                         </Link>
@@ -402,8 +402,8 @@ function KpiCard({
   const content = (
     <article className="rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-5 shadow-[0_8px_18px_rgba(0,0,0,0.05)]">
       <div className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${colorClass}`}>{label}</div>
-      <p className="mt-3 text-[1.6rem] font-semibold text-stone-900">{value}</p>
-      <p className="mt-1 text-[0.85rem] text-[#6b5a5b]">{delta}</p>
+      <p className="mt-3 text-[1.6rem] font-semibold text-[var(--foreground)]">{value}</p>
+      <p className="mt-1 text-[0.85rem] text-[var(--text-secondary)]">{delta}</p>
     </article>
   );
 
@@ -418,7 +418,7 @@ function AlertRow({ text, actionLabel, href }: { text: string; actionLabel: stri
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#f5c9b7] bg-white px-4 py-3">
       <p className="text-[0.92rem] font-medium text-[#8f3e1d]">{text}</p>
-      <Link href={href} className="rounded-full bg-[#86171c] px-4 py-2 text-xs font-semibold text-white">
+      <Link href={href} className="rounded-full bg-[var(--brand-primary)] px-4 py-2 text-xs font-semibold text-white">
         {actionLabel}
       </Link>
     </div>

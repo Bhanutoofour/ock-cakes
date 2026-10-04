@@ -132,7 +132,7 @@ export function InquiryForm({
       {fields.map((field) => (
         <div key={field.name} className="space-y-2">
           <label
-            className="text-[0.9rem] font-semibold text-stone-900"
+            className="text-[0.9rem] font-semibold text-[var(--foreground)]"
             htmlFor={field.name}
           >
             {field.label}
@@ -177,13 +177,13 @@ export function InquiryForm({
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Sending..." : primaryLabel}
         </button>
         <button
           type="button"
-          className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-stone-900"
+          className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-[1rem] font-semibold text-[var(--foreground)]"
           onClick={handleWhatsApp}
         >
           {secondaryLabel}

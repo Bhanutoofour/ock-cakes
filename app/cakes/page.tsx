@@ -66,7 +66,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
               <h1 className="text-[clamp(1.55rem,1.15rem+1.2vw,2.1rem)] font-semibold leading-tight text-black">
                 Search results for &quot;{searchQuery}&quot;
               </h1>
-              <p className="mt-2 text-[0.98rem] text-stone-600">
+              <p className="mt-2 text-[0.98rem] text-[var(--text-secondary)]">
                 {filteredProducts.length} products found
               </p>
             </div>
@@ -78,7 +78,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                   <h1 className="section-title">
                     {selectedCategory ? selectedCategory : "All cakes"}
                   </h1>
-                  <p className="mt-4 max-w-2xl text-base leading-8 text-stone-600">
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--text-secondary)]">
                     Browse {filteredProducts.length} products from our Occasionkart
                     catalog. Use filters to narrow down by category, price, or search.
                   </p>
@@ -97,12 +97,12 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                   name="q"
                   defaultValue={searchQuery}
                   placeholder="Search cakes..."
-                  className="w-full max-w-[280px] rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-stone-700"
+                  className="w-full max-w-[280px] rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-[var(--foreground)]"
                 />
                 <select
                   name="sort"
                   defaultValue={sort}
-                  className="rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-stone-700"
+                  className="rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm text-[var(--foreground)]"
                 >
                   <option value="">Sort</option>
                   <option value="price-asc">Price: Low to High</option>
@@ -113,7 +113,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                 ) : null}
                 <button
                   type="submit"
-                  className="rounded-full bg-[#86171c] px-5 py-2 text-sm font-semibold text-white"
+                  className="rounded-full bg-[var(--brand-primary)] px-5 py-2 text-sm font-semibold text-white"
                 >
                   Apply
                 </button>
@@ -125,7 +125,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                   className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                     !selectedCategory
                       ? "bg-[var(--brand-brown)] text-white"
-                      : "border border-[var(--line)] bg-white text-stone-700"
+                      : "border border-[var(--line)] bg-white text-[var(--foreground)]"
                   }`}
                 >
                   All
@@ -142,7 +142,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
                       className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                         active
                           ? "bg-[var(--brand-brown)] text-white"
-                          : "border border-[var(--line)] bg-white text-stone-700 hover:border-[var(--brand-red)] hover:text-[var(--brand-red)]"
+                          : "border border-[var(--line)] bg-white text-[var(--foreground)] hover:border-[var(--brand-red)] hover:text-[var(--brand-red)]"
                       }`}
                     >
                       {item}
@@ -160,21 +160,21 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
           </div>
 
           {!hasSearchQuery ? (
-            <section className="mt-12 rounded-[26px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-6 sm:p-8">
+            <section className="mt-12 rounded-[26px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] p-6 sm:p-8">
               <h2 className="text-[1.55rem] font-semibold text-[var(--brand-brown)]">
                 Order Cakes Online in Hyderabad with Same Day Delivery
               </h2>
-              <p className="mt-4 text-[1rem] leading-8 text-[#6b5a5b]">
+              <p className="mt-4 text-[1rem] leading-8 text-[var(--text-secondary)]">
                 {buildCollectionSeoDescription(selectedCategory ?? "cake", filteredProducts.length)}
               </p>
-              <p className="mt-3 text-[1rem] leading-8 text-[#6b5a5b]">{buildGeoCoverageLine()}</p>
+              <p className="mt-3 text-[1rem] leading-8 text-[var(--text-secondary)]">{buildGeoCoverageLine()}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {buildCollectionKeywords(selectedCategory ?? "cake")
                   .slice(0, 10)
                   .map((keyword) => (
                     <span
                       key={keyword}
-                      className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-stone-700"
+                      className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-[var(--foreground)]"
                     >
                       {keyword}
                     </span>

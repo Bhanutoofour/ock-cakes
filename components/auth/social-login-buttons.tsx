@@ -96,7 +96,7 @@ export function SocialLoginButtons() {
     <div className="space-y-3">
       <div className="flex items-center gap-3">
         <span className="h-px flex-1 bg-[rgba(0,0,0,0.12)]" />
-        <span className="text-[0.82rem] font-semibold uppercase text-[#6b5a5b]">
+        <span className="text-[0.82rem] font-semibold uppercase text-[var(--text-secondary)]">
           Or use
         </span>
         <span className="h-px flex-1 bg-[rgba(0,0,0,0.12)]" />
@@ -112,7 +112,7 @@ export function SocialLoginButtons() {
               type="button"
               disabled={pendingProvider !== null}
               onClick={() => signInWithProvider(item.provider)}
-              className="flex min-h-12 items-center justify-center gap-3 rounded-full border border-[rgba(0,0,0,0.14)] bg-white px-4 py-3 text-[0.95rem] font-semibold text-stone-900 transition duration-200 hover:border-stone-900 disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex min-h-12 items-center justify-center gap-3 rounded-full border border-[rgba(0,0,0,0.14)] bg-white px-4 py-3 text-[0.95rem] font-semibold text-[var(--foreground)] transition duration-200 hover:border-stone-900 disabled:cursor-not-allowed disabled:opacity-70"
             >
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#f7f7f9]">
                 <SocialProviderIcon provider={item.provider} />

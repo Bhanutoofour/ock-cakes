@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/store/cart-context";
 import { WhatsAppChatButton } from "@/components/store/whatsapp-chat-button";
@@ -7,15 +7,16 @@ import { toJsonLd } from "@/lib/json-ld";
 import { buildSeoKeywords } from "@/lib/seo-content";
 import { siteSeo } from "@/lib/seo";
 
-const manrope = Manrope({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const cormorant = Cormorant_Garamond({
+  weight: "600",
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#86171c",
+  themeColor: "#77171C",
 };
 
 const organizationSchema = {
@@ -97,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${fraunces.variable} h-full scroll-smooth antialiased`}
+      className={`${dmSans.variable} ${cormorant.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <script

@@ -104,13 +104,13 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
         <div className="page-pad mx-auto flex max-w-[1720px] items-center gap-3 py-3 md:gap-4">
           <button
             type="button"
-            className="inline-flex h-10 items-center gap-2 rounded-lg border border-[rgba(0,0,0,0.12)] px-2.5 text-stone-800 md:hidden"
+            className="inline-flex h-10 items-center gap-2 rounded-lg border border-[rgba(0,0,0,0.12)] px-2.5 text-[var(--foreground)] md:hidden"
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
           >
-            <span className="text-[0.82rem] font-semibold uppercase tracking-[0.08em]">Menu</span>
+            <span className="sr-only sm:not-sr-only sm:text-[0.82rem] sm:font-semibold">Menu</span>
             <svg viewBox="0 0 24 24" className="h-5 w-5 stroke-current" fill="none" strokeWidth="2">
               <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
             </svg>
@@ -119,20 +119,20 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
           <Link href="/" className="shrink-0">
             <Image
               src="/brand/occasionkart-logo.png"
-              alt="Occasionkart"
+              alt="OccasionKart"
               width={794}
               height={385}
               priority
-              className="h-9 w-auto sm:h-10 md:h-14"
+              className="h-auto w-[180px]"
             />
           </Link>
 
           <div className="hidden flex-1 lg:block">
             <form
               action="/cakes"
-              className="mx-auto flex max-w-[880px] items-center gap-3 rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-[#fbfbfd] px-5 py-4 text-stone-400"
+              className="mx-auto flex max-w-[880px] items-center gap-3 rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-[var(--background)] px-5 py-4 text-[var(--text-secondary)]"
             >
-              <span className="text-[1rem] font-medium text-stone-400">Search</span>
+              <span className="text-[1rem] font-medium text-[var(--text-secondary)]">Search</span>
               <input
                 type="text"
                 name="q"
@@ -195,7 +195,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
                 <circle cx="18" cy="20" r="1.5" fill="currentColor" stroke="none" />
                 <path d="M3 4h2l2.2 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 7H7" />
               </svg>
-              <span className="absolute -right-1 -top-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-[#86171c] px-1.5 text-sm font-semibold text-white">
+              <span className="absolute -right-1 -top-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-[var(--brand-primary)] px-1.5 text-sm font-semibold text-white">
                 {hasMounted ? cartCount : 0}
               </span>
             </Link>
@@ -204,7 +204,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
       </div>
 
       <div className="relative hidden overflow-visible border-b border-[rgba(0,0,0,0.08)] md:block">
-        <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 overflow-x-auto py-4 text-[1rem] font-semibold text-stone-900">
+        <nav className="page-pad mx-auto flex max-w-[1720px] items-center gap-7 overflow-x-auto py-4 text-[1rem] font-semibold text-[var(--foreground)]">
           <div>
             <button
               type="button"
@@ -240,7 +240,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
           <Link href="/corporate-orders">Corporate</Link>
           <Link href="/offers" className="inline-flex items-center gap-2">
             Offers
-            <span className="rounded-full bg-[#86171c] px-2 py-0.5 text-[0.72rem] font-bold text-white">
+            <span className="rounded-full bg-[var(--brand-primary)] px-2 py-0.5 text-[0.72rem] font-bold text-white">
               SAVE 15%
             </span>
           </Link>
@@ -249,7 +249,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
         {openDesktopMenu === "cakes" ? (
           <div
             id="desktop-cakes-mega-menu"
-            className="absolute left-1/2 top-[calc(100%-1px)] z-[220] max-h-[calc(100vh-150px)] w-[min(1260px,calc(100vw-64px))] -translate-x-1/2 overflow-y-auto rounded-b-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 text-stone-900 shadow-[0_22px_40px_rgba(0,0,0,0.14)]"
+            className="absolute left-1/2 top-[calc(100%-1px)] z-[220] max-h-[calc(100vh-150px)] w-[min(1260px,calc(100vw-64px))] -translate-x-1/2 overflow-y-auto rounded-b-[18px] border border-[rgba(0,0,0,0.12)] bg-white p-6 text-[var(--foreground)] shadow-[0_22px_40px_rgba(0,0,0,0.14)]"
           >
             <div className="grid gap-6 md:grid-cols-5">
               {cakesMegaColumns.map((column) => (
@@ -273,11 +273,11 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
             className="fixed inset-y-0 left-0 z-[80] flex w-[min(92vw,420px)] flex-col border-r border-[rgba(0,0,0,0.08)] bg-white shadow-[0_20px_44px_rgba(0,0,0,0.2)]"
           >
             <div className="flex items-center justify-between border-b border-[rgba(0,0,0,0.08)] px-4 py-3">
-              <p className="text-[0.98rem] font-semibold text-stone-900">Browse Menu</p>
+              <p className="text-[0.98rem] font-semibold text-[var(--foreground)]">Browse Menu</p>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[rgba(0,0,0,0.14)] text-stone-700"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[rgba(0,0,0,0.14)] text-[var(--foreground)]"
                 aria-label="Close menu"
               >
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 stroke-current" fill="none" strokeWidth="2">
@@ -289,7 +289,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
             <div className="border-b border-[rgba(0,0,0,0.08)] px-4 py-3">
               <form
                 action="/cakes"
-                className="rounded-[14px] border border-[rgba(0,0,0,0.12)] bg-[#fbfbfd] px-4 py-3 text-[0.95rem] text-stone-400"
+                className="rounded-[14px] border border-[rgba(0,0,0,0.12)] bg-[var(--background)] px-4 py-3 text-[0.95rem] text-[var(--text-secondary)]"
               >
                 <input
                   type="text"
@@ -310,7 +310,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
                   <div className="max-h-[52vh] space-y-3 overflow-y-auto pr-1">
                     {cakesMegaColumns.map((column) => (
                       <div key={column.title}>
-                        <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[#86171c]">
+                        <p className="px-2 text-[0.78rem] font-semibold uppercase tracking-[0.12em] text-[var(--brand-primary)]">
                           {column.title}
                         </p>
                         <div className="mt-1 space-y-1">
@@ -318,7 +318,7 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
                             <Link
                               key={item.label}
                               href={item.href}
-                              className="block rounded-[10px] px-2 py-2 text-[0.95rem] text-stone-700"
+                              className="block rounded-[10px] px-2 py-2 text-[0.95rem] text-[var(--foreground)]"
                               onClick={() => setMobileOpen(false)}
                             >
                               {item.label}
@@ -352,8 +352,8 @@ export function SiteHeader({ accountHref = "/account" }: { accountHref?: string 
 function MegaColumnBlock({ column }: { column: MegaColumn }) {
   return (
     <div>
-      <p className="text-[0.95rem] font-semibold text-[#86171c]">{column.title}</p>
-      <ul className="mt-2 space-y-1.5 text-[0.92rem] text-stone-700">
+      <p className="text-[0.95rem] font-semibold text-[var(--brand-primary)]">{column.title}</p>
+      <ul className="mt-2 space-y-1.5 text-[0.92rem] text-[var(--foreground)]">
         {column.links.map((item) => (
           <li key={item.label} className="border-b border-[rgba(0,0,0,0.06)] pb-1.5">
             <Link href={item.href}>{item.label}</Link>
@@ -379,13 +379,13 @@ function MobileAccordion({
     <div className="rounded-lg border border-[rgba(0,0,0,0.1)]">
       <button
         type="button"
-        className="flex w-full items-center justify-between px-3 py-2.5 text-left font-semibold text-stone-900"
+        className="flex w-full items-center justify-between px-3 py-2.5 text-left font-semibold text-[var(--foreground)]"
         onClick={onToggle}
       >
         {label}
         <span>{isOpen ? "-" : "+"}</span>
       </button>
-      {isOpen ? <div className="border-t border-[rgba(0,0,0,0.08)] bg-[#fff9fb] p-2">{children}</div> : null}
+      {isOpen ? <div className="border-t border-[rgba(0,0,0,0.08)] bg-[var(--surface-accent)] p-2">{children}</div> : null}
     </div>
   );
 }
@@ -403,7 +403,7 @@ function MobileLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block rounded-lg border border-[rgba(0,0,0,0.1)] px-3 py-2.5 font-semibold text-stone-900"
+      className="block rounded-lg border border-[rgba(0,0,0,0.1)] px-3 py-2.5 font-semibold text-[var(--foreground)]"
     >
       {label}
     </Link>

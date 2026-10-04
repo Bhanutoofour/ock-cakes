@@ -67,8 +67,8 @@ export function ProductSummaryPanel({
         {product.name}
       </h1>
 
-      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-[0.98rem] font-medium text-[#586786]">
-        <span className="text-stone-900">{ratingLabel}</span>
+      <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2 text-[0.98rem] font-medium text-[var(--text-secondary)]">
+        <span className="text-[var(--foreground)]">{ratingLabel}</span>
         <span className="text-[var(--brand-gold)]">&#9733;</span>
         <span>({reviewsLabel})</span>
       </div>
@@ -77,17 +77,17 @@ export function ProductSummaryPanel({
         <div className="text-[2rem] font-bold leading-none text-[var(--brand-brown)] sm:text-[2.2rem]">
           Rs. {priceFormatter.format(product.price)}
         </div>
-        <div className="rounded-full bg-[var(--cream-strong)] px-3 py-1.5 text-[0.78rem] font-semibold text-stone-700">
+        <div className="rounded-full bg-[var(--cream-strong)] px-3 py-1.5 text-[0.78rem] font-semibold text-[var(--foreground)]">
           {product.leadTime} delivery
         </div>
       </div>
 
-      <p className="mt-5 max-w-[62ch] text-[1rem] leading-8 text-stone-700 sm:text-[1.05rem]">
+      <p className="mt-5 max-w-[62ch] text-[1rem] leading-8 text-[var(--foreground)] sm:text-[1.05rem]">
         {heroIntro}
       </p>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
-        <div className="rounded-[18px] bg-[#fff8f2] px-4 py-3">
+        <div className="rounded-[18px] bg-[var(--background)] px-4 py-3">
           <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#9c7a67]">
             Fresh
           </p>
@@ -95,7 +95,7 @@ export function ProductSummaryPanel({
             Made for your slot
           </p>
         </div>
-        <div className="rounded-[18px] bg-[#fff8f2] px-4 py-3">
+        <div className="rounded-[18px] bg-[var(--background)] px-4 py-3">
           <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#9c7a67]">
             Delivery
           </p>
@@ -103,7 +103,7 @@ export function ProductSummaryPanel({
             Across Hyderabad
           </p>
         </div>
-        <div className="rounded-[18px] bg-[#fff8f2] px-4 py-3">
+        <div className="rounded-[18px] bg-[var(--background)] px-4 py-3">
           <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#9c7a67]">
             Custom
           </p>

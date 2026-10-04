@@ -62,9 +62,9 @@ export function SiteFooter() {
               alt="OccasionKart"
               width={794}
               height={385}
-              className="h-12 w-auto"
+              className="h-auto w-[180px]"
             />
-            <p className="mt-8 max-w-[320px] text-[1rem] leading-8 text-[#6b5a5b]">
+            <p className="mt-8 max-w-[320px] text-[1rem] leading-8 text-[var(--text-secondary)]">
               Fresh cakes, custom celebrations, and dependable cake delivery
               across Hyderabad.
             </p>
@@ -76,7 +76,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={item.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(0,0,0,0.1)] bg-[#fbeaec] text-[0.82rem] font-semibold text-stone-900 transition hover:border-[#86171c] hover:text-[#86171c]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(0,0,0,0.1)] bg-[var(--surface-accent)] text-[0.82rem] font-semibold text-[var(--foreground)] transition hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)]"
                 >
                   {item.icon}
                 </a>
@@ -85,8 +85,8 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="text-[1rem] font-semibold text-stone-900">Order Cakes</h2>
-            <div className="mt-6 space-y-4 text-[1rem] text-[#6b5a5b]">
+            <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Order Cakes</h2>
+            <div className="mt-6 space-y-4 text-[1rem] text-[var(--text-secondary)]">
               <Link href="/cakes" className="block">
                 All Cakes
               </Link>
@@ -109,8 +109,8 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="text-[1rem] font-semibold text-stone-900">Help & Policies</h2>
-            <div className="mt-6 space-y-4 text-[1rem] text-[#6b5a5b]">
+            <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Help & Policies</h2>
+            <div className="mt-6 space-y-4 text-[1rem] text-[var(--text-secondary)]">
               <Link href="/track-order" className="block">
                 Track Order
               </Link>
@@ -136,8 +136,8 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="text-[1rem] font-semibold text-stone-900">Contact</h2>
-            <div className="mt-6 space-y-4 text-[1rem] leading-7 text-[#6b5a5b]">
+            <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Contact</h2>
+            <div className="mt-6 space-y-4 text-[1rem] leading-7 text-[var(--text-secondary)]">
               <p>Hyderabad, Telangana, India</p>
               <p>Phone: +91 9059058058</p>
               <p>Email: support@occasionkart.com</p>
@@ -154,7 +154,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-6 border-t border-[rgba(0,0,0,0.08)] pt-8 text-[1rem] text-[#6b5a5b] lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-12 flex flex-col gap-6 border-t border-[rgba(0,0,0,0.08)] pt-8 text-[1rem] text-[var(--text-secondary)] lg:flex-row lg:items-center lg:justify-between">
           <p>(c) 2026 OccasionKart. All rights reserved.</p>
           <div className="flex flex-wrap gap-8">
             <Link href="/privacy-policy">Privacy Policy</Link>

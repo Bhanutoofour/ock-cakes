@@ -40,15 +40,15 @@ export function SameDayDeliveryPanel({
 
   return (
     <div
-      className={`rounded-[18px] border border-[rgba(134,23,28,0.22)] bg-[#fbeaec] ${
+      className={`rounded-[18px] border border-[rgba(119,23,28,0.22)] bg-[var(--surface-accent)] ${
         compact ? "p-4" : "p-5"
       }`}
     >
       <h3 className={`font-semibold text-[var(--brand-brown)] ${compact ? "text-[1.02rem]" : "text-[1.15rem]"}`}>
         {title}
       </h3>
-      <p className="mt-2 text-[0.93rem] leading-7 text-[#6b5a5b]">
-        Same-day orders close at <span className="font-semibold text-stone-900">{SAME_DAY_CUTOFF_LABEL}</span>.
+      <p className="mt-2 text-[0.93rem] leading-7 text-[var(--text-secondary)]">
+        Same-day orders close at <span className="font-semibold text-[var(--foreground)]">{SAME_DAY_CUTOFF_LABEL}</span>.
       </p>
 
       <p
@@ -65,7 +65,7 @@ export function SameDayDeliveryPanel({
         {DELIVERY_SLOT_OPTIONS.map((slot) => (
           <span
             key={slot}
-            className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-stone-700"
+            className="rounded-full border border-[rgba(0,0,0,0.1)] bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-[var(--foreground)]"
           >
             {slot}
           </span>

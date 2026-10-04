@@ -241,9 +241,9 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
               <div className="rounded-[32px] border border-[var(--line)] bg-white p-6 shadow-[0_18px_45px_rgba(77,37,28,0.06)]">
                 <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[var(--line)] pb-5">
                   <div>
-                    <p className="mt-1 text-sm text-stone-500">{product.flavor}</p>
+                    <p className="mt-1 text-sm text-[var(--text-secondary)]">{product.flavor}</p>
                   </div>
-                  <div className="rounded-full bg-[var(--cream-strong)] px-4 py-2 text-sm font-semibold text-stone-700">
+                  <div className="rounded-full bg-[var(--cream-strong)] px-4 py-2 text-sm font-semibold text-[var(--foreground)]">
                     {product.leadTime} delivery
                   </div>
                 </div>
@@ -253,11 +253,11 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
             </div>
           </div>
 
-          <section className="mt-10 rounded-[30px] border border-[var(--line)] bg-[#fff8f2] p-6 sm:p-8">
+          <section className="mt-10 rounded-[30px] border border-[var(--line)] bg-[var(--background)] p-6 sm:p-8">
             <h2 className="text-[1.45rem] font-semibold text-[var(--brand-brown)]">
               Frequently Asked Questions
             </h2>
-            <p className="mt-4 text-[0.98rem] leading-8 text-[#6b5a5b]">
+            <p className="mt-4 text-[0.98rem] leading-8 text-[var(--text-secondary)]">
               Here are the most common questions customers ask before ordering{" "}
               {product.name} online.
             </p>
@@ -268,8 +268,8 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
                   key={faq.question}
                   className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-white p-4"
                 >
-                  <h3 className="text-[1rem] font-semibold text-stone-900">{faq.question}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-7 text-[#6b5a5b]">{faq.answer}</p>
+                  <h3 className="text-[1rem] font-semibold text-[var(--foreground)]">{faq.question}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-7 text-[var(--text-secondary)]">{faq.answer}</p>
                 </article>
               ))}
             </div>
@@ -285,19 +285,19 @@ export default async function CakeDetailPage({ params }: CakeDetailPageProps) {
               <div className="flex flex-wrap gap-2 text-[0.84rem]">
                 <Link
                   href="/category/chocolate-combinations"
-                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-stone-700"
+                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-[var(--foreground)]"
                 >
                   Cake + Chocolates
                 </Link>
                 <Link
                   href="/category/heart-shape-cakes"
-                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-stone-700"
+                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-[var(--foreground)]"
                 >
                   Cake + Flowers
                 </Link>
                 <Link
                   href="/category/photo-cakes"
-                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-stone-700"
+                  className="rounded-full border border-[var(--line)] bg-white px-3 py-1.5 font-semibold text-[var(--foreground)]"
                 >
                   Photo Cake Bundles
                 </Link>

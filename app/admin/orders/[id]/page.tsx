@@ -35,13 +35,13 @@ export default async function AdminOrderDetailPage({ params }: Props) {
           <h2 className="mt-3 text-[2rem] font-semibold text-black">
             {order.customer.fullName}
           </h2>
-          <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
+          <p className="mt-2 text-[1rem] leading-8 text-[var(--text-secondary)]">
             Review items, customer details, delivery address, and fulfillment status.
           </p>
         </div>
         <Link
           href="/admin/orders"
-          className="rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-stone-900"
+          className="rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--foreground)]"
         >
           Back to Orders
         </Link>
@@ -55,16 +55,16 @@ export default async function AdminOrderDetailPage({ params }: Props) {
               {order.items.map((item) => (
                 <div
                   key={`${item.slug}-${item.quantity}`}
-                  className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5"
+                  className="rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] p-5"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-[1rem] font-semibold text-stone-900">{item.name}</p>
-                      <p className="mt-1 text-[0.94rem] text-[#6b5a5b]">
+                      <p className="text-[1rem] font-semibold text-[var(--foreground)]">{item.name}</p>
+                      <p className="mt-1 text-[0.94rem] text-[var(--text-secondary)]">
                         {item.quantity} x Rs. {item.unitPrice}
                       </p>
                     </div>
-                    <p className="text-[1rem] font-semibold text-stone-900">
+                    <p className="text-[1rem] font-semibold text-[var(--foreground)]">
                       Rs. {item.lineTotal}
                     </p>
                   </div>
@@ -79,7 +79,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
         <div className="min-w-0 space-y-6">
           <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
             <h3 className="text-[1.35rem] font-semibold text-black">Customer</h3>
-            <div className="mt-5 space-y-3 text-[0.98rem] text-stone-900">
+            <div className="mt-5 space-y-3 text-[0.98rem] text-[var(--foreground)]">
               <p>{order.customer.fullName}</p>
               <p>{order.customer.phone}</p>
               <p>{order.customer.email ?? "No email provided"}</p>
@@ -88,7 +88,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
 
           <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
             <h3 className="text-[1.35rem] font-semibold text-black">Delivery</h3>
-            <div className="mt-5 space-y-3 text-[0.98rem] text-stone-900">
+            <div className="mt-5 space-y-3 text-[0.98rem] text-[var(--foreground)]">
               <p>Date: {order.delivery.date}</p>
               <p>Slot: {order.delivery.slot ?? "Not provided"}</p>
               <p>Pincode: {order.delivery.pincode ?? "Not provided"}</p>
@@ -100,7 +100,7 @@ export default async function AdminOrderDetailPage({ params }: Props) {
 
           <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
             <h3 className="text-[1.35rem] font-semibold text-black">Summary</h3>
-            <div className="mt-5 space-y-3 text-[0.98rem] text-stone-900">
+            <div className="mt-5 space-y-3 text-[0.98rem] text-[var(--foreground)]">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>Rs. {order.pricing.subtotal}</span>

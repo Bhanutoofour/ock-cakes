@@ -23,7 +23,7 @@ export default function CorporateOrdersPage() {
             <h1 className="mt-4 max-w-[12ch] font-heading text-[2.6rem] leading-[1.05] font-semibold text-[var(--brand-brown)] sm:text-[3.2rem]">
               Corporate Cake Orders in Hyderabad
             </h1>
-            <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[#6b5a5b]">
+            <p className="mt-6 max-w-[66ch] text-[1rem] leading-8 text-[var(--text-secondary)]">
               OccasionKart supports office celebrations, employee birthdays,
               milestone parties, launch events, and branded corporate cake
               requirements across Hyderabad. If you need premium presentation,
@@ -38,7 +38,7 @@ export default function CorporateOrdersPage() {
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Request a Corporate Cake Quote
               </h2>
-              <p className="mt-4 text-[1rem] leading-8 text-[#6b5a5b]">
+              <p className="mt-4 text-[1rem] leading-8 text-[var(--text-secondary)]">
                 Share event size, date, delivery location, quantity, and design
                 requirements so we can help with the right corporate cake plan.
               </p>
@@ -83,23 +83,23 @@ export default function CorporateOrdersPage() {
               </div>
             </article>
 
-            <article className="rounded-[24px] border border-[rgba(134,23,28,0.18)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
+            <article className="rounded-[24px] border border-[rgba(119,23,28,0.18)] bg-[var(--surface-accent)] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.05)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
                 Suitable for
               </h2>
-              <div className="mt-6 space-y-3 text-[0.98rem] leading-7 text-[#6b5a5b]">
+              <div className="mt-6 space-y-3 text-[0.98rem] leading-7 text-[var(--text-secondary)]">
                 <p>Employee birthdays and monthly celebrations</p>
                 <p>Office milestone events and team recognition</p>
                 <p>Product launches and corporate gifting moments</p>
                 <p>Bulk dessert or cake support for internal events</p>
               </div>
-              <p className="mt-6 text-[1rem] leading-8 text-[#6b5a5b]">
+              <p className="mt-6 text-[1rem] leading-8 text-[var(--text-secondary)]">
                 Need design inspiration first? Explore the{" "}
-                <Link href="/gallery" className="font-semibold text-[#86171c]">
+                <Link href="/gallery" className="font-semibold text-[var(--brand-primary)]">
                   Gallery
                 </Link>{" "}
                 or visit{" "}
-                <Link href="/custom-orders" className="font-semibold text-[#86171c]">
+                <Link href="/custom-orders" className="font-semibold text-[var(--brand-primary)]">
                   Custom Orders
                 </Link>
                 .

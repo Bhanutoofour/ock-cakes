@@ -29,7 +29,7 @@ export default async function AdminMarketingPage() {
       <div>
         <p className="section-kicker">Marketing</p>
         <h2 className="mt-2 text-[2rem] font-semibold text-black">Customer Growth & Retention</h2>
-        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[#6b5a5b]">
+        <p className="mt-2 max-w-[72ch] text-[1rem] leading-8 text-[var(--text-secondary)]">
           Focus this week on repeat customers, average order value, and reactivation campaigns for
           Hyderabad celebration buyers.
         </p>
@@ -37,22 +37,22 @@ export default async function AdminMarketingPage() {
 
       <div className="grid gap-5 sm:grid-cols-3">
         <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
             Paid Orders
           </p>
-          <p className="mt-3 text-[2rem] font-semibold text-stone-900">{paidOrders.length}</p>
+          <p className="mt-3 text-[2rem] font-semibold text-[var(--foreground)]">{paidOrders.length}</p>
         </div>
         <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
             Repeat Rate
           </p>
-          <p className="mt-3 text-[2rem] font-semibold text-stone-900">{repeatRate}%</p>
+          <p className="mt-3 text-[2rem] font-semibold text-[var(--foreground)]">{repeatRate}%</p>
         </div>
         <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-6">
-          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+          <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
             Avg Order Value
           </p>
-          <p className="mt-3 text-[2rem] font-semibold text-stone-900">Rs. {averageOrderValue}</p>
+          <p className="mt-3 text-[2rem] font-semibold text-[var(--foreground)]">Rs. {averageOrderValue}</p>
         </div>
       </div>
 
@@ -61,7 +61,7 @@ export default async function AdminMarketingPage() {
           <h3 className="text-[1.3rem] font-semibold text-black">Top Customer Segments</h3>
           <Link
             href="/admin/customers"
-            className="rounded-full border border-[rgba(0,0,0,0.12)] px-4 py-2 text-[0.9rem] font-semibold text-stone-900"
+            className="rounded-full border border-[rgba(0,0,0,0.12)] px-4 py-2 text-[0.9rem] font-semibold text-[var(--foreground)]"
           >
             Open Customers
           </Link>
@@ -70,16 +70,16 @@ export default async function AdminMarketingPage() {
           {topCustomers.map((customer) => (
             <div
               key={customer.key}
-              className="rounded-[14px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] px-4 py-3"
+              className="rounded-[14px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] px-4 py-3"
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="font-semibold text-stone-900">{customer.name}</p>
-                  <p className="text-[0.9rem] text-[#6b5a5b]">{customer.email ?? customer.phone}</p>
+                  <p className="font-semibold text-[var(--foreground)]">{customer.name}</p>
+                  <p className="text-[0.9rem] text-[var(--text-secondary)]">{customer.email ?? customer.phone}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-[0.9rem] text-stone-700">{customer.ordersCount} orders</p>
-                  <p className="font-semibold text-stone-900">Rs. {customer.totalSpent}</p>
+                  <p className="text-[0.9rem] text-[var(--foreground)]">{customer.ordersCount} orders</p>
+                  <p className="font-semibold text-[var(--foreground)]">Rs. {customer.totalSpent}</p>
                 </div>
               </div>
             </div>

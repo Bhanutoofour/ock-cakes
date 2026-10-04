@@ -299,7 +299,7 @@ export function CheckoutPageClient() {
         order_id: razorpay.orderId,
         prefill: razorpay.prefill,
         theme: {
-          color: "#86171c",
+          color: "#77171C",
         },
         handler: async (paymentResponse: {
           razorpay_order_id: string;
@@ -353,7 +353,7 @@ export function CheckoutPageClient() {
       <div className="mx-auto grid max-w-[1180px] gap-8 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h1 className="text-[2rem] font-semibold text-black">Checkout</h1>
-          <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
+          <p className="mt-2 text-[1rem] leading-8 text-[var(--text-secondary)]">
             Complete your order in steps: address and delivery slot, cake message and sender,
             then review and pay with Razorpay.
           </p>
@@ -370,8 +370,8 @@ export function CheckoutPageClient() {
                     onClick={() => setStep(stepNumber)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold ${
                       active
-                        ? "bg-[#86171c] text-white"
-                        : "border border-[rgba(0,0,0,0.12)] text-stone-700"
+                        ? "bg-[var(--brand-primary)] text-white"
+                        : "border border-[rgba(0,0,0,0.12)] text-[var(--foreground)]"
                     }`}
                   >
                     {stepNumber}. {title}
@@ -386,75 +386,75 @@ export function CheckoutPageClient() {
                   <input
                     value={draft.fullName}
                     onChange={(event) => updateDraftField("fullName", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Full name"
                   />
                   <input
                     value={draft.phone}
                     onChange={(event) => updateDraftField("phone", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Phone number"
                   />
                   <input
                     value={draft.alternatePhone}
                     onChange={(event) => updateDraftField("alternatePhone", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Alternate phone number (optional)"
                   />
                   <input
                     value={draft.email}
                     onChange={(event) => updateDraftField("email", event.target.value)}
                     type="email"
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Email (optional)"
                   />
                   <input
                     value={draft.houseNumber}
                     onChange={(event) => updateDraftField("houseNumber", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="H No"
                   />
                   <input
                     value={draft.aptLane}
                     onChange={(event) => updateDraftField("aptLane", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Apt name / Lane name"
                   />
                   <input
                     value={draft.landmark}
                     onChange={(event) => updateDraftField("landmark", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Landmark (optional)"
                   />
                   <input
                     value={draft.colonyArea}
                     onChange={(event) => updateDraftField("colonyArea", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Colony / Area"
                   />
                   <input
                     value={draft.mapLink}
                     onChange={(event) => updateDraftField("mapLink", event.target.value)}
                     type="url"
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Google map link (optional)"
                   />
                   <input
                     value={draft.city}
                     onChange={(event) => updateDraftField("city", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="City"
                   />
                   <input
                     value={draft.deliveryDate}
                     onChange={(event) => updateDraftField("deliveryDate", event.target.value)}
                     type="date"
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                   />
                   <input
                     value={draft.deliveryPincode}
                     onChange={(event) => updateDraftField("deliveryPincode", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Delivery pincode"
                     maxLength={6}
                     inputMode="numeric"
@@ -463,20 +463,20 @@ export function CheckoutPageClient() {
                     value={draft.state}
                     readOnly
                     disabled
-                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="State"
                   />
                   <input
                     value={draft.country}
                     readOnly
                     disabled
-                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-stone-100 px-4 py-3 text-sm text-[var(--foreground)]"
                     placeholder="Country"
                   />
                   <select
                     value={draft.deliverySlot}
                     onChange={(event) => updateDraftField("deliverySlot", event.target.value)}
-                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                    className="rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                   >
                     {DELIVERY_SLOT_OPTIONS.map((slot) => (
                       <option key={slot} value={slot}>
@@ -497,7 +497,7 @@ export function CheckoutPageClient() {
                 <button
                   type="button"
                   onClick={handleContinueFromStepOne}
-                  className="rounded-full bg-[#86171c] px-6 py-3 text-sm font-semibold text-white"
+                  className="rounded-full bg-[var(--brand-primary)] px-6 py-3 text-sm font-semibold text-white"
                 >
                   Continue to Message
                 </button>
@@ -509,27 +509,27 @@ export function CheckoutPageClient() {
                 <input
                   value={draft.cakeMessage}
                   onChange={(event) => updateDraftField("cakeMessage", event.target.value)}
-                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                   placeholder="Message on cake (e.g., Happy Birthday Rahul)"
                 />
                 <input
                   value={draft.senderName}
                   onChange={(event) => updateDraftField("senderName", event.target.value)}
-                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-stone-700"
+                  className="w-full rounded-[14px] border border-[var(--line)] bg-white px-4 py-3 text-sm text-[var(--foreground)]"
                   placeholder="Sender name (e.g., From Mom & Dad)"
                 />
                 <div className="flex flex-wrap gap-3">
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
+                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-[var(--foreground)]"
                   >
                     Back
                   </button>
                   <button
                     type="button"
                     onClick={handleContinueFromStepTwo}
-                    className="rounded-full bg-[#86171c] px-6 py-3 text-sm font-semibold text-white"
+                    className="rounded-full bg-[var(--brand-primary)] px-6 py-3 text-sm font-semibold text-white"
                   >
                     Continue to Review
                   </button>
@@ -538,63 +538,63 @@ export function CheckoutPageClient() {
             ) : null}
 
             {step === 3 ? (
-              <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-5">
-                <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+              <div className="mt-6 space-y-4 rounded-[18px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] p-5">
+                <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
                   Review Order
                 </p>
-                <div className="space-y-2 text-[0.95rem] leading-7 text-[#6b5a5b]">
+                <div className="space-y-2 text-[0.95rem] leading-7 text-[var(--text-secondary)]">
                   <p>
-                    <span className="font-semibold text-stone-900">Delivery:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Delivery:</span>{" "}
                     {draft.deliveryDate} | {draft.deliverySlot}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Pincode:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Pincode:</span>{" "}
                     {draft.deliveryPincode}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">H No:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">H No:</span>{" "}
                     {draft.houseNumber}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Apt/Lane:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Apt/Lane:</span>{" "}
                     {draft.aptLane}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Landmark:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Landmark:</span>{" "}
                     {draft.landmark || "Not provided"}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Colony/Area:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Colony/Area:</span>{" "}
                     {draft.colonyArea}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">City:</span> {draft.city}
+                    <span className="font-semibold text-[var(--foreground)]">City:</span> {draft.city}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">State:</span> {draft.state}
+                    <span className="font-semibold text-[var(--foreground)]">State:</span> {draft.state}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Country:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Country:</span>{" "}
                     {draft.country}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Google Map Link:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Google Map Link:</span>{" "}
                     {draft.mapLink || "Not provided"}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Alternate Phone:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Alternate Phone:</span>{" "}
                     {draft.alternatePhone || "Not provided"}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Cake Message:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Cake Message:</span>{" "}
                     {draft.cakeMessage || "No message"}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Sender Name:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Sender Name:</span>{" "}
                     {draft.senderName || "Not provided"}
                   </p>
                   <p>
-                    <span className="font-semibold text-stone-900">Items:</span>{" "}
+                    <span className="font-semibold text-[var(--foreground)]">Items:</span>{" "}
                     {items.map((item) => `${item.name} x ${item.quantity}`).join(", ")}
                   </p>
                 </div>
@@ -602,7 +602,7 @@ export function CheckoutPageClient() {
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-stone-900"
+                    className="rounded-full border border-[rgba(0,0,0,0.12)] px-6 py-3 text-sm font-semibold text-[var(--foreground)]"
                   >
                     Back
                   </button>
@@ -610,7 +610,7 @@ export function CheckoutPageClient() {
                     type="button"
                     onClick={handlePlaceOrder}
                     disabled={isSubmitting}
-                    className="rounded-full bg-[#86171c] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
+                    className="rounded-full bg-[var(--brand-primary)] px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {isSubmitting ? "Processing..." : "Place Order & Pay"}
                   </button>
@@ -626,12 +626,12 @@ export function CheckoutPageClient() {
           ) : null}
         </div>
 
-        <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[#fbeaec] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
+        <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[var(--surface-accent)] p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
           <h2 className="text-[1.4rem] font-semibold text-black">Order Summary</h2>
-            <div className="mt-5 space-y-3 text-[1rem] text-[#6b5a5b]">
+            <div className="mt-5 space-y-3 text-[1rem] text-[var(--text-secondary)]">
             <div>
               <label
-                className="mb-1 block text-[0.82rem] font-semibold uppercase tracking-[0.14em] text-[#86171c]"
+                className="mb-1 block text-[0.82rem] font-semibold uppercase tracking-[0.14em] text-[var(--brand-primary)]"
                 htmlFor="coupon-code"
               >
                 Coupon Code
@@ -642,7 +642,7 @@ export function CheckoutPageClient() {
                 onChange={(event) =>
                   updateDraftField("couponCode", event.target.value.toUpperCase())
                 }
-                className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-white px-3 py-2 text-[0.92rem] text-stone-700"
+                className="w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-white px-3 py-2 text-[0.92rem] text-[var(--foreground)]"
                 placeholder="Enter coupon code"
               />
               {draft.couponCode.trim() ? (
@@ -691,7 +691,7 @@ export function CheckoutPageClient() {
           </div>
           <Link
             href="/cart"
-            className="mt-5 inline-flex rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-stone-900"
+            className="mt-5 inline-flex rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--foreground)]"
           >
             Back to cart
           </Link>

@@ -41,21 +41,21 @@ export default async function AccountOrdersPage() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <h1 className="text-[2rem] font-semibold text-black">My Orders</h1>
-                <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
+                <p className="mt-2 text-[1rem] leading-8 text-[var(--text-secondary)]">
                   Orders placed while signed in to your OccasionKart account appear
                   here.
                 </p>
               </div>
               <Link
                 href="/track-order"
-                className="rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-stone-900"
+                className="rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--foreground)]"
               >
                 Track by Order Number
               </Link>
             </div>
 
             {orders.length === 0 ? (
-              <div className="mt-8 rounded-[18px] bg-[#fff8f2] p-6 text-[#6b5a5b]">
+              <div className="mt-8 rounded-[18px] bg-[var(--background)] p-6 text-[var(--text-secondary)]">
                 No signed-in orders yet. Place your next order from checkout while
                 logged in and it will appear here.
               </div>
@@ -64,19 +64,19 @@ export default async function AccountOrdersPage() {
                 {orders.map((order) => (
                   <article
                     key={order.id}
-                    className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[#fff8f2] p-6"
+                    className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] p-6"
                   >
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
+                        <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[var(--brand-primary)]">
                           {order.orderNumber}
                         </p>
-                        <h2 className="mt-2 text-[1.3rem] font-semibold text-stone-900">
+                        <h2 className="mt-2 text-[1.3rem] font-semibold text-[var(--foreground)]">
                           {order.items
                             .map((item) => `${item.name} x ${item.quantity}`)
                             .join(", ")}
                         </h2>
-                        <p className="mt-2 text-[0.95rem] text-[#6b5a5b]">
+                        <p className="mt-2 text-[0.95rem] text-[var(--text-secondary)]">
                           Delivery date: {order.delivery.date}
                         </p>
                       </div>
@@ -84,7 +84,7 @@ export default async function AccountOrdersPage() {
                         <p className="rounded-full bg-[#fff3e8] px-4 py-2 text-[0.9rem] font-semibold capitalize text-[#a85b22]">
                           {formatStatus(order.status)}
                         </p>
-                        <p className="mt-3 text-[1.2rem] font-semibold text-stone-900">
+                        <p className="mt-3 text-[1.2rem] font-semibold text-[var(--foreground)]">
                           Rs. {order.pricing.total}
                         </p>
                       </div>
@@ -92,26 +92,26 @@ export default async function AccountOrdersPage() {
 
                     <div className="mt-5 grid gap-4 sm:grid-cols-3">
                       <div>
-                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
                           Payment
                         </p>
-                        <p className="mt-2 text-[0.98rem] capitalize text-stone-900">
+                        <p className="mt-2 text-[0.98rem] capitalize text-[var(--foreground)]">
                           {formatStatus(order.paymentStatus)}
                         </p>
                       </div>
                       <div>
-                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
                           Address
                         </p>
-                        <p className="mt-2 text-[0.98rem] text-stone-900">
+                        <p className="mt-2 text-[0.98rem] text-[var(--foreground)]">
                           {order.delivery.address}
                         </p>
                       </div>
                       <div>
-                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#86171c]">
+                        <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
                           Ordered
                         </p>
-                        <p className="mt-2 text-[0.98rem] text-stone-900">
+                        <p className="mt-2 text-[0.98rem] text-[var(--foreground)]">
                           {new Date(order.createdAt).toLocaleString("en-IN")}
                         </p>
                       </div>

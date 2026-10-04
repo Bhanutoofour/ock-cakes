@@ -72,14 +72,14 @@ export function RegisterForm() {
   return (
     <div className="mx-auto max-w-[620px] rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
       <h1 className="text-[2rem] font-semibold text-black">Create Account</h1>
-      <p className="mt-2 text-[1rem] text-[#6b5a5b]">
+      <p className="mt-2 text-[1rem] text-[var(--text-secondary)]">
         Join OccasionKart to track orders and save delivery addresses.
       </p>
 
       <form className="mt-6" onSubmit={handleSubmit}>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="first-name">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="first-name">
               First Name
             </label>
             <input
@@ -92,7 +92,7 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="last-name">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="last-name">
               Last Name
             </label>
             <input
@@ -104,7 +104,7 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="register-email">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="register-email">
               Email
             </label>
             <input
@@ -119,7 +119,7 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="register-phone">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="register-phone">
               Phone Number
             </label>
             <input
@@ -134,7 +134,7 @@ export function RegisterForm() {
 
           <div className="space-y-2 sm:col-span-2">
             <label
-              className="text-[0.9rem] font-semibold text-stone-900"
+              className="text-[0.9rem] font-semibold text-[var(--foreground)]"
               htmlFor="register-password"
             >
               Password
@@ -160,7 +160,7 @@ export function RegisterForm() {
 
         <button
           disabled={isPending}
-          className="mt-6 w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="mt-6 w-full rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isPending ? "Creating Account..." : "Create Account"}
         </button>
@@ -170,9 +170,9 @@ export function RegisterForm() {
         <SocialLoginButtons />
       </div>
 
-      <p className="mt-5 text-center text-[0.95rem] text-[#6b5a5b]">
+      <p className="mt-5 text-center text-[0.95rem] text-[var(--text-secondary)]">
         Already have an account?{" "}
-        <Link href="/login" className="text-[#86171c]">
+        <Link href="/login" className="text-[var(--brand-primary)]">
           Sign in
         </Link>
       </p>

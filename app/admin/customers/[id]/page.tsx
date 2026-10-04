@@ -34,13 +34,13 @@ export default async function AdminCustomerDetailPage({ params }: Props) {
         <div>
           <p className="section-kicker">Customer</p>
           <h2 className="mt-3 text-[2rem] font-semibold text-black">{customer.fullName}</h2>
-          <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
+          <p className="mt-2 text-[1rem] leading-8 text-[var(--text-secondary)]">
             {customer.email ?? customer.phone}
           </p>
         </div>
         <Link
           href="/admin/customers"
-          className="rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-stone-900"
+          className="rounded-full border border-[rgba(0,0,0,0.12)] px-5 py-3 text-[0.95rem] font-semibold text-[var(--foreground)]"
         >
           Back to Customers
         </Link>
@@ -48,22 +48,22 @@ export default async function AdminCustomerDetailPage({ params }: Props) {
 
       <div className="grid gap-5 sm:grid-cols-3">
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
-          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
+          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[var(--brand-primary)]">
             Orders
           </p>
-          <p className="mt-3 text-[2rem] font-semibold text-stone-900">{orders.length}</p>
+          <p className="mt-3 text-[2rem] font-semibold text-[var(--foreground)]">{orders.length}</p>
         </div>
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
-          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
+          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[var(--brand-primary)]">
             Total Spent
           </p>
-          <p className="mt-3 text-[2rem] font-semibold text-stone-900">Rs. {totalSpent}</p>
+          <p className="mt-3 text-[2rem] font-semibold text-[var(--foreground)]">Rs. {totalSpent}</p>
         </div>
         <div className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
-          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
+          <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[var(--brand-primary)]">
             Latest Order
           </p>
-          <p className="mt-3 text-[1.2rem] font-semibold text-stone-900">
+          <p className="mt-3 text-[1.2rem] font-semibold text-[var(--foreground)]">
             {orders[0].orderNumber}
           </p>
         </div>
@@ -78,16 +78,16 @@ export default async function AdminCustomerDetailPage({ params }: Props) {
           >
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[#86171c]">
+                <p className="text-[0.82rem] font-bold uppercase tracking-[0.18em] text-[var(--brand-primary)]">
                   {order.orderNumber}
                 </p>
-                <p className="mt-2 text-[0.96rem] text-[#6b5a5b]">
+                <p className="mt-2 text-[0.96rem] text-[var(--text-secondary)]">
                   {order.items.map((item) => `${item.name} x ${item.quantity}`).join(", ")}
                 </p>
               </div>
               <div className="text-right">
-                <p className="capitalize text-stone-700">{order.status.replaceAll("_", " ")}</p>
-                <p className="mt-1 font-semibold text-stone-900">Rs. {order.pricing.total}</p>
+                <p className="capitalize text-[var(--foreground)]">{order.status.replaceAll("_", " ")}</p>
+                <p className="mt-1 font-semibold text-[var(--foreground)]">Rs. {order.pricing.total}</p>
               </div>
             </div>
           </Link>

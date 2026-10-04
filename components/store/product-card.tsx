@@ -25,9 +25,9 @@ export function ProductCard({ product }: { product: Product }) {
   const { selectedWeight, selectedFlavor, unitPrice } = resolveVariantPricing(product);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[18px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(134,23,28,0.35)] hover:shadow-[0_14px_30px_rgba(134,23,28,0.16)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[12px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-200 hover:-translate-y-1 hover:border-[rgba(119,23,28,0.35)] hover:shadow-[0_14px_30px_rgba(119,23,28,0.16)]">
       <Link href={`/cakes/${product.slug}`} className="block">
-        <div className="relative aspect-[1/1] overflow-hidden bg-[#f6f2f0]">
+        <div className="relative aspect-[1/1] overflow-hidden bg-white">
           <img
             src={product.image}
             alt={product.name}
@@ -39,14 +39,14 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col p-4">
         <Link
           href={`/cakes/${product.slug}`}
-          className="block min-h-[3.1rem] text-[0.95rem] font-semibold leading-[1.3] text-stone-900 transition-colors duration-200 group-hover:text-[var(--brand-red)] sm:min-h-[3.3rem] sm:text-[1.02rem]"
+          className="block min-h-[3.1rem] text-[18px] font-semibold leading-[1.3] text-[var(--foreground)] transition-colors duration-200 group-hover:text-[var(--brand-red)] sm:min-h-[3.3rem] sm:text-[18px]"
         >
           {displayName}
         </Link>
 
         <div className="mt-2 flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="flex items-baseline gap-1.5 leading-none text-[var(--brand-maroon)]">
+            <div className="flex items-baseline gap-1.5 leading-none text-[var(--foreground)]">
               <span className="text-[0.82rem] font-semibold tracking-[0.01em] sm:text-[0.9rem]">
                 Rs.
               </span>
@@ -67,7 +67,7 @@ export function ProductCard({ product }: { product: Product }) {
             flavorId={selectedFlavor?.id}
             flavorLabel={selectedFlavor?.label}
             flavorPricePerKg={selectedFlavor?.pricePerKg}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(134,23,28,0.22)] transition-all duration-200 hover:scale-105 hover:bg-black hover:shadow-[0_16px_30px_rgba(0,0,0,0.35)]"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-red)] text-white shadow-[0_14px_28px_rgba(119,23,28,0.22)] transition-all duration-200 hover:scale-105 hover:bg-[var(--brand-primary-hover)] hover:shadow-[0_16px_30px_rgba(0,0,0,0.35)]"
           >
             <svg
               aria-hidden="true"
@@ -87,8 +87,8 @@ export function ProductCard({ product }: { product: Product }) {
           </AddToCartButton>
         </div>
 
-        <p className="mt-1.5 max-w-[8.5rem] text-[0.84rem] font-medium leading-6 text-[#586786]">
-          <span className="text-stone-900">{socialProof.rating}</span>{" "}
+        <p className="mt-1.5 max-w-[8.5rem] text-[0.84rem] font-medium leading-6 text-[var(--text-secondary)]">
+          <span className="text-[var(--foreground)]">{socialProof.rating}</span>{" "}
           <span className="text-[var(--brand-gold)]">&#9733;</span>{" "}
           <span>({socialProof.reviewsLabel})</span>
         </p>

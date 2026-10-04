@@ -16,7 +16,7 @@ export default async function AdminCustomersPage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-[2rem] font-semibold text-black">Customers</h2>
-        <p className="mt-2 text-[1rem] leading-8 text-[#6b5a5b]">
+        <p className="mt-2 text-[1rem] leading-8 text-[var(--text-secondary)]">
           Customer records are built from real orders so you can quickly review repeat
           buyers and recent activity.
         </p>
@@ -31,14 +31,14 @@ export default async function AdminCustomersPage() {
           >
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <h3 className="text-[1.15rem] font-semibold text-stone-900">{customer.name}</h3>
-                <p className="mt-2 text-[0.96rem] text-[#6b5a5b]">
+                <h3 className="text-[1.15rem] font-semibold text-[var(--foreground)]">{customer.name}</h3>
+                <p className="mt-2 text-[0.96rem] text-[var(--text-secondary)]">
                   {customer.email ?? customer.phone}
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-[0.95rem] text-stone-700">{customer.ordersCount} orders</p>
-                <p className="mt-1 font-semibold text-stone-900">Rs. {customer.totalSpent}</p>
+                <p className="text-[0.95rem] text-[var(--foreground)]">{customer.ordersCount} orders</p>
+                <p className="mt-1 font-semibold text-[var(--foreground)]">Rs. {customer.totalSpent}</p>
               </div>
             </div>
           </Link>

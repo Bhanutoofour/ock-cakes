@@ -78,7 +78,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
         <h2 className="text-[1.5rem] font-semibold text-black">Create Coupon</h2>
         <div className="mt-5 space-y-4">
           <div className="space-y-2">
-            <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="coupon-code">
+            <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="coupon-code">
               Code
             </label>
             <input
@@ -94,7 +94,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <label
-                className="text-[0.9rem] font-semibold text-stone-900"
+                className="text-[0.9rem] font-semibold text-[var(--foreground)]"
                 htmlFor="percentage-off"
               >
                 Percentage Off
@@ -113,7 +113,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
 
             <div className="space-y-2">
               <label
-                className="text-[0.9rem] font-semibold text-stone-900"
+                className="text-[0.9rem] font-semibold text-[var(--foreground)]"
                 htmlFor="max-redemptions"
               >
                 Max Uses
@@ -133,7 +133,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <label
-                className="text-[0.9rem] font-semibold text-stone-900"
+                className="text-[0.9rem] font-semibold text-[var(--foreground)]"
                 htmlFor="min-subtotal"
               >
                 Min Subtotal
@@ -150,7 +150,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
             </div>
 
             <div className="space-y-2">
-              <label className="text-[0.9rem] font-semibold text-stone-900" htmlFor="expires-at">
+              <label className="text-[0.9rem] font-semibold text-[var(--foreground)]" htmlFor="expires-at">
                 Expires At
               </label>
               <input
@@ -177,7 +177,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
 
         <button
           disabled={isSaving}
-          className="mt-6 w-full rounded-full bg-[#86171c] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
+          className="mt-6 w-full rounded-full bg-[var(--brand-primary)] px-6 py-3 text-[1rem] font-semibold text-white disabled:opacity-70"
         >
           {isSaving ? "Saving..." : "Save Coupon"}
         </button>
@@ -187,7 +187,7 @@ export function AdminCouponsClient({ initialCoupons }: AdminCouponsClientProps) 
         <h2 className="text-[1.5rem] font-semibold text-black">Coupons</h2>
         <div className="mt-5 max-w-full overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-[0.92rem]">
-            <thead className="text-[#6b5a5b]">
+            <thead className="text-[var(--text-secondary)]">
               <tr className="border-b border-[rgba(0,0,0,0.1)]">
                 <th className="py-3 pr-4 font-semibold">Code</th>
                 <th className="py-3 pr-4 font-semibold">Off</th>

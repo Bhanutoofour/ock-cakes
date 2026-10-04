@@ -195,8 +195,8 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
                 onClick={() => setActiveStatus(status.id)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold ${
                   active
-                    ? "bg-[#86171c] text-white"
-                    : "border border-[rgba(0,0,0,0.12)] text-stone-700"
+                    ? "bg-[var(--brand-primary)] text-white"
+                    : "border border-[rgba(0,0,0,0.12)] text-[var(--foreground)]"
                 }`}
               >
                 {status.label} ({count})
@@ -216,7 +216,7 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
       <div className="max-w-full overflow-x-auto rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
         <table className="w-full min-w-[1100px] text-left">
           <thead>
-            <tr className="border-b border-[rgba(0,0,0,0.08)] text-[0.72rem] uppercase tracking-[0.14em] text-stone-500">
+            <tr className="border-b border-[rgba(0,0,0,0.08)] text-[0.72rem] uppercase tracking-[0.14em] text-[var(--text-secondary)]">
               <th className="px-4 py-3">Order #</th>
               <th className="px-4 py-3">Customer</th>
               <th className="px-4 py-3">Items</th>
@@ -243,13 +243,13 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
               return (
                 <tr key={order.id} className={`border-b border-[rgba(0,0,0,0.06)] ${rowClass}`}>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/orders/${order.id}`} className="font-semibold text-[#86171c]">
+                    <Link href={`/admin/orders/${order.id}`} className="font-semibold text-[var(--brand-primary)]">
                       {order.orderNumber}
                     </Link>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="font-semibold text-stone-900">{order.customer.fullName}</p>
-                    <p className="text-[0.84rem] text-[#6b5a5b]">{order.customer.phone}</p>
+                    <p className="font-semibold text-[var(--foreground)]">{order.customer.fullName}</p>
+                    <p className="text-[0.84rem] text-[var(--text-secondary)]">{order.customer.phone}</p>
                   </td>
                   <td className="px-4 py-3 text-[0.9rem] text-[#5c6889]">
                     {order.items.map((item) => `${item.quantity}x ${item.name}`).join(", ")}
@@ -295,7 +295,7 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
                     <div className="flex flex-wrap gap-2">
                       <Link
                         href={`/admin/orders/${order.id}`}
-                        className="rounded-full border border-[rgba(0,0,0,0.14)] px-3 py-1 text-xs font-semibold text-stone-700"
+                        className="rounded-full border border-[rgba(0,0,0,0.14)] px-3 py-1 text-xs font-semibold text-[var(--foreground)]"
                       >
                         View Details
                       </Link>
@@ -315,7 +315,7 @@ export function AdminOrdersClient({ initialOrders }: { initialOrders: Order[] })
       </div>
 
       {filteredOrders.length === 0 ? (
-        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-8 text-[#6b5a5b]">
+        <div className="rounded-[20px] border border-[rgba(0,0,0,0.12)] bg-white p-8 text-[var(--text-secondary)]">
           No orders match the current filters.
         </div>
       ) : null}

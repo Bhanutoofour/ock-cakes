@@ -45,13 +45,13 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
       <>
         <div className="grid gap-4 py-5 sm:grid-cols-2">
           <div className="rounded-[24px] bg-[var(--cream-strong)] p-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Serving</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">Serving</p>
             <p className="mt-2 text-lg font-semibold text-[var(--brand-brown)]">
               {product.serves}
             </p>
           </div>
           <div className="rounded-[24px] bg-[var(--cream-strong)] p-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Included</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)]">Included</p>
             <p className="mt-2 text-lg font-semibold text-[var(--brand-brown)]">
               Custom plaque
             </p>
@@ -64,7 +64,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             .map((highlight) => (
               <div
                 key={highlight}
-                className="rounded-[20px] border border-[var(--line)] px-4 py-3 text-sm font-medium text-stone-700"
+                className="rounded-[20px] border border-[var(--line)] px-4 py-3 text-sm font-medium text-[var(--foreground)]"
               >
                 {highlight}
               </div>
@@ -89,7 +89,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
 
         {isPhotoCake ? (
           <div className="mt-4 rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-4">
-            <p className="text-[0.9rem] font-semibold text-stone-900">Upload a photo to print on your cake</p>
+            <p className="text-[0.9rem] font-semibold text-[var(--foreground)]">Upload a photo to print on your cake</p>
             <input
               type="file"
               accept="image/*"
@@ -102,7 +102,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           </div>
         ) : null}
 
-        <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[#fffdf9] p-4">
+        <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[var(--background)] p-4">
           <p className="text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#9c7a67]">
             Check Delivery Pincode
           </p>
@@ -113,12 +113,12 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
               placeholder="Enter 6-digit pincode"
               maxLength={6}
               inputMode="numeric"
-              className="min-w-[190px] flex-1 rounded-[14px] border border-[var(--line)] bg-white px-4 py-2.5 text-sm text-stone-700"
+              className="min-w-[190px] flex-1 rounded-[14px] border border-[var(--line)] bg-white px-4 py-2.5 text-sm text-[var(--foreground)]"
             />
             <button
               type="button"
               onClick={checkPincode}
-              className="rounded-full bg-[#86171c] px-4 py-2.5 text-sm font-semibold text-white"
+              className="rounded-full bg-[var(--brand-primary)] px-4 py-2.5 text-sm font-semibold text-white"
             >
               Check
             </button>
@@ -187,7 +187,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           .map((highlight) => (
             <div
               key={highlight}
-              className="rounded-full border border-[var(--line)] bg-[#fff8f2] px-4 py-2.5 text-sm font-medium text-stone-700"
+              className="rounded-full border border-[var(--line)] bg-[var(--background)] px-4 py-2.5 text-sm font-medium text-[var(--foreground)]"
             >
               {highlight}
             </div>
@@ -200,7 +200,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             <p className="text-[0.78rem] font-semibold uppercase tracking-[0.24em] text-[#9c7a67]">
               Selected
             </p>
-            <p className="text-[1rem] font-medium text-[#6b5a5b]">
+            <p className="text-[1rem] font-medium text-[var(--text-secondary)]">
               <span className="font-semibold text-[var(--brand-brown)]">
                 {selectedWeight?.label ?? "Base"}
               </span>
@@ -242,7 +242,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
 
       {isPhotoCake ? (
         <div className="mt-4 rounded-[18px] border border-[rgba(0,0,0,0.1)] bg-white p-4">
-          <p className="text-[0.9rem] font-semibold text-stone-900">Upload a photo to print on your cake</p>
+          <p className="text-[0.9rem] font-semibold text-[var(--foreground)]">Upload a photo to print on your cake</p>
           <input
             type="file"
             accept="image/*"
@@ -252,12 +252,12 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           {customPhotoName ? (
             <p className="mt-2 text-[0.84rem] font-medium text-[#2f8f2f]">Selected: {customPhotoName}</p>
           ) : (
-            <p className="mt-2 text-[0.82rem] text-[#6b5a5b]">No file selected.</p>
+            <p className="mt-2 text-[0.82rem] text-[var(--text-secondary)]">No file selected.</p>
           )}
         </div>
       ) : null}
 
-      <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[#fffdf9] p-4">
+      <div className="mt-5 rounded-[20px] border border-[var(--line)] bg-[var(--background)] p-4">
         <p className="text-[0.82rem] font-semibold uppercase tracking-[0.18em] text-[#9c7a67]">
           Check Delivery Pincode
         </p>
@@ -268,12 +268,12 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
             placeholder="Enter 6-digit pincode"
             maxLength={6}
             inputMode="numeric"
-            className="min-w-[190px] flex-1 rounded-[14px] border border-[var(--line)] bg-white px-4 py-2.5 text-sm text-stone-700"
+            className="min-w-[190px] flex-1 rounded-[14px] border border-[var(--line)] bg-white px-4 py-2.5 text-sm text-[var(--foreground)]"
           />
           <button
             type="button"
             onClick={checkPincode}
-            className="rounded-full bg-[#86171c] px-4 py-2.5 text-sm font-semibold text-white"
+            className="rounded-full bg-[var(--brand-primary)] px-4 py-2.5 text-sm font-semibold text-white"
           >
             Check
           </button>
