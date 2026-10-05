@@ -7,20 +7,9 @@
 .categoryImage { width: 94px; height: 94px; padding: 5px; border: 1px solid var(--border); border-radius: 50%; transition: border-color .2s, transform .2s; }
 .categoryImage img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; background: var(--surface-accent); }
 .category:hover .categoryImage { border-color: var(--brand-primary); transform: translateY(-3px); }
-.hero { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 410px; background: var(--surface-accent); border-radius: 20px; overflow: hidden; }
-.heroCopy { padding: 48px 50px; align-self: center; }
 .eyebrow { color: var(--brand-primary); text-transform: uppercase; letter-spacing: .16em; font-weight: 700; font-size: 10px; line-height: 1.6; }
-.hero h1 { font-size: clamp(32px, 3.4vw, 52px); line-height: 1.13; letter-spacing: -.04em; font-weight: 500; margin: 16px 0; }
-.hero h1 em { color: var(--brand-primary); font-weight: 500; }
-.heroCopy > p:not(.eyebrow) { max-width: 370px; color: var(--text-secondary); line-height: 1.8; font-size: 14px; }
 .primaryButton { display: inline-flex; gap: 25px; align-items: center; padding: 14px 23px; margin-top: 24px; border-radius: 7px; background: var(--brand-primary); color: white !important; font-size: 13px; font-weight: 650; transition: background .2s; }
 .primaryButton:hover { background: var(--brand-primary-hover); }
-.heroFootnote { display: block; margin-top: 17px; color: var(--text-secondary); font-size: 10px; }
-.heroVisual { position: relative; min-height: 410px; background: var(--surface-accent); }
-.heroVisual > img { width: 100%; height: 100%; position: absolute; object-fit: cover; }
-.heroStamp { position: absolute; bottom: 24px; left: 24px; width: 115px; height: 115px; border-radius: 50%; background: var(--background); box-shadow: 0 3px 20px #37262612; display: flex; align-items: center; justify-content: center; flex-direction: column; font-size: 11px; color: var(--brand-primary); transform: rotate(-9deg); }
-.heroStamp strong { font-family: var(--font-cormorant), Georgia, serif; font-size: 16px; font-weight: 500; }
-.heroStamp svg { width: 22px; height: 22px; margin-top: 4px; }
 .serviceStrip { display: grid; grid-template-columns: repeat(3, 1fr); padding: 24px 0; border-bottom: 1px solid var(--border); }
 .serviceStrip > div { display: flex; justify-content: center; align-items: center; gap: 14px; }
 .serviceStrip > div + div { border-left: 1px solid var(--border); }
@@ -75,13 +64,11 @@
 .seo { border-top: 1px solid var(--border); padding: 20px 0 35px; }
 .seo details { margin-top: 12px; }
 .seo summary { font-size: 11px; color: var(--text-secondary); cursor: pointer; }
-@media (min-width: 1600px) { .hero { min-height: 450px; } }
 @media (max-width: 1100px) {
   .shell { width: calc(100% - 40px); }
   .categories { gap: 14px; overflow-x: auto; grid-template-columns: repeat(8, minmax(90px, 1fr)); }
   .categoryImage { width: 78px; height: 78px; }
   .category { font-size: 11px; }
-  .heroCopy { padding: 30px; }
   .products { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .products > article:nth-child(n+4) { display: none; }
   .flavors { gap: 15px; }
@@ -93,15 +80,6 @@
   .categories { padding: 20px 0; gap: 14px; grid-template-columns: repeat(8, 75px); }
   .categoryImage { height: 70px; width: 70px; }
   .category { font-size: 10px; }
-  .hero { grid-template-columns: 1fr; border-radius: 12px; }
-  .heroCopy { padding: 28px 24px; }
-  .hero h1 { font-size: 36px; }
-  .heroCopy > p:not(.eyebrow) { font-size: 12px; max-width: 300px; }
-  .heroVisual { min-height: 240px; }
-  .heroVisual > img { object-position: center 45%; }
-  .heroStamp { left: auto; right: 18px; bottom: 18px; height: 90px; width: 90px; font-size: 9px; }
-  .heroStamp strong { font-size: 13px; }
-  .heroFootnote { font-size: 9px; }
   .serviceStrip { gap: 8px; padding: 18px 0; }
   .serviceStrip > div { flex-direction: column; gap: 4px; text-align: center; }
   .serviceStrip svg { width: 24px; height: 24px; }
@@ -132,16 +110,13 @@
 }
 
 /* Brand guide typography and control dimensions. */
-.hero h1 { font-size: 48px; line-height: 53px; font-weight: 600; letter-spacing: normal; }
-.hero h1 em { font-weight: 600; }
 .sectionHead h2, .faq h2 { font-size: 32px; line-height: 38px; letter-spacing: normal; }
 .primaryButton { min-height: 48px; border-radius: 8px; font-size: 16px; font-weight: 600; color: var(--background) !important; }
-.heroCopy > p:not(.eyebrow), .steps p, .faq details p, .seo p, .promos p:not(.eyebrow) { font-size: 16px; line-height: 24px; }
-.category, .sectionHead > a, .occasion small, .heroFootnote, .serviceStrip small, .sectionHead p:not(.eyebrow), .flavors a > span, .seo summary { font-size: 14px; line-height: 20px; }
+.steps p, .faq details p, .seo p, .promos p:not(.eyebrow) { font-size: 16px; line-height: 24px; }
+.category, .sectionHead > a, .occasion small, .serviceStrip small, .sectionHead p:not(.eyebrow), .flavors a > span, .seo summary { font-size: 14px; line-height: 20px; }
 .occasion strong, .steps h3 { font-size: 18px; line-height: 25px; }
 .serviceStrip strong, .flavors strong, .faq summary, .textButton { font-size: 16px; line-height: 24px; }
 .eyebrow { font-size: 14px; letter-spacing: .08em; }
 @media (max-width: 767px) {
-  .hero h1 { font-size: 34px; line-height: 39px; }
   .sectionHead h2, .faq h2 { font-size: 28px; line-height: 34px; }
 }

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { HomeHeroCarousel } from "@/components/store/home-hero-carousel";
 import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
 import { SiteHeader } from "@/components/store/site-header";
@@ -89,7 +90,6 @@ export default async function Home() {
   const chocolate = inCategory("Chocolate Truffle");
   const featured = [...chocolate.slice(0, 2), ...inCategory("Regular Birthday Cakes").slice(0, 3)];
   const picks = Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values()).slice(0, 5);
-  const heroImage = "/images/home/celebration.jpg";
   const occasionCards = collectionCards.filter((card) => ["Birthday Cakes", "Anniversary", "Kids & Themes", "Wedding Cakes"].includes(card.title));
   return (
     <>
@@ -101,6 +101,8 @@ export default async function Home() {
           name: siteSeo.siteName, description: siteSeo.defaultDescription, inLanguage: "en-IN",
         }) }} />
         <div className={styles.deliveryNote}>Cake delivery across Hyderabad <span>Same-day and midnight delivery in selected pincodes</span></div>
+        <h1 className="sr-only">OccasionKart: fresh cakes delivered across Hyderabad</h1>
+        <HomeHeroCarousel />
         <div className={styles.shell}>
           <nav className={styles.categories} aria-label="Shop cake collections">
             {collectionCards.map((card) => (
@@ -111,19 +113,6 @@ export default async function Home() {
             ))}
           </nav>
 
-          <section className={styles.hero} aria-labelledby="home-title">
-            <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>Cake shop in Hyderabad</p>
-              <h1 id="home-title">Fresh cakes, delivered<br />across <em>Hyderabad.</em></h1>
-              <p>Birthday, anniversary, photo and custom cakes. Pick a flavour, add a message, and choose when it arrives.</p>
-              <Link className={styles.primaryButton} href="/cakes">Browse cakes <span aria-hidden="true">→</span></Link>
-              <span className={styles.heroFootnote}>Enter your pincode at checkout to see delivery times</span>
-            </div>
-            <div className={styles.heroVisual}>
-              {heroImage && <img src={heroImage} alt="Chocolate celebration cake topped with fruit" fetchPriority="high" />}
-              <span className={styles.heroStamp}>Freshly<br /><strong>baked</strong><HeartIcon /></span>
-            </div>
-          </section>
           <div className={styles.serviceStrip}>
             <div><CakeIcon /><p><strong>Freshly baked</strong><small>Birthday, anniversary & custom cakes</small></p></div>
             <div><ClockIcon /><p><strong>Same-day delivery</strong><small>Available in selected pincodes</small></p></div>

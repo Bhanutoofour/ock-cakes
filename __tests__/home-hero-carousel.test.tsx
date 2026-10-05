@@ -14,27 +14,28 @@ describe("HomeHeroCarousel", () => {
     cleanup();
   });
 
-  it("shows first-order coupon CTA content", () => {
+  it("shows the first banner with its call to action", () => {
     render(<HomeHeroCarousel />);
 
-    expect(screen.getByText("Get 15% OFF on Your First Order")).toBeTruthy();
-    expect(screen.getByText("Coupon code: FIRST15")).toBeTruthy();
-    expect(screen.getByRole("link", { name: "Claim FIRST15" })).toBeTruthy();
+    expect(screen.getByText("Same-day delivery across Hyderabad in selected pincodes")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Order now" }).getAttribute("href")).toBe(
+      "/cakes?category=Regular%20Birthday%20Cakes",
+    );
   });
 
-  it("auto-advances slides every 3 seconds", () => {
+  it("auto-advances slides every 5 seconds", () => {
     render(<HomeHeroCarousel />);
     const track = screen.getByTestId("home-hero-track");
 
     expect(track.getAttribute("style")).toContain("translateX(-0%)");
 
     act(() => {
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(5000);
     });
     expect(track.getAttribute("style")).toContain("translateX(-100%)");
 
     act(() => {
-      vi.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(5000);
     });
     expect(track.getAttribute("style")).toContain("translateX(-200%)");
   });
@@ -45,5 +46,16 @@ describe("HomeHeroCarousel", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Go to slide 3" }));
     expect(track.getAttribute("style")).toContain("translateX(-200%)");
+  });
+
+  it("moves with the previous and next arrows, wrapping around", () => {
+    render(<HomeHeroCarousel />);
+    const track = screen.getByTestId("home-hero-track");
+
+    fireEvent.click(screen.getByRole("button", { name: "Previous slide" }));
+    expect(track.getAttribute("style")).toContain("translateX(-300%)");
+
+    fireEvent.click(screen.getByRole("button", { name: "Next slide" }));
+    expect(track.getAttribute("style")).toContain("translateX(-0%)");
   });
 });

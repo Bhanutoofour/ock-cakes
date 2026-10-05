@@ -1,112 +1,237 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
+import { HeroDecorations, type HeroDecor } from "./hero-decorations";
+
 type HeroSlide = {
-  badge: string;
-  title: string;
+  title: [string, string];
   subtitle: string;
   ctaText: string;
   ctaHref: string;
-  backgroundImage: string;
+  image: string;
+  imageAlt: string;
+  background: string;
+  decor: HeroDecor;
+  dark?: boolean;
 };
 
 const HERO_SLIDES: HeroSlide[] = [
   {
-    badge: "FIRST ORDER OFFER",
-    title: "Get 15% OFF on Your First Order",
-    subtitle: "Coupon code: FIRST15",
-    ctaText: "Claim FIRST15",
-    ctaHref: "/cakes",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1800&q=80",
+    title: ["Birthday Cakes,", "Delivered Today"],
+    subtitle: "Same-day delivery across Hyderabad in selected pincodes",
+    ctaText: "Order now",
+    ctaHref: "/cakes?category=Regular%20Birthday%20Cakes",
+    image: "/images/home/floral.jpg",
+    imageAlt: "Pink drip birthday cake topped with an ice cream cone",
+    background: "#fbefec",
+    decor: {
+      bunting: ["#f2b8c6", "#e3c07f", "#f8dfd2", "#c98a96"],
+      balloons: ["#f4bcc8", "#dcb46c", "#fdf3ee"],
+      confetti: ["#e8a3b3", "#d9b26a", "#f4c7b5"],
+    },
   },
   {
-    badge: "SECOND ORDER BONUS",
-    title: "Get an Extra 10% OFF on Your Second Order",
-    subtitle: "Keep celebrating with sweeter savings on your next cake",
-    ctaText: "Order Again",
-    ctaHref: "/cakes",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=1800&q=80",
+    title: ["Rich Chocolate,", "Every Layer"],
+    subtitle: "Truffle, drip and Black Forest favourites, freshly baked",
+    ctaText: "Shop chocolate",
+    ctaHref: "/cakes?category=Chocolate%20Truffle",
+    image: "/images/home/celebration.jpg",
+    imageAlt: "Chocolate drip cake with piped chocolate rosettes",
+    background: "#f4ebe3",
+    decor: {
+      bunting: ["#7a1f22", "#d9b26a", "#f1e3d3", "#a8553f"],
+      confetti: ["#d9b26a", "#8a4b32", "#e8cfb4"],
+    },
   },
   {
-    badge: "FESTIVE SPECIAL",
-    title: "Freshly Baked Theme Cakes for Every Celebration",
-    subtitle: "Birthday, anniversary, surprise, or corporate events",
-    ctaText: "Explore Collections",
-    ctaHref: "/cakes",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1800&q=80",
+    title: ["Anniversary &", "Wedding Cakes"],
+    subtitle: "Tiered designs with fresh-flower details for your big day",
+    ctaText: "Explore designs",
+    ctaHref: "/cakes?category=Wedding%20cakes",
+    image: "/images/home/wedding.jpg",
+    imageAlt: "Four-tier white wedding cake decorated with pink roses",
+    background: "#f8f1ec",
+    decor: {
+      balloons: ["#fbf3ee", "#e8c9a2", "#f3c6cf"],
+      confetti: ["#d9b26a", "#f0c4cc", "#e8d6c0"],
+    },
+  },
+  {
+    title: ["Your Theme,", "Our Bake"],
+    subtitle: "Share a photo or idea and we'll design a custom cake for you",
+    ctaText: "Design your cake",
+    ctaHref: "/custom-orders",
+    image: "/images/home/party.jpg",
+    imageAlt: "Rainbow layer cake covered in sprinkles, sliced to show colourful layers",
+    background: "#121a23",
+    decor: {
+      bunting: ["#f25f5c", "#ffd166", "#5ec2b7", "#9b7ede"],
+      confetti: ["#f25f5c", "#ffd166", "#5ec2b7", "#9b7ede"],
+    },
+    dark: true,
   },
 ];
 
-const AUTO_SCROLL_MS = 3000;
+const AUTO_SCROLL_MS = 5000;
+
+function Arrow({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d={direction === "left" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"} />
+    </svg>
+  );
+}
 
 export function HomeHeroCarousel() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const totalSlides = useMemo(() => HERO_SLIDES.length, []);
+  const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const totalSlides = HERO_SLIDES.length;
+
+  const goTo = useCallback(
+    (index: number) => setActiveSlide((index + totalSlides) % totalSlides),
+    [totalSlides],
+  );
 
   useEffect(() => {
+    if (paused) {
+      return;
+    }
+
     const intervalId = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % totalSlides);
     }, AUTO_SCROLL_MS);
 
     return () => window.clearInterval(intervalId);
-  }, [totalSlides]);
+  }, [paused, totalSlides, activeSlide]);
 
   return (
-    <section className="page-pad pb-8 pt-6">
-      <div className="relative mx-auto h-[260px] max-w-[1690px] overflow-hidden rounded-[26px] shadow-[0_10px_24px_rgba(0,0,0,0.14)] sm:h-[360px] lg:h-[500px]">
-        <div
-          data-testid="home-hero-track"
-          className="flex h-full w-full transition-transform duration-700 ease-out"
-          style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-        >
-          {HERO_SLIDES.map((slide) => (
-            <article key={slide.title} className="relative h-full w-full shrink-0 overflow-hidden">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${slide.backgroundImage})` }}
-                aria-hidden="true"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(36,23,25,0.82)_0%,rgba(104,16,21,0.58)_40%,rgba(104,16,21,0.14)_76%)]" />
-              <div className="absolute inset-y-0 left-0 flex max-w-[780px] items-center px-8 sm:px-12 lg:px-20">
-                <div className="text-white">
-                  <p className="inline-flex rounded-full bg-[var(--brand-primary)] px-5 py-2 text-[0.95rem] font-semibold tracking-[0.03em]">
-                    {slide.badge}
+    <section
+      aria-roledescription="carousel"
+      aria-label="Featured cakes"
+      className="relative overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onTouchStart={(event) => {
+        touchStartX.current = event.touches[0].clientX;
+      }}
+      onTouchEnd={(event) => {
+        if (touchStartX.current === null) {
+          return;
+        }
+        const distance = event.changedTouches[0].clientX - touchStartX.current;
+        if (Math.abs(distance) > 40) {
+          goTo(activeSlide + (distance < 0 ? 1 : -1));
+        }
+        touchStartX.current = null;
+      }}
+    >
+      <div
+        data-testid="home-hero-track"
+        className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
+        style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+      >
+        {HERO_SLIDES.map((slide, index) => {
+          const active = index === activeSlide;
+          return (
+            <article
+              key={slide.ctaHref}
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${totalSlides}`}
+              aria-hidden={!active}
+              className="relative h-[290px] w-full shrink-0 overflow-hidden sm:h-[360px] lg:h-[440px]"
+              style={{ backgroundColor: slide.background }}
+            >
+              <div className="absolute inset-y-0 right-0 w-[62%] [mask-image:linear-gradient(to_right,transparent,black_38%)] lg:w-[58%]">
+                <Image
+                  src={slide.image}
+                  alt={slide.imageAlt}
+                  fill
+                  priority={index === 0}
+                  sizes="(min-width: 1024px) 58vw, 62vw"
+                  className="object-cover object-center"
+                />
+              </div>
+              <HeroDecorations decor={slide.decor} />
+
+              <div className="relative mx-auto flex h-full max-w-[1500px] items-center px-5 sm:px-16 lg:px-24">
+                <div className="max-w-[54%] sm:max-w-[48%]">
+                  <h2
+                    className={`text-[1.55rem] leading-[1.08] tracking-[-0.02em] sm:text-[2.6rem] lg:text-[3.6rem] ${
+                      slide.dark ? "text-white" : "text-[var(--brand-primary)]"
+                    }`}
+                    style={{ fontFamily: "var(--font-sans)", fontWeight: 800 }}
+                  >
+                    {slide.title[0]}
+                    <br />
+                    {slide.title[1]}
+                  </h2>
+                  <p
+                    className={`mt-3 max-w-[30rem] text-[0.85rem] leading-snug sm:mt-4 sm:text-[1.15rem] lg:text-[1.35rem] ${
+                      slide.dark ? "text-white/85" : "text-[var(--foreground)]"
+                    }`}
+                  >
+                    {slide.subtitle}
                   </p>
-                  <h1 className="mt-7 max-w-[680px] font-heading text-[2rem] font-bold leading-[1.05] sm:text-[3rem] lg:text-[4rem]">
-                    {slide.title}
-                  </h1>
-                  <p className="mt-5 text-[1rem] sm:text-[1.15rem]">{slide.subtitle}</p>
                   <Link
                     href={slide.ctaHref}
-                    className="mt-8 inline-flex rounded-[14px] border border-white/90 bg-white px-7 py-3 text-[1rem] font-semibold !text-[var(--foreground)] shadow-[0_8px_20px_rgba(0,0,0,0.18)] transition hover:bg-[var(--surface-accent)] hover:!text-[var(--foreground)] visited:!text-[var(--foreground)]"
-                    style={{ color: "var(--foreground)" }}
+                    tabIndex={active ? undefined : -1}
+                    className="mt-5 inline-flex whitespace-nowrap rounded-full px-5 py-2.5 text-[0.8rem] font-bold uppercase tracking-[0.04em] shadow-[0_8px_18px_rgba(0,0,0,0.16)] transition hover:opacity-90 sm:mt-7 sm:px-7 sm:py-3.5 sm:text-[1rem]"
+                    // Inline colours keep the global brand-button rule (8px corners) off this pill.
+                    style={{
+                      backgroundColor: slide.dark ? "#fff" : "var(--brand-primary)",
+                      color: slide.dark ? "var(--brand-primary)" : "#fff",
+                    }}
                   >
                     {slide.ctaText}
                   </Link>
                 </div>
               </div>
             </article>
-          ))}
-        </div>
+          );
+        })}
+      </div>
 
-        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full bg-[rgba(0,0,0,0.32)] px-3 py-2 backdrop-blur-sm">
-          {HERO_SLIDES.map((slide, index) => (
-            <button
-              key={slide.title}
-              type="button"
-              onClick={() => setActiveSlide(index)}
-              className={`h-2.5 rounded-full transition-all ${
-                activeSlide === index ? "w-8 bg-white" : "w-2.5 bg-white/55 hover:bg-white/80"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+      <button
+        type="button"
+        onClick={() => goTo(activeSlide - 1)}
+        aria-label="Previous slide"
+        className="absolute left-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[var(--foreground)] shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition hover:scale-105 sm:flex lg:left-5"
+      >
+        <Arrow direction="left" />
+      </button>
+      <button
+        type="button"
+        onClick={() => goTo(activeSlide + 1)}
+        aria-label="Next slide"
+        className="absolute right-3 top-1/2 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[var(--foreground)] shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition hover:scale-105 sm:flex lg:right-5"
+      >
+        <Arrow direction="right" />
+      </button>
+
+      <div className="absolute bottom-4 left-5 flex items-center gap-2 sm:bottom-6 sm:left-10">
+        {HERO_SLIDES.map((slide, index) => (
+          <button
+            key={slide.ctaHref}
+            type="button"
+            onClick={() => goTo(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={activeSlide === index}
+            className={`h-2.5 rounded-full transition-all ${
+              activeSlide === index ? "w-9" : "w-2.5"
+            }`}
+            style={{
+              backgroundColor: HERO_SLIDES[activeSlide].dark
+                ? activeSlide === index ? "#fff" : "rgba(255,255,255,0.45)"
+                : activeSlide === index ? "var(--brand-primary)" : "rgba(0,0,0,0.2)",
+            }}
+          />
+        ))}
       </div>
     </section>
   );

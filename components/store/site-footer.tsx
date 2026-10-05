@@ -51,122 +51,173 @@ const socialLinks = [
   },
 ];
 
-export function SiteFooter() {
+const clientBrands = [
+  { name: "Makonis", logo: "/images/brands/makonis.png", width: 252, height: 160 },
+  { name: "Sattva", logo: "/images/brands/sattva.png", width: 239, height: 160 },
+  { name: "Apree Health", logo: "/images/brands/apree-health.png", width: 480, height: 112 },
+  { name: "SBI General Insurance", logo: "/images/brands/sbi-general-insurance.png", width: 480, height: 150 },
+  { name: "Autocracy Machinery", logo: "/images/brands/autocracy-machinery.png", width: 480, height: 107 },
+];
+
+function ClientBrands() {
   return (
-    <footer className="border-t border-[rgba(0,0,0,0.08)] bg-white">
-      <div className="page-pad mx-auto max-w-[1720px] py-14">
-        <div className="grid gap-12 lg:grid-cols-[1.35fr_1fr_1fr_1.1fr]">
-          <div>
-            <Image
-              src="/brand/occasionkart-logo.png"
-              alt="OccasionKart"
-              width={794}
-              height={385}
-              className="h-auto w-[180px]"
-            />
-            <p className="mt-8 max-w-[320px] text-[1rem] leading-8 text-[var(--text-secondary)]">
-              Fresh cakes, custom celebrations, and dependable cake delivery
-              across Hyderabad.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              {socialLinks.map((item) => (
+    <section
+      aria-labelledby="client-brands-heading"
+      className="border-t border-[rgba(0,0,0,0.08)] bg-[var(--background)]"
+    >
+      <div className="page-pad mx-auto max-w-[1720px] py-12 text-center">
+        <p className="text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand-primary)]">
+          Corporate clients
+        </p>
+        <h2
+          id="client-brands-heading"
+          className="mt-2 text-[1.6rem] font-semibold text-[var(--foreground)]"
+        >
+          Brands that celebrate with us
+        </h2>
+        <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8 sm:gap-x-16">
+          {clientBrands.map((brand) => (
+            <li key={brand.name}>
+              <Image
+                src={brand.logo}
+                alt={brand.name}
+                width={brand.width}
+                height={brand.height}
+                className="h-12 w-auto max-w-[170px] object-contain sm:h-14 sm:max-w-[200px]"
+              />
+            </li>
+          ))}
+        </ul>
+        <Link
+          href="/corporate-orders"
+          className="mt-8 inline-block text-[0.95rem] font-semibold text-[var(--brand-primary)]"
+        >
+          Plan a corporate order →
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export function SiteFooter({ showClientBrands = true }: { showClientBrands?: boolean }) {
+  return (
+    <>
+      {showClientBrands ? <ClientBrands /> : null}
+      <footer className="border-t border-[rgba(0,0,0,0.08)] bg-white">
+        <div className="page-pad mx-auto max-w-[1720px] py-14">
+          <div className="grid gap-12 lg:grid-cols-[1.35fr_1fr_1fr_1.1fr]">
+            <div>
+              <Image
+                src="/brand/occasionkart-logo.png"
+                alt="OccasionKart"
+                width={794}
+                height={385}
+                className="h-auto w-[180px]"
+              />
+              <p className="mt-8 max-w-[320px] text-[1rem] leading-8 text-[var(--text-secondary)]">
+                Fresh cakes, custom celebrations, and dependable cake delivery
+                across Hyderabad.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {socialLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={item.label}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(0,0,0,0.1)] bg-[var(--surface-accent)] text-[0.82rem] font-semibold text-[var(--foreground)] transition hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)]"
+                  >
+                    {item.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Order Cakes</h2>
+              <div className="mt-6 space-y-4 text-[1rem] text-[var(--text-secondary)]">
+                <Link href="/cakes" className="block">
+                  All Cakes
+                </Link>
+                <Link href="/birthday-specials" className="block">
+                  Birthday Specials
+                </Link>
+                <Link href="/custom-orders" className="block">
+                  Custom Cake Builder
+                </Link>
+                <Link href="/corporate-orders" className="block">
+                  Corporate Bulk Orders
+                </Link>
+                <Link href="/offers" className="block">
+                  Offers
+                </Link>
+                <Link href="/menu" className="block">
+                  Full Menu
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Help & Policies</h2>
+              <div className="mt-6 space-y-4 text-[1rem] text-[var(--text-secondary)]">
+                <Link href="/track-order" className="block">
+                  Track Order
+                </Link>
+                <Link href="/faq" className="block">
+                  FAQ
+                </Link>
+                <Link href="/checkout" className="block">
+                  Checkout
+                </Link>
+                <Link href="/privacy-policy" className="block">
+                  Privacy Policy
+                </Link>
+                <Link href="/terms-and-conditions" className="block">
+                  Terms and Conditions
+                </Link>
+                <Link href="/refund-policy" className="block">
+                  Refund Policy
+                </Link>
+                <Link href="/contact" className="block">
+                  Contact
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Contact</h2>
+              <div className="mt-6 space-y-4 text-[1rem] leading-7 text-[var(--text-secondary)]">
+                <p>Hyderabad, Telangana, India</p>
+                <p>Phone: +91 9059058058</p>
+                <p>Email: support@occasionkart.com</p>
+                <p>Support hours: 9:00 AM to 9:00 PM IST</p>
                 <a
-                  key={item.label}
-                  href={item.href}
+                  href="https://wa.me/919059058058?text=Hi%20OccasionKart%2C%20I%20want%20to%20place%20an%20order."
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={item.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(0,0,0,0.1)] bg-[var(--surface-accent)] text-[0.82rem] font-semibold text-[var(--foreground)] transition hover:border-[var(--brand-primary)] hover:text-[var(--brand-primary)]"
+                  className="inline-flex rounded-full bg-[#25D366] px-4 py-2 text-[0.9rem] font-semibold text-white"
                 >
-                  {item.icon}
+                  Order on WhatsApp
                 </a>
-              ))}
+              </div>
             </div>
           </div>
 
-          <div>
-            <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Order Cakes</h2>
-            <div className="mt-6 space-y-4 text-[1rem] text-[var(--text-secondary)]">
-              <Link href="/cakes" className="block">
-                All Cakes
-              </Link>
-              <Link href="/birthday-specials" className="block">
-                Birthday Specials
-              </Link>
-              <Link href="/custom-orders" className="block">
-                Custom Cake Builder
-              </Link>
-              <Link href="/corporate-orders" className="block">
-                Corporate Bulk Orders
-              </Link>
-              <Link href="/offers" className="block">
-                Offers
-              </Link>
-              <Link href="/menu" className="block">
-                Full Menu
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Help & Policies</h2>
-            <div className="mt-6 space-y-4 text-[1rem] text-[var(--text-secondary)]">
-              <Link href="/track-order" className="block">
-                Track Order
-              </Link>
-              <Link href="/faq" className="block">
-                FAQ
-              </Link>
-              <Link href="/checkout" className="block">
-                Checkout
-              </Link>
-              <Link href="/privacy-policy" className="block">
-                Privacy Policy
-              </Link>
-              <Link href="/terms-and-conditions" className="block">
-                Terms and Conditions
-              </Link>
-              <Link href="/refund-policy" className="block">
-                Refund Policy
-              </Link>
-              <Link href="/contact" className="block">
-                Contact
-              </Link>
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Contact</h2>
-            <div className="mt-6 space-y-4 text-[1rem] leading-7 text-[var(--text-secondary)]">
-              <p>Hyderabad, Telangana, India</p>
-              <p>Phone: +91 9059058058</p>
-              <p>Email: support@occasionkart.com</p>
-              <p>Support hours: 9:00 AM to 9:00 PM IST</p>
-              <a
-                href="https://wa.me/919059058058?text=Hi%20OccasionKart%2C%20I%20want%20to%20place%20an%20order."
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex rounded-full bg-[#25D366] px-4 py-2 text-[0.9rem] font-semibold text-white"
-              >
-                Order on WhatsApp
-              </a>
+          <div className="mt-12 flex flex-col gap-6 border-t border-[rgba(0,0,0,0.08)] pt-8 text-[1rem] text-[var(--text-secondary)] lg:flex-row lg:items-center lg:justify-between">
+            <p>(c) 2026 OccasionKart. All rights reserved.</p>
+            <div className="flex flex-wrap gap-8">
+              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/terms-and-conditions">Terms</Link>
+              <Link href="/refund-policy">Refund Policy</Link>
+              <Link href="/faq">FAQ</Link>
+              <Link href="/testimonials">Testimonials</Link>
+              <Link href="/menu">Menu</Link>
+              <Link href="/sitemap.xml">Sitemap</Link>
             </div>
           </div>
         </div>
-
-        <div className="mt-12 flex flex-col gap-6 border-t border-[rgba(0,0,0,0.08)] pt-8 text-[1rem] text-[var(--text-secondary)] lg:flex-row lg:items-center lg:justify-between">
-          <p>(c) 2026 OccasionKart. All rights reserved.</p>
-          <div className="flex flex-wrap gap-8">
-            <Link href="/privacy-policy">Privacy Policy</Link>
-            <Link href="/terms-and-conditions">Terms</Link>
-            <Link href="/refund-policy">Refund Policy</Link>
-            <Link href="/faq">FAQ</Link>
-            <Link href="/testimonials">Testimonials</Link>
-            <Link href="/menu">Menu</Link>
-            <Link href="/sitemap.xml">Sitemap</Link>
-          </div>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

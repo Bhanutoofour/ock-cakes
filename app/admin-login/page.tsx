@@ -26,7 +26,7 @@ export default async function AdminLoginPage() {
       <main className="bg-white page-pad py-12">
         <AdminLoginForm />
       </main>
-      <SiteFooter />
+      <SiteFooter showClientBrands={false} />
     </>
   );
 }
