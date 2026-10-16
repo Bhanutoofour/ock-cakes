@@ -13,6 +13,15 @@ type RazorpayOrderResponse = {
   currency: string;
 };
 
+type RazorpayPaymentResponse = {
+  id: string;
+  order_id: string;
+  status: string;
+  captured: boolean;
+  amount: number;
+  currency: string;
+};
+
 function getRazorpayCredentials() {
   const keyId = process.env.RAZORPAY_KEY_ID;
   const keySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -71,6 +80,24 @@ export async function createRazorpayOrder({
     amount: payload.amount,
     currency: payload.currency,
   };
+}
+
+export async function getCapturedRazorpayPayment(paymentId: string) {
+  const { keyId, keySecret } = getRazorpayCredentials();
+  const auth = Buffer.from(`${keyId}:${keySecret}`).toString("base64");
+  const response = await fetch(`https://api.razorpay.com/v1/payments/${encodeURIComponent(paymentId)}`, {
+    headers: { Authorization: `Basic ${auth}` },
+    cache: "no-store",
+  });
+  const payload = (await response.json()) as RazorpayPaymentResponse & {
+    error?: { description?: string };
+  };
+
+  if (!response.ok) {
+    throw new Error(payload.error?.description ?? "Unable to verify Razorpay payment.");
+  }
+
+  return payload;
 }
 
 export function verifyRazorpaySignature({

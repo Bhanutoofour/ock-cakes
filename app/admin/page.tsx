@@ -11,6 +11,6 @@ export const metadata = createMetadata({
 });
 
 export default async function AdminDashboardPage() {
-  const orders = await listOrders({ limit: 1000 });
+  const orders = await listOrders({ paymentStatus: "paid", limit: 1000 });
   return <AdminDashboardClient initialOrders={orders} />;
 }

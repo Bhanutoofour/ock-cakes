@@ -8,7 +8,7 @@ export const metadata = createMetadata({
 });
 
 export default async function AdminDeliveryPage() {
-  const orders = await listOrders({ limit: 600 });
+  const orders = await listOrders({ paymentStatus: "paid", limit: 600 });
   const activeDeliveries = orders.filter((order) => order.status === "out_for_delivery");
   const deliveredToday = orders.filter((order) => {
     const created = new Date(order.createdAt);

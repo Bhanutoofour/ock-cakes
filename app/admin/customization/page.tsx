@@ -11,6 +11,6 @@ export const metadata = createMetadata({
 });
 
 export default async function AdminCustomizationPage() {
-  const orders = await listOrders({ limit: 600 });
+  const orders = await listOrders({ paymentStatus: "paid", limit: 600 });
   return <AdminCustomizationClient initialOrders={orders} />;
 }

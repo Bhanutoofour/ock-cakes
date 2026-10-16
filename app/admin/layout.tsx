@@ -112,7 +112,7 @@ export default async function AdminLayout({
   }
 
   const [orderStats, recentOrders] = isAdmin
-    ? await Promise.all([getOrderDashboardStats(), listOrders({ limit: 400 })])
+    ? await Promise.all([getOrderDashboardStats(), listOrders({ paymentStatus: "paid", limit: 400 })])
     : [null, []];
   const pendingCustomizationCount = recentOrders.filter(
     (order) => isCustomizationOrder(order) && order.status === "pending",

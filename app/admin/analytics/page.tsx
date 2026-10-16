@@ -16,7 +16,7 @@ function toPercent(value: number, total: number) {
 }
 
 export default async function AdminAnalyticsPage() {
-  const orders = await listOrders({ limit: 500 });
+  const orders = await listOrders({ paymentStatus: "paid", limit: 500 });
   const total = orders.length;
 
   const statusMap = new Map<string, number>();

@@ -8,7 +8,7 @@ export const metadata = createMetadata({
 });
 
 export default async function AdminFinancePage() {
-  const orders = await listOrders({ limit: 500 });
+  const orders = await listOrders({ paymentStatus: "paid", limit: 500 });
 
   const paid = orders.filter((order) => order.paymentStatus === "paid");
   const pending = orders.filter((order) => order.paymentStatus === "pending");

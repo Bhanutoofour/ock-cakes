@@ -1,6 +1,6 @@
 import { getOrderById, updateOrder } from "@/lib/server/orders";
 import { sendOrderStatusNotifications } from "@/lib/server/order-notifications";
-import { verifyRazorpaySignature } from "@/lib/server/razorpay";
+import { getCapturedRazorpayPayment, verifyRazorpaySignature } from "@/lib/server/razorpay";
 
 export const runtime = "nodejs";
 
@@ -30,6 +30,25 @@ export async function POST(request: Request) {
     const existingOrder = await getOrderById(payload.orderId);
     if (!existingOrder) {
       return Response.json({ error: "Order not found." }, { status: 404 });
+    }
+
+    const razorpayPayment = await getCapturedRazorpayPayment(payload.razorpayPaymentId);
+    if (
+      razorpayPayment.id !== payload.razorpayPaymentId ||
+      razorpayPayment.order_id !== payload.razorpayOrderId ||
+      razorpayPayment.status !== "captured" ||
+      !razorpayPayment.captured ||
+      razorpayPayment.amount !== existingOrder.pricing.total * 100 ||
+      razorpayPayment.currency !== existingOrder.pricing.currency
+    ) {
+      return Response.json(
+        { error: "Payment is not captured or does not match this order." },
+        { status: 409 },
+      );
+    }
+
+    if (existingOrder.paymentStatus === "paid") {
+      return Response.json({ data: { order: existingOrder } });
     }
 
     const notesPrefix = existingOrder.notes ? `${existingOrder.notes}\n` : "";

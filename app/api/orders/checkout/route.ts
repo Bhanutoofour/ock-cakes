@@ -1,7 +1,6 @@
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
-import { sendInitialOrderNotifications } from "@/lib/server/order-notifications";
 import { createOrder } from "@/lib/server/orders";
 import { createRazorpayOrder, getRazorpayPublicConfig } from "@/lib/server/razorpay";
 
@@ -25,8 +24,6 @@ export async function POST(request: Request) {
     }
 
     const order = orderResult.value;
-
-    await sendInitialOrderNotifications(order);
 
     const razorpayOrder = await createRazorpayOrder({
       amountPaise: order.pricing.total * 100,

@@ -10,7 +10,7 @@ export const metadata = createMetadata({
 });
 
 export default async function AdminOrdersPage() {
-  const orders = await listOrders({ limit: 200 });
+  const orders = await listOrders({ paymentStatus: "paid", limit: 200 });
 
   return (
     <div className="min-w-0 space-y-6">
