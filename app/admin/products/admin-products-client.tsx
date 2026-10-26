@@ -118,6 +118,8 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
   const router = useRouter();
   const [products, setProducts] = useState(initialProducts);
   const [catalogSearch, setCatalogSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
+  const [view, setView] = useState<"list" | "edit">("list");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [values, setValues] = useState<ProductFormValues>(emptyForm);
   const [isPending, setIsPending] = useState(false);
@@ -146,13 +148,15 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
   );
   const visibleProducts = useMemo(() => {
     const query = catalogSearch.trim().toLowerCase();
-    if (!query) return products;
     return products.filter((product) =>
-      [product.name, product.slug, product.category, ...product.categories].join(" ").toLowerCase().includes(query),
+      (categoryFilter === "all" || product.categories.some((category) => category.toLowerCase() === categoryFilter.toLowerCase()) || product.category.toLowerCase() === categoryFilter.toLowerCase()) &&
+      (!query || [product.name, product.slug, product.category, ...product.categories].join(" ").toLowerCase().includes(query)),
     );
-  }, [catalogSearch, products]);
+  }, [catalogSearch, categoryFilter, products]);
+  const catalogCategories = useMemo(() => [...new Set(products.flatMap((product) => [...product.categories, product.category]).filter(Boolean))].sort((a, b) => a.localeCompare(b)), [products]);
 
   const startCreate = () => {
+    setView("edit");
     setSelectedId(null);
     setValues(emptyForm);
     setError("");
@@ -160,6 +164,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
   };
 
   const startEdit = (product: Product) => {
+    setView("edit");
     setSelectedId(product.id);
     setValues(toFormValues(product));
     setError("");
@@ -320,65 +325,47 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
     }
   };
 
-  return (
-    <div className="grid min-w-0 gap-5 2xl:grid-cols-[minmax(290px,0.8fr)_minmax(0,1.2fr)] 2xl:gap-8">
-      <aside className="min-w-0 rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[var(--background)] p-4 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-6">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h2 className="text-[1.35rem] font-semibold text-black">Catalog</h2>
-            <p className="mt-1 text-[0.95rem] text-[var(--text-secondary)]">
-              Showing {visibleProducts.length} of {products.length} products
-            </p>
+  if (view === "list") {
+    return (
+      <div className="space-y-5">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div><p className="text-sm font-semibold text-[var(--brand-primary)]">Catalog</p><h2 className="mt-1 text-3xl font-semibold text-black">Products</h2><p className="mt-2 text-sm text-[var(--text-secondary)]">{products.length} cakes in your catalog</p></div>
+          <button type="button" onClick={startCreate} className="rounded-xl bg-[var(--brand-primary)] px-5 py-3 text-sm font-semibold text-white shadow-sm">Add product</button>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+          <div className="flex flex-col gap-3 border-b border-black/10 p-4 sm:flex-row">
+            <label className="relative min-w-0 flex-1"><span className="sr-only">Search products</span><span aria-hidden="true" className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">⌕</span><input type="search" value={catalogSearch} onChange={(event) => setCatalogSearch(event.target.value)} placeholder="Search products by name, slug, or category" className="w-full rounded-xl border border-black/15 py-3 pl-9 pr-3 text-sm outline-none focus:border-[var(--brand-primary)]" /></label>
+            <label className="sm:w-56"><span className="sr-only">Filter by category</span><select value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} className="w-full rounded-xl border border-black/15 bg-white px-3 py-3 text-sm"><option value="all">All categories</option>{catalogCategories.map((category) => <option key={category} value={category}>{category}</option>)}</select></label>
           </div>
-          <button
-            type="button"
-            className="rounded-full bg-[var(--brand-primary)] px-4 py-2 text-[0.92rem] font-semibold text-white"
-            onClick={startCreate}
-          >
-            New Product
-          </button>
+          <div className="flex items-center justify-between px-4 py-3 text-xs text-gray-500"><span>{visibleProducts.length} results</span><span>Click a cake to edit</span></div>
+          <div className="hidden grid-cols-[minmax(240px,1fr)_minmax(130px,0.45fr)_120px] gap-4 border-y bg-gray-50 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500 md:grid"><span>Product</span><span>Category</span><span className="text-right">Starting price</span></div>
+          <div className="divide-y divide-black/5">
+            {visibleProducts.map((product) => (
+              <button key={product.id} type="button" onClick={() => startEdit(product)} className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 text-left transition hover:bg-[#fffaf6] md:grid-cols-[minmax(240px,1fr)_minmax(130px,0.45fr)_120px] md:gap-4 md:px-5">
+                <span className="flex min-w-0 items-center gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}<img src={product.image} alt="" className="h-12 w-12 shrink-0 rounded-lg border border-black/10 object-cover" />
+                  <span className="min-w-0"><span className="block truncate text-sm font-semibold text-gray-900">{product.name}</span><span className="mt-1 block truncate text-xs text-gray-500">{product.slug}</span></span>
+                </span>
+                <span className="hidden truncate text-sm text-gray-600 md:block">{product.category}</span>
+                <span className="text-right text-sm font-semibold text-gray-900"><span className="md:hidden block text-[10px] font-normal text-gray-500">From</span>₹{product.price.toLocaleString("en-IN")}</span>
+                <span className="col-span-2 truncate text-xs text-gray-500 md:hidden">{product.category}</span>
+              </button>
+            ))}
+            {visibleProducts.length === 0 && <p className="p-8 text-center text-sm text-gray-500">No cakes match this search. Try another name or category.</p>}
+          </div>
         </div>
+      </div>
+    );
+  }
 
-        <label className="mt-4 block">
-          <span className="sr-only">Search products</span>
-          <input
-            type="search"
-            value={catalogSearch}
-            onChange={(event) => setCatalogSearch(event.target.value)}
-            placeholder="Search by cake name, slug, or category"
-            className="w-full min-w-0 rounded-xl border border-[rgba(0,0,0,0.14)] bg-white px-4 py-3 text-sm text-[var(--foreground)] outline-none focus:border-[var(--brand-primary)] focus:ring-2 focus:ring-[var(--brand-primary)]/10"
-          />
-        </label>
-
-        <div className="mt-4 max-h-[42vh] space-y-3 overflow-y-auto pr-1 sm:max-h-[680px]">
-          {visibleProducts.map((product) => (
-            <button
-              key={product.id}
-              type="button"
-              className={`w-full rounded-[18px] border px-4 py-4 text-left transition ${
-                selectedId === product.id
-                  ? "border-[var(--brand-primary)] bg-[#fff6f0]"
-                  : "border-[rgba(0,0,0,0.08)] bg-white"
-              }`}
-              onClick={() => startEdit(product)}
-            >
-              <p className="text-[1rem] font-semibold text-[var(--foreground)]">{product.name}</p>
-              <p className="mt-1 text-[0.85rem] text-[var(--text-secondary)]">{product.slug}</p>
-              <div className="mt-3 flex items-center justify-between text-[0.88rem] text-[var(--foreground)]">
-                <span>{product.category}</span>
-                <span>From Rs. {product.price}</span>
-              </div>
-            </button>
-          ))}
-          {visibleProducts.length === 0 && <p className="rounded-xl bg-white p-4 text-sm text-[var(--text-secondary)]">No products match “{catalogSearch}”.</p>}
-        </div>
-      </aside>
-
+  return (
+    <div className="min-w-0 space-y-5">
       <section className="min-w-0 rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-4 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-6 xl:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
+            <button type="button" onClick={() => setView("list")} className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--brand-primary)]">← Products</button>
             <h2 className="text-[1.6rem] font-semibold text-black">
-              {selectedProduct ? "Edit Product" : "Create Product"}
+              {selectedProduct ? selectedProduct.name : "Add product"}
             </h2>
             <p className="mt-2 text-[0.98rem] text-[var(--text-secondary)]">
               Upload the cake image, set the default cake weight price, and control
