@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/store/site-header";
 import { toJsonLd } from "@/lib/json-ld";
 import { createMetadata, siteSeo } from "@/lib/seo";
 import { listProducts } from "@/lib/server/catalog";
+import { getStorefrontTheme } from "@/lib/server/storefront-theme";
 import styles from "./home.module.css";
 
 export const metadata = createMetadata({
@@ -78,7 +79,7 @@ const ClockIcon = () => <svg {...iconProps}><circle cx="12" cy="12" r="8.5" /><p
 const HeartIcon = () => <svg {...iconProps}><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10Z" /></svg>;
 
 export default async function Home() {
-  const products = await listProducts();
+  const [products, theme] = await Promise.all([listProducts(), getStorefrontTheme()]);
   const inCategory = (category: string) => products.filter((product) =>
     product.categories.some((item) => item.toLowerCase() === category.toLowerCase())
   );
@@ -89,10 +90,12 @@ export default async function Home() {
   })).filter((collection) => collection.image);
   const chocolate = inCategory("Chocolate Truffle");
   const featured = [...chocolate.slice(0, 2), ...inCategory("Regular Birthday Cakes").slice(0, 3)];
-  const picks = Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
-    .filter((product) => product.price > 0)
-    .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name))
-    .slice(0, 5);
+  const picks = theme.picksProductIds.length
+    ? theme.picksProductIds.map((id) => products.find((product) => product.id === id)).filter((product) => product && product.price > 0)
+    : Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
+        .filter((product) => product.price > 0)
+        .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name))
+        .slice(0, 5);
   const occasionCards = collectionCards.filter((card) => ["Birthday Cakes", "Anniversary", "Kids & Themes", "Wedding Cakes"].includes(card.title));
   return (
     <>
@@ -133,7 +136,7 @@ export default async function Home() {
           </section>
 
           <section className={styles.section}>
-            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Hyderabad Loves</p><h2>Best Sellers</h2></div><Link href="/cakes">View all cakes →</Link></div>
+            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>{theme.picksEyebrow}</p><h2>{theme.picksHeading}</h2>{theme.picksSubheading && <p>{theme.picksSubheading}</p>}</div><Link href="/cakes">View all cakes →</Link></div>
             <div className={styles.products}>{picks.map((product) => <ProductCard key={product.id} product={product} />)}</div>
             {picks.length === 0 && <p>No cakes to show here right now. <Link href="/cakes">Browse all cakes →</Link></p>}
           </section>

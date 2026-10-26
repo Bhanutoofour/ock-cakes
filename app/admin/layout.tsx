@@ -24,6 +24,7 @@ const adminSections: AdminSidebarSection[] = [
       { href: "/admin/products", label: "Products" },
       { href: "/admin/customers", label: "Customers" },
       { href: "/admin/categories", label: "Content" },
+      { href: "/admin/theme", label: "Theme editor" },
       { href: "/admin/customization", label: "Customization" },
       { href: "/admin/delivery", label: "Delivery" },
       { href: "/admin/coupons", label: "Coupons" },
