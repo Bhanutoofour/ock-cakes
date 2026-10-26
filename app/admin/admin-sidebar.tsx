@@ -42,7 +42,19 @@ export function AdminSidebar({
         Admin Panel
       </p>
 
-      <nav className="mt-3 space-y-4">
+      <details className="mt-3 xl:hidden">
+        <summary className="cursor-pointer rounded-xl bg-[#263443] px-3 py-3 text-sm font-semibold">Open admin menu</summary>
+        <div className="mt-3 max-h-[55vh] space-y-4 overflow-y-auto">
+          {sections.map((section) => (
+            <div key={section.title}>
+              <p className="px-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#8ea1b3]">{section.title}</p>
+              <div className="mt-1 space-y-1">{section.links.map((link) => link.href && !link.comingSoon ? <Link key={`${section.title}-${link.label}`} href={link.href} className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm ${isActiveLink(pathname, link.href) ? "bg-[#33475b] text-white" : "text-[#d9e5f0]"}`}><span>{link.label}</span>{(link.badgeCount ?? 0) > 0 && <span className="rounded-full bg-[#e14c4c] px-2 text-xs text-white">{link.badgeCount}</span>}</Link> : <span key={`${section.title}-${link.label}`} className="block px-3 py-2 text-sm text-[#9db0c2]">{link.label} · Soon</span>)}</div>
+            </div>
+          ))}
+        </div>
+      </details>
+
+      <nav className="mt-3 hidden space-y-4 xl:block">
         {sections.map((section) => (
           <div key={section.title}>
             <p className="px-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[#8ea1b3]">

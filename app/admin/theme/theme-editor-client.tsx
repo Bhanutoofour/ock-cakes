@@ -98,7 +98,7 @@ export function AdminThemeEditor({ initialProducts, initialTheme }: { initialPro
       </header>
       {message && <p role="status" className="rounded-xl bg-green-50 px-4 py-3 text-green-800">{message}</p>}{error && <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-red-800">{error}</p>}
 
-      <div className="grid min-h-[760px] gap-4 2xl:grid-cols-[250px_minmax(420px,1fr)_330px]">
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[220px_minmax(0,1fr)] 2xl:grid-cols-[250px_minmax(420px,1fr)_330px]">
         <aside className="rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
           <div className="mb-3 flex items-center justify-between"><h3 className="font-semibold text-black">Homepage sections</h3><span className="text-xs text-gray-500">{visibleSections.length} shown</span></div>
           <div className="space-y-1">
@@ -117,7 +117,7 @@ export function AdminThemeEditor({ initialProducts, initialTheme }: { initialPro
 
         <section className="min-w-0 rounded-2xl border border-black/10 bg-[#e9edf0] p-3 shadow-sm">
           <div className="mb-3 flex items-center justify-between rounded-xl bg-white px-3 py-2"><span className="text-sm font-semibold text-gray-700">Live preview · {device === "desktop" ? "Desktop" : "Mobile"}</span><div className="flex gap-1"><button type="button" onClick={() => setDevice("desktop")} className={`rounded px-3 py-1 text-xs ${device === "desktop" ? "bg-gray-900 text-white" : "bg-gray-100"}`}>Desktop</button><button type="button" onClick={() => setDevice("mobile")} className={`rounded px-3 py-1 text-xs ${device === "mobile" ? "bg-gray-900 text-white" : "bg-gray-100"}`}>Mobile</button></div></div>
-          <div className={`mx-auto max-h-[690px] overflow-y-auto rounded-xl bg-white shadow-lg transition-all ${device === "mobile" ? "max-w-[390px]" : "max-w-full"}`} style={{ "--brand-primary": theme.brandPrimary, "--background": theme.pageBackground } as React.CSSProperties}>
+          <div className={`mx-auto max-h-[690px] w-full overflow-y-auto rounded-xl bg-white shadow-lg transition-all ${device === "mobile" ? "max-w-[390px]" : "max-w-full"}`} style={{ "--brand-primary": theme.brandPrimary, "--background": theme.pageBackground } as React.CSSProperties}>
             <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-5 py-3"><strong className="text-lg text-[#77171c]">occasionkart</strong><span className="text-xs text-gray-600">Cakes　 Birthday　 Contact　 🛒</span></div>
             {visibleSections.map((id) => <button key={id} type="button" onClick={() => setActiveSection(id)} className={`block w-full border-2 border-transparent text-left hover:border-dashed hover:border-[var(--brand-primary)] ${activeSection === id ? "!border-[var(--brand-primary)]" : ""}`}>
               {id === "announcement" && <div className="bg-[#f7efe9] px-4 py-2 text-center text-xs text-[var(--brand-primary)]">{theme.sectionCopy.announcement?.heading} · {theme.sectionCopy.announcement?.description}</div>}

@@ -117,6 +117,7 @@ function createFlavorOption(label = "", pricePerKg = 0): ProductFlavorOption {
 export function AdminProductsClient({ initialProducts }: { initialProducts: Product[] }) {
   const router = useRouter();
   const [products, setProducts] = useState(initialProducts);
+  const [catalogSearch, setCatalogSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [values, setValues] = useState<ProductFormValues>(emptyForm);
   const [isPending, setIsPending] = useState(false);
@@ -143,6 +144,13 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
     () => products.find((product) => product.id === selectedId) ?? null,
     [products, selectedId],
   );
+  const visibleProducts = useMemo(() => {
+    const query = catalogSearch.trim().toLowerCase();
+    if (!query) return products;
+    return products.filter((product) =>
+      [product.name, product.slug, product.category, ...product.categories].join(" ").toLowerCase().includes(query),
+    );
+  }, [catalogSearch, products]);
 
   const startCreate = () => {
     setSelectedId(null);
@@ -313,13 +321,13 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
   };
 
   return (
-    <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-      <aside className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[var(--background)] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.06)]">
+    <div className="grid min-w-0 gap-5 2xl:grid-cols-[minmax(290px,0.8fr)_minmax(0,1.2fr)] 2xl:gap-8">
+      <aside className="min-w-0 rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-[var(--background)] p-4 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-[1.35rem] font-semibold text-black">Catalog</h2>
             <p className="mt-1 text-[0.95rem] text-[var(--text-secondary)]">
-              {products.length} products in Neon
+              Showing {visibleProducts.length} of {products.length} products
             </p>
           </div>
           <button
@@ -331,8 +339,19 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
           </button>
         </div>
 
-        <div className="mt-5 max-h-[680px] space-y-3 overflow-y-auto pr-1">
-          {products.map((product) => (
+        <label className="mt-4 block">
+          <span className="sr-only">Search products</span>
+          <input
+            type="search"
+            value={catalogSearch}
+            onChange={(event) => setCatalogSearch(event.target.value)}
+            placeholder="Search by cake name, slug, or category"
+            className="w-full min-w-0 rounded-xl border border-[rgba(0,0,0,0.14)] bg-white px-4 py-3 text-sm text-[var(--foreground)] outline-none focus:border-[var(--brand-primary)] focus:ring-2 focus:ring-[var(--brand-primary)]/10"
+          />
+        </label>
+
+        <div className="mt-4 max-h-[42vh] space-y-3 overflow-y-auto pr-1 sm:max-h-[680px]">
+          {visibleProducts.map((product) => (
             <button
               key={product.id}
               type="button"
@@ -351,10 +370,11 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
               </div>
             </button>
           ))}
+          {visibleProducts.length === 0 && <p className="rounded-xl bg-white p-4 text-sm text-[var(--text-secondary)]">No products match “{catalogSearch}”.</p>}
         </div>
       </aside>
 
-      <section className="rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.08)]">
+      <section className="min-w-0 rounded-[22px] border border-[rgba(0,0,0,0.12)] bg-white p-4 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:p-6 xl:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h2 className="text-[1.6rem] font-semibold text-black">
@@ -584,12 +604,12 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
               {values.flavorOptions.map((option, index) => (
                 <div
                   key={`${option.id}-${index}`}
-                  className="grid gap-3 rounded-[16px] border border-[rgba(0,0,0,0.08)] bg-white p-4 md:grid-cols-[1.4fr_1fr_auto]"
+                  className="grid min-w-0 gap-3 rounded-[16px] border border-[rgba(0,0,0,0.08)] bg-white p-3 sm:p-4 sm:grid-cols-2 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_auto]"
                 >
                   <input
                     value={option.label}
                     placeholder="Flavor name"
-                    className="rounded-[12px] border border-[rgba(0,0,0,0.12)] px-4 py-3"
+                    className="min-w-0 w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] px-3 py-3 sm:px-4"
                     onChange={(event) => updateFlavorOption(index, "label", event.target.value)}
                   />
                   <input
@@ -598,7 +618,7 @@ export function AdminProductsClient({ initialProducts }: { initialProducts: Prod
                     step="50"
                     value={option.pricePerKg}
                     placeholder="200"
-                    className="rounded-[12px] border border-[rgba(0,0,0,0.12)] px-4 py-3"
+                    className="min-w-0 w-full rounded-[12px] border border-[rgba(0,0,0,0.12)] px-3 py-3 sm:px-4"
                     onChange={(event) =>
                       updateFlavorOption(index, "pricePerKg", event.target.value)
                     }
