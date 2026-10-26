@@ -85,11 +85,29 @@ function Arrow({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export function HomeHeroCarousel() {
+export type HeroSlideOverrides = {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaHref: string;
+  image: string;
+};
+
+export function HomeHeroCarousel({ firstSlide }: { firstSlide?: HeroSlideOverrides }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
-  const totalSlides = HERO_SLIDES.length;
+  const slides = firstSlide
+    ? HERO_SLIDES.map((slide, index) => index === 0 ? {
+        ...slide,
+        title: [firstSlide.title.split("\n")[0] ?? "", firstSlide.title.split("\n").slice(1).join(" ")],
+        subtitle: firstSlide.subtitle,
+        ctaText: firstSlide.ctaText,
+        ctaHref: firstSlide.ctaHref,
+        image: firstSlide.image,
+      } : slide)
+    : HERO_SLIDES;
+  const totalSlides = slides.length;
 
   const goTo = useCallback(
     (index: number) => setActiveSlide((index + totalSlides) % totalSlides),
@@ -136,7 +154,7 @@ export function HomeHeroCarousel() {
         className="flex transition-transform duration-700 ease-out motion-reduce:transition-none"
         style={{ transform: `translateX(-${activeSlide * 100}%)` }}
       >
-        {HERO_SLIDES.map((slide, index) => {
+        {slides.map((slide, index) => {
           const active = index === activeSlide;
           return (
             <article
@@ -215,7 +233,7 @@ export function HomeHeroCarousel() {
       </button>
 
       <div className="absolute bottom-4 left-5 flex items-center gap-2 sm:bottom-6 sm:left-10">
-        {HERO_SLIDES.map((slide, index) => (
+        {slides.map((slide, index) => (
           <button
             key={slide.ctaHref}
             type="button"
@@ -226,7 +244,7 @@ export function HomeHeroCarousel() {
               activeSlide === index ? "w-9" : "w-2.5"
             }`}
             style={{
-              backgroundColor: HERO_SLIDES[activeSlide].dark
+              backgroundColor: slides[activeSlide].dark
                 ? activeSlide === index ? "#fff" : "rgba(255,255,255,0.45)"
                 : activeSlide === index ? "var(--brand-primary)" : "rgba(0,0,0,0.2)",
             }}

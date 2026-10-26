@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import type { CSSProperties, ReactNode } from "react";
 import { HomeHeroCarousel } from "@/components/store/home-hero-carousel";
 import { ProductCard } from "@/components/store/product-card";
 import { SiteFooter } from "@/components/store/site-footer";
@@ -8,6 +9,7 @@ import { toJsonLd } from "@/lib/json-ld";
 import { createMetadata, siteSeo } from "@/lib/seo";
 import { listProducts } from "@/lib/server/catalog";
 import { getStorefrontTheme } from "@/lib/server/storefront-theme";
+import { type ThemeSectionId } from "@/lib/storefront-theme-schema";
 import styles from "./home.module.css";
 
 export const metadata = createMetadata({
@@ -92,86 +94,41 @@ export default async function Home() {
   })).filter((collection) => collection.image);
   const chocolate = inCategory("Chocolate Truffle");
   const featured = [...chocolate.slice(0, 2), ...inCategory("Regular Birthday Cakes").slice(0, 3)];
-  const picks = theme.picksProductIds.length
-    ? theme.picksProductIds.flatMap((id) => {
-        const product = products.find((item) => item.id === id);
-        return product && product.price > 0 ? [product] : [];
-      })
-    : Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
-        .filter((product) => product.price > 0)
-        .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name))
-        .slice(0, 5);
+  const availablePicks = Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
+    .filter((product) => product.price > 0)
+    .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name));
+  const selectedPicks = theme.picksProductIds.flatMap((id) => {
+    const product = products.find((item) => item.id === id);
+    return product && product.price > 0 ? [product] : [];
+  });
+  const picks = [...selectedPicks, ...availablePicks.filter((product) => !theme.picksProductIds.includes(product.id))].slice(0, 5);
   const occasionCards = collectionCards.filter((card) => ["Birthday Cakes", "Anniversary", "Kids & Themes", "Wedding Cakes"].includes(card.title));
+  const copy = theme.sectionCopy;
+  const contentSections: Record<ThemeSectionId, ReactNode> = {
+    announcement: <div className={styles.deliveryNote}>{copy.announcement?.heading}<span>{copy.announcement?.description}</span></div>,
+    hero: <HomeHeroCarousel firstSlide={{ title: theme.heroTitle, subtitle: theme.heroSubtitle, ctaText: theme.heroCtaText, ctaHref: theme.heroCtaHref, image: theme.heroImage }} />,
+    categories: <><div className={styles.sectionHead}><div>{copy.categories?.eyebrow && <p className={styles.eyebrow}>{copy.categories.eyebrow}</p>}{copy.categories?.heading && <h2>{copy.categories.heading}</h2>}{copy.categories?.description && <p>{copy.categories.description}</p>}</div></div><nav className={styles.categories} aria-label="Shop cake collections">{collectionCards.map((card) => <Link href={categoryHref(card.category)} key={card.title} className={styles.category}><span className={styles.categoryImage}><img src={card.image} alt="" /></span><span>{card.title}</span></Link>)}</nav></>,
+    service: <><div className={styles.sectionHead}><div>{copy.service?.eyebrow && <p className={styles.eyebrow}>{copy.service.eyebrow}</p>}{copy.service?.heading && <h2>{copy.service.heading}</h2>}{copy.service?.description && <p>{copy.service.description}</p>}</div></div><div className={styles.serviceStrip}><div><CakeIcon /><p><strong>Freshly baked</strong><small>Birthday, anniversary & custom cakes</small></p></div><div><ClockIcon /><p><strong>Same-day delivery</strong><small>Available in selected pincodes</small></p></div><div><HeartIcon /><p><strong>Message on cake</strong><small>Add a name or wish at checkout</small></p></div></div></>,
+    occasions: <section className={styles.section}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>{copy.occasions?.eyebrow}</p><h2>{copy.occasions?.heading}</h2></div><Link href={copy.occasions?.ctaHref || "/cakes"}>{copy.occasions?.ctaText} →</Link></div><div className={styles.occasions}>{occasionCards.map((card) => <Link key={card.title} href={categoryHref(card.category)} className={styles.occasion}><div><img src={card.image} alt={card.title} loading="lazy" /></div><span><span><strong>{card.title}</strong><small>{card.note}</small></span><b aria-hidden="true">↗</b></span></Link>)}</div></section>,
+    picks: <section className={styles.section}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>{theme.picksEyebrow || copy.picks?.eyebrow}</p><h2>{theme.picksHeading || copy.picks?.heading}</h2>{(theme.picksSubheading || copy.picks?.description) && <p>{theme.picksSubheading || copy.picks?.description}</p>}</div><Link href={copy.picks?.ctaHref || "/cakes"}>{copy.picks?.ctaText || "View all cakes"} →</Link></div><div className={styles.products}>{picks.map((product) => <ProductCard key={product.id} product={product} />)}</div>{picks.length === 0 && <p>No cakes to show here right now. <Link href="/cakes">Browse all cakes →</Link></p>}</section>,
+    flavors: <section className={styles.flavorSection}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>{copy.flavors?.eyebrow}</p><h2>{copy.flavors?.heading}</h2></div><Link href={copy.flavors?.ctaHref || "/cakes"}>{copy.flavors?.ctaText} →</Link></div><div className={styles.flavors}>{flavors.map((flavor) => { const product = inCategory(flavor)[0]; return product ? <Link href={categoryHref(flavor)} key={flavor}><img src={product.image} alt="" loading="lazy" /><strong>{flavor.replace(" Cakes", "")}</strong><span>View cakes →</span></Link> : null; })}</div></section>,
+    promos: <section className={styles.promos} aria-label="More ways to celebrate">{(copy.promos?.heading || copy.promos?.description) && <div className="col-span-full"><p className={styles.eyebrow}>{copy.promos.eyebrow}</p><h2>{copy.promos.heading}</h2><p>{copy.promos.description}</p></div>}<Link href="/custom-orders" className={styles.customPromo}><p className={styles.eyebrow}>Custom cakes</p><h2>Have a design<br />in mind?</h2><p>Send us your theme, flavour, size and a reference photo. We’ll help with the design and confirm the price.</p><span className={styles.primaryButton}>Request a custom cake →</span></Link><Link href="/corporate-orders" className={styles.corporatePromo}><p className={styles.eyebrow}>Corporate orders</p><h2>Cakes for<br />office celebrations</h2><p>Bulk orders for team birthdays, launches and company events.</p><span className={styles.textButton}>Ask about corporate orders →</span></Link></section>,
+    steps: <section className={styles.section}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>{copy.steps?.eyebrow}</p><h2>{copy.steps?.heading}</h2>{copy.steps?.description && <p>{copy.steps.description}</p>}</div></div><div className={styles.steps}>{[["01", "Pick a cake", "Browse by occasion or flavour and open the cake you like."], ["02", "Choose size and message", "Select the weight and type the message to write on the cake."], ["03", "Choose delivery and pay", "Enter your pincode, pick a date and time slot, and pay online."]].map(([number, title, text]) => <div key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></div>)}</div></section>,
+    faq: <section className={styles.faq}><div><p className={styles.eyebrow}>{copy.faq?.eyebrow}</p><h2>{copy.faq?.heading}</h2>{copy.faq?.description && <p>{copy.faq.description}</p>}<Link href={copy.faq?.ctaHref || "/faq"} className={styles.textButton}>{copy.faq?.ctaText} →</Link></div><div>{seoFaqItems.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></section>,
+    seo: <section className={styles.seo} aria-label="About our Hyderabad cake delivery">{(copy.seo?.heading || copy.seo?.description) && <><h2>{copy.seo.heading}</h2><p>{copy.seo.description}</p></>}{seoCopyBlocks.map((block) => <details key={block.title}><summary>{block.title}</summary><p>{block.body}</p></details>)}</section>,
+  };
   return (
     <>
       <SiteHeader />
-      <main className={styles.home}>
+      <main className={styles.home} style={{ "--brand-primary": theme.brandPrimary, "--background": theme.pageBackground } as CSSProperties}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd({
           "@context": "https://schema.org", "@type": "WebSite",
           "@id": `${siteSeo.siteUrl}/#website`, url: siteSeo.siteUrl,
           name: siteSeo.siteName, description: siteSeo.defaultDescription, inLanguage: "en-IN",
         }) }} />
-        <div className={styles.deliveryNote}>Cake delivery across Hyderabad <span>Same-day and midnight delivery in selected pincodes</span></div>
         <h1 className="sr-only">OccasionKart: fresh cakes delivered across Hyderabad</h1>
-        <HomeHeroCarousel />
         <div className={styles.shell}>
-          <nav className={styles.categories} aria-label="Shop cake collections">
-            {collectionCards.map((card) => (
-              <Link href={categoryHref(card.category)} key={card.title} className={styles.category}>
-                <span className={styles.categoryImage}><img src={card.image} alt="" /></span>
-                <span>{card.title}</span>
-              </Link>
-            ))}
-          </nav>
-
-          <div className={styles.serviceStrip}>
-            <div><CakeIcon /><p><strong>Freshly baked</strong><small>Birthday, anniversary & custom cakes</small></p></div>
-            <div><ClockIcon /><p><strong>Same-day delivery</strong><small>Available in selected pincodes</small></p></div>
-            <div><HeartIcon /><p><strong>Message on cake</strong><small>Add a name or wish at checkout</small></p></div>
-          </div>
-
-          <section className={styles.section}>
-            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Shop by occasion</p><h2>Cakes for every occasion</h2></div><Link href="/cakes">See all cakes <span aria-hidden="true">→</span></Link></div>
-            <div className={styles.occasions}>
-              {occasionCards.map((card) => <Link key={card.title} href={categoryHref(card.category)} className={styles.occasion}>
-                <div><img src={card.image} alt={card.title} loading="lazy" /></div>
-                <span><span><strong>{card.title}</strong><small>{card.note}</small></span><b aria-hidden="true">↗</b></span>
-              </Link>)}
-            </div>
-          </section>
-
-          <section className={styles.section}>
-            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>{theme.picksEyebrow}</p><h2>{theme.picksHeading}</h2>{theme.picksSubheading && <p>{theme.picksSubheading}</p>}</div><Link href="/cakes">View all cakes →</Link></div>
-            <div className={styles.products}>{picks.map((product) => <ProductCard key={product.id} product={product} />)}</div>
-            {picks.length === 0 && <p>No cakes to show here right now. <Link href="/cakes">Browse all cakes →</Link></p>}
-          </section>
-
-          <section className={styles.flavorSection}>
-            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Shop by flavour</p><h2>Pick a flavour</h2></div><Link href="/cakes">See all cakes →</Link></div>
-            <div className={styles.flavors}>{flavors.map((flavor) => {
-              const product = inCategory(flavor)[0];
-              return product ? <Link href={categoryHref(flavor)} key={flavor}><img src={product.image} alt="" loading="lazy" /><strong>{flavor.replace(" Cakes", "")}</strong><span>View cakes →</span></Link> : null;
-            })}</div>
-          </section>
-
-          <section className={styles.promos} aria-label="More ways to celebrate">
-            <Link href="/custom-orders" className={styles.customPromo}><p className={styles.eyebrow}>Custom cakes</p><h2>Have a design<br />in mind?</h2><p>Send us your theme, flavour, size and a reference photo. We’ll help with the design and confirm the price.</p><span className={styles.primaryButton}>Request a custom cake →</span></Link>
-            <Link href="/corporate-orders" className={styles.corporatePromo}><p className={styles.eyebrow}>Corporate orders</p><h2>Cakes for<br />office celebrations</h2><p>Bulk orders for team birthdays, launches and company events.</p><span className={styles.textButton}>Ask about corporate orders →</span></Link>
-          </section>
-
-          <section className={styles.section}>
-            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>How to order</p><h2>Order in three steps</h2></div></div>
-            <div className={styles.steps}>{[
-              ["01", "Pick a cake", "Browse by occasion or flavour and open the cake you like."],
-              ["02", "Choose size and message", "Select the weight and type the message to write on the cake."],
-              ["03", "Choose delivery and pay", "Enter your pincode, pick a date and time slot, and pay online."],
-            ].map(([number, title, copy]) => <div key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></div>)}</div>
-          </section>
-          <section className={styles.faq}>
-            <div><p className={styles.eyebrow}>FAQs</p><h2>Questions about delivery</h2><Link href="/faq" className={styles.textButton}>See all FAQs →</Link></div>
-            <div>{seoFaqItems.map((item) => <details key={item.question}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
-          </section>
-          <section className={styles.seo} aria-label="About our Hyderabad cake delivery">{seoCopyBlocks.map((block) => <details key={block.title}><summary>{block.title}</summary><p>{block.body}</p></details>)}</section>
+          {theme.sectionOrder.map((id) => theme.hiddenSections.includes(id) ? null : <div key={id} data-storefront-section={id} className={id === "hero" || id === "announcement" ? styles.fullBleed : undefined}>{contentSections[id]}</div>)}
         </div>
       </main>
       <SiteFooter />

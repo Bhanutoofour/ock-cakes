@@ -8,7 +8,7 @@ import { AdminThemeEditor } from "./theme-editor-client";
 
 export const metadata = createMetadata({
   title: "Theme Editor | OccasionKart Admin",
-  description: "Choose homepage cakes and edit the featured collection in the OccasionKart storefront.",
+  description: "Edit homepage sections, content, hero imagery, featured cakes, and brand colors in the OccasionKart storefront.",
   noIndex: true,
 });
 

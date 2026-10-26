@@ -1,5 +1,6 @@
 .home { background: var(--background); color: var(--foreground); }
 .shell { width: min(1440px, calc(100% - 80px)); margin: auto; }
+.fullBleed { position: relative; left: 50%; width: 100vw; transform: translateX(-50%); }
 .deliveryNote { padding: 10px 20px; background: var(--surface-accent); text-align: center; color: var(--brand-primary); font-size: 12px; letter-spacing: .03em; }
 .deliveryNote span { margin-left: 24px; }
 .categories { display: grid; grid-template-columns: repeat(8, 1fr); gap: 24px; padding: 28px 12px; }
@@ -64,7 +65,7 @@
 .seo { border-top: 1px solid var(--border); padding: 20px 0 35px; }
 .seo details { margin-top: 12px; }
 .seo summary { font-size: 11px; color: var(--text-secondary); cursor: pointer; }
-@media (max-width: 1100px) {
+@media (max-width: 767px) {
   .shell { width: calc(100% - 40px); }
   .categories { gap: 14px; overflow-x: auto; grid-template-columns: repeat(8, minmax(90px, 1fr)); }
   .categoryImage { width: 78px; height: 78px; }
