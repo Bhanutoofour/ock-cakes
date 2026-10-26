@@ -90,6 +90,7 @@ export default async function Home() {
   const chocolate = inCategory("Chocolate Truffle");
   const featured = [...chocolate.slice(0, 2), ...inCategory("Regular Birthday Cakes").slice(0, 3)];
   const picks = Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
+    .filter((product) => product.price > 0)
     .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name))
     .slice(0, 5);
   const occasionCards = collectionCards.filter((card) => ["Birthday Cakes", "Anniversary", "Kids & Themes", "Wedding Cakes"].includes(card.title));
