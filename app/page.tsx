@@ -89,7 +89,9 @@ export default async function Home() {
   })).filter((collection) => collection.image);
   const chocolate = inCategory("Chocolate Truffle");
   const featured = [...chocolate.slice(0, 2), ...inCategory("Regular Birthday Cakes").slice(0, 3)];
-  const picks = Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values()).slice(0, 5);
+  const picks = Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
+    .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name))
+    .slice(0, 5);
   const occasionCards = collectionCards.filter((card) => ["Birthday Cakes", "Anniversary", "Kids & Themes", "Wedding Cakes"].includes(card.title));
   return (
     <>
@@ -130,7 +132,7 @@ export default async function Home() {
           </section>
 
           <section className={styles.section}>
-            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Our picks</p><h2>Chocolate and birthday favourites</h2><p>A good place to start if you’re not sure what to order.</p></div><Link href="/cakes">View all cakes →</Link></div>
+            <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Hyderabad Loves</p><h2>Best Sellers</h2></div><Link href="/cakes">View all cakes →</Link></div>
             <div className={styles.products}>{picks.map((product) => <ProductCard key={product.id} product={product} />)}</div>
             {picks.length === 0 && <p>No cakes to show here right now. <Link href="/cakes">Browse all cakes →</Link></p>}
           </section>

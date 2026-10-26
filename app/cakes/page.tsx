@@ -27,7 +27,7 @@ export default async function CakesPage({ searchParams }: CakesPageProps) {
   const params = (await searchParams) ?? {};
   const selectedCategory = params.category?.trim();
   const searchQuery = params.q?.trim() ?? "";
-  const sort = params.sort ?? "";
+  const sort = params.sort ?? "price-asc";
   const hasSearchQuery = searchQuery.length > 0;
 
   const filteredProducts = await listProducts({
