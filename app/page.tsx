@@ -25,6 +25,8 @@ export const metadata = createMetadata({
   path: "/",
 });
 
+export const dynamic = "force-dynamic";
+
 
 const collections = [
   { title: "Birthday Cakes", category: "Regular Birthday Cakes" },
@@ -91,7 +93,10 @@ export default async function Home() {
   const chocolate = inCategory("Chocolate Truffle");
   const featured = [...chocolate.slice(0, 2), ...inCategory("Regular Birthday Cakes").slice(0, 3)];
   const picks = theme.picksProductIds.length
-    ? theme.picksProductIds.map((id) => products.find((product) => product.id === id)).filter((product) => product && product.price > 0)
+    ? theme.picksProductIds.flatMap((id) => {
+        const product = products.find((item) => item.id === id);
+        return product && product.price > 0 ? [product] : [];
+      })
     : Array.from(new Map([...featured, ...products].map((product) => [product.id, product])).values())
         .filter((product) => product.price > 0)
         .sort((left, right) => left.price - right.price || left.name.localeCompare(right.name))
