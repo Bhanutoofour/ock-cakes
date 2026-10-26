@@ -12,8 +12,8 @@ export const metadata = createMetadata({
 
 export default async function AdminCategoriesPage() {
   const [products, categories] = await Promise.all([
-    listProducts(),
-    listCategorySummaries(300),
+    listProducts({ includeCorporate: true }),
+    listCategorySummaries(300, true),
   ]);
 
   return <AdminCategoriesClient initialProducts={products} initialCategories={categories} />;

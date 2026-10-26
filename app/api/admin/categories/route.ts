@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const [products, categories] = await Promise.all([listProducts(), listCategorySummaries(300)]);
+  const [products, categories] = await Promise.all([listProducts({ includeCorporate: true }), listCategorySummaries(300, true)]);
   return NextResponse.json({ data: { products, categories } });
 }
 
@@ -37,7 +37,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: result.message }, { status: 400 });
   }
 
-  const [products, categories] = await Promise.all([listProducts(), listCategorySummaries(300)]);
+  const [products, categories] = await Promise.all([listProducts({ includeCorporate: true }), listCategorySummaries(300, true)]);
   return NextResponse.json({
     data: {
       ...result.value,

@@ -25,6 +25,7 @@ export type ProductFilters = {
   query?: string | null;
   sort?: string | null;
   limit?: number | null;
+  includeCorporate?: boolean;
 };
 
 type ValidationResult<T> =
@@ -32,6 +33,10 @@ type ValidationResult<T> =
   | { ok: false; message: string };
 
 let ensureCatalogSchemaPromise: Promise<void> | null = null;
+
+function isHiddenStorefrontProduct(product: Product) {
+  return [product.name, product.category, ...product.categories].some((value) => value.toLowerCase().includes("corporate"));
+}
 
 const fallbackCatalog = (rawProducts as RawProductRecord[]).map(normalizeProductRecord);
 
@@ -164,6 +169,7 @@ function filterFallbackProducts(products: Product[], filters: ProductFilters = {
   const query = filters.query?.trim().toLowerCase();
 
   let filtered = products.filter((product) => {
+    if (!filters.includeCorporate && isHiddenStorefrontProduct(product)) return false;
     const matchesCategory = category
       ? product.categories.some((item) => item.toLowerCase() === category)
       : true;
@@ -196,7 +202,7 @@ function filterFallbackProducts(products: Product[], filters: ProductFilters = {
   return filtered;
 }
 
-function listFallbackTopCategories(limit = 12) {
+function listFallbackTopCategories(limit = 12, includeCorporate = false) {
   const counts = new Map<string, number>();
   for (const product of fallbackCatalog) {
     for (const category of product.categories) {
@@ -205,12 +211,13 @@ function listFallbackTopCategories(limit = 12) {
   }
 
   return [...counts.entries()]
+    .filter(([category]) => includeCorporate || !category.toLowerCase().includes("corporate"))
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, limit)
     .map(([category]) => category);
 }
 
-function listFallbackCategorySummaries(limit = 100) {
+function listFallbackCategorySummaries(limit = 100, includeCorporate = false) {
   const counts = new Map<string, number>();
   for (const product of fallbackCatalog) {
     for (const category of product.categories) {
@@ -219,6 +226,7 @@ function listFallbackCategorySummaries(limit = 100) {
   }
 
   return [...counts.entries()]
+    .filter(([category]) => includeCorporate || !category.toLowerCase().includes("corporate"))
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, limit)
     .map(([name, count]) => ({ name, count }));
@@ -230,6 +238,9 @@ export async function listProducts(filters: ProductFilters = {}) {
 
     const values: unknown[] = [];
     const conditions: string[] = [];
+    if (!filters.includeCorporate) {
+      conditions.push(`lower(name) not like '%corporate%' and lower(category) not like '%corporate%' and not exists (select 1 from unnest(categories) as category_item where lower(category_item) like '%corporate%')`);
+    }
     const category = filters.category?.trim();
     const query = filters.query?.trim();
 
@@ -293,7 +304,7 @@ export async function listProducts(filters: ProductFilters = {}) {
   }
 }
 
-export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+export async function getProductBySlug(slug: string, includeCorporate = false): Promise<Product | undefined> {
   try {
     await ensureCatalogSchema();
 
@@ -302,18 +313,20 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
       [slug],
     );
 
-    return mapProductRows(result.rows)[0];
+    const product = mapProductRows(result.rows)[0];
+    return product && (includeCorporate || !isHiddenStorefrontProduct(product)) ? product : undefined;
   } catch (error) {
     if (!isCatalogConnectionError(error)) {
       throw error;
     }
 
     console.warn(`Catalog DB unavailable while loading product "${slug}", using fallback catalog.`, error);
-    return fallbackCatalog.find((product) => product.slug === slug);
+    const product = fallbackCatalog.find((item) => item.slug === slug);
+    return product && (includeCorporate || !isHiddenStorefrontProduct(product)) ? product : undefined;
   }
 }
 
-export async function listTopCategories(limit = 12) {
+export async function listTopCategories(limit = 12, includeCorporate = false) {
   try {
     await ensureCatalogSchema();
 
@@ -326,6 +339,7 @@ export async function listTopCategories(limit = 12) {
           select unnest(categories) as category_name
           from products
         ) expanded
+        ${includeCorporate ? "" : "where lower(category_name) not like '%corporate%'"}
         group by category_name
         order by count desc, category_name asc
         limit $1
@@ -340,7 +354,7 @@ export async function listTopCategories(limit = 12) {
     }
 
     console.warn("Catalog DB unavailable while loading top categories, using fallback catalog.", error);
-    return listFallbackTopCategories(limit);
+    return listFallbackTopCategories(limit, includeCorporate);
   }
 }
 
@@ -360,7 +374,7 @@ export type BulkCategoryUpdateInput = {
   action: "add" | "remove";
 };
 
-export async function listCategorySummaries(limit = 100) {
+export async function listCategorySummaries(limit = 100, includeCorporate = false) {
   try {
     await ensureCatalogSchema();
 
@@ -373,6 +387,7 @@ export async function listCategorySummaries(limit = 100) {
           select unnest(categories) as category_name
           from products
         ) expanded
+        ${includeCorporate ? "" : "where lower(category_name) not like '%corporate%'"}
         group by category_name
         order by count desc, category_name asc
         limit $1
@@ -390,7 +405,7 @@ export async function listCategorySummaries(limit = 100) {
     }
 
     console.warn("Catalog DB unavailable while loading category summaries, using fallback catalog.", error);
-    return listFallbackCategorySummaries(limit);
+    return listFallbackCategorySummaries(limit, includeCorporate);
   }
 }
 
@@ -400,7 +415,7 @@ export async function getCatalogStats(): Promise<CatalogStats> {
 
     const [productsResult, categories] = await Promise.all([
       db.query<{ count: number }>("select count(*)::int as count from products"),
-      listCategorySummaries(500),
+      listCategorySummaries(500, true),
     ]);
 
     return {
@@ -413,7 +428,7 @@ export async function getCatalogStats(): Promise<CatalogStats> {
     }
 
     console.warn("Catalog DB unavailable while loading stats, using fallback catalog.", error);
-    const categories = listFallbackCategorySummaries(500);
+    const categories = listFallbackCategorySummaries(500, true);
     return {
       totalProducts: fallbackCatalog.length,
       totalCategories: categories.length,
@@ -584,7 +599,7 @@ export async function createProduct(payload: unknown): Promise<ValidationResult<
     return normalized;
   }
 
-  const existing = await getProductBySlug(normalized.value.slug);
+  const existing = await getProductBySlug(normalized.value.slug, true);
   if (existing) {
     return { ok: false, message: "a product with this slug already exists" };
   }
@@ -636,7 +651,7 @@ export async function createProduct(payload: unknown): Promise<ValidationResult<
     ],
   );
 
-  const product = await getProductBySlug(normalized.value.slug);
+  const product = await getProductBySlug(normalized.value.slug, true);
   if (!product) {
     return { ok: false, message: "product was created but could not be loaded" };
   }
@@ -708,7 +723,7 @@ export async function updateProduct(
     return { ok: false, message: "product not found" };
   }
 
-  const product = await getProductBySlug(result.rows[0].slug);
+  const product = await getProductBySlug(result.rows[0].slug, true);
   if (!product) {
     return { ok: false, message: "product was updated but could not be loaded" };
   }

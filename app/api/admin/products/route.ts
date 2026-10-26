@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const products = await listProducts();
+  const products = await listProducts({ includeCorporate: true });
   return NextResponse.json({ data: products });
 }
 

@@ -25,7 +25,7 @@ export default async function AdminProductsPage() {
     redirect("/account");
   }
 
-  const products = await listProducts();
+  const products = await listProducts({ includeCorporate: true });
 
   return (
     <div className="space-y-6">
