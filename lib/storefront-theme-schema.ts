@@ -1,10 +1,11 @@
-export type ThemeSectionId = "announcement" | "hero" | "categories" | "service" | "occasions" | "picks" | "flavors" | "promos" | "steps" | "faq" | "seo";
+export type ThemeSectionId = "announcement" | "hero" | "categories" | "service" | "occasions" | "picks" | "flavors" | "promos" | "steps" | "faq" | "seo" | "testimonials" | "custom" | "corporate";
 
-export const THEME_SECTION_IDS: ThemeSectionId[] = ["announcement", "hero", "categories", "service", "occasions", "picks", "flavors", "promos", "steps", "faq", "seo"];
+export const THEME_SECTION_IDS: ThemeSectionId[] = ["announcement", "hero", "categories", "service", "occasions", "picks", "flavors", "promos", "steps", "faq", "seo", "testimonials", "custom", "corporate"];
+export const DEFAULT_HOME_SECTION_ORDER: ThemeSectionId[] = ["hero", "announcement", "categories", "occasions", "custom", "picks", "flavors", "testimonials", "corporate", "steps", "faq", "seo"];
 export const THEME_SECTION_LABELS: Record<ThemeSectionId, string> = {
-  announcement: "Delivery announcement", hero: "Hero banner", categories: "Cake collections", service: "Service highlights",
+  announcement: "Delivery announcement", hero: "Hero banner", categories: "Find your cake", service: "Service highlights",
   occasions: "Shop by occasion", picks: "Featured cakes", flavors: "Shop by flavour", promos: "Custom and corporate orders",
-  steps: "How to order", faq: "FAQs", seo: "About OccasionKart",
+  steps: "How to order", faq: "Delivery and FAQs", seo: "About OccasionKart", testimonials: "Customer love", custom: "Design your own cake", corporate: "Corporate and bulk orders",
 };
 
 export type StorefrontTheme = {
@@ -29,7 +30,7 @@ export const DEFAULT_STOREFRONT_THEME: StorefrontTheme = {
   picksHeading: "Best Sellers",
   picksSubheading: "",
   picksProductIds: [],
-  sectionOrder: [...THEME_SECTION_IDS],
+  sectionOrder: [...DEFAULT_HOME_SECTION_ORDER],
   hiddenSections: [],
   sectionCopy: {
     announcement: { eyebrow: "", heading: "Cake delivery across Hyderabad", description: "Same-day and midnight delivery in selected pincodes", ctaText: "", ctaHref: "" },
@@ -43,6 +44,9 @@ export const DEFAULT_STOREFRONT_THEME: StorefrontTheme = {
     steps: { eyebrow: "How to order", heading: "Order in three steps", description: "", ctaText: "", ctaHref: "" },
     faq: { eyebrow: "FAQs", heading: "Questions about delivery", description: "", ctaText: "See all FAQs", ctaHref: "/faq" },
     seo: { eyebrow: "", heading: "", description: "", ctaText: "", ctaHref: "" },
+    testimonials: { eyebrow: "Customer love", heading: "Loved by Hyderabad", description: "A 4.8-star Google rating from 369 reviews.", ctaText: "Read Google reviews", ctaHref: "https://www.google.com/search?q=Occasionkart+Cakes+Vignanpuri+Colony+reviews" },
+    custom: { eyebrow: "Design your own cake", heading: "Bring your cake idea to life", description: "Upload a reference image and tell us your theme, flavour, size and delivery date. We’ll review it and share a quotation.", ctaText: "Request a custom quote", ctaHref: "/custom-orders" },
+    corporate: { eyebrow: "Corporate and bulk orders", heading: "Cakes for office events and business celebrations", description: "Plan team birthdays, launches, employee milestones and bulk cake orders with a dedicated enquiry route.", ctaText: "Enquire about bulk orders", ctaHref: "/corporate-orders" },
   },
   brandPrimary: "#77171c",
   pageBackground: "#fffaf4",

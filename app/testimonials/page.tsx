@@ -48,6 +48,8 @@ const testimonials = [
   },
 ];
 
+const positiveTestimonials = testimonials.filter((item) => item.source === "Google review" && (item as typeof item & { rating?: number }).rating && (item as typeof item & { rating: number }).rating >= 4);
+
 const stats = [
   {
     label: "Justdial rating snapshot",
@@ -148,10 +150,11 @@ export default function TestimonialsPage() {
           <div className="mx-auto max-w-[1180px] space-y-6">
             <section className="rounded-[24px] border border-[rgba(0,0,0,0.1)] bg-white p-8 shadow-[0_10px_24px_rgba(0,0,0,0.06)] sm:p-10">
               <h2 className="text-[1.7rem] font-semibold text-[var(--brand-brown)]">
-                Public Review Highlights
+                Google customer reviews rated 4 and 5 stars
               </h2>
+              {positiveTestimonials.length === 0 ? <p className="mt-4 max-w-[70ch] text-[1rem] leading-8 text-[var(--text-secondary)]">Google review text and individual star ratings are not available to display here right now. Visit our Google listing to read the latest 4- and 5-star reviews.</p> : null}
               <div className="mt-6 grid gap-5 lg:grid-cols-2">
-                {testimonials.map((item) => (
+                {positiveTestimonials.map((item) => (
                   <article
                     key={`${item.name}-${item.quote}`}
                     className="rounded-[20px] border border-[rgba(0,0,0,0.08)] bg-[var(--background)] p-5"

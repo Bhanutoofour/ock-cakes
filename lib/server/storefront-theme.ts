@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import type { Product } from "@/lib/store-schema";
-import { DEFAULT_STOREFRONT_THEME, THEME_SECTION_IDS, type StorefrontTheme, type ThemeSectionId } from "@/lib/storefront-theme-schema";
+import { DEFAULT_HOME_SECTION_ORDER, DEFAULT_STOREFRONT_THEME, THEME_SECTION_IDS, type StorefrontTheme, type ThemeSectionId } from "@/lib/storefront-theme-schema";
 
 let ensureThemeTablePromise: Promise<void> | null = null;
 
@@ -19,7 +19,7 @@ async function ensureThemeTable() {
 
 function normalizeTheme(value: Partial<StorefrontTheme> | null | undefined): StorefrontTheme {
   const sectionOrder = Array.isArray(value?.sectionOrder)
-    ? [...new Set(value.sectionOrder.filter((id): id is ThemeSectionId => THEME_SECTION_IDS.includes(id))), ...THEME_SECTION_IDS.filter((id) => !value.sectionOrder!.includes(id))]
+    ? [...new Set(value.sectionOrder.filter((id): id is ThemeSectionId => THEME_SECTION_IDS.includes(id))), ...DEFAULT_HOME_SECTION_ORDER.filter((id) => !value.sectionOrder!.includes(id))]
     : DEFAULT_STOREFRONT_THEME.sectionOrder;
   const sectionCopy = { ...DEFAULT_STOREFRONT_THEME.sectionCopy };
   if (value?.sectionCopy && typeof value.sectionCopy === "object") {
