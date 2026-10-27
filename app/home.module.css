@@ -56,7 +56,7 @@
 .promos h2 { font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.2; letter-spacing: -.03em; margin-top: 12px; position: relative; z-index: 1; }
 .promos p:not(.eyebrow) { font-size: 12px; color: var(--text-secondary); margin-top: 12px; position: relative; z-index: 1; }
 .promos .primaryButton { position: relative; z-index: 1; }
-.customJourney, .corporateJourney { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: clamp(28px, 4vw, 64px); padding: clamp(44px, 5vw, 76px); border-radius: 20px; background: var(--surface-accent); }
+.customJourney, .corporateJourney { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: clamp(28px, 4vw, 64px); margin-top: 48px; padding: clamp(44px, 5vw, 76px); border-radius: 20px; background: var(--surface-accent); }
 .customJourney h2, .corporateJourney h2 { margin-top: 7px; font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(26px, 2.4vw, 34px); font-weight: 600; }
 .customJourney > div:first-child > p:not(.eyebrow), .corporateJourney > div > p:not(.eyebrow) { margin-top: 10px; max-width: 62ch; color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
 .customSteps { display: grid; gap: 12px; }
@@ -130,7 +130,7 @@
   .faq { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
   .reviews { grid-template-columns: 1fr; gap: 22px; margin-top: 32px; padding: 28px 24px; }
   .reviewRating { justify-self: start; text-align: left; }
-  .customJourney, .corporateJourney { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; border-radius: 16px; }
+  .customJourney, .corporateJourney { grid-template-columns: 1fr; gap: 24px; margin-top: 32px; padding: 28px 24px; border-radius: 16px; }
   .corporateJourney .primaryButton { justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) {
