@@ -1,8 +1,13 @@
 .home { background: var(--background); color: var(--foreground); }
 .shell { width: min(1440px, calc(100% - 80px)); margin: auto; }
 .fullBleed { position: relative; left: 50%; width: 100vw; transform: translateX(-50%); }
-.deliveryNote { padding: 10px 20px; background: var(--surface-accent); text-align: center; color: var(--brand-primary); font-size: 12px; letter-spacing: .03em; }
-.deliveryNote span { margin-left: 24px; }
+.deliveryNote { overflow: hidden; padding: 10px 0; background: var(--surface-accent); color: var(--brand-primary); font-size: 12px; letter-spacing: .03em; }
+.deliveryTrack { display: flex; width: max-content; animation: deliveryTicker 30s linear infinite; }
+.deliveryGroup { display: flex; flex: none; align-items: center; }
+.deliveryGroup span { display: inline-flex; align-items: center; white-space: nowrap; }
+.deliveryGroup span::after { content: "✦"; padding: 0 42px; color: var(--brand-gold); font-size: 10px; }
+.deliveryNote:hover .deliveryTrack { animation-play-state: paused; }
+@keyframes deliveryTicker { to { transform: translateX(-50%); } }
 .categories { display: grid; grid-template-columns: repeat(8, 1fr); gap: 24px; padding: 28px 12px; }
 .category { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 13px; font-weight: 650; }
 .categoryImage { width: 94px; height: 94px; padding: 5px; border: 1px solid var(--border); border-radius: 50%; transition: border-color .2s, transform .2s; }
@@ -77,7 +82,7 @@
 @media (max-width: 640px) {
   .shell { width: calc(100% - 32px); }
   .deliveryNote { font-size: 10px; }
-  .deliveryNote span { display: none; }
+  .deliveryGroup span::after { padding: 0 24px; }
   .categories { padding: 20px 0; gap: 14px; grid-template-columns: repeat(8, 75px); }
   .categoryImage { height: 70px; width: 70px; }
   .category { font-size: 10px; }
@@ -107,6 +112,7 @@
   .faq { grid-template-columns: 1fr; gap: 18px; padding: 30px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .deliveryTrack { animation: none; }
   .home *, .home *::before, .home *::after { transition: none !important; }
 }
 
