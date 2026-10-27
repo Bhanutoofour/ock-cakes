@@ -208,7 +208,7 @@ export async function generateMetadata({
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug: categorySlug } = await params;
-  const products = await listProducts();
+  const products = await listProducts({ sort: "price-asc" });
   let filtered = products.filter((product) =>
     (product.categories ?? []).some((cat) => slugify(cat) === categorySlug),
   );
