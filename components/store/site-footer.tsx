@@ -188,7 +188,7 @@ export function SiteFooter({ showClientBrands = true }: { showClientBrands?: boo
             <div>
               <h2 className="text-[1rem] font-semibold text-[var(--foreground)]">Contact</h2>
               <div className="mt-6 space-y-4 text-[1rem] leading-7 text-[var(--text-secondary)]">
-                <p>Hyderabad, Telangana, India</p>
+                <p><span className="font-semibold text-[var(--foreground)]">Store location:</span><br />Shop no 1, B21, F-4,<br />Vignanpuri Colony, Vidya Nagar,<br />Hyderabad - 500044</p>
                 <p>Phone: +91 9059058058</p>
                 <p>Email: support@occasionkart.com</p>
                 <p>Support hours: 9:00 AM to 9:00 PM IST</p>
