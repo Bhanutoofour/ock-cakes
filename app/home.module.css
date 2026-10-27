@@ -1,7 +1,7 @@
 .home { background: var(--background); color: var(--foreground); }
 .shell { width: min(1440px, calc(100% - 80px)); margin: auto; }
 .fullBleed { position: relative; left: 50%; width: 100vw; transform: translateX(-50%); }
-.deliveryNote { overflow: hidden; padding: 10px 0; background: var(--surface-accent); color: var(--brand-primary); font-size: 12px; letter-spacing: .03em; }
+.deliveryNote { overflow: hidden; padding: 13px 0; background: var(--surface-accent); color: var(--brand-primary); font-size: 15px; font-weight: 650; letter-spacing: .03em; }
 .deliveryTrack { display: flex; width: max-content; animation: deliveryTicker 30s linear infinite; }
 .deliveryGroup { display: flex; flex: none; align-items: center; }
 .deliveryGroup span { display: inline-flex; align-items: center; white-space: nowrap; }
@@ -81,7 +81,7 @@
 }
 @media (max-width: 640px) {
   .shell { width: calc(100% - 32px); }
-  .deliveryNote { font-size: 10px; }
+  .deliveryNote { padding: 11px 0; font-size: 12px; }
   .deliveryGroup span::after { padding: 0 24px; }
   .categories { padding: 20px 0; gap: 14px; grid-template-columns: repeat(8, 75px); }
   .categoryImage { height: 70px; width: 70px; }
