@@ -26,7 +26,7 @@
 .section { padding-top: 48px; }
 .sectionHead { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 23px; }
 .sectionHead h2, .faq h2 { font-size: clamp(23px, 2.2vw, 30px); font-weight: 600; letter-spacing: -.04em; line-height: 1.25; margin-top: 5px; }
-.sectionHead > a { color: var(--brand-primary); border-bottom: 1px solid var(--border); padding-bottom: 4px; font-size: 12px; white-space: nowrap; }
+.sectionHead > a { color: var(--brand-primary); border-bottom: 1px solid var(--border); padding-bottom: 4px; font-size: 12px; font-weight: 650; white-space: nowrap; }
 .sectionHead p:not(.eyebrow) { color: var(--text-secondary); font-size: 12px; margin-top: 8px; }
 .occasions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .occasion { background: var(--surface-accent); border-radius: 12px; overflow: hidden; }
@@ -39,7 +39,7 @@
 .occasion > span { display: flex; justify-content: space-between; align-items: center; padding: 17px 20px; }
 .occasion strong { display: block; font-size: 15px; font-weight: 650; }
 .occasion small { display: block; color: var(--text-secondary); font-size: 11px; margin-top: 4px; }
-.occasion b { font-weight: 400; font-size: 20px; }
+.occasion b { font-weight: 700; font-size: 22px; }
 .products { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
 .products > article { border-radius: 12px; box-shadow: none; border-color: var(--border); }
 .flavorSection { background: var(--background); margin-top: 48px; padding: 30px; border-radius: 16px; }
